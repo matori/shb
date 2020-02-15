@@ -1,3 +1,3 @@
 # しんぷるはてぶ
 
-[https://shb.unformedbuilding.com] のフロントエンド部分
+https://shb.unformedbuilding.com のフロントエンド部分
