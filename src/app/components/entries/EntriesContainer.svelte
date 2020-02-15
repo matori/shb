@@ -1,6 +1,6 @@
 <script>
   import createNullValueObject from "~/utils/createNullValueObject"
-  import CategoryTab from "~/components/Entries/CategoryTab"
+  import CategoryTab from "~/components/entries/CategoryTab"
   import EntriesHeader from "~/components/entries/EntriesHeader"
 
   const removeAttrs = createNullValueObject([])
