@@ -1,0 +1,47 @@
+[
+  {
+    "name": "はてブビューアー",
+    "url": "https://lab.syncer.jp/Tool/Hatena-Bookmark-Viewer/",
+    "description": "高機能なはてなブックマークビューワー。ブックマーク数やスター数のランキングのツールもあり。"
+  },
+  {
+    "name": "嫁のはてブ",
+    "url": "http://hatebu.straightline.jp/",
+    "description": "シンプルなはてなブックマークビューワー。"
+  },
+  {
+    "name": "村はてブ",
+    "url": "http://childs.squares.net/murahatebu/",
+    "description": "はてなブックマークビューワーの一種で、村人の行動をチェックできる。"
+  },
+  {
+    "name": "Tower of Metab",
+    "url": "http://tom.mgzl.jp/",
+    "description": "任意のURLのメタブタワー表示ツール。"
+  },
+  {
+    "name": "はてブ整理",
+    "url": "http://hatebs.sandai310.com/",
+    "description": "自分のブックマークを整理するツール。タグを一括で追加・削除する機能が便利。"
+  },
+  {
+    "name": "Hateneighbor",
+    "url": "https://hateneighbor.herokuapp.com/",
+    "description": "最近のブックマーク情報をもとに、おすすめユーザーを提案するツール。"
+  },
+  {
+    "name": "２つのページのはてブコメントを比較するツール",
+    "url": "http://fut573.com/compare/",
+    "description": "名前のとおりのツール。ダブスタチェッカー的な使われ方をしている。"
+  },
+  {
+    "name": "期間別はてなブックマークタグランキングツール",
+    "url": "https://it-ti.work/tool/tag_list/",
+    "description": "はてなブックマークで使われたタグのランキングを期間やカテゴリーで表示するツール。"
+  },
+  {
+    "name": "Hatebufe",
+    "url": "https://hatebufe.longkey1.net/",
+    "description": "はてなブックマークのフィードをブックマーク数でフィルタリングするツール。"
+  }
+]

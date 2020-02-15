@@ -1,0 +1,72 @@
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+@mixin text($scale: 0, $need-line-height: true) {
+  $scale: $scale * -1;
+  $font-size: get-font-scale($config-fs-scale-base + $scale);
+  $line-height: $font-size + $config-line-gap;
+  font-size: rem($font-size);
+  @if $need-line-height {
+    line-height: strip-unit($line-height / $font-size);
+  }
+}
+
+@mixin icon-size($font-scale) {
+  $scale: $font-scale * -1;
+  $font-size: get-font-scale($config-fs-scale-base + $scale);
+  $line-height: $font-size + $config-line-gap;
+  width: rem($line-height);
+  height: rem($line-height);
+}
+
+@mixin spread-clickable-area($offset: rem($config-line-gap / 2), $shadow-color: var(--color-text-blue)) {
+  &::before {
+    position: absolute;
+    top: -$offset;
+    right:  -$offset;
+    bottom: -$offset;
+    left: -$offset;
+    content: "";
+    box-shadow: 0 0 2px 1px $shadow-color;
+    opacity: 0;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+}
+
+// https://yuheiy.hatenablog.com/entry/2017/11/21/091035
+
+@mixin focus-with-keyboard {
+  [data-whatinput="keyboard"] &:focus {
+    @content;
+  }
+}
+
+@mixin focus-without-keyboard {
+  [data-whatinput="initial"] &:focus,
+  [data-whatinput="mouse"] &:focus,
+  [data-whatinput="touch"] &:focus {
+    @content;
+  }
+}
+
+@mixin focus-clear {
+  outline: none;
+}
+
+@mixin focus-clear-without-keyboard {
+  @include focus-without-keyboard {
+    @include focus-clear;
+  }
+}
+

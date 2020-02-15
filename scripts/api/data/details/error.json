@@ -1,0 +1,15 @@
+{
+  "last_modified": "2019-11-08T11:56:20+09:00",
+  "expires": "2019-11-08T12:06:20+09:00",
+  "data": {
+    "floor": 1,
+    "entries": [
+      {
+        "error": true,
+        "status_code": 404,
+        "message": "Client error: `GET https://b.hatena.ne.jp/p/entry/jsonlite/http://exapmle.com/` resulted in a `404 Not Found` response",
+        "content": null
+      }
+    ]
+  }
+}

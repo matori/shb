@@ -1,0 +1,10 @@
+{
+  "semi": false,
+  "singleQuote": false,
+  "printWidth": 120,
+  "trailingComma": "all",
+  "svelteSortOrder": "scripts-markup-styles",
+  "svelteStrictMode": true,
+  "svelteBracketNewLine": true,
+  "svelteAllowShorthand": true
+}

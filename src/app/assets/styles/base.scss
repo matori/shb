@@ -1,0 +1,13 @@
+@import "scss/vars";
+@import "scss/functions";
+@import "scss/mixins";
+
+$config-fs-root: 16px;
+$config-line-gap: 8px;
+$config-fs-scale-base: 8;
+
+@keyframes syncing {
+  to {
+    transform: rotate(1turn);
+  }
+}
