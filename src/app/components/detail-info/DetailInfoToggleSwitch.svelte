@@ -18,7 +18,8 @@
     on:click
   >
     {#if open}エントリー情報を折りたたむ{:else}エントリー情報を展開する{/if}
-    <Icon name="expand" class="DetailInfoToggleSwitch-icon {open ? '_collapse' : '_expand'}" />
+    <Icon name="expand" class="DetailInfoToggleSwitch-icon {open ? '_hide' : '_show'}" />
+    <Icon name="collapse" class="DetailInfoToggleSwitch-icon {open ? '_show' : '_hide'}" />
   </Button>
 </template>
 
@@ -45,12 +46,12 @@
     margin-top: -$line-edge;
     vertical-align: middle;
 
-    &._expand {
-      transform: rotate(0turn);
+    &._show {
+      display: inline-block;
     }
 
-    &._collapse {
-      transform: rotate(0.5turn);
+    &._hide {
+      display: none;
     }
   }
 </style>

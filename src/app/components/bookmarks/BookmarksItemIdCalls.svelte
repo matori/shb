@@ -17,7 +17,7 @@
   <dl class="BookmarksItemIdCalls">
     {#if bookmark.idCalls}
       <dt class="BookmarksItemIdCalls-title">
-        <Icon name="reply" class="BookmarksItemIdCalls-icon _call" />
+        <Icon name="reply-to" class="BookmarksItemIdCalls-icon" />
         IDコールした
       </dt>
       <dd class="BookmarksItemIdCalls-body">
@@ -62,7 +62,7 @@
     {/if}
     {#if bookmark.idCalled}
       <dt class="BookmarksItemIdCalls-title">
-        <Icon name="reply" class="BookmarksItemIdCalls-icon _called" />
+        <Icon name="reply" class="BookmarksItemIdCalls-icon" />
         IDコールされた
       </dt>
       <dd class="BookmarksItemIdCalls-body">
@@ -97,14 +97,6 @@
   .BookmarksItemIdCalls-icon {
     @include icon-size(-1);
     margin-right: 0.5em;
-
-    &._call {
-      transform: scale(-1);
-    }
-
-    &._called {
-      transform: scale(1);
-    }
   }
 
   .BookmarksItemIdCalls-body {
