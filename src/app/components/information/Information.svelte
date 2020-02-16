@@ -111,7 +111,8 @@
   }
 
   .Information-intro {
-    margin: 0;
+    margin-top: get-lines(0.5);
+    margin-bottom: get-lines(0.5);
   }
 
   .Information-inner {
@@ -126,7 +127,7 @@
     ul,
     dl {
       margin-top: get-lines(0.5);
-      margin-bottom: 0;
+      margin-bottom: get-lines(0.5);
     }
 
     ul {
