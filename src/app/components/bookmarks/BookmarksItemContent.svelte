@@ -11,9 +11,21 @@
 
   const removeAttrs = createNullValueObject(["bookmark", "eid"])
 
-  const { user, comment, commentTexts, tags, timestamp } = bookmark
+  let user
+  let comment
+  let commentTexts
+  let tags
+  let timestamp
+  let userUrl
 
-  $: userUrl = `https://b.hatena.ne.jp/${user}/`
+  $: {
+    user = bookmark.user
+    comment = bookmark.comment
+    commentTexts = bookmark.commentTexts
+    tags = bookmark.tags
+    timestamp = bookmark.timestamp
+    userUrl = `https://b.hatena.ne.jp/${user}/`
+  }
 </script>
 
 <template>
