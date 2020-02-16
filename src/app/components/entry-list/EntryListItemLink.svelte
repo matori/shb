@@ -20,7 +20,7 @@
   }
 
   .EntryListItemLink-link {
-    @include text(0);
+    @include text(-1);
     color: var(--color-text-blue);
     text-decoration: none;
     overflow-wrap: break-word;

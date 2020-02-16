@@ -24,7 +24,7 @@
   }
 
   .DetailInfoCategory-link {
-    @include text(-1);
+    @include text(-2);
     display: block;
     border-radius: 2px;
     padding-right: rem($config-line-gap / 2);

@@ -16,7 +16,7 @@
 
 <style lang="scss" global>
   .EntryListItemTime {
-    @include text(-1);
+    @include text(-2);
     display: flex;
     flex-direction: column;
     justify-content: center;

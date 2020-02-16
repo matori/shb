@@ -18,7 +18,7 @@
 
 <style lang="scss" global>
   .DetailInfoTitle {
-    @include text(2);
+    @include text(1);
     margin: 0;
     font-weight: var(--fw-normal);
 

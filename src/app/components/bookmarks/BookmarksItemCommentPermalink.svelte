@@ -27,7 +27,7 @@
 
 <style lang="scss" global>
   .BookmarksItemCommentPermalink {
-    @include text(-1);
+    @include text(-2);
     display: flex;
     align-items: center;
     color: var(--color-text-steel);

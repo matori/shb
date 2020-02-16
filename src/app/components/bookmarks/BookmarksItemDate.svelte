@@ -34,7 +34,7 @@
 
 <style lang="scss" global>
   .BookmarksItemDate {
-    @include text(-1);
+    @include text(-2);
     color: var(--color-text-gray);
     white-space: nowrap;
     text-decoration: none;

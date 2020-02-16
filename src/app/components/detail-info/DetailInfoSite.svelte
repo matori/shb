@@ -26,7 +26,7 @@
   }
 
   .DetailInfoSite-link {
-    @include text(-1);
+    @include text(-2);
     display: inline-flex;
     align-items: center;
     max-width: 100%;

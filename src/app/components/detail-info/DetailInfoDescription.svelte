@@ -15,7 +15,7 @@
 
 <style lang="scss" global>
   .DetailInfoDescription {
-    @include text(0);
+    @include text(-1);
     margin: 0;
     overflow-wrap: break-word;
   }

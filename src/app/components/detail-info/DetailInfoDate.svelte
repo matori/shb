@@ -16,7 +16,7 @@
 
 <style lang="scss" global>
   .DetailInfoDate {
-    @include text(-1);
+    @include text(-2);
     display: flex;
     align-items: center;
     padding-right: rem($config-line-gap / 2);

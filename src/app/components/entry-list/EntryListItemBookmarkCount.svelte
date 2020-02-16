@@ -42,6 +42,6 @@
   }
 
   .EntryListItemBookmarkCount-suffix{
-    @include text(-1, false);
+    @include text(-2, false);
   }
 </style>
