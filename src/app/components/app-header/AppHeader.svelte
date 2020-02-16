@@ -7,18 +7,27 @@
 
 <template>
   <header {...$$props} {...removeAttrs} class="{$$props.class || ''} AppHeader">
-    <AppLogo class="AppHeader-logo" />
+    <div class="AppHeader-inner">
+      <AppLogo class="AppHeader-logo" />
+    </div>
   </header>
 </template>
 
 <style lang="scss" global>
   .AppHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     padding-right: get-lines(1);
     padding-left: get-lines(1);
     background-color: var(--color-bg-content);
+  }
+
+  .AppHeader-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+    height: 100%;
+    max-width: var(--content-max-width);
+    min-width: var(--content-min-width);
   }
 
   .AppHeader-logo {

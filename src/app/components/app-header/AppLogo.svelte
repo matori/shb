@@ -7,7 +7,7 @@
 
 <style lang="scss" global>
   .AppLogo {
-    @include text(1);
+    @include text(0);
     margin-top: 0;
     margin-bottom: 0;
     font-weight: var(--fw-normal);
