@@ -20,15 +20,15 @@
 <style lang="scss" global>
   .DetailInfoCategory {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
   }
 
   .DetailInfoCategory-link {
     @include text(-2);
     display: block;
     border-radius: 2px;
-    padding-right: $line-edge;
-    padding-left: $line-edge;
+    padding-right: 0.5em;
+    padding-left: 0.5em;
     background-color: var(--color-bg-orange);
     color: white;
     text-decoration: none;

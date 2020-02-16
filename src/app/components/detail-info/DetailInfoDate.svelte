@@ -18,7 +18,7 @@
   .DetailInfoDate {
     @include text(-2);
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     padding-right: $line-edge;
   }
 

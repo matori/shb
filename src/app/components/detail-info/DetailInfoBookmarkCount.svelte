@@ -26,13 +26,25 @@
 
   .DetailInfoBookmarkCount-total {
     @include text(2);
+    position: relative;
     display: inline-flex;
     align-items: baseline;
     color: var(--color-text-red);
     text-decoration: none;
 
-    &:hover {
-      box-shadow: inset 0 -2px 0;
+    &::after {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      border-top-width: 1px;
+      border-top-style: solid;
+      content: "";
+      transform: scaleY(1);
+    }
+
+    &:hover::after {
+      transform: scaleY(3);
     }
   }
 

@@ -21,12 +21,12 @@
 
 <style lang="scss" global>
   .DetailInfoSite {
+    @include text(-2);
     display: flex;
-    align-items: center;
+    align-items: flex-end;
   }
 
   .DetailInfoSite-link {
-    @include text(-2);
     display: inline-flex;
     align-items: center;
     max-width: 100%;
