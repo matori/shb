@@ -31,7 +31,7 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    padding: rem($config-line-gap / 2);
+    padding: $line-edge;
     color: var(--color-text-red);
     line-height: 1;
     white-space: nowrap;

@@ -33,8 +33,8 @@
     grid-template-columns: min-content 1fr min-content min-content;
     grid-template-rows: repeat(2, auto);
     column-gap: get-lines(0.5);
-    row-gap: (get-lines(0.25) - rem($config-line-gap / 2));
-    padding: (get-lines(0.5) - rem($config-line-gap / 2)) (get-lines(0.25) + rem($config-line-gap / 2));
+    row-gap: (get-lines(0.25) - $line-edge);
+    padding: (get-lines(0.5) - $line-edge) (get-lines(0.25) + $line-edge);
   }
 
   .BookmarksItemContent-avatar {

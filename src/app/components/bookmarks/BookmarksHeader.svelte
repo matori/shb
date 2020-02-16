@@ -55,7 +55,7 @@
     display: flex;
     align-items: center;
     margin: 0;
-    padding: get-lines(0.5) (get-lines(0.25) + rem($config-line-gap / 2));
+    padding: get-lines(0.5) (get-lines(0.25) + $line-edge);
   }
 
   .BookmarksHeader-total {

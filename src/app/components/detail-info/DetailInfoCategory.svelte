@@ -27,8 +27,8 @@
     @include text(-2);
     display: block;
     border-radius: 2px;
-    padding-right: rem($config-line-gap / 2);
-    padding-left: rem($config-line-gap / 2);
+    padding-right: $line-edge;
+    padding-left: $line-edge;
     background-color: var(--color-bg-orange);
     color: white;
     text-decoration: none;

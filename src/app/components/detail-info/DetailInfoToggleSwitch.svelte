@@ -29,7 +29,7 @@
     display: block;
     align-items: center;
     position: relative;
-    padding: get-lines(0.5) (get-lines(0.25) + rem($config-line-gap / 2));
+    padding: get-lines(0.5) (get-lines(0.25) + $line-edge);
     width: 100%;
     height: 100%;
     white-space: nowrap;
@@ -42,7 +42,7 @@
   .DetailInfoToggleSwitch-icon {
     @include icon-size(-2);
     display: inline-block;
-    margin-top: -(rem($config-line-gap / 2));
+    margin-top: -$line-edge;
     vertical-align: middle;
 
     &._expand {

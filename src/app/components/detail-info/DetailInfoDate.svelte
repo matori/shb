@@ -19,7 +19,7 @@
     @include text(-2);
     display: flex;
     align-items: center;
-    padding-right: rem($config-line-gap / 2);
+    padding-right: $line-edge;
   }
 
   .DetailInfoDate-time {

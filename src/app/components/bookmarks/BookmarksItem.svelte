@@ -29,7 +29,7 @@
   }
 
   .BookmarksItem-sub {
-    padding-left: calc(#{get-lines(0.25) + rem($config-line-gap / 2)} + 16px);
+    padding-left: calc(#{get-lines(0.25) + $line-edge} + 16px);
   }
 
   .BookmarksItem-idCalls {

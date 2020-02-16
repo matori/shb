@@ -27,8 +27,8 @@
 <style lang="scss" global>
   .BookmarksItemAvatar {
     display: block;
-    padding-top: rem($config-line-gap / 2);
-    padding-bottom: rem($config-line-gap / 2);
+    padding-top: $line-edge;
+    padding-bottom: $line-edge;
     width: 32px;
     height: 32px;
   }

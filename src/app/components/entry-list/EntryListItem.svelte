@@ -36,9 +36,9 @@
     grid-template-columns: min-content 1fr 1fr;
     grid-template-rows: repeat(2, min-content);
     gap: get-lines(0.25);
-    padding-top: get-lines(0.5) - rem($config-line-gap / 2);
-    padding-right: get-lines(0.25) + rem($config-line-gap / 2);
-    padding-bottom: get-lines(0.5) - rem($config-line-gap / 2);
+    padding-top: get-lines(0.5) - $line-edge;
+    padding-right: get-lines(0.25) + $line-edge;
+    padding-bottom: get-lines(0.5) - $line-edge;
     padding-left: get-lines(0.25);
   }
 

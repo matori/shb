@@ -32,7 +32,7 @@
   .DetailContent {
     display: grid;
     grid-template-rows: min-content 1fr;
-    gap: get-lines(1) - rem($config-line-gap / 2);
+    gap: get-lines(1) - $line-edge;
   }
 
   .DetailContent-info {

@@ -65,7 +65,7 @@
   .Information {
     display: grid;
     grid-template-rows: min-content 1fr;
-    row-gap: get-lines(0.5) - rem($config-line-gap / 2);
+    row-gap: get-lines(0.5) - $line-edge;
   }
 
   .Information-header {
@@ -107,7 +107,7 @@
     max-height: 100%;
     overflow-y: auto;
     background-color: var(--color-bg-content);
-    padding: get-lines(0.5) (get-lines(0.5) + rem($config-line-gap / 2));
+    padding: get-lines(0.5) (get-lines(0.5) + $line-edge);
   }
 
   .Information-intro {

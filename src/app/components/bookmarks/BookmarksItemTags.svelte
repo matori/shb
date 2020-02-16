@@ -43,8 +43,8 @@
     flex-grow: 0;
     flex-shrink: 0;
     margin-right: 0.25em;
-    padding-top: rem($config-line-gap / 2);
-    padding-bottom: rem($config-line-gap / 2);
+    padding-top: $line-edge;
+    padding-bottom: $line-edge;
     width: 1em;
     height: 1em;
   }

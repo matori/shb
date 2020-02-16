@@ -52,7 +52,7 @@
     display: grid;
     grid-auto-rows: auto;
     row-gap: get-lines(0.5);
-    padding: get-lines(0.5) (get-lines(0.25) + rem($config-line-gap / 2));
+    padding: get-lines(0.5) (get-lines(0.25) + $line-edge);
   }
 
   .DetailInfo-header {

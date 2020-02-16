@@ -34,7 +34,7 @@
 
 <style lang="scss" global>
   .DetailInfoBody {
-    $c-gap: get-lines(0.25) + rem($config-line-gap / 2);
+    $c-gap: get-lines(0.25) + $line-edge;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: min-content 1fr;

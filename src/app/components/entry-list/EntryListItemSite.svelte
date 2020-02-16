@@ -20,7 +20,7 @@
 
 <style lang="scss" global>
   .EntryListItemSite {
-    padding-right: rem($config-line-gap / 2);
+    padding-right: $line-edge;
   }
 
   .EntryListItemSite-link {

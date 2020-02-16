@@ -50,7 +50,7 @@
   .DetailContainer {
     display: grid;
     grid-template-rows: min-content auto;
-    row-gap: get-lines(0.5) - rem($config-line-gap / 2);
+    row-gap: get-lines(0.5) - $line-edge;
   }
 
   .DetailContainer-header {

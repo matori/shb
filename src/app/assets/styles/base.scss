@@ -6,6 +6,8 @@ $config-fs-root: 16px;
 $config-line-gap: 6px;
 $config-fs-scale-base: 8;
 
+$line-edge: rem($config-line-gap / 2);
+
 @keyframes syncing {
   to {
     transform: rotate(1turn);

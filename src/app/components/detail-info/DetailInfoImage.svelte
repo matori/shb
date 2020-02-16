@@ -107,8 +107,8 @@
 
 <style lang="scss" global>
   .DetailInfoImage {
-    padding-top: rem($config-line-gap / 2);
-    padding-bottom: rem($config-line-gap / 2);
+    padding-top: $line-edge;
+    padding-bottom: $line-edge;
   }
 
   .DetailInfoImage-link {

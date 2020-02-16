@@ -90,7 +90,7 @@
     border-style: solid;
     border-color: var(--color-border-base);
     background-color: var(--color-bg-base);
-    padding: get-lines(0.25) (get-lines(0.25) + rem($config-line-gap / 2));
+    padding: get-lines(0.25) (get-lines(0.25) + $line-edge);
     line-height: 1;
   }
 
@@ -127,7 +127,7 @@
     display: flex;
     align-items: flex-start;
     margin: 0;
-    padding: (get-lines(0.5) - rem($config-line-gap / 2)) (get-lines(0.25) + rem($config-line-gap / 2));
+    padding: (get-lines(0.5) - $line-edge) (get-lines(0.25) + $line-edge);
     opacity: 0.5;
   }
 
@@ -148,6 +148,6 @@
   }
 
   .BookmarksItemIdCalls_below {
-    padding-left: calc(#{get-lines(0.25) + rem($config-line-gap / 2)} + 16px);
+    padding-left: calc(#{get-lines(0.25) + $line-edge} + 16px);
   }
 </style>
