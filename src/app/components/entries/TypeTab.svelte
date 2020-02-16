@@ -55,28 +55,16 @@
     {#if data[key].initializing}
       <p class="TypeTab-initial">初期化中です</p>
     {:else if $entriesFetchErrorMessage}
-      <EntriesFetchError
-        display="entries"
-        when="connection"
-        message="{$entriesFetchErrorMessage}"
-        {category}
-        type="{{ key, label }}"
-      />
+      <EntriesFetchError display="entries" when="connection" message="{$entriesFetchErrorMessage}" />
     {:else if !data[key].error}
-      <EntryList items="{data[key].items}" {category} type="{{ key, label }}" />
+      <EntryList items="{data[key].items}" />
     {:else if data[key].error}
-      <EntriesFetchError
-        display="entries"
-        when="api"
-        message="{data[key].message}"
-        {category}
-        type="{{ key, label }}"
-      />
+      <EntriesFetchError display="entries" when="api" message="{data[key].message}" />
     {:else}
-      <EntriesFetchError display="entries" {category} type="{{ key, label }}" />
+      <EntriesFetchError display="entries" />
     {/if}
     <p class="TypeTab-helper">
-      <EntriesLink {category} type="{{key, label}}" class="TypeTab-link" />
+      <EntriesLink {category} type="{{ key, label }}" class="TypeTab-link" />
     </p>
   </TabContent>
 </template>
