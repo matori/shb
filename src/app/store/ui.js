@@ -22,7 +22,6 @@ const showAllBookmarks = allBookmarks(false)
 const reverseOrderBookmarks = reverseBookmarks(false)
 
 const selectedBookmarksTabIndex = writable(0)
-const imageModalShow = writable(false)
 
 function categoryTabIndex(initialData) {
   const initial = storage.categoryTabIndex > -1 ? storage.categoryTabIndex : initialData
@@ -106,5 +105,4 @@ export {
   showAllBookmarks,
   reverseOrderBookmarks,
   selectedBookmarksTabIndex,
-  imageModalShow,
 }

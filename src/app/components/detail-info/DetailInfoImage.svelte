@@ -1,10 +1,9 @@
 <script>
   import KEY_NAMES from "~/constants/keyNames"
   import createNullValueObject from "~/utils/createNullValueObject"
-  import { imageModalShow } from "~/store/ui"
   import Link from "~/elements/Link"
   import Icon from "~/elements/Icon"
-  import Button from "~/elements/Button"
+  import Modal from "~/components/common/Modal.svelte"
 
   let image
   export { image }
@@ -12,9 +11,10 @@
   const removeAttrs = createNullValueObject(["image"])
 
   let imageLoadError = false
-  let closeButton
+  let modalShow = false
   let modalTrigger
-  let externalImage
+  let closeButton
+  let lastFocusable
 
   function onErrorLoadImage() {
     imageLoadError = true
@@ -22,7 +22,7 @@
 
   function showModal(event) {
     event.preventDefault()
-    imageModalShow.set(true)
+    modalShow = true
     requestAnimationFrame(() => {
       closeButton.focus()
     })
@@ -34,7 +34,7 @@
   }
 
   function closeModal() {
-    imageModalShow.set(false)
+    modalShow = false
     modalTrigger.focus()
   }
 
@@ -46,14 +46,15 @@
   }
 
   function onKeydownCloseButton(event) {
-    if (event.key === KEY_NAMES.tab && event.shiftKey) {
-      event.preventDefault()
-      event.stopPropagation()
-      externalImage.focus()
+    const originalEvent = event.detail
+    if (originalEvent.key === KEY_NAMES.tab && originalEvent.shiftKey) {
+      originalEvent.preventDefault()
+      originalEvent.stopPropagation()
+      lastFocusable.focus()
     }
   }
 
-  function onKeydownExternalImage(event) {
+  function onKeydownLastFocusable(event) {
     if (event.key === KEY_NAMES.tab && !event.shiftKey) {
       event.preventDefault()
       event.stopPropagation()
@@ -81,28 +82,23 @@
       {/if}
     </Link>
   </div>
-  <div class="DetailInfoImage-modal {$imageModalShow ? '_show' : ''}" on:keydown="{onKeydownModal}">
-    <div class="DetailInfoImage-modalBackdrop" on:click="{hideModal}"></div>
-    <Button
-      class="DetailInfoImage-modalClose"
-      title="ESCキー、画像の背景をクリックでも閉じられます"
-      bind:ref="{closeButton}"
-      on:click="{hideModal}"
-      on:keydown="{onKeydownCloseButton}"
-    >
-      <Icon name="close" class="DetailInfoImage-modalIcon" />
-      閉じる
-    </Button>
+  <Modal
+    show="{modalShow}"
+    {lastFocusable}
+    bind:closeButton
+    on:modal:close="{hideModal}"
+    on:closebutton:keydown="{onKeydownCloseButton}"
+  >
     <Link
       url="{image}"
-      class="DetailInfoImage-modaLink"
+      class="DetailInfoImage-modalLink"
       title="画像を直接開く"
-      bind:ref="{externalImage}"
-      on:keydown="{onKeydownExternalImage}"
+      bind:ref="{lastFocusable}"
+      on:keydown="{onKeydownLastFocusable}"
     >
       <img src="{image}" alt="" class="DetailInfoImage-modalImage" />
     </Link>
-  </div>
+  </Modal>
 </template>
 
 <style lang="scss" global>
@@ -201,12 +197,7 @@
     @include icon-size(0);
   }
 
-  .DetailInfoImage-modaLink {
-    grid-column-start: 2;
-    grid-column-end: 3;
-    grid-row-start: 2;
-    grid-row-end: 3;
-    margin: get-lines(2);
+  .DetailInfoImage-modalLink {
     min-width: 0;
     min-height: 0;
   }

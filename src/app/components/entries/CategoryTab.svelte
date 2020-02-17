@@ -5,6 +5,7 @@
   import { increment, decrement } from "~/utils/arrayIndex"
   import { selectedCategoryTabIndex } from "~/store/ui"
   import { entriesData } from "~/store/entries"
+  import { autoRefresh } from "~/store/config"
   import TabContent from "~/components/common/TabContent"
   import TypeTab from "~/components/entries/TypeTab"
 
@@ -12,8 +13,18 @@
 
   const categoriesLength = entryCategories.length
 
+  let autoRefreshActive
+
+  const unsubscribe = autoRefresh.subscribe(value => {
+    autoRefreshActive = value
+  })
+
   onMount(() => {
-    entriesData.update(true)
+    if(!autoRefreshActive) {
+      entriesData.update(true)
+    }
+    unsubscribe()
+    autoRefreshActive = void 0
   })
 
   function onClickTab({ detail }) {

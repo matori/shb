@@ -2,7 +2,6 @@
   import { beforeUpdate } from "svelte"
   import createNullValueObject from "~/utils/createNullValueObject"
   import { selectedBookmarksTabIndex } from "~/store/ui"
-  import { imageModalShow } from "~/store/ui"
   import DetailContent from "~/components/detail/DetailContent"
   import DetailFetchError from "~/components/detail/DetailFetchError.svelte"
   import DetailHeader from "~/components/detail/DetailHeader"
@@ -20,7 +19,6 @@
 
   beforeUpdate(() => {
     selectedBookmarksTabIndex.set(detail ? detail.data.floor - 1 : 0)
-    imageModalShow.set(false)
   })
 </script>
 
