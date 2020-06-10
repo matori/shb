@@ -4,8 +4,8 @@ const HtmlWebpackPlugin = require("html-webpack-plugin")
 const Dotenv = require("dotenv-webpack")
 const CopyPlugin = require("copy-webpack-plugin")
 const LodashModuleReplacementPlugin = require("lodash-webpack-plugin")
-const TerserPlugin = require('terser-webpack-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const TerserPlugin = require("terser-webpack-plugin")
+const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin")
 const preprocess = require("svelte-preprocess")
 
 const mockServer = require("./scripts/server")
@@ -111,27 +111,39 @@ module.exports = {
       template: "src/index.html",
       minify: prod
         ? {
-            collapseBooleanAttributes: true,
-            collapseInlineTagWhitespace: true,
-            collapseWhitespace: true,
-            removeAttributeQuotes: true,
-            removeComments: true,
-            removeOptionalTags: true,
-            removeRedundantAttributes: true,
-            removeScriptTypeAttributes: true,
-            removeStyleLinkTypeAttributes: true,
-            sortAttributes: true,
-            useShortDoctype: true,
-          }
+          collapseBooleanAttributes: true,
+          collapseInlineTagWhitespace: true,
+          collapseWhitespace: true,
+          removeAttributeQuotes: true,
+          removeComments: true,
+          removeOptionalTags: true,
+          removeRedundantAttributes: true,
+          removeScriptTypeAttributes: true,
+          removeStyleLinkTypeAttributes: true,
+          sortAttributes: true,
+          useShortDoctype: true,
+        }
         : false,
     }),
-    new CopyPlugin([{ from: "./src/static" }]),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: "./src/static/**/*",
+          transformPath (targetPath) {
+            return targetPath.replace("src/static/", "")
+          },
+          globOptions: {
+            dot: true,
+          },
+        },
+      ],
+    }),
   ],
   optimization: {
     minimizer: [
       new TerserPlugin({}),
-      new OptimizeCssAssetsPlugin({})
-    ]
+      new OptimizeCssAssetsPlugin({}),
+    ],
   },
   devtool: prod ? false : "eval-source-map",
   devServer: {
