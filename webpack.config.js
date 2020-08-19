@@ -44,7 +44,8 @@ module.exports = {
                 markupTagName: "template",
                 preserve: ["ld+json"],
                 scss: {
-                  data: `@import "${path.resolve(__dirname, "src", "app", "assets", "styles", "base.scss")}";`,
+                  renderSync: true,
+                  prependData: `@import "${path.resolve(__dirname, "src", "app", "assets", "styles", "base.scss")}";`,
                   sourceMap: !prod,
                 },
                 postcss: {
