@@ -18,7 +18,7 @@ function detailDataStore(initialData) {
       detailFetchProcessing.set(true)
       const axiosConfig = {
         params: {
-          url: encodeURI(itemData.url),
+          url: itemData.url,
           // url: "simple",
         },
       }
