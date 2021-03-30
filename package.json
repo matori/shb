@@ -31,7 +31,6 @@
     "prettier-plugin-svelte": "^2.2.0",
     "sass": "^1.32.8",
     "sass-loader": "^11.0.1",
-    "serve": "^11.3.2",
     "style-loader": "^2.0.0",
     "svelte": "^3.36.0",
     "svelte-loader": "3.0.0",
