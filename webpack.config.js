@@ -2,7 +2,6 @@ const path = require("path")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const Dotenv = require("dotenv-webpack")
-const CopyPlugin = require("copy-webpack-plugin")
 const LodashModuleReplacementPlugin = require("lodash-webpack-plugin")
 const TerserPlugin = require("terser-webpack-plugin")
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin")
@@ -80,23 +79,6 @@ module.exports = {
           },
         ],
       },
-      {
-        test: /\.svg$/,
-        use: [
-          {
-            loader: "svg-inline-loader",
-            options: {
-              removeSVGTagAttrs: false,
-            },
-          },
-          {
-            loader: "svgo-loader",
-            options: {
-              plugins: [{ removeXMLNS: true }, { removeViewBox: false }],
-            },
-          },
-        ],
-      },
     ],
   },
   mode,
@@ -125,19 +107,6 @@ module.exports = {
           useShortDoctype: true,
         }
         : false,
-    }),
-    new CopyPlugin({
-      patterns: [
-        {
-          from: "./src/static/**/*",
-          transformPath (targetPath) {
-            return targetPath.replace("src/static/", "")
-          },
-          globOptions: {
-            dot: true,
-          },
-        },
-      ],
     }),
   ],
   optimization: {
