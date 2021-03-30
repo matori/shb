@@ -2,16 +2,17 @@
   import createNullValueObject from "~/utils/createNullValueObject"
   import Link from "~/elements/Link"
 
+  let url
   let label
   let favicon
-  export { label, favicon }
+  export { url, label, favicon }
 
   const removeAttrs = createNullValueObject(["label", "favicon"])
 </script>
 
 <template>
   <span {...$$props} {...removeAttrs} class="{$$props.class || ''} EntryListItemSite">
-    <Link url="https://b.hatena.ne.jp/entrylist?url={label}" class="EntryListItemSite-link">
+    <Link {url} class="EntryListItemSite-link">
       <span class="EntryListItemSite-favicon" aria-hidden="true" style="content: url({favicon})"></span>
       <span class="EntryListItemSite-label">{label}</span>
     </Link>

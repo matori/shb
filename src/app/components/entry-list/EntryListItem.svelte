@@ -25,7 +25,7 @@
       class="EntryListItem-count"
       on:click="{onClickBookmarkCount}"
     />
-    <EntryListItemSite label="{item.siteEntriesLabel}" favicon="{item.favicon}" class="EntryListItem-site" />
+    <EntryListItemSite url="{item.siteEntriesUrl}" label="{item.siteEntriesLabel}" favicon="{item.favicon}" class="EntryListItem-site" />
     <EntryListItemTime datetime="{item.date}" class="EntryListItem-date" />
   </li>
 </template>
