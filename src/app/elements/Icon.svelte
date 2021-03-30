@@ -1,26 +1,23 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
+  import ICON_PATHS from "~/constants/iconPaths"
 
   // props
   let name
   let title
   export { name, title }
 
-  const removeAttrs = createNullValueObject(["name", "title", "viewBox"])
-
-  // SVG自体ではなく中身がほしいのでdivに突っ込んで文字列として取り出す
-  const div = document.createElement("div")
-  div.innerHTML = require(`~/assets/icons/${name}.svg`)
-  const svg = div.firstElementChild
-  const viewBox = svg.getAttribute("viewBox")
-  const svgChildren = svg.innerHTML
-
-  $: title = title ? `<title>${title}</title>` : ""
+  $: icon = ICON_PATHS[name]
+  $: role = title ? 'img' : null
 </script>
 
 <template>
-  <svg {...$$props} {...removeAttrs} {viewBox} class="{$$props.class || ''} Icon">
-    {@html title + svgChildren}
+  <svg
+    {...$$props}
+    viewBox="0 0 {icon.size} {icon.size}"
+    {role}
+    aria-label="{title}"
+    class="{$$props.class || ''} Icon">
+    <path d="{icon.path}"/>
   </svg>
 </template>
 
