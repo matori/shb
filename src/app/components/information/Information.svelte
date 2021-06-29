@@ -106,6 +106,7 @@
     border-color: var(--color-border-base);
     max-height: 100%;
     overflow-y: auto;
+    box-shadow: var(--shadow-base);
     background-color: var(--color-bg-content);
     padding: get-lines(0.5) (get-lines(0.5) + $line-edge);
   }
