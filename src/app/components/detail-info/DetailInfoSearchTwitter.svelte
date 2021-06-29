@@ -30,6 +30,7 @@
     align-items: center;
     color: var(--color-text-gray);
     text-decoration: none;
+    vertical-align: bottom;
 
     &:hover {
       text-decoration: underline;

@@ -12,7 +12,7 @@
 
 <template>
   <h3 {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailInfoTitle {multiLine ? '' : '_singleLine'}">
-    <Link {url} class="DetailInfoTitle-link">{ title }</Link>
+    <Link {url} title="{multiLine ? null : title}" class="DetailInfoTitle-link">{ title }</Link>
   </h3>
 </template>
 
