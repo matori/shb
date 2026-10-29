@@ -1,4 +1,4 @@
-import deepFreeze from "deep-freeze"
+import deepFreeze from "~/utils/deepFreeze"
 
 const keyNames = {
   enter: "Enter",

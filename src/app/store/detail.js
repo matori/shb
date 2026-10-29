@@ -1,7 +1,6 @@
 import { writable, derived } from "svelte/store"
 import fetchJson from "~/utils/fetchJson"
-import deepFreeze from "deep-freeze"
-import uniq from "lodash/uniq"
+import deepFreeze from "~/utils/deepFreeze"
 import splitComment from "~/utils/splitComment"
 
 const detailFetchProcessing = writable(false)
@@ -73,7 +72,7 @@ function addCommentTexts(detail) {
       })
       .map((bookmark, index, bookmarks) => {
         if (bookmark.idCalls) {
-          const idCalls = uniq(bookmark.idCalls)
+          const idCalls = [...new Set(bookmark.idCalls)]
           bookmark.idCalls = idCalls.map((id) => {
             const data = bookmarks.find((bm) => bm.user === id)
             const belowData =
@@ -95,7 +94,7 @@ function addCommentTexts(detail) {
           })
         }
         if (bookmark.idCalled) {
-          const idCalled = uniq(bookmark.idCalled)
+          const idCalled = [...new Set(bookmark.idCalled)]
           bookmark.idCalled = idCalled.map((id) => {
             return bookmarks.find((bm) => bm.user === id)
           })

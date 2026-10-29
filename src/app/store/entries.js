@@ -1,6 +1,6 @@
 import { writable } from "svelte/store"
 import fetchJson from "~/utils/fetchJson"
-import deepFreeze from "deep-freeze"
+import deepFreeze from "~/utils/deepFreeze"
 import sleep from "~/utils/sleep"
 import ENTRY_CATEGORIES from "~/constants/entryCategories"
 import ENTRY_TYPES from "~/constants/entryTypes"
