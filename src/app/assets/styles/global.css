@@ -54,21 +54,6 @@
 
   --content-max-width: 1680px;
   --content-min-width: 960px;
-
-  /* 旧デザインの名前。各コンポーネントを書き換え終わったら削除する */
-  --color-bg-base: var(--color-bg);
-  --color-bg-content: var(--color-surface);
-  --color-bg-blue: var(--color-accent);
-  --color-bg-orange: var(--color-category);
-  --color-text-base: var(--color-text);
-  --color-text-blue: var(--color-accent);
-  --color-text-red: var(--color-count);
-  --color-text-gray: var(--color-text-muted);
-  --color-text-steel: var(--color-text-sub);
-  --color-border-base: var(--color-line-strong);
-  --color-border-green: var(--color-accent);
-  --shadow-base: none;
-  --ff-without-emojis: var(--ff-sans);
 }
 
 @keyframes syncing {

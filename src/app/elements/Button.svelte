@@ -8,7 +8,8 @@
 
 <style>
   :global {
-    .Button {
+    /* 各コンポーネントのボタンのスタイルが常に優先されるよう、詳細度を0にしておく */
+    :where(.Button) {
       &:focus:not(:focus-visible) {
         outline: none;
       }
@@ -16,7 +17,9 @@
       padding: 0;
       background-color: transparent;
       background-image: none;
-      font-family: var(--ff-without-emojis);
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
 
       &::-moz-focus-inner {
         border-width: 0;
