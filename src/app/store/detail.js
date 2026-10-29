@@ -1,13 +1,12 @@
 import { writable, derived } from "svelte/store"
-import axios from "axios"
-import deepFreeze from "deep-freeze"
-import uniq from "lodash/uniq"
+import fetchJson from "~/utils/fetchJson"
+import deepFreeze from "~/utils/deepFreeze"
 import splitComment from "~/utils/splitComment"
 
 const detailFetchProcessing = writable(false)
 const detailFetchErrorMessage = writable("")
 const detailData = detailDataStore(null)
-const hasDetailData = derived(detailData, $detailData => !!$detailData)
+const hasDetailData = derived(detailData, ($detailData) => !!$detailData)
 
 function detailDataStore(initialData) {
   const { subscribe, set } = writable(initialData)
@@ -16,16 +15,10 @@ function detailDataStore(initialData) {
     subscribe,
     async update(itemData) {
       detailFetchProcessing.set(true)
-      const axiosConfig = {
-        params: {
-          url: itemData.url,
-          // url: "simple",
-        },
-      }
       try {
-        const response = await axios.get(process.env.DETAIL_API, axiosConfig)
+        const detail = await fetchJson(import.meta.env.VITE_DETAIL_API, { url: itemData.url })
         const data = {
-          ...addCommentTexts(response.data),
+          ...addCommentTexts(detail),
           itemData: itemData,
         }
         const entries = deepFreeze(data)
@@ -59,7 +52,7 @@ function addCommentTexts(detail) {
         const commentTexts = splitComment(comment)
         const idCalls = commentTexts.reduce((result, text) => {
           if (text.type === "idCall") {
-            const targetIndex = bookmarks.findIndex(bm => bm.user === text.user)
+            const targetIndex = bookmarks.findIndex((bm) => bm.user === text.user)
             if (targetIndex > -1) {
               const target = bookmarks[targetIndex]
               if (!target.idCalled) {
@@ -79,12 +72,12 @@ function addCommentTexts(detail) {
       })
       .map((bookmark, index, bookmarks) => {
         if (bookmark.idCalls) {
-          const idCalls = uniq(bookmark.idCalls)
-          bookmark.idCalls = idCalls.map(id => {
-            const data = bookmarks.find(bm => bm.user === id)
+          const idCalls = [...new Set(bookmark.idCalls)]
+          bookmark.idCalls = idCalls.map((id) => {
+            const data = bookmarks.find((bm) => bm.user === id)
             const belowData =
               floorIndex > 0
-                ? detail.data.entries[floorIndex - 1].content.bookmarks.find(bm => bm.user === id)
+                ? detail.data.entries[floorIndex - 1].content.bookmarks.find((bm) => bm.user === id)
                 : undefined
             const belowEid = belowData ? detail.data.entries[floorIndex - 1].content.eid : undefined
             if (!data) {
@@ -101,9 +94,9 @@ function addCommentTexts(detail) {
           })
         }
         if (bookmark.idCalled) {
-          const idCalled = uniq(bookmark.idCalled)
-          bookmark.idCalled = idCalled.map(id => {
-            return bookmarks.find(bm => bm.user === id)
+          const idCalled = [...new Set(bookmark.idCalled)]
+          bookmark.idCalled = idCalled.map((id) => {
+            return bookmarks.find((bm) => bm.user === id)
           })
         }
         return bookmark

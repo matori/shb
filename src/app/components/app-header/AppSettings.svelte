@@ -1,50 +1,40 @@
 <script>
   import KEY_NAMES from "~/constants/keyNames"
-  import createNullValueObject from "~/utils/createNullValueObject"
   import { entriesData } from "~/store/entries"
   import { autoRefresh, autoRefreshInterval, links } from "~/store/config"
   import Button from "~/elements/Button.svelte"
   import Icon from "~/elements/Icon.svelte"
   import Modal from "~/components/common/Modal.svelte"
 
-  const removeAttrs = createNullValueObject([])
+  let { class: className = "", ...rest } = $props()
 
-  let timer
-  let autoRefreshActive
-  let autoRefreshIntervalTime
-  let modalShow = false
-  let modalTrigger
-  let closeButton
-  let lastFocusable
-  let form
-  let autoRefreshIntervalInput
-  let linksInput
-  let linksText
+  let modalShow = $state(false)
+  let modalTrigger = $state()
+  let closeButton = $state()
+  let lastFocusable = $state()
+  let autoRefreshIntervalInput = $state()
+  let linksText = $state("")
 
-  autoRefresh.subscribe(value => {
-    autoRefreshActive = value
+  const autoRefreshIntervalTime = $derived($autoRefreshInterval * 60 * 1000)
 
-    if (value) {
-      updateEntries()
-    } else {
-      clearTimeout(timer)
+  $effect(() => {
+    if (!$autoRefresh) {
+      return
     }
+    let timer
+    function updateEntries() {
+      timer = setTimeout(() => {
+        entriesData.update()
+        updateEntries()
+      }, autoRefreshIntervalTime)
+    }
+    updateEntries()
+    return () => clearTimeout(timer)
   })
 
-  autoRefreshInterval.subscribe(value => {
-    autoRefreshIntervalTime = value * 60 * 1000
+  $effect.pre(() => {
+    linksText = linksToText($links)
   })
-
-  links.subscribe(value => {
-    linksText = linksToText(value)
-  })
-
-  function updateEntries() {
-    timer = setTimeout(() => {
-      entriesData.update()
-      updateEntries()
-    }, autoRefreshIntervalTime)
-  }
 
   function linksToText(arr) {
     return arr.reduce((result, link) => {
@@ -55,27 +45,13 @@
 
   function toggleAutoRefresh(event) {
     event.preventDefault()
-    autoRefresh.set(!autoRefreshActive)
-  }
-
-  function parseLinks(value) {
-    const lines = value.split(/[\r\n]+/)
-    return lines.reduce((result, line) => {
-      const matches = line.match(/\[(.*?)\]\((.*?)\)/)
-      if (matches) {
-        result.push({
-          label: matches[1],
-          url: matches[2],
-        })
-      }
-      return result
-    }, [])
+    autoRefresh.set(!$autoRefresh)
   }
 
   function onSubmit(event) {
     event.preventDefault()
     autoRefreshInterval.set(autoRefreshIntervalInput.value)
-    links.set(linksInput.value)
+    links.set(linksText)
   }
 
   function showModal(event) {
@@ -86,28 +62,15 @@
     })
   }
 
-  function hideModal(event) {
-    event.preventDefault()
-    closeModal()
-  }
-
   function closeModal() {
     modalShow = false
     modalTrigger.focus()
   }
 
-  function onKeydownModal(event) {
-    if (event.key === KEY_NAMES.escape) {
-      event.stopPropagation()
-      closeModal()
-    }
-  }
-
   function onKeydownCloseButton(event) {
-    const originalEvent = event.detail
-    if (originalEvent.key === KEY_NAMES.tab && originalEvent.shiftKey) {
-      originalEvent.preventDefault()
-      originalEvent.stopPropagation()
+    if (event.key === KEY_NAMES.tab && event.shiftKey) {
+      event.preventDefault()
+      event.stopPropagation()
       lastFocusable.focus()
     }
   }
@@ -121,171 +84,180 @@
   }
 </script>
 
-<template>
-  <div {...$$props} {...removeAttrs} class="{$$props.class || ''} AppSettings">
-    <Button
-      title="自動更新を{autoRefreshActive ? '停止する' : '有効にする'}"
-      class="AppSettings-button"
-      role="switch"
-      aria-checked="{autoRefreshActive}"
-      on:click="{toggleAutoRefresh}"
-    >
-      <Icon name="checkbox-checked" class="AppSettings-icon {autoRefreshActive ? '' : '_hide'}" />
-      <Icon name="checkbox-outline" class="AppSettings-icon {autoRefreshActive ? '_hide' : ''}" />
-      自動更新
-    </Button>
-    <Button class="AppSettings-button" bind:ref="{modalTrigger}" on:click="{showModal}">
-      <Icon name="settings" class="AppSettings-icon" />
-      設定
-    </Button>
-    <Modal
-      show="{modalShow}"
-      {lastFocusable}
-      bind:closeButton
-      on:modal:close="{hideModal}"
-      on:closebutton:keydown="{onKeydownCloseButton}"
-    >
-      <form class="AppSettings-form" on:submit="{onSubmit}">
-        <div class="AppSettings-body">
-          <p class="AppSettings-item">
-            <label for="autoRefreshInterval" class="AppSettings-label">エントリー一覧の自動更新間隔</label>
-            <input
-              type="number"
-              id="autoRefreshInterval"
-              value="{$autoRefreshInterval}"
-              min="5"
-              class="AppSettings-time"
-              bind:this="{autoRefreshIntervalInput}"
-            />
-            分
-          </p>
-          <p class="AppSettings-item">
-            <label for="links" class="AppSettings-label">
-              ヘッダーのリンク集
-              <br />
-              <span>
-                <code>[ラベル](URL)</code>
-                形式を改行区切りで指定できます
-              </span>
-            </label>
-            <textarea
-              id="links"
-              class="AppSettings-textarea"
-              bind:this="{linksInput}"
-              bind:value="{linksText}"
-            ></textarea>
-          </p>
-        </div>
-        <div class="AppSettings-footer">
-          <Button
-            type="submit"
-            class="AppSettings-submit"
-            bind:ref="{lastFocusable}"
-            on:keydown="{onKeydownLastFocusable}"
-          >
-            設定を保存
-          </Button>
-        </div>
-      </form>
-    </Modal>
-  </div>
-</template>
+<div {...rest} class={[className, "AppSettings"]}>
+  <Button
+    title="自動更新を{$autoRefresh ? '停止する' : '有効にする'}"
+    class="AppSettings-button"
+    role="switch"
+    aria-checked={$autoRefresh}
+    onclick={toggleAutoRefresh}
+  >
+    <Icon name="checkbox-checked" class="AppSettings-icon {$autoRefresh ? '' : '_hide'}" />
+    <Icon name="checkbox-outline" class="AppSettings-icon {$autoRefresh ? '_hide' : ''}" />
+    自動更新
+  </Button>
+  <Button class="AppSettings-button" bind:ref={modalTrigger} onclick={showModal}>
+    <Icon name="settings" class="AppSettings-icon" />
+    設定
+  </Button>
+  <Modal show={modalShow} bind:closeButton onclose={closeModal} onclosebuttonkeydown={onKeydownCloseButton}>
+    <form class="AppSettings-form" onsubmit={onSubmit}>
+      <div class="AppSettings-body">
+        <p class="AppSettings-item">
+          <label for="autoRefreshInterval" class="AppSettings-label">エントリー一覧の自動更新間隔</label>
+          <input
+            type="number"
+            id="autoRefreshInterval"
+            value={$autoRefreshInterval}
+            min="5"
+            class="AppSettings-time"
+            bind:this={autoRefreshIntervalInput}
+          />
+          分
+        </p>
+        <p class="AppSettings-item">
+          <label for="links" class="AppSettings-label">
+            ヘッダーのリンク集
+            <br />
+            <span>
+              <code>[ラベル](URL)</code>
+              形式を改行区切りで指定できます
+            </span>
+          </label>
+          <textarea id="links" class="AppSettings-textarea" bind:value={linksText}></textarea>
+        </p>
+      </div>
+      <div class="AppSettings-footer">
+        <Button type="submit" class="AppSettings-submit" bind:ref={lastFocusable} onkeydown={onKeydownLastFocusable}>
+          設定を保存
+        </Button>
+      </div>
+    </form>
+  </Modal>
+</div>
 
-<style lang="scss" global>
-  .AppSettings {
-    display: grid;
-    grid-template-columns: auto auto;
-    grid-gap: get-lines(0.25);
-  }
-
-  .AppSettings-button {
-    @include spread-clickable-area(0);
-    @include text(0);
-    display: flex;
-    align-items: center;
-    position: relative;
-    padding-right: $line-edge;
-    padding-left: $line-edge;
-    white-space: nowrap;
-  }
-
-  .AppSettings-icon {
-    @include icon-size(0);
-    margin-right: 0.25em;
-
-    &._hide {
-      display: none;
+<style>
+  :global {
+    .AppSettings {
+      display: grid;
+      grid-template-columns: auto auto;
+      grid-gap: calc(var(--line) * 0.25);
     }
-  }
 
-  .AppSettings-form {
-    position: relative;
-    background-color: var(--color-bg-content);
-    min-width: calc(var(--content-min-width) * 0.8);
-  }
+    .AppSettings-button {
+      &::before {
+        position: absolute;
+        inset: 0;
+        content: "";
+        box-shadow: 0 0 2px 1px var(--color-text-blue);
+        opacity: 0;
+      }
 
-  .AppSettings-body {
-    padding: get-lines(1);
-  }
-
-  .AppSettings-footer {
-    position: sticky;
-    bottom: 0;
-    border-top-width: 1px;
-    border-top-style: solid;
-    border-top-color: var(--color-border-base);
-    padding: get-lines(1);
-    background-color: var(--color-bg-content);
-  }
-
-  .AppSettings-item {
-    @include text(0);
-    margin-top: 0;
-
-    &:nth-last-child(n + 2) {
-      margin-bottom: get-lines(1);
+      &:hover::before {
+        opacity: 1;
+      }
+      font-size: var(--fs-m);
+      line-height: var(--lh-m);
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding-right: var(--line-edge);
+      padding-left: var(--line-edge);
+      white-space: nowrap;
     }
-  }
 
-  .AppSettings-label {
-    display: block;
-    margin-bottom: get-lines(0.5);
+    .AppSettings-icon {
+      width: var(--line);
+      height: var(--line);
+      margin-right: 0.25em;
 
-    code {
-      border-width: 1px;
-      border-style: solid;
-      border-color: var(--color-border-base);
+      &._hide {
+        display: none;
+      }
+    }
+
+    .AppSettings-form {
+      position: relative;
+      background-color: var(--color-bg-content);
+      min-width: calc(var(--content-min-width) * 0.8);
+    }
+
+    .AppSettings-body {
+      padding: var(--line);
+    }
+
+    .AppSettings-footer {
+      position: sticky;
+      bottom: 0;
+      border-top-width: 1px;
+      border-top-style: solid;
+      border-top-color: var(--color-border-base);
+      padding: var(--line);
+      background-color: var(--color-bg-content);
+    }
+
+    .AppSettings-item {
+      font-size: var(--fs-m);
+      line-height: var(--lh-m);
+      margin-top: 0;
+
+      &:nth-last-child(n + 2) {
+        margin-bottom: var(--line);
+      }
+    }
+
+    .AppSettings-label {
+      display: block;
+      margin-bottom: calc(var(--line) * 0.5);
+
+      code {
+        border-width: 1px;
+        border-style: solid;
+        border-color: var(--color-border-base);
+        border-radius: 2px;
+        padding-right: 0.25em;
+        padding-left: 0.25em;
+        background-color: var(--color-bg-base);
+        font-family: monospace, monospace;
+      }
+    }
+
+    .AppSettings-time {
+      font-size: var(--fs-m);
+      line-height: var(--lh-m);
+      width: 3em;
+    }
+
+    .AppSettings-textarea {
+      font-size: var(--fs-m);
+      line-height: var(--lh-m);
+      box-sizing: border-box;
+      width: 100%;
+      height: calc(var(--line) * 5);
+    }
+
+    .AppSettings-submit {
+      font-size: var(--fs-s);
+      &::before {
+        position: absolute;
+        inset: calc(var(--line-edge) * -1);
+        content: "";
+        box-shadow: 0 0 2px 1px var(--color-text-blue);
+        opacity: 0;
+      }
+
+      &:hover::before {
+        opacity: 1;
+      }
+      display: inline-block;
+      position: relative;
       border-radius: 2px;
-      padding-right: 0.25em;
-      padding-left: 0.25em;
-      background-color: var(--color-bg-base);
-      font-family: monospace, monospace;
+      padding: calc(var(--line) * 0.5);
+      background-color: var(--color-bg-blue);
+      color: white;
+      line-height: 1;
+      text-decoration: none;
+      vertical-align: bottom;
     }
-  }
-
-  .AppSettings-time {
-    @include text(0);
-    width: 3em;
-  }
-
-  .AppSettings-textarea {
-    @include text(0);
-    box-sizing: border-box;
-    width: 100%;
-    height: get-lines(5);
-  }
-
-  .AppSettings-submit {
-    @include text(-1, false);
-    @include spread-clickable-area;
-    display: inline-block;
-    position: relative;
-    border-radius: 2px;
-    padding: get-lines(0.5);
-    background-color: var(--color-bg-blue);
-    color: white;
-    line-height: 1;
-    text-decoration: none;
-    vertical-align: bottom;
   }
 </style>

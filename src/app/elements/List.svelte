@@ -1,28 +1,17 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
-
-  let ordered = false
-  export { ordered }
-
-  const removeAttrs = createNullValueObject(["ordered"])
+  let { ordered = false, class: className = "", children, ...rest } = $props()
 </script>
 
-<template>
-  {#if ordered}
-    <ol {...$$props} {...removeAttrs} class="{$$props.class || ''} List">
-      <slot />
-    </ol>
-  {:else}
-    <ul {...$$props} {...removeAttrs} class="{$$props.class || ''} List">
-      <slot />
-    </ul>
-  {/if}
-</template>
+<svelte:element this={ordered ? "ol" : "ul"} {...rest} class={[className, "List"]}>
+  {@render children?.()}
+</svelte:element>
 
-<style lang="scss" global>
-  .List {
-    margin: 0;
-    padding-left: 0;
-    list-style-type: none;
+<style>
+  :global {
+    .List {
+      margin: 0;
+      padding-left: 0;
+      list-style-type: none;
+    }
   }
 </style>

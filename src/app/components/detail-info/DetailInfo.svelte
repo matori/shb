@@ -1,63 +1,48 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import { detailInfoExpanded } from "~/store/ui"
   import DetailInfoToggleSwitch from "~/components/detail-info/DetailInfoToggleSwitch"
   import DetailInfoHeader from "~/components/detail-info/DetailInfoHeader.svelte"
   import DetailInfoBody from "~/components/detail-info/DetailInfoBody.svelte"
 
-  let detailContent
-  let itemData
-  export { detailContent, itemData }
-
-  const removeAttrs = createNullValueObject(["detailContent", "itemData"])
-
-  let open
-
-  detailInfoExpanded.subscribe(value => {
-    open = value
-  })
-
-  function onClickToggleTrigger() {
-    detailInfoExpanded.set(!open)
-  }
+  let { detailContent, itemData, class: className = "", ...rest } = $props()
 </script>
 
-<template>
-  <div {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailInfo" aria-expanded="{open}">
-    <div class="DetailInfo-tool">
-      <DetailInfoToggleSwitch
-        open="{$detailInfoExpanded}"
-        class="DetailInfo-switch"
-        on:click="{onClickToggleTrigger}"
-      />
-    </div>
-    <div class="DetailInfo-inner">
-      <DetailInfoHeader {detailContent} {itemData} detailInfoExpanded="{open}" class="DetailInfo-header" />
-      <DetailInfoBody {detailContent} {itemData} detailInfoExpanded="{open}" class="DetailInfo-body" />
-    </div>
+<div {...rest} class={[className, "DetailInfo"]} aria-expanded={$detailInfoExpanded}>
+  <div class="DetailInfo-tool">
+    <DetailInfoToggleSwitch
+      open={$detailInfoExpanded}
+      class="DetailInfo-switch"
+      onclick={() => detailInfoExpanded.set(!$detailInfoExpanded)}
+    />
   </div>
-</template>
+  <div class="DetailInfo-inner">
+    <DetailInfoHeader {detailContent} {itemData} detailInfoExpanded={$detailInfoExpanded} class="DetailInfo-header" />
+    <DetailInfoBody {detailContent} {itemData} detailInfoExpanded={$detailInfoExpanded} class="DetailInfo-body" />
+  </div>
+</div>
 
-<style lang="scss" global>
-  .DetailInfo {
-  }
+<style>
+  :global {
+    .DetailInfo {
+    }
 
-  .DetailInfo-tool {
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: var(--color-border-base);
-  }
+    .DetailInfo-tool {
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+      border-bottom-color: var(--color-border-base);
+    }
 
-  .DetailInfo-inner {
-    display: grid;
-    grid-auto-rows: auto;
-    row-gap: get-lines(0.5);
-    padding: get-lines(0.5) (get-lines(0.25) + $line-edge);
-  }
+    .DetailInfo-inner {
+      display: grid;
+      grid-auto-rows: auto;
+      row-gap: calc(var(--line) * 0.5);
+      padding: calc(var(--line) * 0.5) calc(var(--line) * 0.25 + var(--line-edge));
+    }
 
-  .DetailInfo-header {
-  }
+    .DetailInfo-header {
+    }
 
-  .DetailInfo-body {
+    .DetailInfo-body {
+    }
   }
 </style>

@@ -1,4 +1,4 @@
-import deepFreeze from "deep-freeze"
+import deepFreeze from "~/utils/deepFreeze"
 
 const keyNames = {
   enter: "Enter",
@@ -12,7 +12,7 @@ const keyNames = {
   end: "End",
   pageUp: "PageUp",
   pageDown: "PageDown",
-  escape: "Escape"
+  escape: "Escape",
 }
 
 const KEY_NAMES = deepFreeze(keyNames)

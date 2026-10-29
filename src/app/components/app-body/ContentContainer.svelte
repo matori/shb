@@ -1,34 +1,33 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import { hasDetailData, detailFetchErrorMessage, detailData } from "~/store/detail"
   import EntriesContainer from "~/components/entries/EntriesContainer"
   import DetailContainer from "~/components/detail/DetailContainer"
   import Information from "~/components/information/Information.svelte"
 
-  const removeAttrs = createNullValueObject([])
+  let { class: className = "", ...rest } = $props()
 </script>
 
-<template>
-  <div {...$$props} {...removeAttrs} class="{$$props.class || ''} ContentContainer">
-    <EntriesContainer class="ContentContainer-entries" />
-    {#if $detailFetchErrorMessage || $hasDetailData}
-      <DetailContainer detail="{$detailData}" message="{$detailFetchErrorMessage}" class="ContentContainer-detail" />
-    {:else}
-      <Information class="ContentContainer-info" />
-    {/if}
-  </div>
-</template>
+<div {...rest} class={[className, "ContentContainer"]}>
+  <EntriesContainer class="ContentContainer-entries" />
+  {#if $detailFetchErrorMessage || $hasDetailData}
+    <DetailContainer detail={$detailData} message={$detailFetchErrorMessage} class="ContentContainer-detail" />
+  {:else}
+    <Information class="ContentContainer-info" />
+  {/if}
+</div>
 
-<style lang="scss" global>
-  .ContentContainer {
-    display: grid;
-    grid-template-columns: repeat(2, calc(50% - #{get-lines(0.5)}));
-    column-gap: get-lines(1);
-  }
+<style>
+  :global {
+    .ContentContainer {
+      display: grid;
+      grid-template-columns: repeat(2, calc(50% - var(--line) * 0.5));
+      column-gap: var(--line);
+    }
 
-  .ContentContainer-entries,
-  .ContentContainer-detail,
-  .ContentContainer-info {
-    min-height: 0;
+    .ContentContainer-entries,
+    .ContentContainer-detail,
+    .ContentContainer-info {
+      min-height: 0;
+    }
   }
 </style>

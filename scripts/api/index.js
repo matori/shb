@@ -1,8 +1,4 @@
-const fs = require("fs")
-const path = require("path")
-
-function apiIndex(req, res) {
-  const examplesLength = fs.readdirSync(path.resolve(__dirname, "./data/details/")).length
+function apiIndex() {
   return `<!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -27,4 +23,4 @@ function apiIndex(req, res) {
 `
 }
 
-module.exports = apiIndex
+export default apiIndex

@@ -1,14 +1,7 @@
-const faker = require("faker")
-const dayjs = require("dayjs")
-const utc = require("dayjs/plugin/utc")
-const getRandomIntInclusive = require("../utils/getRandomIntInclusive")
-const loremIpsum = require("lorem-ipsum-japanese")
-
-faker.locale = "ja"
-
-require("dayjs/locale/ja")
-dayjs.locale("ja")
-dayjs.extend(utc)
+import { fakerJA as faker } from "@faker-js/faker"
+import dayjs from "dayjs"
+import loremIpsum from "lorem-ipsum-japanese"
+import getRandomIntInclusive from "../utils/getRandomIntInclusive.js"
 
 function createDummyDetail() {
   const result = {
@@ -16,7 +9,7 @@ function createDummyDetail() {
     expires: dummyDate(),
     data: {
       floor: 1,
-      entries: []
+      entries: [],
     },
   }
 
@@ -46,7 +39,7 @@ function createDummyDetail() {
         bookmarks: bookmarks(),
         // url: 'http://localhost/',
         // count: number,
-        eid: faker.random.number().toString(),
+        eid: faker.number.int().toString(),
         screenshot:
           "https://b.st-hatena.com/images/v4/public/common/noimage.png?version=95fdba88c17683f2972c05f7aad7f414f2ad2e61",
         // requested_url: 'http://localhost/',
@@ -132,4 +125,4 @@ function rare() {
   return Math.random() >= 0.9
 }
 
-module.exports = createDummyDetail
+export default createDummyDetail

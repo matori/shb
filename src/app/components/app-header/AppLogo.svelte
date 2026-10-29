@@ -1,31 +1,32 @@
 <script>
-
+  let { class: className = "", ...rest } = $props()
 </script>
 
-<template>
-  <h1 {...$$props} class="{$$props.class || ''} AppLogo">
-    <a href="/" class="AppLogo-link">しんぷるはてぶ</a>
-  </h1>
-</template>
+<h1 {...rest} class={[className, "AppLogo"]}>
+  <a href="/" class="AppLogo-link">しんぷるはてぶ</a>
+</h1>
 
-<style lang="scss" global>
-  .AppLogo {
-    @include text(1);
-    margin-top: 0;
-    margin-bottom: 0;
-    font-weight: var(--fw-normal);
-    white-space: nowrap;
-  }
+<style>
+  :global {
+    .AppLogo {
+      font-size: var(--fs-l);
+      line-height: var(--lh-l);
+      margin-top: 0;
+      margin-bottom: 0;
+      font-weight: var(--fw-normal);
+      white-space: nowrap;
+    }
 
-  .AppLogo-link {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    color: inherit;
-    text-decoration: none;
+    .AppLogo-link {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      color: inherit;
+      text-decoration: none;
 
-    &:hover {
-      text-decoration: underline;
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 </style>

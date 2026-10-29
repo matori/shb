@@ -1,34 +1,30 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import Link from "~/elements/Link"
 
-  let url
-  export { url }
-
-  const removeAttrs = createNullValueObject(["url"])
+  let { url, class: className = "", children, ...rest } = $props()
 </script>
 
-<template>
-  <Link {...$$props} {...removeAttrs} {url} class="{$$props.class || ''} LinkBox">
-    <slot />
-  </Link>
-</template>
+<Link {...rest} {url} class={[className, "LinkBox"]}>
+  {@render children?.()}
+</Link>
 
-<style lang="scss" global>
-  .LinkBox {
-    @include text(-1, false);
-    display: inline-block;
-    border-radius: 2px;
-    padding: get-lines(0.5);
-    overflow: hidden;
-    background-color: var(--color-bg-blue);
-    color: white;
-    line-height: 1;
-    text-decoration: none;
-    vertical-align: bottom;
+<style>
+  :global {
+    .LinkBox {
+      font-size: var(--fs-s);
+      display: inline-block;
+      border-radius: 2px;
+      padding: calc(var(--line) * 0.5);
+      overflow: hidden;
+      background-color: var(--color-bg-blue);
+      color: white;
+      line-height: 1;
+      text-decoration: none;
+      vertical-align: bottom;
 
-    &:hover {
-      text-decoration: underline;
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 </style>

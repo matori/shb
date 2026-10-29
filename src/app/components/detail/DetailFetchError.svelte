@@ -1,31 +1,25 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import FetchError from "~/components/common/FetchError"
 
-  let display
-  let when
-  let message
-  export { display, when, message }
-
-  const removeAttrs = createNullValueObject(["display", "when", "message"])
+  let { class: className = "", ...rest } = $props()
 </script>
 
-<template>
-  <div class="{$$props.class || ''} DetailFetchError">
-    <FetchError {...$$props} {...removeAttrs} {display} {when} {message} class="DetailFetchError-error" />
-  </div>
-</template>
+<div class={[className, "DetailFetchError"]}>
+  <FetchError {...rest} class="DetailFetchError-error" />
+</div>
 
-<style lang="scss" global>
-  .DetailFetchError {
-    border-width: 1px;
-    border-style: solid;
-    border-color: var(--color-border-base);
-    padding: get-lines(1);
-    background-color: var(--color-bg-content);
-    box-shadow: var(--box-shadow-base);
-  }
+<style>
+  :global {
+    .DetailFetchError {
+      border-width: 1px;
+      border-style: solid;
+      border-color: var(--color-border-base);
+      padding: var(--line);
+      background-color: var(--color-bg-content);
+      box-shadow: var(--box-shadow-base);
+    }
 
-  .DetailFetchError-error {
+    .DetailFetchError-error {
+    }
   }
 </style>

@@ -1,39 +1,38 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import CategoryTab from "~/components/entries/CategoryTab"
   import EntriesHeader from "~/components/entries/EntriesHeader"
 
-  const removeAttrs = createNullValueObject([])
+  let { class: className = "", ...rest } = $props()
 </script>
 
-<template>
-  <section {...$$props} {...removeAttrs} class="{$$props.class || ''} EntriesContainer">
-    <EntriesHeader heading="エントリーの一覧" class="EntriesContainer-header" />
-    <div class="EntriesContainer-entries">
-      <CategoryTab class="EntriesContainer-content" />
-    </div>
-  </section>
-</template>
+<section {...rest} class={[className, "EntriesContainer"]}>
+  <EntriesHeader heading="エントリーの一覧" class="EntriesContainer-header" />
+  <div class="EntriesContainer-entries">
+    <CategoryTab class="EntriesContainer-content" />
+  </div>
+</section>
 
-<style lang="scss" global>
-  .EntriesContainer {
-    display: grid;
-    grid-template-rows: min-content 1fr;
-    row-gap: get-lines(0.5) - $line-edge;
-  }
+<style>
+  :global {
+    .EntriesContainer {
+      display: grid;
+      grid-template-rows: min-content 1fr;
+      row-gap: calc(var(--line) * 0.5 - var(--line-edge));
+    }
 
-  .EntriesContainer-header {
-  }
+    .EntriesContainer-header {
+    }
 
-  .EntriesContainer-entries {
-    border-width: 1px;
-    border-style: solid;
-    border-color: var(--color-border-base);
-    min-height: 0;
-    box-shadow: var(--shadow-base);
-    background-color: var(--color-bg-content);
-  }
+    .EntriesContainer-entries {
+      border-width: 1px;
+      border-style: solid;
+      border-color: var(--color-border-base);
+      min-height: 0;
+      box-shadow: var(--shadow-base);
+      background-color: var(--color-bg-content);
+    }
 
-  .EntriesContainer-content {
+    .EntriesContainer-content {
+    }
   }
 </style>

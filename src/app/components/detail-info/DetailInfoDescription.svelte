@@ -1,22 +1,18 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
-
-  let text
-  export { text }
-
-  const removeAttrs = createNullValueObject(["text"])
+  let { text, class: className = "", ...rest } = $props()
 </script>
 
-<template>
-  <p {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailInfoDescription">
-    {#if text}{text}{:else}詳細データはありません。{/if}
-  </p>
-</template>
+<p {...rest} class={[className, "DetailInfoDescription"]}>
+  {#if text}{text}{:else}詳細データはありません。{/if}
+</p>
 
-<style lang="scss" global>
-  .DetailInfoDescription {
-    @include text(-1);
-    margin: 0;
-    overflow-wrap: break-word;
+<style>
+  :global {
+    .DetailInfoDescription {
+      font-size: var(--fs-s);
+      line-height: var(--lh-s);
+      margin: 0;
+      overflow-wrap: break-word;
+    }
   }
 </style>

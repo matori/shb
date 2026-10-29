@@ -1,48 +1,46 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import Link from "~/elements/Link"
   import Icon from "~/elements/Icon"
 
-  let url
-  export { url }
+  let { url, class: className = "", ...rest } = $props()
 
-  const removeAttrs = createNullValueObject(["url"])
-
-  $: twitterUrl = `https://twitter.com/search?q=${encodeURIComponent(url)}`
+  const twitterUrl = $derived(`https://twitter.com/search?q=${encodeURIComponent(url)}`)
 </script>
 
-<template>
-  <div {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailInfoSearchTwitter">
-    <Link url="{twitterUrl}" class="DetailInfoSearchTwitter-link">
-      <Icon name="twitter" class="DetailInfoSearchTwitter-icon" />
-      <span class="DetailInfoSearchTwitter-label">TwitterでURL検索</span>
-    </Link>
-  </div>
-</template>
+<div {...rest} class={[className, "DetailInfoSearchTwitter"]}>
+  <Link url={twitterUrl} class="DetailInfoSearchTwitter-link">
+    <Icon name="twitter" class="DetailInfoSearchTwitter-icon" />
+    <span class="DetailInfoSearchTwitter-label">TwitterでURL検索</span>
+  </Link>
+</div>
 
-<style lang="scss" global>
-  .DetailInfoSearchTwitter {
-  }
-
-  .DetailInfoSearchTwitter-link {
-    @include text(-1);
-    display: inline-flex;
-    align-items: center;
-    color: var(--color-text-gray);
-    text-decoration: none;
-    vertical-align: bottom;
-
-    &:hover {
-      text-decoration: underline;
+<style>
+  :global {
+    .DetailInfoSearchTwitter {
     }
-  }
 
-  .DetailInfoSearchTwitter-icon {
-    @include icon-size(-1);
-    margin-right: 0.5em;
-    color: #1da1f2;
-  }
+    .DetailInfoSearchTwitter-link {
+      font-size: var(--fs-s);
+      line-height: var(--lh-s);
+      display: inline-flex;
+      align-items: center;
+      color: var(--color-text-gray);
+      text-decoration: none;
+      vertical-align: bottom;
 
-  .DetailInfoSearchTwitter-label {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .DetailInfoSearchTwitter-icon {
+      width: calc(var(--fs-s) * var(--lh-s));
+      height: calc(var(--fs-s) * var(--lh-s));
+      margin-right: 0.5em;
+      color: #1da1f2;
+    }
+
+    .DetailInfoSearchTwitter-label {
+    }
   }
 </style>

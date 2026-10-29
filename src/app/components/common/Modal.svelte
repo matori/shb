@@ -1,117 +1,118 @@
 <script>
-  import { createEventDispatcher } from "svelte"
   import KEY_NAMES from "~/constants/keyNames"
-  import createNullValueObject from "~/utils/createNullValueObject"
   import Button from "~/elements/Button.svelte"
   import Icon from "~/elements/Icon.svelte"
 
-  let closeButton = null
-  let show = false
-  export { closeButton, show }
-
-  const removeAttrs = createNullValueObject(["closeButton", "show"])
-
-  const dispatch = createEventDispatcher()
+  let {
+    closeButton = $bindable(),
+    show = false,
+    onclose,
+    onclosebuttonkeydown,
+    class: className = "",
+    children,
+    ...rest
+  } = $props()
 
   function onKeydownModal(event) {
     if (event.key === KEY_NAMES.escape) {
       event.stopPropagation()
-      dispatch("modal:close")
+      onclose?.()
     }
-  }
-
-  function dispatchModalClose() {
-    dispatch("modal:close")
-  }
-
-  function onKeydownCloseButton(event) {
-    dispatch("closebutton:keydown", event)
   }
 </script>
 
-<template>
-  <div
-    {...$$props}
-    {...removeAttrs}
-    class="{$$props.class || ''} Modal"
-    role="dialog"
-    aria-hidden="{!show}"
-    on:keydown="{onKeydownModal}"
+<div {...rest} class={[className, "Modal"]} role="dialog" aria-hidden={!show} onkeydown={onKeydownModal}>
+  <!-- 背景クリックはマウス向けの補助。キーボードではESCキーで閉じられる -->
+  <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions -->
+  <div class="Modal-backdrop" onclick={() => onclose?.()}></div>
+  <Button
+    class="Modal-close"
+    title="ESCキー、画像の背景をクリックでも閉じられます"
+    bind:ref={closeButton}
+    onclick={() => onclose?.()}
+    onkeydown={onclosebuttonkeydown}
   >
-    <div class="Modal-backdrop" on:click="{dispatchModalClose}"></div>
-    <Button
-      class="Modal-close"
-      title="ESCキー、画像の背景をクリックでも閉じられます"
-      bind:ref="{closeButton}"
-      on:click="{dispatchModalClose}"
-      on:keydown="{onKeydownCloseButton}"
-    >
-      <Icon name="close" class="Modal-icon" />
-      閉じる
-    </Button>
-    <div class="Modal-inner">
-      <div class="Modal-content">
-        <slot />
-      </div>
+    <Icon name="close" class="Modal-icon" />
+    閉じる
+  </Button>
+  <div class="Modal-inner">
+    <div class="Modal-content">
+      {@render children?.()}
     </div>
   </div>
-</template>
+</div>
 
-<style lang="scss" global>
-  .Modal {
-    display: grid;
-    grid-template-columns: get-lines(3) fit-content(calc(var(--content-max-width) - #{get-lines(2)})) get-lines(3);
-    grid-template-rows: get-lines(3) 1fr get-lines(3);
-    justify-content: center;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    visibility: hidden;
+<style>
+  :global {
+    .Modal {
+      display: grid;
+      grid-template-columns: calc(var(--line) * 3) fit-content(calc(var(--content-max-width) - var(--line) * 2)) calc(
+          var(--line) * 3
+        );
+      grid-template-rows: calc(var(--line) * 3) 1fr calc(var(--line) * 3);
+      justify-content: center;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      visibility: hidden;
 
-    &[aria-hidden="false"] {
-      visibility: visible;
+      &[aria-hidden="false"] {
+        visibility: visible;
+      }
     }
-  }
 
-  .Modal-backdrop {
-    position: absolute;
-    z-index: -1;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.85);
-  }
+    .Modal-backdrop {
+      position: absolute;
+      z-index: -1;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.85);
+    }
 
-  .Modal-close {
-    @include text(0);
-    @include spread-clickable-area();
-    display: flex;
-    position: absolute;
-    top: get-lines(0.5);
-    right: get-lines(0.5);
-    color: white;
-  }
+    .Modal-close {
+      font-size: var(--fs-m);
+      line-height: var(--lh-m);
+      &::before {
+        position: absolute;
+        inset: calc(var(--line-edge) * -1);
+        content: "";
+        box-shadow: 0 0 2px 1px var(--color-text-blue);
+        opacity: 0;
+      }
 
-  .Modal-icon {
-    @include icon-size(0);
-  }
+      &:hover::before {
+        opacity: 1;
+      }
+      display: flex;
+      position: absolute;
+      top: calc(var(--line) * 0.5);
+      right: calc(var(--line) * 0.5);
+      color: white;
+    }
 
-  .Modal-inner {
-    grid-column-start: 2;
-    grid-column-end: 3;
-    grid-row-start: 2;
-    grid-row-end: 3;
-    min-height: 0;
-    display: grid;
-    grid-template-rows: fit-content(100%);
-    align-content: center;
-  }
+    .Modal-icon {
+      width: var(--line);
+      height: var(--line);
+    }
 
-  .Modal-content {
-    overflow: auto;
+    .Modal-inner {
+      grid-column-start: 2;
+      grid-column-end: 3;
+      grid-row-start: 2;
+      grid-row-end: 3;
+      min-height: 0;
+      display: grid;
+      grid-template-rows: fit-content(100%);
+      align-content: center;
+    }
+
+    .Modal-content {
+      overflow: auto;
+    }
   }
 </style>

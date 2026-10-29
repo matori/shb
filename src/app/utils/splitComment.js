@@ -10,7 +10,7 @@ function splitComment(comment) {
   // 分割にマッチした正規表現部分も含むように
   const separatedComment = comment.split(new RegExp(`(${webUrlRegexp}|${entryEid}|${idCall})`, "ig"))
 
-  return separatedComment.map(text => {
+  return separatedComment.map((text) => {
     const result = {
       text,
     }

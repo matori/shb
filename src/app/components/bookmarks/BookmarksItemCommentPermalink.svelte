@@ -1,49 +1,40 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import Link from "~/elements/Link"
   import Icon from "~/elements/Icon"
 
-  let user
-  let eid
-  export { user, eid }
+  let { user, eid, class: className = "", ...rest } = $props()
 
-  const removeAttrs = createNullValueObject(["user", "eid"])
-
-  const url = `https://b.hatena.ne.jp/entry/${eid}/comment/${user}`
+  const url = $derived(`https://b.hatena.ne.jp/entry/${eid}/comment/${user}`)
 </script>
 
-<template>
-  <Link
-    {...$$props}
-    {...removeAttrs}
-    {url}
-    class="{$$props.class || ''} BookmarksItemCommentPermalink"
-    title="コメントのパーマリンク"
-  >
-    <Icon name="link" class="BookmarksItemCommentPermalink-icon" aria-hidden="true" />
-    <span class="BookmarksItemCommentPermalink-label">Permalink</span>
-  </Link>
-</template>
+<Link {...rest} {url} class={[className, "BookmarksItemCommentPermalink"]} title="コメントのパーマリンク">
+  <Icon name="link" class="BookmarksItemCommentPermalink-icon" aria-hidden="true" />
+  <span class="BookmarksItemCommentPermalink-label">Permalink</span>
+</Link>
 
-<style lang="scss" global>
-  .BookmarksItemCommentPermalink {
-    @include text(-2);
-    display: flex;
-    align-items: center;
-    color: var(--color-text-steel);
-    text-decoration: none;
+<style>
+  :global {
+    .BookmarksItemCommentPermalink {
+      font-size: var(--fs-xs);
+      line-height: var(--lh-xs);
+      display: flex;
+      align-items: center;
+      color: var(--color-text-steel);
+      text-decoration: none;
 
-    &:hover {
-      text-decoration: underline;
+      &:hover {
+        text-decoration: underline;
+      }
     }
-  }
 
-  .BookmarksItemCommentPermalink-icon {
-    @include icon-size(-4);
-    margin-right: 0.25em;
-  }
+    .BookmarksItemCommentPermalink-icon {
+      width: 1.041667rem;
+      height: 1.041667rem;
+      margin-right: 0.25em;
+    }
 
-  .BookmarksItemCommentPermalink-label {
-    white-space: nowrap;
+    .BookmarksItemCommentPermalink-label {
+      white-space: nowrap;
+    }
   }
 </style>

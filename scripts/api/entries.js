@@ -1,8 +1,9 @@
+import { readFileSync } from "node:fs"
+
 function entries() {
-  const entries = require("./data/entries.json")
+  const entries = JSON.parse(readFileSync(new URL("./data/entries.json", import.meta.url), "utf-8"))
   entries.last_modified = new Date()
   return entries
-  // send(res, 200, entries, { "Content-Type": "application/json" })
 }
 
-module.exports = entries
+export default entries

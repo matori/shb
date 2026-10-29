@@ -1,5 +1,5 @@
 import { writable } from "svelte/store"
-import store from "store"
+import store from "~/utils/storage"
 
 const STORAGE_NAME = "simple_hatebu_ui_status"
 const initialData = {
