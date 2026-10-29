@@ -9,18 +9,16 @@
 <style>
   :global {
     .DetailNoBookmarkError {
-      border-width: 1px;
-      border-style: solid;
-      border-color: var(--color-border-base);
-      padding: var(--line);
-      background-color: var(--color-bg-content);
-      box-shadow: var(--box-shadow-base);
+      border-radius: 0 0 var(--radius-panel) var(--radius-panel);
+      padding: calc(var(--line) * 0.5) calc(var(--line) * 0.75) calc(var(--line) * 0.75);
+      background-color: var(--color-surface);
     }
 
     .DetailNoBookmarkError-message {
-      margin: 0;
       font-size: var(--fs-m);
       line-height: var(--lh-m);
+      margin: 0;
+      color: var(--color-text-sub);
     }
   }
 </style>

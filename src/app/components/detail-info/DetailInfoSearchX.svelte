@@ -16,31 +16,25 @@
 
 <style>
   :global {
-    .DetailInfoSearchX {
-    }
-
     .DetailInfoSearchX-link {
-      font-size: var(--fs-s);
-      line-height: var(--lh-s);
+      font-size: var(--fs-xs);
+      line-height: var(--lh-xs);
       display: inline-flex;
       align-items: center;
-      color: var(--color-text-gray);
+      gap: 0.4em;
+      color: var(--color-text-sub);
       text-decoration: none;
-      vertical-align: bottom;
 
       &:hover {
+        color: var(--color-text);
         text-decoration: underline;
       }
     }
 
     .DetailInfoSearchX-icon {
-      width: calc(var(--fs-s) * var(--lh-s));
-      height: calc(var(--fs-s) * var(--lh-s));
-      margin-right: 0.5em;
-      color: var(--color-text-base);
-    }
-
-    .DetailInfoSearchX-label {
+      width: 1em;
+      height: 1em;
+      color: var(--color-text);
     }
   }
 </style>

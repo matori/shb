@@ -13,13 +13,9 @@
     .DetailInfoDate {
       font-size: var(--fs-xs);
       line-height: var(--lh-xs);
-      display: flex;
-      align-items: flex-end;
-      padding-right: var(--line-edge);
-    }
-
-    .DetailInfoDate-time {
-      color: var(--color-text-gray);
+      color: var(--color-text-muted);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
     }
   }
 </style>

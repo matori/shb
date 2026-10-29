@@ -16,40 +16,23 @@
     .DetailInfoToggleSwitch {
       font-size: var(--fs-xs);
       line-height: var(--lh-xs);
-      &::before {
-        position: absolute;
-        inset: 0;
-        content: "";
-        box-shadow: 0 0 2px 1px var(--color-text-blue);
-        opacity: 0;
-      }
-
-      &:hover::before {
-        opacity: 1;
-      }
-      display: block;
+      display: inline-flex;
       align-items: center;
-      position: relative;
-      padding: calc(var(--line) * 0.5) calc(var(--line) * 0.25 + var(--line-edge));
-      width: 100%;
-      height: 100%;
+      gap: 0.25em;
+      border-radius: var(--radius-pill);
+      padding: 0.2em 0.6em;
+      color: var(--color-text-muted);
       white-space: nowrap;
-      text-align: left;
 
       &:hover {
+        background-color: var(--color-surface-sub);
+        color: var(--color-text);
       }
     }
 
     .DetailInfoToggleSwitch-icon {
       width: calc(var(--fs-xs) * var(--lh-xs));
       height: calc(var(--fs-xs) * var(--lh-xs));
-      display: inline-block;
-      margin-top: calc(var(--line-edge) * -1);
-      vertical-align: middle;
-
-      &._show {
-        display: inline-block;
-      }
 
       &._hide {
         display: none;

@@ -11,15 +11,9 @@
 <style>
   :global {
     .DetailFetchError {
-      border-width: 1px;
-      border-style: solid;
-      border-color: var(--color-border-base);
-      padding: var(--line);
-      background-color: var(--color-bg-content);
-      box-shadow: var(--box-shadow-base);
-    }
-
-    .DetailFetchError-error {
+      border-radius: 0 0 var(--radius-panel) var(--radius-panel);
+      padding: calc(var(--line) * 0.5) calc(var(--line) * 0.75) calc(var(--line) * 0.75);
+      background-color: var(--color-surface);
     }
   }
 </style>

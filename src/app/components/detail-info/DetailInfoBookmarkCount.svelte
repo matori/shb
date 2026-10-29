@@ -15,40 +15,29 @@
 
 <style>
   :global {
-    .DetailInfoBookmarkCount {
-    }
-
     .DetailInfoBookmarkCount-total {
-      font-size: var(--fs-xl);
-      line-height: var(--lh-xl);
-      position: relative;
+      font-size: var(--fs-s);
+      line-height: var(--lh-s);
       display: inline-flex;
       align-items: baseline;
-      color: var(--color-text-red);
+      gap: 0.2em;
+      border-radius: var(--radius-pill);
+      padding: 0.05em 0.8em;
+      background-color: var(--color-count-bg);
+      color: var(--color-count);
+      font-weight: var(--fw-bold);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
       text-decoration: none;
 
-      &::after {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        border-top-width: 1px;
-        border-top-style: solid;
-        content: "";
-        transform: scaleY(1);
+      &:hover {
+        background-color: var(--color-count);
+        color: var(--color-on-accent);
       }
-
-      &:hover::after {
-        transform: scaleY(3);
-      }
-    }
-
-    .DetailInfoBookmarkCount-totalCount {
     }
 
     .DetailInfoBookmarkCount-totalSuffix {
-      font-size: var(--fs-s);
-      margin-left: 0.1em;
+      font-size: var(--fs-xs);
     }
   }
 </style>
