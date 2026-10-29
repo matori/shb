@@ -2,6 +2,17 @@
 <html lang="ja">
   <head>
     <meta charset="utf-8" />
+    <script>
+      // 保存された表示テーマを描画の前に反映し、ライトで表示されてからダークに切り替わるちらつきを防ぐ
+      try {
+        const theme = JSON.parse(localStorage.getItem("simple_hatebu_settings"))?.theme
+        if (theme === "light" || theme === "dark") {
+          document.documentElement.dataset.theme = theme
+        }
+      } catch {
+        // 保存値が読めなければ OS の設定に従う
+      }
+    </script>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>しんぷるはてぶ</title>
     <link rel="canonical" href="https://shb.unformedbuilding.com" />

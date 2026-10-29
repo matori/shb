@@ -1,25 +1,30 @@
 :root {
-  /* 色。ダークモードに対応するときは、ここの値を切り替える */
-  --color-bg: #eceff4;
-  --color-surface: #ffffff;
-  --color-surface-sub: #f0f3f8;
-  --color-surface-hover: #f6f8fb;
-  --color-text: #1b1f27;
-  --color-text-sub: #4b5260;
-  --color-text-muted: #6a7180;
-  --color-line: #edf0f4;
-  --color-line-strong: #d6dce6;
-  --color-accent: #2457c5;
-  --color-accent-hover: #173f96;
-  --color-on-accent: #ffffff;
-  --color-count: #c42b26;
-  --color-count-bg: #fdecea;
-  --color-category: #9c4300;
-  --color-category-bg: #fff0e3;
-  --color-error: #c42b26;
-  --color-avatar-bg: #d6dce6;
-  --color-backdrop: rgba(10, 14, 22, 0.75);
-  --color-scroll-shadow: rgba(20, 30, 50, 0.2);
+  /*
+   * 色。light-dark(ライト, ダーク) で両方の値を持たせ、color-scheme で切り替える
+   * 「自動」は OS の設定に従い、設定画面でライト・ダークを選ぶと <html data-theme> で固定する
+   */
+  color-scheme: light dark;
+
+  --color-bg: light-dark(#eceff4, #0f1217);
+  --color-surface: light-dark(#ffffff, #1a1e25);
+  --color-surface-sub: light-dark(#f0f3f8, #262b33);
+  --color-surface-hover: light-dark(#f6f8fb, #20252d);
+  --color-text: light-dark(#1b1f27, #e6e9ee);
+  --color-text-sub: light-dark(#4b5260, #b3bac5);
+  --color-text-muted: light-dark(#656c7a, #8b93a1);
+  --color-line: light-dark(#edf0f4, #2a3039);
+  --color-line-strong: light-dark(#d6dce6, #3a414c);
+  --color-accent: light-dark(#2457c5, #7aa7ff);
+  --color-accent-hover: light-dark(#173f96, #a3c1ff);
+  --color-on-accent: light-dark(#ffffff, #0f1217);
+  --color-count: light-dark(#c42b26, #ff8a80);
+  --color-count-bg: light-dark(#fdecea, #3a1f1f);
+  --color-category: light-dark(#9c4300, #ffb36b);
+  --color-category-bg: light-dark(#fff0e3, #3a2914);
+  --color-error: light-dark(#c42b26, #ff8a80);
+  --color-avatar-bg: light-dark(#d6dce6, #3a414c);
+  --color-backdrop: light-dark(rgba(10, 14, 22, 0.75), rgba(0, 0, 0, 0.75));
+  --color-scroll-shadow: light-dark(rgba(20, 30, 50, 0.2), rgba(0, 0, 0, 0.55));
 
   /* 角丸 */
   --radius-panel: 16px;
@@ -27,7 +32,7 @@
   --radius-pill: 999px;
 
   /* 切り替えボタンで選ばれている項目の浮き */
-  --shadow-selected: 0 1px 2px rgba(20, 30, 50, 0.14);
+  --shadow-selected: 0 1px 2px light-dark(rgba(20, 30, 50, 0.14), rgba(0, 0, 0, 0.5));
 
   /* 1行の高さ（文字サイズ16px + 行間6px）と、行間の半分 */
   --line: 1.375rem;
@@ -55,6 +60,15 @@
 
   --content-max-width: 1920px;
   --content-min-width: 960px;
+}
+
+/* 設定画面でライト・ダークを選んだとき */
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
 }
 
 @keyframes syncing {

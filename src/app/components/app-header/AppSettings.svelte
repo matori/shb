@@ -1,7 +1,7 @@
 <script>
   import KEY_NAMES from "~/constants/keyNames"
   import { entriesData } from "~/store/entries"
-  import { autoRefresh, autoRefreshInterval, links } from "~/store/config"
+  import { theme, autoRefresh, autoRefreshInterval, links } from "~/store/config"
   import Button from "~/elements/Button.svelte"
   import Icon from "~/elements/Icon.svelte"
   import Modal from "~/components/common/Modal.svelte"
@@ -14,6 +14,13 @@
   let lastFocusable = $state()
   let autoRefreshIntervalInput = $state()
   let linksText = $state("")
+  let themeValue = $state("auto")
+
+  const themeOptions = [
+    { value: "auto", label: "自動（OSの設定に合わせる）" },
+    { value: "light", label: "ライト" },
+    { value: "dark", label: "ダーク" },
+  ]
 
   const autoRefreshIntervalTime = $derived($autoRefreshInterval * 60 * 1000)
 
@@ -36,6 +43,10 @@
     linksText = linksToText($links)
   })
 
+  $effect.pre(() => {
+    themeValue = $theme
+  })
+
   function linksToText(arr) {
     return arr.reduce((result, link) => {
       result += `[${link.label}](${link.url})\n`
@@ -50,6 +61,7 @@
 
   function onSubmit(event) {
     event.preventDefault()
+    theme.set(themeValue)
     autoRefreshInterval.set(autoRefreshIntervalInput.value)
     links.set(linksText)
   }
@@ -103,6 +115,17 @@
   <Modal show={modalShow} bind:closeButton onclose={closeModal} onclosebuttonkeydown={onKeydownCloseButton}>
     <form class="AppSettings-form" onsubmit={onSubmit}>
       <div class="AppSettings-body">
+        <fieldset class="AppSettings-item AppSettings-fieldset">
+          <legend class="AppSettings-label">表示テーマ</legend>
+          <div class="AppSettings-options">
+            {#each themeOptions as option (option.value)}
+              <label class="AppSettings-option">
+                <input type="radio" name="theme" value={option.value} bind:group={themeValue} />
+                {option.label}
+              </label>
+            {/each}
+          </div>
+        </fieldset>
         <p class="AppSettings-item">
           <label for="autoRefreshInterval" class="AppSettings-label">エントリー一覧の自動更新間隔</label>
           <input
@@ -207,6 +230,30 @@
 
       &:nth-last-child(n + 2) {
         margin-bottom: var(--line);
+      }
+    }
+
+    .AppSettings-fieldset {
+      border: 0;
+      padding: 0;
+      min-width: 0;
+    }
+
+    .AppSettings-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: calc(var(--line) * 0.25) var(--line);
+    }
+
+    .AppSettings-option {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4em;
+      cursor: pointer;
+
+      input {
+        margin: 0;
+        accent-color: var(--color-accent);
       }
     }
 

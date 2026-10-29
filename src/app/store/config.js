@@ -3,6 +3,13 @@ import { persisted, isBoolean } from "~/store/persisted"
 const STORAGE_NAME = "simple_hatebu_settings"
 const MIN_AUTO_REFRESH_INTERVAL = 5
 
+// 表示テーマ。auto は OS の設定に従う。index.html の <head> でも同じ保存値を読んで、描画前に反映している
+const THEMES = ["auto", "light", "dark"]
+const theme = persisted(STORAGE_NAME, "theme", "auto", {
+  isValid: (value) => THEMES.includes(value),
+  parse: (value) => (THEMES.includes(value) ? value : undefined),
+})
+
 const autoRefresh = persisted(STORAGE_NAME, "autoRefresh", false, { isValid: isBoolean })
 
 // 自動更新の間隔（分）。入力欄の文字列を数値にし、5分未満なら5分にする
@@ -45,4 +52,4 @@ function parseLinks(value) {
   }, [])
 }
 
-export { autoRefresh, autoRefreshInterval, links }
+export { theme, autoRefresh, autoRefreshInterval, links }
