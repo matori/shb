@@ -18,6 +18,7 @@
   tabs={entryCategories}
   selected={$selectedCategoryTabIndex}
   panelTabIndex={false}
+  tabListClass="ScrollShadowX"
   class={[className, "CategoryTab"]}
   onselect={(index) => selectedCategoryTabIndex.set(index)}
 >
@@ -28,24 +29,34 @@
 
 <style>
   :global {
-    /* カテゴリーは下線のタブにして、人気・新着の切り替えボタンと見た目を分ける */
+    /*
+     * カテゴリーは下線のタブにして、人気・新着の切り替えボタンと見た目を分ける
+     * 1行に並べ、幅が余るときは各タブを広げてパネルの幅に合わせ、足りないときは横にスクロールする
+     */
     .CategoryTab > .TabContent-tabList {
-      flex-wrap: wrap;
       gap: 0;
-      border-bottom: 1px solid var(--color-line);
+      overflow-x: auto;
       padding: 0 calc(var(--line) * 0.5);
+      box-shadow: inset 0 -1px var(--color-line);
+      scrollbar-width: thin;
+
+      .TabContent-tabItem {
+        flex: 1 0 auto;
+      }
 
       .TabContent-tab {
         position: relative;
         border-radius: 0;
         padding: 0.35em 0.6em 0.45em;
+        width: 100%;
         background-color: transparent;
         color: var(--color-text-sub);
+        text-align: center;
 
         &::after {
           position: absolute;
           right: 0.6em;
-          bottom: -1px;
+          bottom: 0;
           left: 0.6em;
           border-radius: 2px 2px 0 0;
           height: 3px;

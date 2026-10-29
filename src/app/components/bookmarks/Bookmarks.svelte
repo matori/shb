@@ -24,9 +24,10 @@
   })
 </script>
 
-<div {...rest} class={[className, "Bookmarks", "ScrollShadow"]} bind:this={scrollContainer}>
+<div {...rest} class={[className, "Bookmarks"]}>
   <BookmarksHeader {content} class="Bookmarks-header" />
-  <div class="Bookmarks-body" aria-label="コメントのリスト">
+  <!-- 統計の行がスクロールの影を隠さないよう、スクロールするのはコメントの部分だけにする -->
+  <div class="Bookmarks-body ScrollShadow" aria-label="コメントのリスト" bind:this={scrollContainer}>
     {#if orderedBookmarks.length}
       <BookmarksList bookmarks={orderedBookmarks} eid={content.eid} class="Bookmarks-list" />
     {:else}
@@ -43,22 +44,21 @@
     .Bookmarks {
       display: grid;
       grid-template-rows: min-content 1fr;
-      position: relative;
+      min-height: 0;
+      border-top: 1px solid var(--color-line);
+    }
+
+    .Bookmarks-header {
+      border-bottom: 1px solid var(--color-line);
+    }
+
+    .Bookmarks-body {
       min-height: 0;
       overflow-y: auto;
-      border-top: 1px solid var(--color-line);
 
       &:focus:not(:focus-visible) {
         outline: none;
       }
-    }
-
-    .Bookmarks-header {
-      position: sticky;
-      top: 0;
-      z-index: 1;
-      border-bottom: 1px solid var(--color-line);
-      background-color: var(--color-surface);
     }
 
     .Bookmarks-message {

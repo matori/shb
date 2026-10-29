@@ -10,6 +10,7 @@
     labelledby,
     panelTabIndex = false,
     panelClass = "",
+    tabListClass = "",
     onselect,
     class: className = "",
     children,
@@ -49,7 +50,7 @@
 
 <div {...rest} class={[className, "TabContent"]}>
   <ol
-    class="TabContent-tabList"
+    class={["TabContent-tabList", tabListClass]}
     role="tablist"
     aria-label={labelledby ? null : label || null}
     aria-labelledby={labelledby || null}

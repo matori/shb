@@ -19,7 +19,7 @@
   --color-error: #c42b26;
   --color-avatar-bg: #d6dce6;
   --color-backdrop: rgba(10, 14, 22, 0.75);
-  --color-scroll-shadow: rgba(20, 30, 50, 0.16);
+  --color-scroll-shadow: rgba(20, 30, 50, 0.2);
 
   /* 角丸 */
   --radius-panel: 16px;
@@ -75,5 +75,15 @@
       scroll,
     radial-gradient(farthest-side at 50% 100%, var(--color-scroll-shadow), transparent) center bottom / 100% 12px
       no-repeat scroll;
+  background-color: var(--color-surface);
+}
+
+/* 横にスクロールする要素用。続きがあるときだけ左端・右端に影を出す（タブの行は低いので、影は直線のグラデーションにする） */
+.ScrollShadowX {
+  background:
+    linear-gradient(to right, var(--color-surface) 30%, transparent) left center / 48px 100% no-repeat local,
+    linear-gradient(to left, var(--color-surface) 30%, transparent) right center / 48px 100% no-repeat local,
+    linear-gradient(to right, var(--color-scroll-shadow), transparent) left center / 16px 100% no-repeat scroll,
+    linear-gradient(to left, var(--color-scroll-shadow), transparent) right center / 16px 100% no-repeat scroll;
   background-color: var(--color-surface);
 }
