@@ -1,6 +1,16 @@
 <script>
+  import { theme } from "~/store/config"
   import AppHeader from "~/components/app-header/AppHeader"
   import AppBody from "~/components/app-body/AppBody"
+
+  // ライト・ダークを選んだときは <html data-theme> で固定し、自動のときは OS の設定に従う
+  $effect(() => {
+    if ($theme === "auto") {
+      delete document.documentElement.dataset.theme
+    } else {
+      document.documentElement.dataset.theme = $theme
+    }
+  })
 </script>
 
 <AppHeader class="App-header" />
