@@ -1,6 +1,5 @@
 <script>
   import { detailFetchProcessing } from "~/store/detail"
-  import links from "~/data/links"
   import Link from "~/elements/Link.svelte"
   import Icon from "~/elements/Icon.svelte"
 
@@ -43,18 +42,6 @@
               >にお願いします。
             </li>
           </ul>
-        </section>
-        <section>
-          <h3>リンク集</h3>
-          <p>はてなブックマークをもっと楽しむためのツール集。</p>
-          <dl>
-            {#each links as item, index}
-              <dt>
-                <Link url={item.url}>{item.name}</Link>
-              </dt>
-              <dd>{item.description}</dd>
-            {/each}
-          </dl>
         </section>
       </div>
     </div>
@@ -130,22 +117,13 @@
       }
 
       p,
-      ul,
-      dl {
+      ul {
         margin-top: calc(var(--line) * 0.5);
         margin-bottom: calc(var(--line) * 0.5);
       }
 
       ul {
         padding-left: var(--line);
-      }
-
-      dt {
-        margin-top: calc(var(--line) * 0.5);
-      }
-
-      dd {
-        margin-left: var(--line);
       }
 
       a {
