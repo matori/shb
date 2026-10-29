@@ -11,31 +11,42 @@ function mockApi() {
       if (server.config.mode !== "dummy") {
         return
       }
-      server.middlewares.use("/api", (req, res, next) => {
+      server.middlewares.use("/api", async (req, res) => {
         const url = new URL(req.url, "http://localhost")
         console.info(`🖥 Requested: ${req.originalUrl}, Method: ${req.method}`)
-        switch (url.pathname) {
+        // .php は付けても付けなくてもよい
+        switch (url.pathname.replace(/\.php$/, "")) {
           case "/":
-            res.setHeader("Content-Type", "text/html; charset=utf-8")
-            res.end(apiIndex())
+            sendHtml(res, 200, apiIndex())
             return
           case "/entries":
-            sendJson(res, entries())
+            await sendJson(res, entries(url.searchParams))
             return
           case "/detail":
-            sendJson(res, detail(url.searchParams))
+            await sendJson(res, detail(url.searchParams))
             return
           default:
-            next()
+            // 本番APIでも、存在しないパスはJSONではなくHTMLが返る
+            sendHtml(res, 404, "<!DOCTYPE html><title>404 Not Found</title><h1>Not Found</h1>")
         }
       })
     },
   }
 }
 
-function sendJson(res, data) {
+async function sendJson(res, { status, body, delay = 0 }) {
+  if (delay) {
+    await new Promise((resolve) => setTimeout(resolve, delay))
+  }
+  res.statusCode = status
   res.setHeader("Content-Type", "application/json; charset=utf-8")
-  res.end(JSON.stringify(data))
+  res.end(JSON.stringify(body))
+}
+
+function sendHtml(res, status, html) {
+  res.statusCode = status
+  res.setHeader("Content-Type", "text/html; charset=utf-8")
+  res.end(html)
 }
 
 export default mockApi

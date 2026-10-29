@@ -478,7 +478,23 @@
           "url": "http://樹.net",
           "requested_url": "http://樹.net",
           "entry_url": "https://b.hatena.ne.jp/entry/http://樹.net",
-          "count": 95
+          "count": 95,
+          "related": [
+            {
+              "eid": "4701234",
+              "title": "関連エントリーのサンプル その1",
+              "count": 120,
+              "url": "https://example.com/related/1",
+              "entry_url": "https://b.hatena.ne.jp/entry/s/example.com/related/1"
+            },
+            {
+              "eid": "4701235",
+              "title": "関連エントリーのサンプル その2",
+              "count": 8,
+              "url": "https://example.com/related/2",
+              "entry_url": "https://b.hatena.ne.jp/entry/s/example.com/related/2"
+            }
+          ]
         }
       },
       {
@@ -715,7 +731,23 @@
           "url": "https://樹.biz",
           "requested_url": "https://樹.biz",
           "entry_url": "https://b.hatena.ne.jp/entry/https://樹.biz",
-          "count": 78
+          "count": 78,
+          "related": [
+            {
+              "eid": "4701234",
+              "title": "関連エントリーのサンプル その1",
+              "count": 120,
+              "url": "https://example.com/related/1",
+              "entry_url": "https://b.hatena.ne.jp/entry/s/example.com/related/1"
+            },
+            {
+              "eid": "4701235",
+              "title": "関連エントリーのサンプル その2",
+              "count": 8,
+              "url": "https://example.com/related/2",
+              "entry_url": "https://b.hatena.ne.jp/entry/s/example.com/related/2"
+            }
+          ]
         }
       },
       {
@@ -1246,7 +1278,23 @@
           "url": "http://蓮.biz",
           "requested_url": "http://蓮.biz",
           "entry_url": "https://b.hatena.ne.jp/entry/http://蓮.biz",
-          "count": 183
+          "count": 183,
+          "related": [
+            {
+              "eid": "4701234",
+              "title": "関連エントリーのサンプル その1",
+              "count": 120,
+              "url": "https://example.com/related/1",
+              "entry_url": "https://b.hatena.ne.jp/entry/s/example.com/related/1"
+            },
+            {
+              "eid": "4701235",
+              "title": "関連エントリーのサンプル その2",
+              "count": 8,
+              "url": "https://example.com/related/2",
+              "entry_url": "https://b.hatena.ne.jp/entry/s/example.com/related/2"
+            }
+          ]
         }
       },
       {
@@ -1381,7 +1429,23 @@
           "url": "http://愛菜.name",
           "requested_url": "http://愛菜.name",
           "entry_url": "https://b.hatena.ne.jp/entry/http://愛菜.name",
-          "count": 99
+          "count": 99,
+          "related": [
+            {
+              "eid": "4701234",
+              "title": "関連エントリーのサンプル その1",
+              "count": 120,
+              "url": "https://example.com/related/1",
+              "entry_url": "https://b.hatena.ne.jp/entry/s/example.com/related/1"
+            },
+            {
+              "eid": "4701235",
+              "title": "関連エントリーのサンプル その2",
+              "count": 8,
+              "url": "https://example.com/related/2",
+              "entry_url": "https://b.hatena.ne.jp/entry/s/example.com/related/2"
+            }
+          ]
         }
       },
       {
@@ -1444,9 +1508,26 @@
           "url": "http://太一.info",
           "requested_url": "http://太一.info",
           "entry_url": "https://b.hatena.ne.jp/entry/http://太一.info",
-          "count": 56
+          "count": 56,
+          "related": [
+            {
+              "eid": "4701234",
+              "title": "関連エントリーのサンプル その1",
+              "count": 120,
+              "url": "https://example.com/related/1",
+              "entry_url": "https://b.hatena.ne.jp/entry/s/example.com/related/1"
+            },
+            {
+              "eid": "4701235",
+              "title": "関連エントリーのサンプル その2",
+              "count": 8,
+              "url": "https://example.com/related/2",
+              "entry_url": "https://b.hatena.ne.jp/entry/s/example.com/related/2"
+            }
+          ]
         }
       }
-    ]
+    ],
+    "error": false
   }
 }
