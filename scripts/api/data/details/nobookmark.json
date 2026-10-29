@@ -9,6 +9,7 @@
         "status_code": 200,
         "content": null
       }
-    ]
+    ],
+    "error": false
   }
 }

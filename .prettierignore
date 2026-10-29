@@ -1,5 +1,4 @@
 public
-docs
+docs/frontend-api.md
 schema
-scripts/api/data
 package-lock.json

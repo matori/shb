@@ -6,7 +6,11 @@
 
 <span {...rest} class={[className, "DetailInfoSite"]}>
   <Link {url} class="DetailInfoSite-link">
-    <img src={favicon} class="DetailInfoSite-favicon" alt="" />
+    {#if favicon}
+      <img src={favicon} class="DetailInfoSite-favicon" alt="" />
+    {:else}
+      <span class="DetailInfoSite-favicon"></span>
+    {/if}
     <span class="DetailInfoSite-label">{label}</span>
   </Link>
 </span>

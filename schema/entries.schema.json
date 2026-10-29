@@ -1,0 +1,181 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "entries.schema.json",
+  "title": "EntriesResponse",
+  "description": "GET /shb/v1/entries のレスポンス",
+  "type": "object",
+  "required": ["last_modified", "expires", "data"],
+  "additionalProperties": false,
+  "properties": {
+    "last_modified": {
+      "description": "データを取得した日時（ISO 8601、+09:00）",
+      "type": "string",
+      "format": "date-time"
+    },
+    "expires": {
+      "description": "キャッシュの有効期限（ISO 8601、+09:00）",
+      "type": "string",
+      "format": "date-time"
+    },
+    "data": {
+      "description": "カテゴリごとのフィード",
+      "type": "object",
+      "required": ["all", "general", "social", "economics", "life", "knowledge", "it", "fun", "entertainment", "game"],
+      "additionalProperties": false,
+      "properties": {
+        "all": { "$ref": "#/$defs/CategoryFeeds" },
+        "general": { "$ref": "#/$defs/CategoryFeeds" },
+        "social": { "$ref": "#/$defs/CategoryFeeds" },
+        "economics": { "$ref": "#/$defs/CategoryFeeds" },
+        "life": { "$ref": "#/$defs/CategoryFeeds" },
+        "knowledge": { "$ref": "#/$defs/CategoryFeeds" },
+        "it": { "$ref": "#/$defs/CategoryFeeds" },
+        "fun": { "$ref": "#/$defs/CategoryFeeds" },
+        "entertainment": { "$ref": "#/$defs/CategoryFeeds" },
+        "game": { "$ref": "#/$defs/CategoryFeeds" }
+      }
+    }
+  },
+  "$defs": {
+    "CategorySlug": {
+      "description": "カテゴリ（all: 総合, general: 一般, social: 世の中, economics: 政治と経済, life: 暮らし, knowledge: 学び, it: テクノロジー, fun: おもしろ, entertainment: エンタメ, game: アニメとゲーム）",
+      "type": "string",
+      "enum": ["all", "general", "social", "economics", "life", "knowledge", "it", "fun", "entertainment", "game"]
+    },
+    "CategoryFeeds": {
+      "description": "1カテゴリ分の人気（hotentry）・新着（entrylist）フィード",
+      "type": "object",
+      "required": ["hotentry", "entrylist"],
+      "additionalProperties": false,
+      "properties": {
+        "hotentry": { "$ref": "#/$defs/Feed" },
+        "entrylist": { "$ref": "#/$defs/Feed" }
+      }
+    },
+    "Feed": {
+      "description": "取得できた場合は items、取得・解析に失敗した場合は error と message を持つ",
+      "oneOf": [
+        { "$ref": "#/$defs/FeedSuccess" },
+        { "$ref": "#/$defs/FeedError" }
+      ]
+    },
+    "FeedSuccess": {
+      "type": "object",
+      "required": ["status", "items"],
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "description": "はてなのHTTPステータスコード",
+          "type": "integer"
+        },
+        "items": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Item" }
+        }
+      }
+    },
+    "FeedError": {
+      "type": "object",
+      "required": ["status", "error", "message"],
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "description": "はてなのHTTPステータスコード。通信エラーの場合は0。XMLの解析に失敗した場合は200のこともある",
+          "type": "integer"
+        },
+        "error": {
+          "type": "boolean",
+          "const": true
+        },
+        "message": {
+          "description": "エラーの内容（例: \"HTTP 503\", \"Couldn't connect to server\", \"フィードの解析に失敗しました\"）",
+          "type": "string"
+        }
+      }
+    },
+    "Item": {
+      "description": "フィード内の1エントリー",
+      "type": "object",
+      "required": [
+        "title", "url", "description", "favicon", "date", "bookmarkCount", "bookmarkPageUrl",
+        "siteEntriesUrl", "siteEntriesLabel", "image", "addBookmarkUrl", "realCategory", "tags"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "title": { "type": "string" },
+        "url": {
+          "description": "エントリーのURL",
+          "type": "string"
+        },
+        "description": {
+          "description": "概要。空文字のこともある",
+          "type": "string"
+        },
+        "favicon": {
+          "description": "ファビコンのURL。取れなかった場合は空文字",
+          "type": "string"
+        },
+        "date": {
+          "description": "ブックマークされた日時（ISO 8601、+09:00）",
+          "type": "string",
+          "format": "date-time"
+        },
+        "bookmarkCount": { "type": "integer", "minimum": 0 },
+        "bookmarkPageUrl": {
+          "description": "はてなブックマークのエントリーページのURL",
+          "type": "string"
+        },
+        "siteEntriesUrl": {
+          "description": "同じサイトのエントリー一覧のURL",
+          "type": "string"
+        },
+        "siteEntriesLabel": {
+          "description": "サイト名（siteEntriesUrl から取り出したもの。例: \"news.yahoo.co.jp\"）",
+          "type": "string"
+        },
+        "image": {
+          "description": "サムネイル画像のURL。ない場合は空文字",
+          "type": "string"
+        },
+        "addBookmarkUrl": {
+          "description": "ブックマーク追加画面のURL",
+          "type": "string"
+        },
+        "realCategory": {
+          "description": "エントリー自体のカテゴリ（総合フィードなどでの実際のカテゴリ）",
+          "type": "object",
+          "required": ["slug", "label"],
+          "additionalProperties": false,
+          "properties": {
+            "slug": {
+              "description": "カテゴリが判別できなかった場合は false",
+              "anyOf": [
+                { "$ref": "#/$defs/CategorySlug" },
+                { "type": "boolean", "const": false }
+              ]
+            },
+            "label": {
+              "description": "カテゴリ名（例: \"テクノロジー\"）。判別できなかった場合は空文字のこともある",
+              "type": "string"
+            }
+          }
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["label", "url"],
+            "additionalProperties": false,
+            "properties": {
+              "label": { "type": "string" },
+              "url": {
+                "description": "タグ検索のURL",
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

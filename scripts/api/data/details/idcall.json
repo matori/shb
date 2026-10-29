@@ -1,0 +1,120 @@
+{
+  "last_modified": "2026-10-29T12:00:00+09:00",
+  "expires": "2026-10-29T12:05:00+09:00",
+  "data": {
+    "floor": 1,
+    "error": false,
+    "entries": [
+      {
+        "error": false,
+        "status_code": 200,
+        "content": {
+          "bookmarks": [
+            {
+              "user": "alice",
+              "comment": "1階でのaliceのコメント",
+              "tags": ["あとで読む"],
+              "timestamp": "2026/10/29 10:00"
+            },
+            {
+              "user": "bob",
+              "comment": "id:alice に同意",
+              "tags": [],
+              "timestamp": "2026/10/29 10:05"
+            },
+            {
+              "user": "carol",
+              "comment": "",
+              "tags": [],
+              "timestamp": "2026/10/29 10:10"
+            },
+            {
+              "user": "dave",
+              "comment": "1階でのdaveのコメント。b:id:bob も参照",
+              "tags": [],
+              "timestamp": "2026/10/29 10:15"
+            }
+          ],
+          "eid": "82546",
+          "screenshot": "https://b.st-hatena.com/images/v4/public/common/noimage.png?version=95fdba88c17683f2972c05f7aad7f414f2ad2e61",
+          "title": "Corrupti neque qui illum. Qui sapiente dignissimos. Quis dolores et consequuntur eos ut deserunt est et voluptas.\n \rEst recusandae accusantium adipisci quae. Natus dolorem id eum possimus nesciunt blanditiis possimus ipsam ut. Officia fuga assumenda voluptatem doloremque eligendi assumenda quo.\n \rAnimi dolore aut sunt velit enim et tempore. Qui consequatur quidem eum dolore officiis. Molestiae veritatis at totam at nemo autem rerum illo. Consequatur doloribus voluptate ad est ea ea minima tempora provident. Esse iure explicabo velit doloribus optio incidunt placeat.",
+          "url": "http://樹.net",
+          "requested_url": "http://樹.net",
+          "entry_url": "https://b.hatena.ne.jp/entry/http://樹.net",
+          "count": 6,
+          "related": [
+            {
+              "eid": "4701234",
+              "title": "関連エントリーのサンプル その1",
+              "count": 120,
+              "url": "https://example.com/related/1",
+              "entry_url": "https://b.hatena.ne.jp/entry/s/example.com/related/1"
+            },
+            {
+              "eid": "4701235",
+              "title": "関連エントリーのサンプル その2",
+              "count": 8,
+              "url": "https://example.com/related/2",
+              "entry_url": "https://b.hatena.ne.jp/entry/s/example.com/related/2"
+            }
+          ]
+        }
+      },
+      {
+        "error": false,
+        "status_code": 200,
+        "content": {
+          "bookmarks": [
+            {
+              "user": "erin",
+              "comment": "id:dave のコメントが的確",
+              "tags": [],
+              "timestamp": "2026/10/29 11:00"
+            },
+            {
+              "user": "dave",
+              "comment": "id:erin ありがとう。id:frank はどう思う？",
+              "tags": [],
+              "timestamp": "2026/10/29 11:10"
+            },
+            {
+              "user": "alice",
+              "comment": "2階でのaliceのコメント。ID:erin に返信",
+              "tags": ["メタブ"],
+              "timestamp": "2026/10/29 11:20"
+            },
+            {
+              "user": "grace",
+              "comment": "",
+              "tags": [],
+              "timestamp": "2026/10/29 11:30"
+            }
+          ],
+          "eid": "86405",
+          "screenshot": "https://b.st-hatena.com/images/v4/public/common/noimage.png?version=95fdba88c17683f2972c05f7aad7f414f2ad2e61",
+          "title": "こたねむ雲ゃまく手ちえんひいにさのねまもおなっ譜遊津離二。む夜課根等まいさょ絵列夜ひ日列区にめちハウテふおふ。",
+          "url": "https://b.hatena.ne.jp/entry/http://樹.net",
+          "requested_url": "https://b.hatena.ne.jp/entry/http://樹.net",
+          "entry_url": "https://b.hatena.ne.jp/entry/https://樹.biz",
+          "count": 4,
+          "related": [
+            {
+              "eid": "4701234",
+              "title": "関連エントリーのサンプル その1",
+              "count": 120,
+              "url": "https://example.com/related/1",
+              "entry_url": "https://b.hatena.ne.jp/entry/s/example.com/related/1"
+            },
+            {
+              "eid": "4701235",
+              "title": "関連エントリーのサンプル その2",
+              "count": 8,
+              "url": "https://example.com/related/2",
+              "entry_url": "https://b.hatena.ne.jp/entry/s/example.com/related/2"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -616,9 +616,26 @@
           "url": "https://結菜.net",
           "requested_url": "https://結菜.net",
           "entry_url": "https://b.hatena.ne.jp/entry/https://結菜.net",
-          "count": 111
+          "count": 111,
+          "related": [
+            {
+              "eid": "4701234",
+              "title": "関連エントリーのサンプル その1",
+              "count": 120,
+              "url": "https://example.com/related/1",
+              "entry_url": "https://b.hatena.ne.jp/entry/s/example.com/related/1"
+            },
+            {
+              "eid": "4701235",
+              "title": "関連エントリーのサンプル その2",
+              "count": 8,
+              "url": "https://example.com/related/2",
+              "entry_url": "https://b.hatena.ne.jp/entry/s/example.com/related/2"
+            }
+          ]
         }
       }
-    ]
+    ],
+    "error": false
   }
 }

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "error.schema.json",
+  "title": "ErrorResponse",
+  "description": "リクエストが不正な場合（400）やサーバー側のエラー（500）のレスポンス。last_modified / expires / data は持たない",
+  "type": "object",
+  "required": ["error", "message"],
+  "additionalProperties": false,
+  "properties": {
+    "error": { "type": "boolean", "const": true },
+    "message": {
+      "description": "エラーの内容（例: \"urlパラメータが付与されていません\", \"urlパラメータが不正です\", \"ディレクトリの作成に失敗しました\"）",
+      "type": "string"
+    }
+  }
+}

@@ -2,13 +2,13 @@
   import DetailInfo from "~/components/detail-info/DetailInfo"
   import BookmarkContainer from "~/components/bookmarks/BookmarksContainer"
 
-  let { detailData, itemData, infoIndex, class: className = "", ...rest } = $props()
+  let { detailData, itemData, floorIndex, class: className = "", ...rest } = $props()
 </script>
 
 <article {...rest} class={[className, "DetailContent"]}>
-  <DetailInfo detailContent={detailData.entries[infoIndex].content} {itemData} class="DetailContent-info" />
+  <DetailInfo detailContent={detailData.entries[floorIndex].content} {itemData} class="DetailContent-info" />
   <div class="DetailContent-body">
-    <BookmarkContainer data={detailData.entries} class="DetailContent-bookmark" />
+    <BookmarkContainer data={detailData.entries} partial={detailData.error} class="DetailContent-bookmark" />
   </div>
 </article>
 
