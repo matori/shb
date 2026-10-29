@@ -11,35 +11,49 @@
   <Icon name="collapse" class="DetailInfoToggleSwitch-icon {open ? '_show' : '_hide'}" />
 </Button>
 
-<style lang="scss" global>
-  .DetailInfoToggleSwitch {
-    @include text(-2);
-    @include spread-clickable-area(0);
-    display: block;
-    align-items: center;
-    position: relative;
-    padding: get-lines(0.5) (get-lines(0.25) + $line-edge);
-    width: 100%;
-    height: 100%;
-    white-space: nowrap;
-    text-align: left;
+<style>
+  :global {
+    .DetailInfoToggleSwitch {
+      font-size: var(--fs-xs);
+      line-height: var(--lh-xs);
+      &::before {
+        position: absolute;
+        inset: 0;
+        content: "";
+        box-shadow: 0 0 2px 1px var(--color-text-blue);
+        opacity: 0;
+      }
 
-    &:hover {
+      &:hover::before {
+        opacity: 1;
+      }
+      display: block;
+      align-items: center;
+      position: relative;
+      padding: calc(var(--line) * 0.5) calc(var(--line) * 0.25 + var(--line-edge));
+      width: 100%;
+      height: 100%;
+      white-space: nowrap;
+      text-align: left;
+
+      &:hover {
+      }
     }
-  }
 
-  .DetailInfoToggleSwitch-icon {
-    @include icon-size(-2);
-    display: inline-block;
-    margin-top: -$line-edge;
-    vertical-align: middle;
-
-    &._show {
+    .DetailInfoToggleSwitch-icon {
+      width: calc(var(--fs-xs) * var(--lh-xs));
+      height: calc(var(--fs-xs) * var(--lh-xs));
       display: inline-block;
-    }
+      margin-top: calc(var(--line-edge) * -1);
+      vertical-align: middle;
 
-    &._hide {
-      display: none;
+      &._show {
+        display: inline-block;
+      }
+
+      &._hide {
+        display: none;
+      }
     }
   }
 </style>

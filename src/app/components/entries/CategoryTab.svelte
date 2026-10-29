@@ -30,8 +30,10 @@
   {/snippet}
 </TabContent>
 
-<style lang="scss" global>
-  .CategoryTab {
-    --tab-border-color: #42a5f5;
+<style>
+  :global {
+    .CategoryTab {
+      --tab-border-color: #42a5f5;
+    }
   }
 </style>

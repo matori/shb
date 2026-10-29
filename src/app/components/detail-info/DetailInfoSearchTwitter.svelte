@@ -14,29 +14,33 @@
   </Link>
 </div>
 
-<style lang="scss" global>
-  .DetailInfoSearchTwitter {
-  }
-
-  .DetailInfoSearchTwitter-link {
-    @include text(-1);
-    display: inline-flex;
-    align-items: center;
-    color: var(--color-text-gray);
-    text-decoration: none;
-    vertical-align: bottom;
-
-    &:hover {
-      text-decoration: underline;
+<style>
+  :global {
+    .DetailInfoSearchTwitter {
     }
-  }
 
-  .DetailInfoSearchTwitter-icon {
-    @include icon-size(-1);
-    margin-right: 0.5em;
-    color: #1da1f2;
-  }
+    .DetailInfoSearchTwitter-link {
+      font-size: var(--fs-s);
+      line-height: var(--lh-s);
+      display: inline-flex;
+      align-items: center;
+      color: var(--color-text-gray);
+      text-decoration: none;
+      vertical-align: bottom;
 
-  .DetailInfoSearchTwitter-label {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .DetailInfoSearchTwitter-icon {
+      width: calc(var(--fs-s) * var(--lh-s));
+      height: calc(var(--fs-s) * var(--lh-s));
+      margin-right: 0.5em;
+      color: #1da1f2;
+    }
+
+    .DetailInfoSearchTwitter-label {
+    }
   }
 </style>

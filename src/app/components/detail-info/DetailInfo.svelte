@@ -21,26 +21,28 @@
   </div>
 </div>
 
-<style lang="scss" global>
-  .DetailInfo {
-  }
+<style>
+  :global {
+    .DetailInfo {
+    }
 
-  .DetailInfo-tool {
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: var(--color-border-base);
-  }
+    .DetailInfo-tool {
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+      border-bottom-color: var(--color-border-base);
+    }
 
-  .DetailInfo-inner {
-    display: grid;
-    grid-auto-rows: auto;
-    row-gap: get-lines(0.5);
-    padding: get-lines(0.5) (get-lines(0.25) + $line-edge);
-  }
+    .DetailInfo-inner {
+      display: grid;
+      grid-auto-rows: auto;
+      row-gap: calc(var(--line) * 0.5);
+      padding: calc(var(--line) * 0.5) calc(var(--line) * 0.25 + var(--line-edge));
+    }
 
-  .DetailInfo-header {
-  }
+    .DetailInfo-header {
+    }
 
-  .DetailInfo-body {
+    .DetailInfo-body {
+    }
   }
 </style>

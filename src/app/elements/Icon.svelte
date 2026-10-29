@@ -16,10 +16,12 @@
   <path d={icon.path} />
 </svg>
 
-<style lang="scss" global>
-  .Icon {
-    width: 24px;
-    height: 24px;
-    fill: currentColor;
+<style>
+  :global {
+    .Icon {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+    }
   }
 </style>

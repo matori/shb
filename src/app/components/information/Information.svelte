@@ -66,90 +66,96 @@
   </div>
 </section>
 
-<style lang="scss" global>
-  .Information {
-    display: grid;
-    grid-template-rows: min-content 1fr;
-    row-gap: get-lines(0.5) - $line-edge;
-  }
-
-  .Information-header {
-    padding-right: get-lines(0.25);
-    padding-left: get-lines(0.25);
-  }
-
-  .Information-heading {
-    @include text(-1);
-    display: flex;
-    margin: 0;
-    font-weight: var(--fw-normal);
-  }
-
-  .Information-icon {
-    @include icon-size(-1);
-    margin-left: 0.25em;
-    opacity: 0;
-    animation-duration: 1s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-
-    &._show {
-      opacity: 1;
-      animation-name: syncing;
-    }
-  }
-
-  .Information-body {
-    min-height: 0;
-  }
-
-  .Information-content {
-    @include text(0);
-    box-sizing: border-box;
-    border-width: 1px;
-    border-style: solid;
-    border-color: var(--color-border-base);
-    max-height: 100%;
-    overflow-y: auto;
-    box-shadow: var(--shadow-base);
-    background-color: var(--color-bg-content);
-    padding: get-lines(0.5) (get-lines(0.5) + $line-edge);
-  }
-
-  .Information-intro {
-    margin-top: get-lines(0.5);
-    margin-bottom: get-lines(0.5);
-  }
-
-  .Information-inner {
-    h3 {
-      @include text(1);
-      margin-top: get-lines(1.5);
-      margin-bottom: 0;
-      font-weight: var(--fw-bold);
+<style>
+  :global {
+    .Information {
+      display: grid;
+      grid-template-rows: min-content 1fr;
+      row-gap: calc(var(--line) * 0.5 - var(--line-edge));
     }
 
-    p,
-    ul,
-    dl {
-      margin-top: get-lines(0.5);
-      margin-bottom: get-lines(0.5);
+    .Information-header {
+      padding-right: calc(var(--line) * 0.25);
+      padding-left: calc(var(--line) * 0.25);
     }
 
-    ul {
-      padding-left: get-lines(1);
+    .Information-heading {
+      font-size: var(--fs-s);
+      line-height: var(--lh-s);
+      display: flex;
+      margin: 0;
+      font-weight: var(--fw-normal);
     }
 
-    dt {
-      margin-top: get-lines(0.5);
+    .Information-icon {
+      width: calc(var(--fs-s) * var(--lh-s));
+      height: calc(var(--fs-s) * var(--lh-s));
+      margin-left: 0.25em;
+      opacity: 0;
+      animation-duration: 1s;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+
+      &._show {
+        opacity: 1;
+        animation-name: syncing;
+      }
     }
 
-    dd {
-      margin-left: get-lines(1);
+    .Information-body {
+      min-height: 0;
     }
 
-    a {
-      color: var(--color-text-blue);
+    .Information-content {
+      font-size: var(--fs-m);
+      line-height: var(--lh-m);
+      box-sizing: border-box;
+      border-width: 1px;
+      border-style: solid;
+      border-color: var(--color-border-base);
+      max-height: 100%;
+      overflow-y: auto;
+      box-shadow: var(--shadow-base);
+      background-color: var(--color-bg-content);
+      padding: calc(var(--line) * 0.5) calc(var(--line) * 0.5 + var(--line-edge));
+    }
+
+    .Information-intro {
+      margin-top: calc(var(--line) * 0.5);
+      margin-bottom: calc(var(--line) * 0.5);
+    }
+
+    .Information-inner {
+      h3 {
+        font-size: var(--fs-l);
+        line-height: var(--lh-l);
+        margin-top: calc(var(--line) * 1.5);
+        margin-bottom: 0;
+        font-weight: var(--fw-bold);
+      }
+
+      p,
+      ul,
+      dl {
+        margin-top: calc(var(--line) * 0.5);
+        margin-bottom: calc(var(--line) * 0.5);
+      }
+
+      ul {
+        padding-left: var(--line);
+      }
+
+      dt {
+        margin-top: calc(var(--line) * 0.5);
+      }
+
+      dd {
+        margin-left: var(--line);
+      }
+
+      a {
+        color: var(--color-text-blue);
+      }
     }
   }
 </style>

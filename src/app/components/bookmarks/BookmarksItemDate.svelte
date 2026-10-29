@@ -13,18 +13,21 @@
   <Time {datetime} needSeconds={false} class="BookmarksItemDate-date" />
 </Link>
 
-<style lang="scss" global>
-  .BookmarksItemDate {
-    @include text(-2);
-    color: var(--color-text-gray);
-    white-space: nowrap;
-    text-decoration: none;
+<style>
+  :global {
+    .BookmarksItemDate {
+      font-size: var(--fs-xs);
+      line-height: var(--lh-xs);
+      color: var(--color-text-gray);
+      white-space: nowrap;
+      text-decoration: none;
 
-    &:hover {
-      text-decoration: underline;
+      &:hover {
+        text-decoration: underline;
+      }
     }
-  }
 
-  .BookmarksItemDate-date {
+    .BookmarksItemDate-date {
+    }
   }
 </style>

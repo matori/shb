@@ -37,35 +37,45 @@
   {/snippet}
 </TabContent>
 
-<style lang="scss" global>
-  .TypeTab {
-    --tab-border-color: #4db6ac;
+<style>
+  :global {
+    .TypeTab {
+      --tab-border-color: #4db6ac;
 
-    .TabContent-panel {
-      overflow-y: scroll;
+      .TabContent-panel {
+        overflow-y: scroll;
+      }
     }
-  }
 
-  .TypeTab-heading {
-    @include visually-hidden;
-  }
+    .TypeTab-heading {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      border: 0;
+      padding: 0;
+      clip: rect(0 0 0 0);
+      overflow: hidden;
+    }
 
-  .TypeTab-initial {
-    @include text(0);
-    margin: 0;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: var(--color-border-base);
-    padding: get-lines(1);
-    text-align: center;
-  }
+    .TypeTab-initial {
+      font-size: var(--fs-m);
+      line-height: var(--lh-m);
+      margin: 0;
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+      border-bottom-color: var(--color-border-base);
+      padding: var(--line);
+      text-align: center;
+    }
 
-  .TypeTab-helper {
-    margin: 0;
-    padding: get-lines(1);
-    text-align: center;
-  }
+    .TypeTab-helper {
+      margin: 0;
+      padding: var(--line);
+      text-align: center;
+    }
 
-  .TypeTab-link {
+    .TypeTab-link {
+    }
   }
 </style>

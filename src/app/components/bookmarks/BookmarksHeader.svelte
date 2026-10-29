@@ -33,53 +33,58 @@
   </span>
 </p>
 
-<style lang="scss" global>
-  .BookmarksHeader {
-    display: flex;
-    align-items: center;
-    margin: 0;
-    padding: get-lines(0.5) (get-lines(0.25) + $line-edge);
-  }
-
-  .BookmarksHeader-total {
-    @include text(0);
-  }
-
-  .BookmarksHeader-link {
-    color: var(--color-text-red);
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
-  .BookmarksHeader-data {
-    @include text(0);
-    display: flex;
-    align-items: center;
-    margin-left: get-lines(0.5);
-  }
-
-  .BookmarksHeader-icon {
-    @include icon-size(-3);
-  }
-
-  .BookmarksHeader-count {
-    margin-left: 0.25em;
-  }
-
-  .BookmarksHeader-percentage {
-    margin-left: 0.25em;
-
-    &::before {
-      margin-right: 0.1em;
-      content: "(";
+<style>
+  :global {
+    .BookmarksHeader {
+      display: flex;
+      align-items: center;
+      margin: 0;
+      padding: calc(var(--line) * 0.5) calc(var(--line) * 0.25 + var(--line-edge));
     }
 
-    &::after {
-      margin-left: 0.1em;
-      content: ")";
+    .BookmarksHeader-total {
+      font-size: var(--fs-m);
+      line-height: var(--lh-m);
+    }
+
+    .BookmarksHeader-link {
+      color: var(--color-text-red);
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .BookmarksHeader-data {
+      font-size: var(--fs-m);
+      line-height: var(--lh-m);
+      display: flex;
+      align-items: center;
+      margin-left: calc(var(--line) * 0.5);
+    }
+
+    .BookmarksHeader-icon {
+      width: 1.102273rem;
+      height: 1.102273rem;
+    }
+
+    .BookmarksHeader-count {
+      margin-left: 0.25em;
+    }
+
+    .BookmarksHeader-percentage {
+      margin-left: 0.25em;
+
+      &::before {
+        margin-right: 0.1em;
+        content: "(";
+      }
+
+      &::after {
+        margin-left: 0.1em;
+        content: ")";
+      }
     }
   }
 </style>

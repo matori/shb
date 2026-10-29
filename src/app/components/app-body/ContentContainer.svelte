@@ -16,16 +16,18 @@
   {/if}
 </div>
 
-<style lang="scss" global>
-  .ContentContainer {
-    display: grid;
-    grid-template-columns: repeat(2, calc(50% - #{get-lines(0.5)}));
-    column-gap: get-lines(1);
-  }
+<style>
+  :global {
+    .ContentContainer {
+      display: grid;
+      grid-template-columns: repeat(2, calc(50% - var(--line) * 0.5));
+      column-gap: var(--line);
+    }
 
-  .ContentContainer-entries,
-  .ContentContainer-detail,
-  .ContentContainer-info {
-    min-height: 0;
+    .ContentContainer-entries,
+    .ContentContainer-detail,
+    .ContentContainer-info {
+      min-height: 0;
+    }
   }
 </style>

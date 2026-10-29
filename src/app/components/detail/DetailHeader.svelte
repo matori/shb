@@ -17,45 +17,61 @@
   </Button>
 </header>
 
-<style lang="scss" global>
-  .DetailHeader {
-    display: flex;
-    justify-content: space-between;
-    padding-right: get-lines(0.25);
-    padding-left: get-lines(0.25);
-  }
-
-  .DetailHeader-heading {
-    @include text(-1);
-    display: flex;
-    margin: 0;
-    font-weight: var(--fw-normal);
-  }
-
-  .DetailHeader-icon {
-    @include icon-size(-1);
-    margin-left: 0.25em;
-    opacity: 0;
-    animation-duration: 1s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-
-    &._show {
-      opacity: 1;
-      animation-name: syncing;
+<style>
+  :global {
+    .DetailHeader {
+      display: flex;
+      justify-content: space-between;
+      padding-right: calc(var(--line) * 0.25);
+      padding-left: calc(var(--line) * 0.25);
     }
-  }
 
-  .DetailHeader-closeButton {
-    @include spread-clickable-area;
-    @include text(-1);
-    display: flex;
-    align-items: center;
-    position: relative;
-  }
+    .DetailHeader-heading {
+      font-size: var(--fs-s);
+      line-height: var(--lh-s);
+      display: flex;
+      margin: 0;
+      font-weight: var(--fw-normal);
+    }
 
-  .DetailHeader-closeIcon {
-    @include icon-size(-1);
-    margin-right: 0.25em;
+    .DetailHeader-icon {
+      width: calc(var(--fs-s) * var(--lh-s));
+      height: calc(var(--fs-s) * var(--lh-s));
+      margin-left: 0.25em;
+      opacity: 0;
+      animation-duration: 1s;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+
+      &._show {
+        opacity: 1;
+        animation-name: syncing;
+      }
+    }
+
+    .DetailHeader-closeButton {
+      &::before {
+        position: absolute;
+        inset: calc(var(--line-edge) * -1);
+        content: "";
+        box-shadow: 0 0 2px 1px var(--color-text-blue);
+        opacity: 0;
+      }
+
+      &:hover::before {
+        opacity: 1;
+      }
+      font-size: var(--fs-s);
+      line-height: var(--lh-s);
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .DetailHeader-closeIcon {
+      width: calc(var(--fs-s) * var(--lh-s));
+      height: calc(var(--fs-s) * var(--lh-s));
+      margin-right: 0.25em;
+    }
   }
 </style>

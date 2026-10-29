@@ -8,16 +8,19 @@
   <Time {datetime} class="EntryListItemTime-time" />
 </span>
 
-<style lang="scss" global>
-  .EntryListItemTime {
-    @include text(-2);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-end;
-  }
+<style>
+  :global {
+    .EntryListItemTime {
+      font-size: var(--fs-xs);
+      line-height: var(--lh-xs);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-end;
+    }
 
-  .EntryListItemTime-time {
-    color: var(--color-text-gray);
+    .EntryListItemTime-time {
+      color: var(--color-text-gray);
+    }
   }
 </style>

@@ -16,17 +16,19 @@
   {/each}
 </p>
 
-<style lang="scss" global>
-  .BookmarksItemComment {
-    margin: 0;
-  }
+<style>
+  :global {
+    .BookmarksItemComment {
+      margin: 0;
+    }
 
-  .BookmarksItemComment-link {
-    color: var(--color-text-blue);
-    text-decoration: none;
+    .BookmarksItemComment-link {
+      color: var(--color-text-blue);
+      text-decoration: none;
 
-    &:hover {
-      text-decoration: underline;
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 </style>

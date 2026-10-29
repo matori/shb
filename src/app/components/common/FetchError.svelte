@@ -27,42 +27,46 @@
   </dl>
 </section>
 
-<style lang="scss" global>
-  .FetchError {
-  }
-
-  .FetchError-title {
-    @include text(1);
-    margin: 0;
-    font-weight: var(--fw-bold);
-
-    &::before {
-      margin-right: 0.25em;
-      content: "\26a0";
+<style>
+  :global {
+    .FetchError {
     }
-  }
 
-  .FetchError-details {
-    @include text(0);
-    margin-top: 0;
-    margin-bottom: 0;
-  }
+    .FetchError-title {
+      font-size: var(--fs-l);
+      line-height: var(--lh-l);
+      margin: 0;
+      font-weight: var(--fw-bold);
 
-  .FetchError-label {
-    margin-top: get-lines(1);
-    margin-bottom: get-lines(0.5);
-    font-weight: var(--fw-bold);
-  }
+      &::before {
+        margin-right: 0.25em;
+        content: "\26a0";
+      }
+    }
 
-  .FetchError-description {
-    margin-left: get-lines(1);
-  }
+    .FetchError-details {
+      font-size: var(--fs-m);
+      line-height: var(--lh-m);
+      margin-top: 0;
+      margin-bottom: 0;
+    }
 
-  .FetchError-message {
-    margin: 0;
-    font-size: inherit;
-    font-family: var(--ff-mono);
-    white-space: pre-wrap;
-    word-break: break-all;
+    .FetchError-label {
+      margin-top: var(--line);
+      margin-bottom: calc(var(--line) * 0.5);
+      font-weight: var(--fw-bold);
+    }
+
+    .FetchError-description {
+      margin-left: var(--line);
+    }
+
+    .FetchError-message {
+      margin: 0;
+      font-size: inherit;
+      font-family: var(--ff-mono);
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
   }
 </style>

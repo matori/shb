@@ -19,29 +19,32 @@
   {/if}
 </div>
 
-<style lang="scss" global>
-  .EntryList {
-  }
+<style>
+  :global {
+    .EntryList {
+    }
 
-  .EntryList-item {
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: var(--color-border-base);
-  }
+    .EntryList-item {
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+      border-bottom-color: var(--color-border-base);
+    }
 
-  .EntryList-message {
-    @include text(0);
-    margin: 0;
-    padding: get-lines(1);
-    text-align: center;
-  }
+    .EntryList-message {
+      font-size: var(--fs-m);
+      line-height: var(--lh-m);
+      margin: 0;
+      padding: var(--line);
+      text-align: center;
+    }
 
-  .EntryList-helper {
-    margin: 0;
-    padding: get-lines(1);
-    text-align: center;
-  }
+    .EntryList-helper {
+      margin: 0;
+      padding: var(--line);
+      text-align: center;
+    }
 
-  .EntryList-link {
+    .EntryList-link {
+    }
   }
 </style>

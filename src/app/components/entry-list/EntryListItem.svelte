@@ -25,45 +25,47 @@
   <EntryListItemTime datetime={item.date} class="EntryListItem-date" />
 </li>
 
-<style lang="scss" global>
-  .EntryListItem {
-    display: grid;
-    grid-template-columns: min-content 1fr 1fr;
-    grid-template-rows: repeat(2, min-content);
-    gap: get-lines(0.25);
-    padding-top: get-lines(0.5) - $line-edge;
-    padding-right: get-lines(0.25) + $line-edge;
-    padding-bottom: get-lines(0.5) - $line-edge;
-    padding-left: get-lines(0.25);
-  }
+<style>
+  :global {
+    .EntryListItem {
+      display: grid;
+      grid-template-columns: min-content 1fr 1fr;
+      grid-template-rows: repeat(2, min-content);
+      gap: calc(var(--line) * 0.25);
+      padding-top: calc(var(--line) * 0.5 - var(--line-edge));
+      padding-right: calc(var(--line) * 0.25 + var(--line-edge));
+      padding-bottom: calc(var(--line) * 0.5 - var(--line-edge));
+      padding-left: calc(var(--line) * 0.25);
+    }
 
-  .EntryListItem-title {
-    grid-column-start: 2;
-    grid-column-end: 4;
-    grid-row-start: 1;
-    grid-row-end: 2;
-    min-width: 0;
-  }
+    .EntryListItem-title {
+      grid-column-start: 2;
+      grid-column-end: 4;
+      grid-row-start: 1;
+      grid-row-end: 2;
+      min-width: 0;
+    }
 
-  .EntryListItem-count {
-    grid-column-start: 1;
-    grid-column-end: 2;
-    grid-row-start: 1;
-    grid-row-end: 3;
-  }
+    .EntryListItem-count {
+      grid-column-start: 1;
+      grid-column-end: 2;
+      grid-row-start: 1;
+      grid-row-end: 3;
+    }
 
-  .EntryListItem-site {
-    grid-column-start: 2;
-    grid-column-end: 3;
-    grid-row-start: 2;
-    grid-row-end: 3;
-    min-width: 0;
-  }
+    .EntryListItem-site {
+      grid-column-start: 2;
+      grid-column-end: 3;
+      grid-row-start: 2;
+      grid-row-end: 3;
+      min-width: 0;
+    }
 
-  .EntryListItem-date {
-    grid-column-start: 3;
-    grid-column-end: 4;
-    grid-row-start: 2;
-    grid-row-end: 3;
+    .EntryListItem-date {
+      grid-column-start: 3;
+      grid-column-end: 4;
+      grid-row-start: 2;
+      grid-row-end: 3;
+    }
   }
 </style>

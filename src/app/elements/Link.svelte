@@ -6,8 +6,12 @@
   {@render children?.()}
 </a>
 
-<style lang="scss" global>
-  .Link {
-    @include focus-clear-without-keyboard;
+<style>
+  :global {
+    .Link {
+      &:focus:not(:focus-visible) {
+        outline: none;
+      }
+    }
   }
 </style>

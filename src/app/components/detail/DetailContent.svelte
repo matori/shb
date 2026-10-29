@@ -12,26 +12,28 @@
   </div>
 </article>
 
-<style lang="scss" global>
-  .DetailContent {
-    display: grid;
-    grid-template-rows: min-content 1fr;
-    gap: get-lines(1) - $line-edge;
-  }
+<style>
+  :global {
+    .DetailContent {
+      display: grid;
+      grid-template-rows: min-content 1fr;
+      gap: calc(var(--line) - var(--line-edge));
+    }
 
-  .DetailContent-info {
-    border-width: 1px;
-    border-style: solid;
-    border-color: var(--color-border-base);
-    background-color: var(--color-bg-content);
-    box-shadow: var(--shadow-base);
-  }
+    .DetailContent-info {
+      border-width: 1px;
+      border-style: solid;
+      border-color: var(--color-border-base);
+      background-color: var(--color-bg-content);
+      box-shadow: var(--shadow-base);
+    }
 
-  .DetailContent-body {
-    min-height: 0;
-  }
+    .DetailContent-body {
+      min-height: 0;
+    }
 
-  .DetailContent-bookmark {
-    max-height: 100%;
+    .DetailContent-bookmark {
+      max-height: 100%;
+    }
   }
 </style>

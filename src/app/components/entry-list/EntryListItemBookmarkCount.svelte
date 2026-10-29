@@ -13,29 +13,41 @@
   </Button>
 </span>
 
-<style lang="scss" global>
-  .EntryListItemBookmarkCount {
-  }
+<style>
+  :global {
+    .EntryListItemBookmarkCount {
+    }
 
-  .EntryListItemBookmarkCount-button {
-    @include text(1, false);
-    @include spread-clickable-area(0, var(--color-text-red));
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    padding: $line-edge;
-    color: var(--color-text-red);
-    line-height: 1;
-    white-space: nowrap;
-  }
+    .EntryListItemBookmarkCount-button {
+      font-size: var(--fs-l);
+      &::before {
+        position: absolute;
+        inset: 0;
+        content: "";
+        box-shadow: 0 0 2px 1px var(--color-text-red);
+        opacity: 0;
+      }
 
-  .EntryListItemBookmarkCount-count {
-    min-width: 4ch;
-  }
+      &:hover::before {
+        opacity: 1;
+      }
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      padding: var(--line-edge);
+      color: var(--color-text-red);
+      line-height: 1;
+      white-space: nowrap;
+    }
 
-  .EntryListItemBookmarkCount-suffix {
-    @include text(-2, false);
+    .EntryListItemBookmarkCount-count {
+      min-width: 4ch;
+    }
+
+    .EntryListItemBookmarkCount-suffix {
+      font-size: var(--fs-xs);
+    }
   }
 </style>

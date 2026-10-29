@@ -1,4 +1,4 @@
-// https://necomesi.jp/blog/tsmd/posts/154
+/* https://necomesi.jp/blog/tsmd/posts/154 */
 @font-face {
   font-family: Emojis;
   src:
@@ -38,7 +38,21 @@
   --color-border-base: #e0e0e0;
   --color-border-green: #4db6ac;
 
-  --fs-normal: 1rem;
+  /* 1行の高さ（文字サイズ16px + 行間6px）と、行間の半分 */
+  --line: 1.375rem;
+  --line-edge: 0.1875rem;
+
+  /* 文字サイズと行の高さ（行間はどのサイズでも6px） */
+  --fs-xs: 0.8rem;
+  --lh-xs: 1.46875;
+  --fs-s: 0.888889rem;
+  --lh-s: 1.421875;
+  --fs-m: 1rem;
+  --lh-m: 1.375;
+  --fs-l: 1.142857rem;
+  --lh-l: 1.328125;
+  --fs-xl: 1.333333rem;
+  --lh-xl: 1.28125;
 
   --fw-normal: 400;
   --fw-bold: 600;
@@ -51,4 +65,10 @@
 
   --content-max-width: 1680px;
   --content-min-width: 960px;
+}
+
+@keyframes syncing {
+  to {
+    transform: rotate(1turn);
+  }
 }

@@ -10,7 +10,9 @@
   「{category.label}」の{type.label}エントリーをはてなブックマークで見る
 </LinkBox>
 
-<style lang="scss" global>
-  .EntriesLink {
+<style>
+  :global {
+    .EntriesLink {
+    }
   }
 </style>

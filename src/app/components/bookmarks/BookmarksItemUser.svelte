@@ -8,17 +8,19 @@
   <Link {url} class="BookmarksItemUser-link">{user}</Link>
 </div>
 
-<style lang="scss" global>
-  .BookmarksItemUser {
-  }
+<style>
+  :global {
+    .BookmarksItemUser {
+    }
 
-  .BookmarksItemUser-link {
-    color: var(--color-text-blue);
-    font-weight: var(--fw-bold);
-    text-decoration: none;
+    .BookmarksItemUser-link {
+      color: var(--color-text-blue);
+      font-weight: var(--fw-bold);
+      text-decoration: none;
 
-    &:hover {
-      text-decoration: underline;
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 </style>

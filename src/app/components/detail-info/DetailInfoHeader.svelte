@@ -34,39 +34,41 @@
   <DetailInfoDate datetime={itemData.date} class="DetailInfoHeader-date" title="最初にブックマークされた日時" />
 </header>
 
-<style lang="scss" global>
-  .DetailInfoHeader {
-    display: grid;
-    grid-template-columns: min-content min-content 1fr min-content;
-    grid-auto-rows: auto;
-    row-gap: get-lines(0.5);
-    column-gap: get-lines(0.5);
-  }
+<style>
+  :global {
+    .DetailInfoHeader {
+      display: grid;
+      grid-template-columns: min-content min-content 1fr min-content;
+      grid-auto-rows: auto;
+      row-gap: calc(var(--line) * 0.5);
+      column-gap: calc(var(--line) * 0.5);
+    }
 
-  .DetailInfoHeader-title {
-    grid-column-start: 1;
-    grid-column-end: 5;
-    min-width: 0;
-  }
+    .DetailInfoHeader-title {
+      grid-column-start: 1;
+      grid-column-end: 5;
+      min-width: 0;
+    }
 
-  .DetailInfoHeader-bookmark {
-    grid-column-start: 1;
-    grid-column-end: 2;
-  }
+    .DetailInfoHeader-bookmark {
+      grid-column-start: 1;
+      grid-column-end: 2;
+    }
 
-  .DetailInfoHeader-category {
-    grid-column-start: 2;
-    grid-column-end: 3;
-  }
+    .DetailInfoHeader-category {
+      grid-column-start: 2;
+      grid-column-end: 3;
+    }
 
-  .DetailInfoHeader-site {
-    grid-column-start: 3;
-    grid-column-end: 4;
-    min-width: 0;
-  }
+    .DetailInfoHeader-site {
+      grid-column-start: 3;
+      grid-column-end: 4;
+      min-width: 0;
+    }
 
-  .DetailInfoHeader-date {
-    grid-column-start: 4;
-    grid-column-end: 5;
+    .DetailInfoHeader-date {
+      grid-column-start: 4;
+      grid-column-end: 5;
+    }
   }
 </style>

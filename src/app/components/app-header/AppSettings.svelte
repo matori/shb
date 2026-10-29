@@ -136,101 +136,128 @@
   </Modal>
 </div>
 
-<style lang="scss" global>
-  .AppSettings {
-    display: grid;
-    grid-template-columns: auto auto;
-    grid-gap: get-lines(0.25);
-  }
-
-  .AppSettings-button {
-    @include spread-clickable-area(0);
-    @include text(0);
-    display: flex;
-    align-items: center;
-    position: relative;
-    padding-right: $line-edge;
-    padding-left: $line-edge;
-    white-space: nowrap;
-  }
-
-  .AppSettings-icon {
-    @include icon-size(0);
-    margin-right: 0.25em;
-
-    &._hide {
-      display: none;
+<style>
+  :global {
+    .AppSettings {
+      display: grid;
+      grid-template-columns: auto auto;
+      grid-gap: calc(var(--line) * 0.25);
     }
-  }
 
-  .AppSettings-form {
-    position: relative;
-    background-color: var(--color-bg-content);
-    min-width: calc(var(--content-min-width) * 0.8);
-  }
+    .AppSettings-button {
+      &::before {
+        position: absolute;
+        inset: 0;
+        content: "";
+        box-shadow: 0 0 2px 1px var(--color-text-blue);
+        opacity: 0;
+      }
 
-  .AppSettings-body {
-    padding: get-lines(1);
-  }
-
-  .AppSettings-footer {
-    position: sticky;
-    bottom: 0;
-    border-top-width: 1px;
-    border-top-style: solid;
-    border-top-color: var(--color-border-base);
-    padding: get-lines(1);
-    background-color: var(--color-bg-content);
-  }
-
-  .AppSettings-item {
-    @include text(0);
-    margin-top: 0;
-
-    &:nth-last-child(n + 2) {
-      margin-bottom: get-lines(1);
+      &:hover::before {
+        opacity: 1;
+      }
+      font-size: var(--fs-m);
+      line-height: var(--lh-m);
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding-right: var(--line-edge);
+      padding-left: var(--line-edge);
+      white-space: nowrap;
     }
-  }
 
-  .AppSettings-label {
-    display: block;
-    margin-bottom: get-lines(0.5);
+    .AppSettings-icon {
+      width: var(--line);
+      height: var(--line);
+      margin-right: 0.25em;
 
-    code {
-      border-width: 1px;
-      border-style: solid;
-      border-color: var(--color-border-base);
+      &._hide {
+        display: none;
+      }
+    }
+
+    .AppSettings-form {
+      position: relative;
+      background-color: var(--color-bg-content);
+      min-width: calc(var(--content-min-width) * 0.8);
+    }
+
+    .AppSettings-body {
+      padding: var(--line);
+    }
+
+    .AppSettings-footer {
+      position: sticky;
+      bottom: 0;
+      border-top-width: 1px;
+      border-top-style: solid;
+      border-top-color: var(--color-border-base);
+      padding: var(--line);
+      background-color: var(--color-bg-content);
+    }
+
+    .AppSettings-item {
+      font-size: var(--fs-m);
+      line-height: var(--lh-m);
+      margin-top: 0;
+
+      &:nth-last-child(n + 2) {
+        margin-bottom: var(--line);
+      }
+    }
+
+    .AppSettings-label {
+      display: block;
+      margin-bottom: calc(var(--line) * 0.5);
+
+      code {
+        border-width: 1px;
+        border-style: solid;
+        border-color: var(--color-border-base);
+        border-radius: 2px;
+        padding-right: 0.25em;
+        padding-left: 0.25em;
+        background-color: var(--color-bg-base);
+        font-family: monospace, monospace;
+      }
+    }
+
+    .AppSettings-time {
+      font-size: var(--fs-m);
+      line-height: var(--lh-m);
+      width: 3em;
+    }
+
+    .AppSettings-textarea {
+      font-size: var(--fs-m);
+      line-height: var(--lh-m);
+      box-sizing: border-box;
+      width: 100%;
+      height: calc(var(--line) * 5);
+    }
+
+    .AppSettings-submit {
+      font-size: var(--fs-s);
+      &::before {
+        position: absolute;
+        inset: calc(var(--line-edge) * -1);
+        content: "";
+        box-shadow: 0 0 2px 1px var(--color-text-blue);
+        opacity: 0;
+      }
+
+      &:hover::before {
+        opacity: 1;
+      }
+      display: inline-block;
+      position: relative;
       border-radius: 2px;
-      padding-right: 0.25em;
-      padding-left: 0.25em;
-      background-color: var(--color-bg-base);
-      font-family: monospace, monospace;
+      padding: calc(var(--line) * 0.5);
+      background-color: var(--color-bg-blue);
+      color: white;
+      line-height: 1;
+      text-decoration: none;
+      vertical-align: bottom;
     }
-  }
-
-  .AppSettings-time {
-    @include text(0);
-    width: 3em;
-  }
-
-  .AppSettings-textarea {
-    @include text(0);
-    box-sizing: border-box;
-    width: 100%;
-    height: get-lines(5);
-  }
-
-  .AppSettings-submit {
-    @include text(-1, false);
-    @include spread-clickable-area;
-    display: inline-block;
-    position: relative;
-    border-radius: 2px;
-    padding: get-lines(0.5);
-    background-color: var(--color-bg-blue);
-    color: white;
-    line-height: 1;
-    text-decoration: none;
-    vertical-align: bottom;
   }
 </style>

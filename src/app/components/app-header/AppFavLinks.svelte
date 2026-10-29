@@ -21,79 +21,82 @@
   {/if}
 </div>
 
-<style lang="scss" global>
-  .AppFavLinks {
-  }
-
-  .AppFavLinks-list {
-    display: flex;
-    height: 100%;
-    max-width: 100%;
-  }
-
-  .AppFavLinks-item {
-    display: flex;
-    position: relative;
-    padding-right: 1px;
-    min-width: calc(#{get-lines(0.5)} + 16px);
-
-    &::after {
-      position: absolute;
-      top: get-lines(0.25);
-      right: 0;
-      bottom: get-lines(0.25);
-      border-left-width: 1px;
-      border-left-style: solid;
-      border-left-color: var(--color-border-base);
-      width: 0;
-      content: "";
+<style>
+  :global {
+    .AppFavLinks {
     }
 
-    &:first-child {
-      padding-left: 1px;
+    .AppFavLinks-list {
+      display: flex;
+      height: 100%;
+      max-width: 100%;
+    }
 
-      &::before {
+    .AppFavLinks-item {
+      display: flex;
+      position: relative;
+      padding-right: 1px;
+      min-width: calc(var(--line) * 0.5 + 16px);
+
+      &::after {
         position: absolute;
-        top: get-lines(0.25);
-        bottom: get-lines(0.25);
-        left: 0;
+        top: calc(var(--line) * 0.25);
+        right: 0;
+        bottom: calc(var(--line) * 0.25);
         border-left-width: 1px;
         border-left-style: solid;
         border-left-color: var(--color-border-base);
         width: 0;
         content: "";
       }
+
+      &:first-child {
+        padding-left: 1px;
+
+        &::before {
+          position: absolute;
+          top: calc(var(--line) * 0.25);
+          bottom: calc(var(--line) * 0.25);
+          left: 0;
+          border-left-width: 1px;
+          border-left-style: solid;
+          border-left-color: var(--color-border-base);
+          width: 0;
+          content: "";
+        }
+      }
     }
-  }
 
-  .AppFavLinks-link {
-    @include text(-1);
-    display: flex;
-    align-items: center;
-    padding-right: get-lines(0.5);
-    padding-left: get-lines(0.5);
-    height: 100%;
-    overflow: hidden;
-    color: var(--color-text-steel);
-    white-space: nowrap;
-    text-decoration: none;
+    .AppFavLinks-link {
+      font-size: var(--fs-s);
+      line-height: var(--lh-s);
+      display: flex;
+      align-items: center;
+      padding-right: calc(var(--line) * 0.5);
+      padding-left: calc(var(--line) * 0.5);
+      height: 100%;
+      overflow: hidden;
+      color: var(--color-text-steel);
+      white-space: nowrap;
+      text-decoration: none;
 
-    &:hover {
-      text-decoration: underline;
+      &:hover {
+        text-decoration: underline;
+      }
     }
-  }
 
-  .AppFavLinks-favicon {
-    flex-grow: 0;
-    flex-shrink: 0;
-    margin-right: 0.25em;
-    width: 16px;
-    height: 16px;
-  }
+    .AppFavLinks-favicon {
+      flex-grow: 0;
+      flex-shrink: 0;
+      margin-right: 0.25em;
+      width: 16px;
+      height: 16px;
+    }
 
-  .AppFavLinks-label {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    .AppFavLinks-label {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 </style>

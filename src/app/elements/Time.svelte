@@ -9,8 +9,10 @@
 
 <time {...rest} datetime={day.toISOString()} class={[className, "Time"]}>{formatted}</time>
 
-<style lang="scss" global>
-  .Time {
-    white-space: nowrap;
+<style>
+  :global {
+    .Time {
+      white-space: nowrap;
+    }
   }
 </style>

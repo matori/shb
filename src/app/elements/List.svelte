@@ -6,10 +6,12 @@
   {@render children?.()}
 </svelte:element>
 
-<style lang="scss" global>
-  .List {
-    margin: 0;
-    padding-left: 0;
-    list-style-type: none;
+<style>
+  :global {
+    .List {
+      margin: 0;
+      padding-left: 0;
+      list-style-type: none;
+    }
   }
 </style>

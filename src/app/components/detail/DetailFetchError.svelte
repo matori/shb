@@ -8,16 +8,18 @@
   <FetchError {...rest} class="DetailFetchError-error" />
 </div>
 
-<style lang="scss" global>
-  .DetailFetchError {
-    border-width: 1px;
-    border-style: solid;
-    border-color: var(--color-border-base);
-    padding: get-lines(1);
-    background-color: var(--color-bg-content);
-    box-shadow: var(--box-shadow-base);
-  }
+<style>
+  :global {
+    .DetailFetchError {
+      border-width: 1px;
+      border-style: solid;
+      border-color: var(--color-border-base);
+      padding: var(--line);
+      background-color: var(--color-bg-content);
+      box-shadow: var(--box-shadow-base);
+    }
 
-  .DetailFetchError-error {
+    .DetailFetchError-error {
+    }
   }
 </style>

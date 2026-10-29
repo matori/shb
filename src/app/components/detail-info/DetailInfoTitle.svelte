@@ -8,26 +8,29 @@
   <Link {url} title={multiLine ? null : title} class="DetailInfoTitle-link">{title}</Link>
 </h3>
 
-<style lang="scss" global>
-  .DetailInfoTitle {
-    @include text(1);
-    margin: 0;
-    font-weight: var(--fw-normal);
+<style>
+  :global {
+    .DetailInfoTitle {
+      font-size: var(--fs-l);
+      line-height: var(--lh-l);
+      margin: 0;
+      font-weight: var(--fw-normal);
 
-    &._singleLine {
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
+      &._singleLine {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
     }
-  }
 
-  .DetailInfoTitle-link {
-    overflow-wrap: break-word;
-    color: var(--color-text-blue);
-    text-decoration: none;
+    .DetailInfoTitle-link {
+      overflow-wrap: break-word;
+      color: var(--color-text-blue);
+      text-decoration: none;
 
-    &:hover {
-      text-decoration: underline;
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 </style>

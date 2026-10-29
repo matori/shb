@@ -19,46 +19,49 @@
   </List>
 </div>
 
-<style lang="scss" global>
-  .DetailInfoTags {
-    @include text(-1);
-    display: flex;
-    align-items: flex-start;
-    overflow: hidden;
-    color: var(--color-text-gray);
-  }
+<style>
+  :global {
+    .DetailInfoTags {
+      font-size: var(--fs-s);
+      line-height: var(--lh-s);
+      display: flex;
+      align-items: flex-start;
+      overflow: hidden;
+      color: var(--color-text-gray);
+    }
 
-  .DetailInfoTags-prefix {
-    flex-grow: 0;
-    flex-shrink: 0;
-    padding-top: $line-edge;
-    padding-bottom: $line-edge;
-    width: 1em;
-    height: 1em;
-  }
+    .DetailInfoTags-prefix {
+      flex-grow: 0;
+      flex-shrink: 0;
+      padding-top: var(--line-edge);
+      padding-bottom: var(--line-edge);
+      width: 1em;
+      height: 1em;
+    }
 
-  .DetailInfoTags-icon {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
+    .DetailInfoTags-icon {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
 
-  .DetailInfoTags-list {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-  }
+    .DetailInfoTags-list {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+    }
 
-  .DetailInfoTags-item {
-    margin-left: 0.5em;
-  }
+    .DetailInfoTags-item {
+      margin-left: 0.5em;
+    }
 
-  .DetailInfoTags-link {
-    color: inherit;
-    text-decoration: none;
+    .DetailInfoTags-link {
+      color: inherit;
+      text-decoration: none;
 
-    &:hover {
-      text-decoration: underline;
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 </style>

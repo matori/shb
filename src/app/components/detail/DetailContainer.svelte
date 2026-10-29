@@ -31,21 +31,23 @@
   </div>
 </section>
 
-<style lang="scss" global>
-  .DetailContainer {
-    display: grid;
-    grid-template-rows: min-content auto;
-    row-gap: get-lines(0.5) - $line-edge;
-  }
+<style>
+  :global {
+    .DetailContainer {
+      display: grid;
+      grid-template-rows: min-content auto;
+      row-gap: calc(var(--line) * 0.5 - var(--line-edge));
+    }
 
-  .DetailContainer-header {
-  }
+    .DetailContainer-header {
+    }
 
-  .DetailContainer-body {
-    min-height: 0;
-  }
+    .DetailContainer-body {
+      min-height: 0;
+    }
 
-  .DetailContainer-content {
-    height: 100%;
+    .DetailContainer-content {
+      height: 100%;
+    }
   }
 </style>

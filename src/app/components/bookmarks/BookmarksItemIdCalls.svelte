@@ -67,72 +67,77 @@
   {/if}
 </dl>
 
-<style lang="scss" global>
-  .BookmarksItemIdCalls {
-    margin: 0;
+<style>
+  :global {
+    .BookmarksItemIdCalls {
+      margin: 0;
 
-    &._below {
+      &._below {
+      }
     }
-  }
 
-  .BookmarksItemIdCalls-title {
-    @include text(-1);
-    display: flex;
-    align-items: center;
-    border-width: 1px 0;
-    border-style: solid;
-    border-color: var(--color-border-base);
-    background-color: var(--color-bg-base);
-    padding: get-lines(0.25) (get-lines(0.25) + $line-edge);
-    line-height: 1;
-  }
-
-  .BookmarksItemIdCalls-icon {
-    @include icon-size(-1);
-    margin-right: 0.5em;
-  }
-
-  .BookmarksItemIdCalls-body {
-    margin-left: 0;
-  }
-
-  .BookmarksItemIdCalls-list {
-  }
-
-  .BookmarksItemIdCalls-item {
-    &:nth-last-child(n + 2) {
-      border-bottom-width: 1px;
-      border-bottom-style: solid;
-      border-bottom-color: var(--color-border-base);
+    .BookmarksItemIdCalls-title {
+      font-size: var(--fs-s);
+      line-height: var(--lh-s);
+      display: flex;
+      align-items: center;
+      border-width: 1px 0;
+      border-style: solid;
+      border-color: var(--color-border-base);
+      background-color: var(--color-bg-base);
+      padding: calc(var(--line) * 0.25) calc(var(--line) * 0.25 + var(--line-edge));
+      line-height: 1;
     }
-  }
 
-  .BookmarksItemIdCalls-message {
-    @include text(-1);
-    display: flex;
-    align-items: flex-start;
-    margin: 0;
-    padding: (get-lines(0.5) - $line-edge) (get-lines(0.25) + $line-edge);
-    opacity: 0.5;
-  }
-
-  .BookmarksItemIdCalls-avatar {
-    margin-right: get-lines(0.5);
-  }
-
-  .BookmarksItemIdCalls-text {
-  }
-
-  .BookmarksItemIdCalls-link {
-    color: var(--color-text-blue);
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
+    .BookmarksItemIdCalls-icon {
+      width: calc(var(--fs-s) * var(--lh-s));
+      height: calc(var(--fs-s) * var(--lh-s));
+      margin-right: 0.5em;
     }
-  }
 
-  .BookmarksItemIdCalls_below {
-    padding-left: calc(#{get-lines(0.25) + $line-edge} + 16px);
+    .BookmarksItemIdCalls-body {
+      margin-left: 0;
+    }
+
+    .BookmarksItemIdCalls-list {
+    }
+
+    .BookmarksItemIdCalls-item {
+      &:nth-last-child(n + 2) {
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        border-bottom-color: var(--color-border-base);
+      }
+    }
+
+    .BookmarksItemIdCalls-message {
+      font-size: var(--fs-s);
+      line-height: var(--lh-s);
+      display: flex;
+      align-items: flex-start;
+      margin: 0;
+      padding: calc(var(--line) * 0.5 - var(--line-edge)) calc(var(--line) * 0.25 + var(--line-edge));
+      opacity: 0.5;
+    }
+
+    .BookmarksItemIdCalls-avatar {
+      margin-right: calc(var(--line) * 0.5);
+    }
+
+    .BookmarksItemIdCalls-text {
+    }
+
+    .BookmarksItemIdCalls-link {
+      color: var(--color-text-blue);
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .BookmarksItemIdCalls_below {
+      padding-left: calc(var(--line) * 0.25 + var(--line-edge) + 16px);
+    }
   }
 </style>

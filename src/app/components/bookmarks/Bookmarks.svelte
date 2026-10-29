@@ -38,47 +38,51 @@
   </div>
 </div>
 
-<style lang="scss" global>
-  .Bookmarks {
-    @include focus-clear-without-keyboard;
-    display: grid;
-    grid-template-rows: min-content 1fr;
-    position: relative;
-    min-height: 0;
-    overflow-y: scroll;
-  }
+<style>
+  :global {
+    .Bookmarks {
+      &:focus:not(:focus-visible) {
+        outline: none;
+      }
+      display: grid;
+      grid-template-rows: min-content 1fr;
+      position: relative;
+      min-height: 0;
+      overflow-y: scroll;
+    }
 
-  .Bookmarks-header {
-    position: sticky;
-    top: 0;
-    border-bottom-width: 3px;
-    border-bottom-style: solid;
-    border-bottom-color: var(--color-border-base);
-    background-color: var(--color-bg-content);
-  }
+    .Bookmarks-header {
+      position: sticky;
+      top: 0;
+      border-bottom-width: 3px;
+      border-bottom-style: solid;
+      border-bottom-color: var(--color-border-base);
+      background-color: var(--color-bg-content);
+    }
 
-  .Bookmarks-body {
-  }
+    .Bookmarks-body {
+    }
 
-  .Bookmarks-list {
-  }
+    .Bookmarks-list {
+    }
 
-  .Bookmarks-message {
-    margin: 0;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: var(--color-border-base);
-    padding: 1.75rem 0.75rem;
-    font-size: var(--font-size-small);
-    line-height: (18 / 14) * 1em;
-  }
+    .Bookmarks-message {
+      margin: 0;
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+      border-bottom-color: var(--color-border-base);
+      padding: 1.75rem 0.75rem;
+      font-size: var(--font-size-small);
+      line-height: (18 / 14) * 1em;
+    }
 
-  .Bookmarks-helper {
-    margin: 0;
-    padding: get-lines(1);
-    text-align: center;
-  }
+    .Bookmarks-helper {
+      margin: 0;
+      padding: var(--line);
+      text-align: center;
+    }
 
-  .Bookmarks-link {
+    .Bookmarks-link {
+    }
   }
 </style>

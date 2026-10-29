@@ -42,61 +42,77 @@
   </div>
 </div>
 
-<style lang="scss" global>
-  .Modal {
-    display: grid;
-    grid-template-columns: get-lines(3) fit-content(calc(var(--content-max-width) - #{get-lines(2)})) get-lines(3);
-    grid-template-rows: get-lines(3) 1fr get-lines(3);
-    justify-content: center;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    visibility: hidden;
+<style>
+  :global {
+    .Modal {
+      display: grid;
+      grid-template-columns: calc(var(--line) * 3) fit-content(calc(var(--content-max-width) - var(--line) * 2)) calc(
+          var(--line) * 3
+        );
+      grid-template-rows: calc(var(--line) * 3) 1fr calc(var(--line) * 3);
+      justify-content: center;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      visibility: hidden;
 
-    &[aria-hidden="false"] {
-      visibility: visible;
+      &[aria-hidden="false"] {
+        visibility: visible;
+      }
     }
-  }
 
-  .Modal-backdrop {
-    position: absolute;
-    z-index: -1;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.85);
-  }
+    .Modal-backdrop {
+      position: absolute;
+      z-index: -1;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.85);
+    }
 
-  .Modal-close {
-    @include text(0);
-    @include spread-clickable-area();
-    display: flex;
-    position: absolute;
-    top: get-lines(0.5);
-    right: get-lines(0.5);
-    color: white;
-  }
+    .Modal-close {
+      font-size: var(--fs-m);
+      line-height: var(--lh-m);
+      &::before {
+        position: absolute;
+        inset: calc(var(--line-edge) * -1);
+        content: "";
+        box-shadow: 0 0 2px 1px var(--color-text-blue);
+        opacity: 0;
+      }
 
-  .Modal-icon {
-    @include icon-size(0);
-  }
+      &:hover::before {
+        opacity: 1;
+      }
+      display: flex;
+      position: absolute;
+      top: calc(var(--line) * 0.5);
+      right: calc(var(--line) * 0.5);
+      color: white;
+    }
 
-  .Modal-inner {
-    grid-column-start: 2;
-    grid-column-end: 3;
-    grid-row-start: 2;
-    grid-row-end: 3;
-    min-height: 0;
-    display: grid;
-    grid-template-rows: fit-content(100%);
-    align-content: center;
-  }
+    .Modal-icon {
+      width: var(--line);
+      height: var(--line);
+    }
 
-  .Modal-content {
-    overflow: auto;
+    .Modal-inner {
+      grid-column-start: 2;
+      grid-column-end: 3;
+      grid-row-start: 2;
+      grid-row-end: 3;
+      min-height: 0;
+      display: grid;
+      grid-template-rows: fit-content(100%);
+      align-content: center;
+    }
+
+    .Modal-content {
+      overflow: auto;
+    }
   }
 </style>

@@ -14,17 +14,19 @@
   {/if}
 </li>
 
-<style lang="scss" global>
-  .BookmarksItem {
-  }
+<style>
+  :global {
+    .BookmarksItem {
+    }
 
-  .BookmarksItem-main {
-  }
+    .BookmarksItem-main {
+    }
 
-  .BookmarksItem-sub {
-    padding-left: calc(#{get-lines(0.25) + $line-edge} + 16px);
-  }
+    .BookmarksItem-sub {
+      padding-left: calc(var(--line) * 0.25 + var(--line-edge) + 16px);
+    }
 
-  .BookmarksItem-idCalls {
+    .BookmarksItem-idCalls {
+    }
   }
 </style>

@@ -26,43 +26,45 @@
   </List>
 </div>
 
-<style lang="scss" global>
-  .BookmarksItemTags {
-    display: flex;
-    color: var(--color-text-gray);
-  }
+<style>
+  :global {
+    .BookmarksItemTags {
+      display: flex;
+      color: var(--color-text-gray);
+    }
 
-  .BookmarksItemTags-prefix {
-    flex-grow: 0;
-    flex-shrink: 0;
-    margin-right: 0.25em;
-    padding-top: $line-edge;
-    padding-bottom: $line-edge;
-    width: 1em;
-    height: 1em;
-  }
+    .BookmarksItemTags-prefix {
+      flex-grow: 0;
+      flex-shrink: 0;
+      margin-right: 0.25em;
+      padding-top: var(--line-edge);
+      padding-bottom: var(--line-edge);
+      width: 1em;
+      height: 1em;
+    }
 
-  .BookmarksItemTags-icon {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
+    .BookmarksItemTags-icon {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
 
-  .BookmarksItemTags-list {
-  }
+    .BookmarksItemTags-list {
+    }
 
-  .BookmarksItemTags-item {
-    display: inline;
-    margin-right: 0.25em;
-    word-break: break-word;
-  }
+    .BookmarksItemTags-item {
+      display: inline;
+      margin-right: 0.25em;
+      word-break: break-word;
+    }
 
-  .BookmarksItemTags-link {
-    color: inherit;
-    text-decoration: none;
+    .BookmarksItemTags-link {
+      color: inherit;
+      text-decoration: none;
 
-    &:hover {
-      text-decoration: underline;
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 </style>

@@ -11,13 +11,15 @@
   {/each}
 </List>
 
-<style lang="scss" global>
-  .BookmarksList {
-  }
+<style>
+  :global {
+    .BookmarksList {
+    }
 
-  .BookmarksList-item {
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: var(--color-border-base);
+    .BookmarksList-item {
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+      border-bottom-color: var(--color-border-base);
+    }
   }
 </style>

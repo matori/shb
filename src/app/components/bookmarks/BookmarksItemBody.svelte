@@ -16,21 +16,24 @@
   {/if}
 </div>
 
-<style lang="scss" global>
-  .BookmarksItemBody {
-    @include text(-1);
-    display: grid;
-    grid-template-rows: auto;
-  }
+<style>
+  :global {
+    .BookmarksItemBody {
+      font-size: var(--fs-s);
+      line-height: var(--lh-s);
+      display: grid;
+      grid-template-rows: auto;
+    }
 
-  .BookmarksItemBody-user {
-  }
+    .BookmarksItemBody-user {
+    }
 
-  .BookmarksItemBody-comment {
-    min-width: 0;
-    word-break: break-all;
-  }
+    .BookmarksItemBody-comment {
+      min-width: 0;
+      word-break: break-all;
+    }
 
-  .BookmarksItemBody-tags {
+    .BookmarksItemBody-tags {
+    }
   }
 </style>

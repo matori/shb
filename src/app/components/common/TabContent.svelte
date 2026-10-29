@@ -88,90 +88,95 @@
   </div>
 </div>
 
-<style lang="scss" global>
-  .TabContent {
-    --tab-border-color: var(--color-border-base);
-    display: grid;
-    grid-template-rows: min-content 1fr;
-    width: 100%;
-    height: 100%;
-    /*min-height: 0;*/
-  }
-
-  .TabContent-tabList {
-    display: flex;
-    margin: 0;
-    padding-left: 0;
-    list-style-type: none;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: var(--tab-border-color);
-  }
-
-  .TabContent-tabItem {
-    flex-grow: 1;
-    flex-shrink: 1;
-    flex-basis: fit-content;
-  }
-
-  .TabContent-tab {
-    @include text(-2);
-    display: block;
-    position: relative;
-    padding: get-lines(0.5) get-lines(0.25);
-    width: 100%;
-    height: 100%;
-    white-space: nowrap;
-
-    &::after {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      left: 0;
-      content: "";
-      opacity: 0;
-    }
-
-    &:not([aria-selected="true"]):hover::after {
-      border-width: 0 5px 5px;
-      border-style: solid;
-      border-color: transparent transparent var(--tab-border-color);
-      margin-right: auto;
-      margin-left: auto;
-      width: 0;
-      opacity: 1;
-    }
-
-    &[aria-selected="true"]::after {
-      border-top-width: 4px;
-      border-top-style: solid;
-      border-top-color: var(--tab-border-color);
+<style>
+  :global {
+    .TabContent {
+      --tab-border-color: var(--color-border-base);
+      display: grid;
+      grid-template-rows: min-content 1fr;
       width: 100%;
-      opacity: 1;
+      height: 100%;
+      /*min-height: 0;*/
     }
 
-    font-feature-settings: "palt";
+    .TabContent-tabList {
+      display: flex;
+      margin: 0;
+      padding-left: 0;
+      list-style-type: none;
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+      border-bottom-color: var(--tab-border-color);
+    }
 
-    &._fun,
-    &._entertainment {
-      @media screen and (min-width: 1141px) {
-        wbr {
-          display: none;
+    .TabContent-tabItem {
+      flex-grow: 1;
+      flex-shrink: 1;
+      flex-basis: fit-content;
+    }
+
+    .TabContent-tab {
+      font-size: var(--fs-xs);
+      line-height: var(--lh-xs);
+      display: block;
+      position: relative;
+      padding: calc(var(--line) * 0.5) calc(var(--line) * 0.25);
+      width: 100%;
+      height: 100%;
+      white-space: nowrap;
+
+      &::after {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        content: "";
+        opacity: 0;
+      }
+
+      &:not([aria-selected="true"]):hover::after {
+        border-width: 0 5px 5px;
+        border-style: solid;
+        border-color: transparent transparent var(--tab-border-color);
+        margin-right: auto;
+        margin-left: auto;
+        width: 0;
+        opacity: 1;
+      }
+
+      &[aria-selected="true"]::after {
+        border-top-width: 4px;
+        border-top-style: solid;
+        border-top-color: var(--tab-border-color);
+        width: 100%;
+        opacity: 1;
+      }
+
+      font-feature-settings: "palt";
+
+      &._fun,
+      &._entertainment {
+        @media screen and (min-width: 1141px) {
+          wbr {
+            display: none;
+          }
         }
       }
     }
-  }
 
-  .TabContent-body {
-    min-height: 0;
-  }
+    .TabContent-body {
+      min-height: 0;
+    }
 
-  .TabContent-panel {
-    @include focus-clear-without-keyboard;
-    height: 100%;
+    .TabContent-panel {
+      &:focus:not(:focus-visible) {
+        outline: none;
+      }
+      height: 100%;
 
-    &[aria-hidden="true"] {
-      display: none;
+      &[aria-hidden="true"] {
+        display: none;
+      }
     }
   }
 </style>

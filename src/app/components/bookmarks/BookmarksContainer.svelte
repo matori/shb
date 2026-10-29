@@ -34,32 +34,34 @@
   </div>
 </section>
 
-<style lang="scss" global>
-  .BookmarksContainer {
-    display: grid;
-    grid-template-rows: min-content 1fr;
-    row-gap: get-lines(0.5) - $line-edge;
-  }
+<style>
+  :global {
+    .BookmarksContainer {
+      display: grid;
+      grid-template-rows: min-content 1fr;
+      row-gap: calc(var(--line) * 0.5 - var(--line-edge));
+    }
 
-  .BookmarksContainer-header {
-  }
+    .BookmarksContainer-header {
+    }
 
-  .BookmarksContainer-body {
-    box-sizing: border-box;
-    border-width: 1px;
-    border-style: solid;
-    border-color: var(--color-border-base);
-    min-height: 0;
-    background-color: var(--color-bg-content);
-    box-shadow: var(--shadow-base);
-  }
+    .BookmarksContainer-body {
+      box-sizing: border-box;
+      border-width: 1px;
+      border-style: solid;
+      border-color: var(--color-border-base);
+      min-height: 0;
+      background-color: var(--color-bg-content);
+      box-shadow: var(--shadow-base);
+    }
 
-  .BookmarksContainer-tabContent {
-    --tab-border-color: var(--color-border-green);
-    min-height: 0;
-  }
+    .BookmarksContainer-tabContent {
+      --tab-border-color: var(--color-border-green);
+      min-height: 0;
+    }
 
-  .BookmarksContainer-bookmarks {
-    height: 100%;
+    .BookmarksContainer-bookmarks {
+      height: 100%;
+    }
   }
 </style>
