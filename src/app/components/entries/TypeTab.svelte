@@ -14,6 +14,7 @@
   {...rest}
   class={[className, "TypeTab"]}
   tabs={entryTypes}
+  panelClass="ScrollShadow"
   selected={$selectedTypeTabIndex}
   label="カテゴリー「{category.label}」の人気エントリーと新着エントリー"
   onselect={(index) => selectedTypeTabIndex.set(index)}

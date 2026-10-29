@@ -24,7 +24,7 @@
   })
 </script>
 
-<div {...rest} class={[className, "Bookmarks"]} bind:this={scrollContainer}>
+<div {...rest} class={[className, "Bookmarks", "ScrollShadow"]} bind:this={scrollContainer}>
   <BookmarksHeader {content} class="Bookmarks-header" />
   <div class="Bookmarks-body" aria-label="コメントのリスト">
     {#if orderedBookmarks.length}

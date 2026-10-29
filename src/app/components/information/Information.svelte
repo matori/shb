@@ -14,7 +14,7 @@
     </h2>
   </header>
   <div class="Information-body">
-    <div class="Information-content">
+    <div class="Information-content ScrollShadow">
       <p class="Information-intro">
         「しんぷるはてぶ」は、はてなブックマーク全カテゴリーの新規エントリーを1画面で閲覧することを目的としたページです。
         <br />
@@ -99,7 +99,6 @@
       padding: calc(var(--line) * 0.25) calc(var(--line) * 0.75) calc(var(--line) * 0.75);
       max-height: 100%;
       overflow-y: auto;
-      background-color: var(--color-surface);
       color: var(--color-text-sub);
     }
 

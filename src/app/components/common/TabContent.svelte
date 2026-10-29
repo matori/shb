@@ -9,6 +9,7 @@
     label,
     labelledby,
     panelTabIndex = false,
+    panelClass = "",
     onselect,
     class: className = "",
     children,
@@ -76,7 +77,7 @@
     {#each tabs as { key, label }, index}
       <div
         id="{uid}-tabpanel-{index}"
-        class="TabContent-panel"
+        class={["TabContent-panel", panelClass]}
         tabindex={panelTabIndex ? 0 : null}
         role="tabpanel"
         aria-labelledby="{uid}-tab-{index}"
