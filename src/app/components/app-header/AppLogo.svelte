@@ -13,18 +13,16 @@
       line-height: var(--lh-l);
       margin-top: 0;
       margin-bottom: 0;
-      font-weight: var(--fw-normal);
+      font-weight: var(--fw-bold);
       white-space: nowrap;
     }
 
     .AppLogo-link {
-      display: flex;
-      align-items: center;
-      height: 100%;
       color: inherit;
       text-decoration: none;
 
       &:hover {
+        color: inherit;
         text-decoration: underline;
       }
     }

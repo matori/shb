@@ -19,9 +19,10 @@
     .AppHeader {
       display: grid;
       grid-template-columns: 1fr minmax(var(--content-min-width), var(--content-max-width)) 1fr;
-      grid-template-rows: calc(var(--line) * 2);
       column-gap: var(--line);
-      background-color: var(--color-bg-content);
+      padding-top: calc(var(--line) * 0.4);
+      padding-bottom: calc(var(--line) * 0.4);
+      background-color: var(--color-surface);
     }
 
     .AppHeader-inner {
@@ -29,18 +30,11 @@
       grid-column-end: 3;
       display: grid;
       grid-template-columns: min-content 1fr min-content;
-      grid-template-rows: 100%;
-      column-gap: calc(var(--line) * 2);
-    }
-
-    .AppHeader-logo {
-      grid-column-start: 1;
-      grid-column-end: 2;
+      align-items: center;
+      column-gap: var(--line);
     }
 
     .AppHeader-links {
-      grid-column-start: 2;
-      grid-column-end: 3;
       min-width: 0;
     }
   }
