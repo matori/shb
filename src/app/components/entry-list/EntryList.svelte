@@ -27,6 +27,11 @@
       list-style: none;
     }
 
+    /* カテゴリーのタブと近すぎないよう、先頭のエントリーだけ上の余白を広げる */
+    .EntryList-item:first-child {
+      padding-top: calc(var(--line) * 0.75);
+    }
+
     .EntryList-item {
       border-bottom: 1px solid var(--color-line);
     }
