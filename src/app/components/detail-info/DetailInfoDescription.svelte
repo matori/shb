@@ -7,11 +7,9 @@
   const removeAttrs = createNullValueObject(["text"])
 </script>
 
-<template>
-  <p {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailInfoDescription">
-    {#if text}{text}{:else}詳細データはありません。{/if}
-  </p>
-</template>
+<p {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailInfoDescription">
+  {#if text}{text}{:else}詳細データはありません。{/if}
+</p>
 
 <style lang="scss" global>
   .DetailInfoDescription {

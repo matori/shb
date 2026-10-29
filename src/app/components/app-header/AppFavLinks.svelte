@@ -7,22 +7,20 @@
   const removeAttrs = createNullValueObject([])
 </script>
 
-<template>
-  <div {...$$props} {...removeAttrs} class="{$$props.class || ''} AppFavLinks" aria-label="お気に入りリンク">
-    {#if $links.length}
-      <List class="AppFavLinks-list">
-        {#each $links as link}
-          <li class="AppFavLinks-item">
-            <Link url="{link.url}" class="AppFavLinks-link">
-              <img src="https://www.google.com/s2/favicons?domain={link.url}" alt="" class="AppFavLinks-favicon" />
-              <span class="AppFavLinks-label">{link.label}</span>
-            </Link>
-          </li>
-        {/each}
-      </List>
-    {/if}
-  </div>
-</template>
+<div {...$$props} {...removeAttrs} class="{$$props.class || ''} AppFavLinks" aria-label="お気に入りリンク">
+  {#if $links.length}
+    <List class="AppFavLinks-list">
+      {#each $links as link}
+        <li class="AppFavLinks-item">
+          <Link url={link.url} class="AppFavLinks-link">
+            <img src="https://www.google.com/s2/favicons?domain={link.url}" alt="" class="AppFavLinks-favicon" />
+            <span class="AppFavLinks-label">{link.label}</span>
+          </Link>
+        </li>
+      {/each}
+    </List>
+  {/if}
+</div>
 
 <style lang="scss" global>
   .AppFavLinks {

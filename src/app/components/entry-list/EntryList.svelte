@@ -10,21 +10,19 @@
   const removeAttrs = createNullValueObject(["items"])
 </script>
 
-<template>
-  <div {...$$props} {...removeAttrs} class="{$$props.class || ''} EntryList">
-    {#if items.length}
-      <List class="EntryList-list">
-        {#each items as item, index}
-          <EnteryListItem {item} class="EntryList-item" />
-        {/each}
-      </List>
-    {:else}
-      <div class="EntryList-noItems">
-        <p class="EntryList-message">表示できるアイテムがありません。</p>
-      </div>
-    {/if}
-  </div>
-</template>
+<div {...$$props} {...removeAttrs} class="{$$props.class || ''} EntryList">
+  {#if items.length}
+    <List class="EntryList-list">
+      {#each items as item, index}
+        <EnteryListItem {item} class="EntryList-item" />
+      {/each}
+    </List>
+  {:else}
+    <div class="EntryList-noItems">
+      <p class="EntryList-message">表示できるアイテムがありません。</p>
+    </div>
+  {/if}
+</div>
 
 <style lang="scss" global>
   .EntryList {

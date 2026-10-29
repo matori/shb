@@ -28,16 +28,14 @@
   }
 </script>
 
-<template>
-  <div {...$$props} {...removeAttrs} class="{$$props.class || ''} BookmarksItemContent">
-    <BookmarksItemAvatar {user} url="{userUrl}" class="BookmarksItemContent-avatar" />
-    <BookmarksItemBody {user} {userUrl} {comment} {commentTexts} {tags} class="BookmarksItemContent-body" />
-    {#if comment}
-      <BookmarksItemCommentPermalink {user} {eid} class="BookmarksItemContent-permalink" />
-    {/if}
-    <BookmarksItemDate {eid} {user} {timestamp} class="BookmarksItemContent-date" />
-  </div>
-</template>
+<div {...$$props} {...removeAttrs} class="{$$props.class || ''} BookmarksItemContent">
+  <BookmarksItemAvatar {user} url={userUrl} class="BookmarksItemContent-avatar" />
+  <BookmarksItemBody {user} {userUrl} {comment} {commentTexts} {tags} class="BookmarksItemContent-body" />
+  {#if comment}
+    <BookmarksItemCommentPermalink {user} {eid} class="BookmarksItemContent-permalink" />
+  {/if}
+  <BookmarksItemDate {eid} {user} {timestamp} class="BookmarksItemContent-date" />
+</div>
 
 <style lang="scss" global>
   .BookmarksItemContent {

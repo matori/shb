@@ -23,7 +23,7 @@
   let orderedBookmarks
 
   $: {
-    orderedBookmarks = content.bookmarks.filter(bookmark => {
+    orderedBookmarks = content.bookmarks.filter((bookmark) => {
       if (!$showAllBookmarks) {
         return bookmark.comment
       }
@@ -31,24 +31,21 @@
     })
     orderedBookmarks = $reverseOrderBookmarks ? orderedBookmarks.reverse() : orderedBookmarks
   }
-
 </script>
 
-<template>
-  <div {...$$props} {...removeAttrs} class="{$$props.class || ''} Bookmarks" bind:this="{scrollContainer}">
-    <BookmarksHeader {content} class="Bookmarks-header" />
-    <div class="Bookmarks-body" aria-label="コメントのリスト">
-      {#if orderedBookmarks.length}
-        <BookmarksList bookmarks="{orderedBookmarks}" eid="{content.eid}" class="Bookmarks-list" />
-      {:else}
-        <p class="Bookmarks-message">表示できるブックマークがありません</p>
-      {/if}
-      <p class="Bookmarks-helper">
-        <LinkBox url="{content.entry_url}" class="Bookmarks-link">この一覧をはてなブックマークで見る</LinkBox>
-      </p>
-    </div>
+<div {...$$props} {...removeAttrs} class="{$$props.class || ''} Bookmarks" bind:this={scrollContainer}>
+  <BookmarksHeader {content} class="Bookmarks-header" />
+  <div class="Bookmarks-body" aria-label="コメントのリスト">
+    {#if orderedBookmarks.length}
+      <BookmarksList bookmarks={orderedBookmarks} eid={content.eid} class="Bookmarks-list" />
+    {:else}
+      <p class="Bookmarks-message">表示できるブックマークがありません</p>
+    {/if}
+    <p class="Bookmarks-helper">
+      <LinkBox url={content.entry_url} class="Bookmarks-link">この一覧をはてなブックマークで見る</LinkBox>
+    </p>
   </div>
-</template>
+</div>
 
 <style lang="scss" global>
   .Bookmarks {

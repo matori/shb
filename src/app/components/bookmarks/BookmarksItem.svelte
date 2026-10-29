@@ -10,16 +10,14 @@
   const removeAttrs = createNullValueObject(["bookmark", "eid"])
 </script>
 
-<template>
-  <li {...$$props} {...removeAttrs} class="{$$props.class || ''} BookmarksItem">
-    <BookmarksItemContent {bookmark} {eid} class="BookmarksItem-main" />
-    {#if bookmark.idCalls || bookmark.idCalled}
-      <div class="BookmarksItem-sub">
-        <BookmarksItemIdCalls {bookmark} {eid} class="BookmarksItem-idCalls" />
-      </div>
-    {/if}
-  </li>
-</template>
+<li {...$$props} {...removeAttrs} class="{$$props.class || ''} BookmarksItem">
+  <BookmarksItemContent {bookmark} {eid} class="BookmarksItem-main" />
+  {#if bookmark.idCalls || bookmark.idCalled}
+    <div class="BookmarksItem-sub">
+      <BookmarksItemIdCalls {bookmark} {eid} class="BookmarksItem-idCalls" />
+    </div>
+  {/if}
+</li>
 
 <style lang="scss" global>
   .BookmarksItem {

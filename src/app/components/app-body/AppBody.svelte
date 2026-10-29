@@ -5,11 +5,9 @@
   const removeAttrs = createNullValueObject([])
 </script>
 
-<template>
-  <div {...$$props} {...removeAttrs} class="{$$props.class || ''} AppBody">
-    <ContentContainer class="AppBody-inner" />
-  </div>
-</template>
+<div {...$$props} {...removeAttrs} class="{$$props.class || ''} AppBody">
+  <ContentContainer class="AppBody-inner" />
+</div>
 
 <style lang="scss" global>
   .AppBody {

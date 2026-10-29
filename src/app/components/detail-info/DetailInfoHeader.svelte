@@ -14,33 +14,31 @@
   const removeAttrs = createNullValueObject(["detailContent", "itemData", "detailInfoExpanded"])
 </script>
 
-<template>
-  <header {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailInfoHeader">
-    <DetailInfoTitle
-      title="{detailContent.title}"
-      url="{detailContent.url}"
-      multiLine="{detailInfoExpanded}"
-      class="DetailInfoHeader-title"
-    />
-    <DetailInfoBookmarkCount
-      url="{detailContent.entry_url}"
-      count="{detailContent.count}"
-      class="DetailInfoHeader-bookmark"
-    />
-    <DetailInfoCategory
-      slug="{itemData.realCategory.slug}"
-      label="{itemData.realCategory.label}"
-      class="DetailInfoHeader-category"
-    />
-    <DetailInfoSite
-      url="{itemData.siteEntriesUrl}"
-      label="{itemData.siteEntriesLabel}"
-      favicon="{itemData.favicon}"
-      class="DetailInfoHeader-site"
-    />
-    <DetailInfoDate datetime="{itemData.date}" class="DetailInfoHeader-date" title="最初にブックマークされた日時" />
-  </header>
-</template>
+<header {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailInfoHeader">
+  <DetailInfoTitle
+    title={detailContent.title}
+    url={detailContent.url}
+    multiLine={detailInfoExpanded}
+    class="DetailInfoHeader-title"
+  />
+  <DetailInfoBookmarkCount
+    url={detailContent.entry_url}
+    count={detailContent.count}
+    class="DetailInfoHeader-bookmark"
+  />
+  <DetailInfoCategory
+    slug={itemData.realCategory.slug}
+    label={itemData.realCategory.label}
+    class="DetailInfoHeader-category"
+  />
+  <DetailInfoSite
+    url={itemData.siteEntriesUrl}
+    label={itemData.siteEntriesLabel}
+    favicon={itemData.favicon}
+    class="DetailInfoHeader-site"
+  />
+  <DetailInfoDate datetime={itemData.date} class="DetailInfoHeader-date" title="最初にブックマークされた日時" />
+</header>
 
 <style lang="scss" global>
   .DetailInfoHeader {

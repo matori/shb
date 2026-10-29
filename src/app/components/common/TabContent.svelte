@@ -64,49 +64,47 @@
   }
 </script>
 
-<template>
-  <div {...$$props} {...removeAttrs} class="{$$props.class || ''} TabContent">
-    <ol
-      class="TabContent-tabList"
-      role="tablist"
-      aria-label="{labelledby ? null : label || null}"
-      aria-labelledby="{labelledby || null}"
-      use:focusTab="{selected}"
-    >
-      {#each tabs as { key, label, display }, index}
-        <li class="TabContent-tabItem" role="none">
-          <Button
-            id="{uid}-tab-{index}"
-            class="TabContent-tab _{key}"
-            tabindex="{selected === index ? null : -1}"
-            role="tab"
-            aria-label="{display ? label : null}"
-            aria-controls="{uid}-tabpanel-{index}"
-            aria-selected="{selected === index}"
-            on:click="{onClickTab.bind(null, index)}"
-            on:keydown="{onKeydownTab}"
-          >
-            {@html display || label}
-          </Button>
-        </li>
-      {/each}
-    </ol>
-    <div class="TabContent-body">
-      {#each tabs as { key, label }, index}
-        <div
-          id="{uid}-tabpanel-{index}"
-          class="TabContent-panel"
-          tabindex="{panelTabIndex ? 0 : null}"
-          role="tabpanel"
-          aria-labelledby="{uid}-tab-{index}"
-          aria-hidden="{selected !== index ? true : null}"
+<div {...$$props} {...removeAttrs} class="{$$props.class || ''} TabContent">
+  <ol
+    class="TabContent-tabList"
+    role="tablist"
+    aria-label={labelledby ? null : label || null}
+    aria-labelledby={labelledby || null}
+    use:focusTab={selected}
+  >
+    {#each tabs as { key, label, display }, index}
+      <li class="TabContent-tabItem" role="none">
+        <Button
+          id="{uid}-tab-{index}"
+          class="TabContent-tab _{key}"
+          tabindex={selected === index ? null : -1}
+          role="tab"
+          aria-label={display ? label : null}
+          aria-controls="{uid}-tabpanel-{index}"
+          aria-selected={selected === index}
+          on:click={onClickTab.bind(null, index)}
+          on:keydown={onKeydownTab}
         >
-          <slot {key} {label} />
-        </div>
-      {/each}
-    </div>
+          {@html display || label}
+        </Button>
+      </li>
+    {/each}
+  </ol>
+  <div class="TabContent-body">
+    {#each tabs as { key, label }, index}
+      <div
+        id="{uid}-tabpanel-{index}"
+        class="TabContent-panel"
+        tabindex={panelTabIndex ? 0 : null}
+        role="tabpanel"
+        aria-labelledby="{uid}-tab-{index}"
+        aria-hidden={selected !== index ? true : null}
+      >
+        <slot {key} {label} />
+      </div>
+    {/each}
   </div>
-</template>
+</div>
 
 <style lang="scss" global>
   .TabContent {

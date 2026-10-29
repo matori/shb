@@ -29,33 +29,31 @@
   }
 </script>
 
-<template>
-  <div
-    {...$$props}
-    {...removeAttrs}
-    class="{$$props.class || ''} Modal"
-    role="dialog"
-    aria-hidden="{!show}"
-    on:keydown="{onKeydownModal}"
+<div
+  {...$$props}
+  {...removeAttrs}
+  class="{$$props.class || ''} Modal"
+  role="dialog"
+  aria-hidden={!show}
+  on:keydown={onKeydownModal}
+>
+  <div class="Modal-backdrop" on:click={dispatchModalClose}></div>
+  <Button
+    class="Modal-close"
+    title="ESCキー、画像の背景をクリックでも閉じられます"
+    bind:ref={closeButton}
+    on:click={dispatchModalClose}
+    on:keydown={onKeydownCloseButton}
   >
-    <div class="Modal-backdrop" on:click="{dispatchModalClose}"></div>
-    <Button
-      class="Modal-close"
-      title="ESCキー、画像の背景をクリックでも閉じられます"
-      bind:ref="{closeButton}"
-      on:click="{dispatchModalClose}"
-      on:keydown="{onKeydownCloseButton}"
-    >
-      <Icon name="close" class="Modal-icon" />
-      閉じる
-    </Button>
-    <div class="Modal-inner">
-      <div class="Modal-content">
-        <slot />
-      </div>
+    <Icon name="close" class="Modal-icon" />
+    閉じる
+  </Button>
+  <div class="Modal-inner">
+    <div class="Modal-content">
+      <slot />
     </div>
   </div>
-</template>
+</div>
 
 <style lang="scss" global>
   .Modal {

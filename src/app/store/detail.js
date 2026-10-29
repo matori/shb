@@ -7,7 +7,7 @@ import splitComment from "~/utils/splitComment"
 const detailFetchProcessing = writable(false)
 const detailFetchErrorMessage = writable("")
 const detailData = detailDataStore(null)
-const hasDetailData = derived(detailData, $detailData => !!$detailData)
+const hasDetailData = derived(detailData, ($detailData) => !!$detailData)
 
 function detailDataStore(initialData) {
   const { subscribe, set } = writable(initialData)
@@ -23,7 +23,7 @@ function detailDataStore(initialData) {
         },
       }
       try {
-        const response = await axios.get(process.env.DETAIL_API, axiosConfig)
+        const response = await axios.get(import.meta.env.VITE_DETAIL_API, axiosConfig)
         const data = {
           ...addCommentTexts(response.data),
           itemData: itemData,
@@ -59,7 +59,7 @@ function addCommentTexts(detail) {
         const commentTexts = splitComment(comment)
         const idCalls = commentTexts.reduce((result, text) => {
           if (text.type === "idCall") {
-            const targetIndex = bookmarks.findIndex(bm => bm.user === text.user)
+            const targetIndex = bookmarks.findIndex((bm) => bm.user === text.user)
             if (targetIndex > -1) {
               const target = bookmarks[targetIndex]
               if (!target.idCalled) {
@@ -80,11 +80,11 @@ function addCommentTexts(detail) {
       .map((bookmark, index, bookmarks) => {
         if (bookmark.idCalls) {
           const idCalls = uniq(bookmark.idCalls)
-          bookmark.idCalls = idCalls.map(id => {
-            const data = bookmarks.find(bm => bm.user === id)
+          bookmark.idCalls = idCalls.map((id) => {
+            const data = bookmarks.find((bm) => bm.user === id)
             const belowData =
               floorIndex > 0
-                ? detail.data.entries[floorIndex - 1].content.bookmarks.find(bm => bm.user === id)
+                ? detail.data.entries[floorIndex - 1].content.bookmarks.find((bm) => bm.user === id)
                 : undefined
             const belowEid = belowData ? detail.data.entries[floorIndex - 1].content.eid : undefined
             if (!data) {
@@ -102,8 +102,8 @@ function addCommentTexts(detail) {
         }
         if (bookmark.idCalled) {
           const idCalled = uniq(bookmark.idCalled)
-          bookmark.idCalled = idCalled.map(id => {
-            return bookmarks.find(bm => bm.user === id)
+          bookmark.idCalled = idCalled.map((id) => {
+            return bookmarks.find((bm) => bm.user === id)
           })
         }
         return bookmark

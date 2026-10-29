@@ -10,20 +10,18 @@
   const removeAttrs = createNullValueObject(["tags"])
 </script>
 
-<template>
-  <div {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailInfoTags">
-    <div class="DetailInfoTags-prefix" aria-hidden="true">
-      <Icon name="tag" class="DetailInfoTags-icon" />
-    </div>
-    <List class="DetailInfoTags-list" aria-label="このエントリーにつけられた主なタグ">
-      {#each tags as tag}
-        <li class="DetailInfoTags-item">
-          <Link url="{tag.url}" class="DetailInfoTags-link">{tag.label}</Link>
-        </li>
-      {/each}
-    </List>
+<div {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailInfoTags">
+  <div class="DetailInfoTags-prefix" aria-hidden="true">
+    <Icon name="tag" class="DetailInfoTags-icon" />
   </div>
-</template>
+  <List class="DetailInfoTags-list" aria-label="このエントリーにつけられた主なタグ">
+    {#each tags as tag}
+      <li class="DetailInfoTags-item">
+        <Link url={tag.url} class="DetailInfoTags-link">{tag.label}</Link>
+      </li>
+    {/each}
+  </List>
+</div>
 
 <style lang="scss" global>
   .DetailInfoTags {

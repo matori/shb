@@ -63,43 +63,41 @@
   }
 </script>
 
-<template>
-  <div {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailInfoImage">
-    <Link
-      url="{image}"
-      class="DetailInfoImage-link {imageLoadError ? '_loadError' : ''}"
-      title="画像を拡大表示"
-      bind:ref="{modalTrigger}"
-      on:click="{showModal}"
-    >
-      {#if !imageLoadError}
-        <img src="{image}" alt="" class="DetailInfoImage-image" on:error="{onErrorLoadImage}" />
-      {:else}
-        <div class="DetailInfoImage-error">
-          <span class="DetailInfoImage-message">画像の読み込みに失敗しました</span>
-          <Icon name="broken-image" class="DetailInfoImage-placeholder" aria-hidden="true" />
-        </div>
-      {/if}
-    </Link>
-  </div>
-  <Modal
-    show="{modalShow}"
-    {lastFocusable}
-    bind:closeButton
-    on:modal:close="{hideModal}"
-    on:closebutton:keydown="{onKeydownCloseButton}"
+<div {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailInfoImage">
+  <Link
+    url={image}
+    class="DetailInfoImage-link {imageLoadError ? '_loadError' : ''}"
+    title="画像を拡大表示"
+    bind:ref={modalTrigger}
+    on:click={showModal}
   >
-    <Link
-      url="{image}"
-      class="DetailInfoImage-modalLink"
-      title="画像を直接開く"
-      bind:ref="{lastFocusable}"
-      on:keydown="{onKeydownLastFocusable}"
-    >
-      <img src="{image}" alt="" class="DetailInfoImage-modalImage" />
-    </Link>
-  </Modal>
-</template>
+    {#if !imageLoadError}
+      <img src={image} alt="" class="DetailInfoImage-image" on:error={onErrorLoadImage} />
+    {:else}
+      <div class="DetailInfoImage-error">
+        <span class="DetailInfoImage-message">画像の読み込みに失敗しました</span>
+        <Icon name="broken-image" class="DetailInfoImage-placeholder" aria-hidden="true" />
+      </div>
+    {/if}
+  </Link>
+</div>
+<Modal
+  show={modalShow}
+  {lastFocusable}
+  bind:closeButton
+  on:modal:close={hideModal}
+  on:closebutton:keydown={onKeydownCloseButton}
+>
+  <Link
+    url={image}
+    class="DetailInfoImage-modalLink"
+    title="画像を直接開く"
+    bind:ref={lastFocusable}
+    on:keydown={onKeydownLastFocusable}
+  >
+    <img src={image} alt="" class="DetailInfoImage-modalImage" />
+  </Link>
+</Modal>
 
 <style lang="scss" global>
   .DetailInfoImage {

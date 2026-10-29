@@ -6,14 +6,12 @@
   const removeAttrs = createNullValueObject([])
 </script>
 
-<template>
-  <section {...$$props} {...removeAttrs} class="{$$props.class || ''} EntriesContainer">
-    <EntriesHeader heading="エントリーの一覧" class="EntriesContainer-header" />
-    <div class="EntriesContainer-entries">
-      <CategoryTab class="EntriesContainer-content" />
-    </div>
-  </section>
-</template>
+<section {...$$props} {...removeAttrs} class="{$$props.class || ''} EntriesContainer">
+  <EntriesHeader heading="エントリーの一覧" class="EntriesContainer-header" />
+  <div class="EntriesContainer-entries">
+    <CategoryTab class="EntriesContainer-content" />
+  </div>
+</section>
 
 <style lang="scss" global>
   .EntriesContainer {

@@ -10,13 +10,11 @@
   const removeAttrs = createNullValueObject(["bookmarks", "eid"])
 </script>
 
-<template>
-  <List {...$$props} {...removeAttrs} ordered="{true}" class="{$$props.class || ''} BookmarksList">
-    {#each bookmarks as bookmark, index (bookmark.user)}
-      <BookmarksItem {bookmark} {eid} class="BookmarksList-item" />
-    {/each}
-  </List>
-</template>
+<List {...$$props} {...removeAttrs} ordered={true} class="{$$props.class || ''} BookmarksList">
+  {#each bookmarks as bookmark, index (bookmark.user)}
+    <BookmarksItem {bookmark} {eid} class="BookmarksList-item" />
+  {/each}
+</List>
 
 <style lang="scss" global>
   .BookmarksList {

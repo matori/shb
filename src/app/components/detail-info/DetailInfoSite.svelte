@@ -10,14 +10,12 @@
   const removeAttrs = createNullValueObject(["url", "label", "favicon"])
 </script>
 
-<template>
-  <span {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailInfoSite">
-    <Link {url} class="DetailInfoSite-link">
-      <img src="{favicon}" class="DetailInfoSite-favicon" alt="" />
-      <span class="DetailInfoSite-label">{label}</span>
-    </Link>
-  </span>
-</template>
+<span {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailInfoSite">
+  <Link {url} class="DetailInfoSite-link">
+    <img src={favicon} class="DetailInfoSite-favicon" alt="" />
+    <span class="DetailInfoSite-label">{label}</span>
+  </Link>
+</span>
 
 <style lang="scss" global>
   .DetailInfoSite {

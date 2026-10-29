@@ -21,7 +21,7 @@
   let linksInput
   let linksText
 
-  autoRefresh.subscribe(value => {
+  autoRefresh.subscribe((value) => {
     autoRefreshActive = value
 
     if (value) {
@@ -31,11 +31,11 @@
     }
   })
 
-  autoRefreshInterval.subscribe(value => {
+  autoRefreshInterval.subscribe((value) => {
     autoRefreshIntervalTime = value * 60 * 1000
   })
 
-  links.subscribe(value => {
+  links.subscribe((value) => {
     linksText = linksToText(value)
   })
 
@@ -121,75 +121,63 @@
   }
 </script>
 
-<template>
-  <div {...$$props} {...removeAttrs} class="{$$props.class || ''} AppSettings">
-    <Button
-      title="自動更新を{autoRefreshActive ? '停止する' : '有効にする'}"
-      class="AppSettings-button"
-      role="switch"
-      aria-checked="{autoRefreshActive}"
-      on:click="{toggleAutoRefresh}"
-    >
-      <Icon name="checkbox-checked" class="AppSettings-icon {autoRefreshActive ? '' : '_hide'}" />
-      <Icon name="checkbox-outline" class="AppSettings-icon {autoRefreshActive ? '_hide' : ''}" />
-      自動更新
-    </Button>
-    <Button class="AppSettings-button" bind:ref="{modalTrigger}" on:click="{showModal}">
-      <Icon name="settings" class="AppSettings-icon" />
-      設定
-    </Button>
-    <Modal
-      show="{modalShow}"
-      {lastFocusable}
-      bind:closeButton
-      on:modal:close="{hideModal}"
-      on:closebutton:keydown="{onKeydownCloseButton}"
-    >
-      <form class="AppSettings-form" on:submit="{onSubmit}">
-        <div class="AppSettings-body">
-          <p class="AppSettings-item">
-            <label for="autoRefreshInterval" class="AppSettings-label">エントリー一覧の自動更新間隔</label>
-            <input
-              type="number"
-              id="autoRefreshInterval"
-              value="{$autoRefreshInterval}"
-              min="5"
-              class="AppSettings-time"
-              bind:this="{autoRefreshIntervalInput}"
-            />
-            分
-          </p>
-          <p class="AppSettings-item">
-            <label for="links" class="AppSettings-label">
-              ヘッダーのリンク集
-              <br />
-              <span>
-                <code>[ラベル](URL)</code>
-                形式を改行区切りで指定できます
-              </span>
-            </label>
-            <textarea
-              id="links"
-              class="AppSettings-textarea"
-              bind:this="{linksInput}"
-              bind:value="{linksText}"
-            ></textarea>
-          </p>
-        </div>
-        <div class="AppSettings-footer">
-          <Button
-            type="submit"
-            class="AppSettings-submit"
-            bind:ref="{lastFocusable}"
-            on:keydown="{onKeydownLastFocusable}"
-          >
-            設定を保存
-          </Button>
-        </div>
-      </form>
-    </Modal>
-  </div>
-</template>
+<div {...$$props} {...removeAttrs} class="{$$props.class || ''} AppSettings">
+  <Button
+    title="自動更新を{autoRefreshActive ? '停止する' : '有効にする'}"
+    class="AppSettings-button"
+    role="switch"
+    aria-checked={autoRefreshActive}
+    on:click={toggleAutoRefresh}
+  >
+    <Icon name="checkbox-checked" class="AppSettings-icon {autoRefreshActive ? '' : '_hide'}" />
+    <Icon name="checkbox-outline" class="AppSettings-icon {autoRefreshActive ? '_hide' : ''}" />
+    自動更新
+  </Button>
+  <Button class="AppSettings-button" bind:ref={modalTrigger} on:click={showModal}>
+    <Icon name="settings" class="AppSettings-icon" />
+    設定
+  </Button>
+  <Modal
+    show={modalShow}
+    {lastFocusable}
+    bind:closeButton
+    on:modal:close={hideModal}
+    on:closebutton:keydown={onKeydownCloseButton}
+  >
+    <form class="AppSettings-form" on:submit={onSubmit}>
+      <div class="AppSettings-body">
+        <p class="AppSettings-item">
+          <label for="autoRefreshInterval" class="AppSettings-label">エントリー一覧の自動更新間隔</label>
+          <input
+            type="number"
+            id="autoRefreshInterval"
+            value={$autoRefreshInterval}
+            min="5"
+            class="AppSettings-time"
+            bind:this={autoRefreshIntervalInput}
+          />
+          分
+        </p>
+        <p class="AppSettings-item">
+          <label for="links" class="AppSettings-label">
+            ヘッダーのリンク集
+            <br />
+            <span>
+              <code>[ラベル](URL)</code>
+              形式を改行区切りで指定できます
+            </span>
+          </label>
+          <textarea id="links" class="AppSettings-textarea" bind:this={linksInput} bind:value={linksText}></textarea>
+        </p>
+      </div>
+      <div class="AppSettings-footer">
+        <Button type="submit" class="AppSettings-submit" bind:ref={lastFocusable} on:keydown={onKeydownLastFocusable}>
+          設定を保存
+        </Button>
+      </div>
+    </form>
+  </Modal>
+</div>
 
 <style lang="scss" global>
   .AppSettings {

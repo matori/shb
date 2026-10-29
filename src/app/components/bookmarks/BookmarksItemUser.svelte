@@ -9,11 +9,9 @@
   const removeAttrs = createNullValueObject(["user", "url"])
 </script>
 
-<template>
-  <div {...$$props} {...removeAttrs} class="{$$props.class || ''} BookmarksItemUser">
-    <Link {url} class="BookmarksItemUser-link">{user}</Link>
-  </div>
-</template>
+<div {...$$props} {...removeAttrs} class="{$$props.class || ''} BookmarksItemUser">
+  <Link {url} class="BookmarksItemUser-link">{user}</Link>
+</div>
 
 <style lang="scss" global>
   .BookmarksItemUser {

@@ -10,14 +10,12 @@
   $: countSuffix = count > 1 ? "users" : "user"
 </script>
 
-<template>
-  <span  class="{$$props.class || ''} EntryListItemBookmarkCount">
-    <Button {...$$props} {...removeAttrs} class="EntryListItemBookmarkCount-button" on:click>
-      <span class="EntryListItemBookmarkCount-count">{count}</span>
-      <span class="EntryListItemBookmarkCount-suffix">{countSuffix}</span>
-    </Button>
-  </span>
-</template>
+<span class="{$$props.class || ''} EntryListItemBookmarkCount">
+  <Button {...$$props} {...removeAttrs} class="EntryListItemBookmarkCount-button" on:click>
+    <span class="EntryListItemBookmarkCount-count">{count}</span>
+    <span class="EntryListItemBookmarkCount-suffix">{countSuffix}</span>
+  </Button>
+</span>
 
 <style lang="scss" global>
   .EntryListItemBookmarkCount {
@@ -41,7 +39,7 @@
     min-width: 4ch;
   }
 
-  .EntryListItemBookmarkCount-suffix{
+  .EntryListItemBookmarkCount-suffix {
     @include text(-2, false);
   }
 </style>

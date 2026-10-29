@@ -13,24 +13,22 @@
   const removeAttrs = createNullValueObject(["detailContent", "itemData", "detailInfoExpanded"])
 </script>
 
-<template>
-  <div
-    {...$$props}
-    {...removeAttrs}
-    class="{$$props.class || ''} DetailInfoBody {itemData.image ? '_hasImage' : ''}
-    {itemData.tags.length ? ' _hasTags' : ''}
-    {detailInfoExpanded ? '' : '_hidden'}"
-  >
-    <DetailInfoDescription text="{itemData.description}" class="DetailInfoBody-description" />
-    {#if itemData.image}
-      <DetailInfoImage image="{itemData.image}" class="DetailInfoBody-image" />
-    {/if}
-    {#if itemData.tags.length}
-      <DetailInfoTags tags="{itemData.tags}" class="DetailInfoBody-tags" />
-    {/if}
-    <DetailInfoSearchTwitter url="{detailContent.url}" class="DetailInfoBody-twitter" />
-  </div>
-</template>
+<div
+  {...$$props}
+  {...removeAttrs}
+  class="{$$props.class || ''} DetailInfoBody {itemData.image ? '_hasImage' : ''}
+  {itemData.tags.length ? ' _hasTags' : ''}
+  {detailInfoExpanded ? '' : '_hidden'}"
+>
+  <DetailInfoDescription text={itemData.description} class="DetailInfoBody-description" />
+  {#if itemData.image}
+    <DetailInfoImage image={itemData.image} class="DetailInfoBody-image" />
+  {/if}
+  {#if itemData.tags.length}
+    <DetailInfoTags tags={itemData.tags} class="DetailInfoBody-tags" />
+  {/if}
+  <DetailInfoSearchTwitter url={detailContent.url} class="DetailInfoBody-twitter" />
+</div>
 
 <style lang="scss" global>
   .DetailInfoBody {

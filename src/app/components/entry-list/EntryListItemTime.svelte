@@ -8,11 +8,9 @@
   const removeAttrs = createNullValueObject(["datetime"])
 </script>
 
-<template>
-  <span {...$$props} {...removeAttrs} class="{$$props.class || ''} EntryListItemTime">
-    <Time {datetime} class="EntryListItemTime-time" />
-  </span>
-</template>
+<span {...$$props} {...removeAttrs} class="{$$props.class || ''} EntryListItemTime">
+  <Time {datetime} class="EntryListItemTime-time" />
+</span>
 
 <style lang="scss" global>
   .EntryListItemTime {

@@ -7,19 +7,12 @@
   export { name, title }
 
   $: icon = ICON_PATHS[name]
-  $: role = title ? 'img' : null
+  $: role = title ? "img" : null
 </script>
 
-<template>
-  <svg
-    {...$$props}
-    viewBox="0 0 {icon.size} {icon.size}"
-    {role}
-    aria-label="{title}"
-    class="{$$props.class || ''} Icon">
-    <path d="{icon.path}"/>
-  </svg>
-</template>
+<svg {...$$props} viewBox="0 0 {icon.size} {icon.size}" {role} aria-label={title} class="{$$props.class || ''} Icon">
+  <path d={icon.path} />
+</svg>
 
 <style lang="scss" global>
   .Icon {

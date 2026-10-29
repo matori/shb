@@ -37,29 +37,27 @@
   }
 </script>
 
-<template>
-  <section {...$$props} {...removeAttrs} class="{$$props.class || ''} BookmarksContainer">
-    <BookmarksContainerHeader heading="コメント一覧" class="BookmarksContainer-header" />
-    <div class="BookmarksContainer-body">
-      {#if data.length > 1}
-        <TabContent
-          {tabs}
-          selected="{$selectedBookmarksTabIndex}"
-          class="BookmarksContainer-tabContent"
-          on:click:tab="{onClickTab}"
-          on:keydown:right="{onKeydownRight}"
-          on:keydown:left="{onKeydownLeft}"
-          let:key
-          let:label
-        >
-          <Bookmarks content="{data[key].content}" class="BookmarksContainer-bookmarks" />
-        </TabContent>
-      {:else}
-        <Bookmarks content="{data[0].content}" class="BookmarksContainer-bookmarks" />
-      {/if}
-    </div>
-  </section>
-</template>
+<section {...$$props} {...removeAttrs} class="{$$props.class || ''} BookmarksContainer">
+  <BookmarksContainerHeader heading="コメント一覧" class="BookmarksContainer-header" />
+  <div class="BookmarksContainer-body">
+    {#if data.length > 1}
+      <TabContent
+        {tabs}
+        selected={$selectedBookmarksTabIndex}
+        class="BookmarksContainer-tabContent"
+        on:click:tab={onClickTab}
+        on:keydown:right={onKeydownRight}
+        on:keydown:left={onKeydownLeft}
+        let:key
+        let:label
+      >
+        <Bookmarks content={data[key].content} class="BookmarksContainer-bookmarks" />
+      </TabContent>
+    {:else}
+      <Bookmarks content={data[0].content} class="BookmarksContainer-bookmarks" />
+    {/if}
+  </div>
+</section>
 
 <style lang="scss" global>
   .BookmarksContainer {

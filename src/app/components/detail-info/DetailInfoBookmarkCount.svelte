@@ -11,14 +11,12 @@
   $: countSuffix = count > 1 ? "users" : "user"
 </script>
 
-<template>
-  <div {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailInfoBookmarkCount">
-    <Link {url} class="DetailInfoBookmarkCount-total" on:click>
-      <span class="DetailInfoBookmarkCount-totalCount">{count}</span>
-      <span class="DetailInfoBookmarkCount-totalSuffix">{countSuffix}</span>
-    </Link>
-  </div>
-</template>
+<div {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailInfoBookmarkCount">
+  <Link {url} class="DetailInfoBookmarkCount-total" on:click>
+    <span class="DetailInfoBookmarkCount-totalCount">{count}</span>
+    <span class="DetailInfoBookmarkCount-totalSuffix">{countSuffix}</span>
+  </Link>
+</div>
 
 <style lang="scss" global>
   .DetailInfoBookmarkCount {
@@ -55,5 +53,4 @@
     @include text(-1, false);
     margin-left: 0.1em;
   }
-
 </style>

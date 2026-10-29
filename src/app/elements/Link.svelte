@@ -9,21 +9,19 @@
   const removeAttrs = createNullValueObject(["url", "ref", "target", "rel"])
 </script>
 
-<template>
-  <a
-    {...$$props}
-    {...removeAttrs}
-    href="{url}"
-    target="_blank"
-    rel="noreferrer noopeener nofollow"
-    class="{$$props.class || ''} Link"
-    bind:this="{ref}"
-    on:click
-    on:keydown
-  >
-    <slot />
-  </a>
-</template>
+<a
+  {...$$props}
+  {...removeAttrs}
+  href={url}
+  target="_blank"
+  rel="noreferrer noopeener nofollow"
+  class="{$$props.class || ''} Link"
+  bind:this={ref}
+  on:click
+  on:keydown
+>
+  <slot />
+</a>
 
 <style lang="scss" global>
   .Link {

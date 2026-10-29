@@ -12,21 +12,12 @@
   const removeAttrs = createNullValueObject(["detailData", "itemData", "infoIndex"])
 </script>
 
-<template>
-  <article {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailContent">
-    <DetailInfo
-      detailContent="{detailData.entries[infoIndex].content}"
-      {itemData}
-      class="DetailContent-info"
-    />
-    <div class="DetailContent-body">
-    <BookmarkContainer
-      data="{detailData.entries}"
-      class="DetailContent-bookmark"
-    />
-    </div>
-  </article>
-</template>
+<article {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailContent">
+  <DetailInfo detailContent={detailData.entries[infoIndex].content} {itemData} class="DetailContent-info" />
+  <div class="DetailContent-body">
+    <BookmarkContainer data={detailData.entries} class="DetailContent-bookmark" />
+  </div>
+</article>
 
 <style lang="scss" global>
   .DetailContent {

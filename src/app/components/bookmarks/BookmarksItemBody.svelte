@@ -14,17 +14,15 @@
   const removeAttrs = createNullValueObject(["user", "userUrl", "comment", "commentTexts", "tags"])
 </script>
 
-<template>
-  <div {...$$props} {...removeAttrs} class="{$$props.class || ''} BookmarksItemBody">
-    <BookmarksItemUser {user} url="{userUrl}" class="BookmarksItemBody-user" />
-    {#if comment}
-      <BookmarksItemComment {commentTexts} class="BookmarksItemBody-comment" />
-    {/if}
-    {#if tags.length}
-      <BookmarksItemTags {user} {tags} class="BookmarksItemBody-tags" />
-    {/if}
-  </div>
-</template>
+<div {...$$props} {...removeAttrs} class="{$$props.class || ''} BookmarksItemBody">
+  <BookmarksItemUser {user} url={userUrl} class="BookmarksItemBody-user" />
+  {#if comment}
+    <BookmarksItemComment {commentTexts} class="BookmarksItemBody-comment" />
+  {/if}
+  {#if tags.length}
+    <BookmarksItemTags {user} {tags} class="BookmarksItemBody-tags" />
+  {/if}
+</div>
 
 <style lang="scss" global>
   .BookmarksItemBody {

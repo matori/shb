@@ -1,12 +1,9 @@
 <script>
-
 </script>
 
-<template>
-  <h1 {...$$props} class="{$$props.class || ''} AppLogo">
-    <a href="/" class="AppLogo-link">しんぷるはてぶ</a>
-  </h1>
-</template>
+<h1 {...$$props} class="{$$props.class || ''} AppLogo">
+  <a href="/" class="AppLogo-link">しんぷるはてぶ</a>
+</h1>
 
 <style lang="scss" global>
   .AppLogo {

@@ -3,8 +3,6 @@
   "singleQuote": false,
   "printWidth": 120,
   "trailingComma": "all",
-  "svelteSortOrder": "scripts-markup-styles",
-  "svelteStrictMode": true,
-  "svelteBracketNewLine": true,
-  "svelteAllowShorthand": true
+  "plugins": ["prettier-plugin-svelte"],
+  "svelteSortOrder": "options-scripts-markup-styles"
 }

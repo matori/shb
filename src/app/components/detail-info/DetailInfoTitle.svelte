@@ -10,11 +10,9 @@
   const removeAttrs = createNullValueObject(["title", "url", "multiLine"])
 </script>
 
-<template>
-  <h3 {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailInfoTitle {multiLine ? '' : '_singleLine'}">
-    <Link {url} title="{multiLine ? null : title}" class="DetailInfoTitle-link">{ title }</Link>
-  </h3>
-</template>
+<h3 {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailInfoTitle {multiLine ? '' : '_singleLine'}">
+  <Link {url} title={multiLine ? null : title} class="DetailInfoTitle-link">{title}</Link>
+</h3>
 
 <style lang="scss" global>
   .DetailInfoTitle {

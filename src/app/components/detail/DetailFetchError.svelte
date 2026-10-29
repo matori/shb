@@ -10,11 +10,9 @@
   const removeAttrs = createNullValueObject(["display", "when", "message"])
 </script>
 
-<template>
-  <div class="{$$props.class || ''} DetailFetchError">
-    <FetchError {...$$props} {...removeAttrs} {display} {when} {message} class="DetailFetchError-error" />
-  </div>
-</template>
+<div class="{$$props.class || ''} DetailFetchError">
+  <FetchError {...$$props} {...removeAttrs} {display} {when} {message} class="DetailFetchError-error" />
+</div>
 
 <style lang="scss" global>
   .DetailFetchError {

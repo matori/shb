@@ -4,10 +4,8 @@
   import AppBody from "~/components/app-body/AppBody"
 </script>
 
-<template>
-  <AppHeader class="App-header" />
-  <AppBody class="App-body" />
-</template>
+<AppHeader class="App-header" />
+<AppBody class="App-body" />
 
 <style lang="scss" global>
   @import "./assets/styles/custom-properties";

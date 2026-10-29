@@ -8,11 +8,9 @@
   const removeAttrs = createNullValueObject(["url"])
 </script>
 
-<template>
-  <Link {...$$props} {...removeAttrs} {url} class="{$$props.class || ''} LinkBox">
-    <slot />
-  </Link>
-</template>
+<Link {...$$props} {...removeAttrs} {url} class="{$$props.class || ''} LinkBox">
+  <slot />
+</Link>
 
 <style lang="scss" global>
   .LinkBox {

@@ -7,19 +7,17 @@
   const removeAttrs = createNullValueObject(["ref"])
 </script>
 
-<template>
-  <button
-    type="button"
-    {...$$props}
-    {...removeAttrs}
-    class="{$$props.class || ''} Button"
-    bind:this="{ref}"
-    on:click
-    on:keydown
-  >
-    <slot />
-  </button>
-</template>
+<button
+  type="button"
+  {...$$props}
+  {...removeAttrs}
+  class="{$$props.class || ''} Button"
+  bind:this={ref}
+  on:click
+  on:keydown
+>
+  <slot />
+</button>
 
 <style lang="scss" global>
   .Button {

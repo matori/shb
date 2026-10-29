@@ -9,19 +9,11 @@
   const removeAttrs = createNullValueObject(["open"])
 </script>
 
-<template>
-  <Button
-    {...$$props}
-    {...removeAttrs}
-    class="{$$props.class || ''} DetailInfoToggleSwitch"
-    aria-pressed="{open}"
-    on:click
-  >
-    {#if open}エントリー情報を折りたたむ{:else}エントリー情報を展開する{/if}
-    <Icon name="expand" class="DetailInfoToggleSwitch-icon {open ? '_hide' : '_show'}" />
-    <Icon name="collapse" class="DetailInfoToggleSwitch-icon {open ? '_show' : '_hide'}" />
-  </Button>
-</template>
+<Button {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailInfoToggleSwitch" aria-pressed={open} on:click>
+  {#if open}エントリー情報を折りたたむ{:else}エントリー情報を展開する{/if}
+  <Icon name="expand" class="DetailInfoToggleSwitch-icon {open ? '_hide' : '_show'}" />
+  <Icon name="collapse" class="DetailInfoToggleSwitch-icon {open ? '_show' : '_hide'}" />
+</Button>
 
 <style lang="scss" global>
   .DetailInfoToggleSwitch {

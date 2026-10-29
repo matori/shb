@@ -15,9 +15,7 @@
   $: formatted = day.format(format)
 </script>
 
-<template>
-  <time {...$$props} {...removeAttrs} datetime="{ISO}" class="{$$props.class || ''} Time">{formatted}</time>
-</template>
+<time {...$$props} {...removeAttrs} datetime={ISO} class="{$$props.class || ''} Time">{formatted}</time>
 
 <style lang="scss" global>
   .Time {

@@ -12,7 +12,7 @@ const keyNames = {
   end: "End",
   pageUp: "PageUp",
   pageDown: "PageDown",
-  escape: "Escape"
+  escape: "Escape",
 }
 
 const KEY_NAMES = deepFreeze(keyNames)

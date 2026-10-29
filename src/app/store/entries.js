@@ -20,7 +20,7 @@ function entriesDataStore(initialData) {
       const start = Date.now()
       entriesFetchProcessing.set(true)
       try {
-        const response = await axios.get(process.env.ENTRIES_API)
+        const response = await axios.get(import.meta.env.VITE_ENTRIES_API)
         const entries = deepFreeze(response.data)
         const elapsed = Date.now() - start
         if (elapsed < 1000) {
@@ -47,10 +47,10 @@ function entriesDataStore(initialData) {
 
 function createInitialEntriesData(initializingKey) {
   const data = {}
-  ENTRY_CATEGORIES.forEach(category => {
+  ENTRY_CATEGORIES.forEach((category) => {
     const categoryKey = category.key
     data[categoryKey] = {}
-    ENTRY_TYPES.forEach(type => {
+    ENTRY_TYPES.forEach((type) => {
       data[categoryKey][type.key] = initializingKey
         ? {
             initializing: true,

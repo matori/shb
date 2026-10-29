@@ -1,17 +1,17 @@
-const fs = require("fs")
-const path = require("path")
-const createDummyDetail = require("./create-dummy-detail")
+import { readdirSync, readFileSync } from "node:fs"
+import createDummyDetail from "./create-dummy-detail.js"
 
-function detail(req) {
-  const fileName = req.query.url
-  const jsonFileName = getJsonFileName(fileName)
-  return jsonFileName ? require(`./data/details/${jsonFileName}`) : createDummyDetail()
+const detailsDir = new URL("./data/details/", import.meta.url)
+
+function detail(searchParams) {
+  const jsonFileName = getJsonFileName(searchParams.get("url"))
+  return jsonFileName ? JSON.parse(readFileSync(new URL(jsonFileName, detailsDir), "utf-8")) : createDummyDetail()
 }
 
 function getJsonFileName(fileName) {
-  const dummyFiles = fs.readdirSync(path.resolve(__dirname, "./data/details/"))
+  const dummyFiles = readdirSync(detailsDir)
   const fileExist = fileName ? dummyFiles.includes(`${fileName}.json`) : false
   return fileExist ? `${fileName}.json` : null
 }
 
-module.exports = detail
+export default detail

@@ -11,18 +11,16 @@
   $: avatarUrl = `https://cdn.profile-image.st-hatena.com/users/${user}/profile.png`
 </script>
 
-<template>
-  <div {...$$props} {...removeAttrs} class="{$$props.class || ''} BookmarksItemAvatar">
-    <Link {url} class="BookmarksItemAvatar-link">
-      <span
-        class="BookmarksItemAvatar-image"
-        role="img"
-        aria-label="ID:{user}のプロフィール画像"
-        style="content: url({avatarUrl})"
-      ></span>
-    </Link>
-  </div>
-</template>
+<div {...$$props} {...removeAttrs} class="{$$props.class || ''} BookmarksItemAvatar">
+  <Link {url} class="BookmarksItemAvatar-link">
+    <span
+      class="BookmarksItemAvatar-image"
+      role="img"
+      aria-label="ID:{user}のプロフィール画像"
+      style="content: url({avatarUrl})"
+    ></span>
+  </Link>
+</div>
 
 <style lang="scss" global>
   .BookmarksItemAvatar {

@@ -8,16 +8,14 @@
   const removeAttrs = createNullValueObject([])
 </script>
 
-<template>
-  <div {...$$props} {...removeAttrs} class="{$$props.class || ''} ContentContainer">
-    <EntriesContainer class="ContentContainer-entries" />
-    {#if $detailFetchErrorMessage || $hasDetailData}
-      <DetailContainer detail="{$detailData}" message="{$detailFetchErrorMessage}" class="ContentContainer-detail" />
-    {:else}
-      <Information class="ContentContainer-info" />
-    {/if}
-  </div>
-</template>
+<div {...$$props} {...removeAttrs} class="{$$props.class || ''} ContentContainer">
+  <EntriesContainer class="ContentContainer-entries" />
+  {#if $detailFetchErrorMessage || $hasDetailData}
+    <DetailContainer detail={$detailData} message={$detailFetchErrorMessage} class="ContentContainer-detail" />
+  {:else}
+    <Information class="ContentContainer-info" />
+  {/if}
+</div>
 
 <style lang="scss" global>
   .ContentContainer {

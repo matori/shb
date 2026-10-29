@@ -11,14 +11,12 @@
   $: twitterUrl = `https://twitter.com/search?q=${encodeURIComponent(url)}`
 </script>
 
-<template>
-  <div {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailInfoSearchTwitter">
-    <Link url="{twitterUrl}" class="DetailInfoSearchTwitter-link">
-      <Icon name="twitter" class="DetailInfoSearchTwitter-icon" />
-      <span class="DetailInfoSearchTwitter-label">TwitterでURL検索</span>
-    </Link>
-  </div>
-</template>
+<div {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailInfoSearchTwitter">
+  <Link url={twitterUrl} class="DetailInfoSearchTwitter-link">
+    <Icon name="twitter" class="DetailInfoSearchTwitter-icon" />
+    <span class="DetailInfoSearchTwitter-label">TwitterでURL検索</span>
+  </Link>
+</div>
 
 <style lang="scss" global>
   .DetailInfoSearchTwitter {

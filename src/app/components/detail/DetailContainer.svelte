@@ -22,27 +22,20 @@
   })
 </script>
 
-<template>
-  <section {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailContainer">
-    <DetailHeader heading="エントリー情報" class="DetailContainer-header" />
-    <div class="DetailContainer-body">
-      {#if message}
-        <DetailFetchError display="detail" when="connection" {message} />
-      {:else if data0.error}
-        <DetailFetchError display="detail" when="api" message="{data0.message}" />
-      {:else if data0.content}
-        <DetailContent
-          detailData="{data}"
-          {itemData}
-          infoIndex="{detail.data.floor - 1}"
-          class="DetailContainer-content"
-        />
-      {:else}
-        <DetailNoBookmarkError class="DetailContainer-noBookmark" />
-      {/if}
-    </div>
-  </section>
-</template>
+<section {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailContainer">
+  <DetailHeader heading="エントリー情報" class="DetailContainer-header" />
+  <div class="DetailContainer-body">
+    {#if message}
+      <DetailFetchError display="detail" when="connection" {message} />
+    {:else if data0.error}
+      <DetailFetchError display="detail" when="api" message={data0.message} />
+    {:else if data0.content}
+      <DetailContent detailData={data} {itemData} infoIndex={detail.data.floor - 1} class="DetailContainer-content" />
+    {:else}
+      <DetailNoBookmarkError class="DetailContainer-noBookmark" />
+    {/if}
+  </div>
+</section>
 
 <style lang="scss" global>
   .DetailContainer {

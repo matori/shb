@@ -13,66 +13,64 @@
   const removeAttrs = createNullValueObject(["bookmark", "eid"])
 </script>
 
-<template>
-  <dl class="BookmarksItemIdCalls">
-    {#if bookmark.idCalls}
-      <dt class="BookmarksItemIdCalls-title">
-        <Icon name="reply-to" class="BookmarksItemIdCalls-icon" />
-        IDコールした
-      </dt>
-      <dd class="BookmarksItemIdCalls-body">
-        <List class="BookmarksItemIdCalls-list">
-          {#each bookmark.idCalls as idcall, index (idcall.user)}
-            <li class="BookmarksItemIdCalls-item">
-              {#if idcall.hasBookmark === false}
-                <p class="BookmarksItemIdCalls-message">
-                  <BookmarksItemAvatar
-                    user="{idcall.user}"
-                    url="https://b.hatena.ne.jp/{idcall.user}/"
-                    class="BookmarksItemIdCalls-avatar"
-                  />
-                  <span class="BookmarksItemIdCalls-text">
-                    <Link url="https://b.hatena.ne.jp/{idcall.user}/" class="BookmarksItemIdCalls-link">
-                      id:{idcall.user}
-                    </Link>
-                    はまだブックマークしていません
-                  </span>
-                </p>
-              {:else}
-                <BookmarksItemContent bookmark="{idcall}" {eid} />
-              {/if}
-              {#if idcall.belowData}
-                <div class="BookmarksItemIdCalls_below">
-                  <dl class="BookmarksItemIdCalls">
-                    <dt class="BookmarksItemIdCalls-title">下の階でのコメント</dt>
-                    <dd class="BookmarksItemIdCalls-body">
-                      <BookmarksItemContent
-                        bookmark="{idcall.belowData}"
-                        eid="{idcall.belowEid}"
-                        class="BookmarksItemIdCalls-item"
-                      />
-                    </dd>
-                  </dl>
-                </div>
-              {/if}
-            </li>
-          {/each}
-        </List>
-      </dd>
-    {/if}
-    {#if bookmark.idCalled}
-      <dt class="BookmarksItemIdCalls-title">
-        <Icon name="reply" class="BookmarksItemIdCalls-icon" />
-        IDコールされた
-      </dt>
-      <dd class="BookmarksItemIdCalls-body">
-        {#each bookmark.idCalled as idcall, index (idcall.user)}
-          <BookmarksItemContent bookmark="{idcall}" {eid} class="BookmarksItemIdCalls-item" />
+<dl class="BookmarksItemIdCalls">
+  {#if bookmark.idCalls}
+    <dt class="BookmarksItemIdCalls-title">
+      <Icon name="reply-to" class="BookmarksItemIdCalls-icon" />
+      IDコールした
+    </dt>
+    <dd class="BookmarksItemIdCalls-body">
+      <List class="BookmarksItemIdCalls-list">
+        {#each bookmark.idCalls as idcall, index (idcall.user)}
+          <li class="BookmarksItemIdCalls-item">
+            {#if idcall.hasBookmark === false}
+              <p class="BookmarksItemIdCalls-message">
+                <BookmarksItemAvatar
+                  user={idcall.user}
+                  url="https://b.hatena.ne.jp/{idcall.user}/"
+                  class="BookmarksItemIdCalls-avatar"
+                />
+                <span class="BookmarksItemIdCalls-text">
+                  <Link url="https://b.hatena.ne.jp/{idcall.user}/" class="BookmarksItemIdCalls-link">
+                    id:{idcall.user}
+                  </Link>
+                  はまだブックマークしていません
+                </span>
+              </p>
+            {:else}
+              <BookmarksItemContent bookmark={idcall} {eid} />
+            {/if}
+            {#if idcall.belowData}
+              <div class="BookmarksItemIdCalls_below">
+                <dl class="BookmarksItemIdCalls">
+                  <dt class="BookmarksItemIdCalls-title">下の階でのコメント</dt>
+                  <dd class="BookmarksItemIdCalls-body">
+                    <BookmarksItemContent
+                      bookmark={idcall.belowData}
+                      eid={idcall.belowEid}
+                      class="BookmarksItemIdCalls-item"
+                    />
+                  </dd>
+                </dl>
+              </div>
+            {/if}
+          </li>
         {/each}
-      </dd>
-    {/if}
-  </dl>
-</template>
+      </List>
+    </dd>
+  {/if}
+  {#if bookmark.idCalled}
+    <dt class="BookmarksItemIdCalls-title">
+      <Icon name="reply" class="BookmarksItemIdCalls-icon" />
+      IDコールされた
+    </dt>
+    <dd class="BookmarksItemIdCalls-body">
+      {#each bookmark.idCalled as idcall, index (idcall.user)}
+        <BookmarksItemContent bookmark={idcall} {eid} class="BookmarksItemIdCalls-item" />
+      {/each}
+    </dd>
+  {/if}
+</dl>
 
 <style lang="scss" global>
   .BookmarksItemIdCalls {

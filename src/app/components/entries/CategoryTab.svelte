@@ -15,12 +15,12 @@
 
   let autoRefreshActive
 
-  const unsubscribe = autoRefresh.subscribe(value => {
+  const unsubscribe = autoRefresh.subscribe((value) => {
     autoRefreshActive = value
   })
 
   onMount(() => {
-    if(!autoRefreshActive) {
+    if (!autoRefreshActive) {
       entriesData.update(true)
     }
     unsubscribe()
@@ -46,23 +46,21 @@
   }
 </script>
 
-<template>
-  <TabContent
-    {...$$props}
-    {...removeAttrs}
-    tabs="{entryCategories}"
-    selected="{$selectedCategoryTabIndex}"
-    panelTabIndex="{false}"
-    class="{$$props.class || ''} CategoryTab"
-    on:click:tab="{onClickTab}"
-    on:keydown:right="{onKeydownRight}"
-    on:keydown:left="{onKeydownLeft}"
-    let:key
-    let:label
-  >
-    <TypeTab data="{$entriesData.data[key]}" category="{{ key, label }}" />
-  </TabContent>
-</template>
+<TabContent
+  {...$$props}
+  {...removeAttrs}
+  tabs={entryCategories}
+  selected={$selectedCategoryTabIndex}
+  panelTabIndex={false}
+  class="{$$props.class || ''} CategoryTab"
+  on:click:tab={onClickTab}
+  on:keydown:right={onKeydownRight}
+  on:keydown:left={onKeydownLeft}
+  let:key
+  let:label
+>
+  <TypeTab data={$entriesData.data[key]} category={{ key, label }} />
+</TabContent>
 
 <style lang="scss" global>
   .CategoryTab {

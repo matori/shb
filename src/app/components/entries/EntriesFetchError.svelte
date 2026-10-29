@@ -10,16 +10,7 @@
   const removeAttrs = createNullValueObject(["display", "when", "message"])
 </script>
 
-<template>
-  <FetchError
-    {...$$props}
-    {...removeAttrs}
-    {display}
-    {when}
-    {message}
-    class="{$$props.class || ''} EntriesFetchError"
-  />
-</template>
+<FetchError {...$$props} {...removeAttrs} {display} {when} {message} class="{$$props.class || ''} EntriesFetchError" />
 
 <style lang="scss" global>
   .EntriesFetchError {

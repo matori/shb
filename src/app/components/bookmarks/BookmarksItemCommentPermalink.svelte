@@ -12,18 +12,16 @@
   const url = `https://b.hatena.ne.jp/entry/${eid}/comment/${user}`
 </script>
 
-<template>
-  <Link
-    {...$$props}
-    {...removeAttrs}
-    {url}
-    class="{$$props.class || ''} BookmarksItemCommentPermalink"
-    title="コメントのパーマリンク"
-  >
-    <Icon name="link" class="BookmarksItemCommentPermalink-icon" aria-hidden="true" />
-    <span class="BookmarksItemCommentPermalink-label">Permalink</span>
-  </Link>
-</template>
+<Link
+  {...$$props}
+  {...removeAttrs}
+  {url}
+  class="{$$props.class || ''} BookmarksItemCommentPermalink"
+  title="コメントのパーマリンク"
+>
+  <Icon name="link" class="BookmarksItemCommentPermalink-icon" aria-hidden="true" />
+  <span class="BookmarksItemCommentPermalink-label">Permalink</span>
+</Link>
 
 <style lang="scss" global>
   .BookmarksItemCommentPermalink {

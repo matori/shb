@@ -17,18 +17,17 @@
   }
 </script>
 
-<template>
-  <li {...$$props} {...removeAttrs} class="{$$props.class || ''} EntryListItem">
-    <EntryListItemLink url="{item.url}" title="{item.title}" class="EntryListItem-title" />
-    <EntryListItemBookmarkCount
-      count="{item.bookmarkCount}"
-      class="EntryListItem-count"
-      on:click="{onClickBookmarkCount}"
-    />
-    <EntryListItemSite url="{item.siteEntriesUrl}" label="{item.siteEntriesLabel}" favicon="{item.favicon}" class="EntryListItem-site" />
-    <EntryListItemTime datetime="{item.date}" class="EntryListItem-date" />
-  </li>
-</template>
+<li {...$$props} {...removeAttrs} class="{$$props.class || ''} EntryListItem">
+  <EntryListItemLink url={item.url} title={item.title} class="EntryListItem-title" />
+  <EntryListItemBookmarkCount count={item.bookmarkCount} class="EntryListItem-count" on:click={onClickBookmarkCount} />
+  <EntryListItemSite
+    url={item.siteEntriesUrl}
+    label={item.siteEntriesLabel}
+    favicon={item.favicon}
+    class="EntryListItem-site"
+  />
+  <EntryListItemTime datetime={item.date} class="EntryListItem-date" />
+</li>
 
 <style lang="scss" global>
   .EntryListItem {

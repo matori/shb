@@ -11,11 +11,9 @@
   const url = `https://b.hatena.ne.jp/${type.key}/${category.key}`
 </script>
 
-<template>
-  <LinkBox {...$$props} {...removeAttrs} {url} class="{$$props.class || ''} EntriesLink">
-    「{category.label}」の{type.label}エントリーをはてなブックマークで見る
-  </LinkBox>
-</template>
+<LinkBox {...$$props} {...removeAttrs} {url} class="{$$props.class || ''} EntriesLink">
+  「{category.label}」の{type.label}エントリーをはてなブックマークで見る
+</LinkBox>
 
 <style lang="scss" global>
   .EntriesLink {

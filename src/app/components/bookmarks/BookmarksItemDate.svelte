@@ -11,26 +11,20 @@
 
   const removeAttrs = createNullValueObject(["eid", "user", "timestamp"])
 
-  const datetime =
-    timestamp
-      .split("/")
-      .join("-")
-      .replace(" ", "T") + ":00+09:00"
+  const datetime = timestamp.split("/").join("-").replace(" ", "T") + ":00+09:00"
   const url = `https://b.hatena.ne.jp/${user}/${dayjs(datetime).format("YYYYMMDD")}#bookmark-${eid}`
   const id = `bookmark-${user}-${eid}`
 </script>
 
-<template>
-  <Link
-    {...$$props}
-    {...removeAttrs}
-    {url}
-    class="{$$props.class || ''} BookmarksItemDate"
-    title="ブックマークのパーマリンク"
-  >
-    <Time {datetime} needSeconds="{false}" class="BookmarksItemDate-date" />
-  </Link>
-</template>
+<Link
+  {...$$props}
+  {...removeAttrs}
+  {url}
+  class="{$$props.class || ''} BookmarksItemDate"
+  title="ブックマークのパーマリンク"
+>
+  <Time {datetime} needSeconds={false} class="BookmarksItemDate-date" />
+</Link>
 
 <style lang="scss" global>
   .BookmarksItemDate {

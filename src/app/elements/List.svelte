@@ -7,17 +7,15 @@
   const removeAttrs = createNullValueObject(["ordered"])
 </script>
 
-<template>
-  {#if ordered}
-    <ol {...$$props} {...removeAttrs} class="{$$props.class || ''} List">
-      <slot />
-    </ol>
-  {:else}
-    <ul {...$$props} {...removeAttrs} class="{$$props.class || ''} List">
-      <slot />
-    </ul>
-  {/if}
-</template>
+{#if ordered}
+  <ol {...$$props} {...removeAttrs} class="{$$props.class || ''} List">
+    <slot />
+  </ol>
+{:else}
+  <ul {...$$props} {...removeAttrs} class="{$$props.class || ''} List">
+    <slot />
+  </ul>
+{/if}
 
 <style lang="scss" global>
   .List {

@@ -7,15 +7,13 @@
   const removeAttrs = createNullValueObject([])
 </script>
 
-<template>
-  <header {...$$props} {...removeAttrs} class="{$$props.class || ''} AppHeader">
-    <div class="AppHeader-inner">
-      <AppLogo class="AppHeader-logo" />
-      <AppFavLinks class="AppHeader-links" />
-      <AppSettings class="AppHeader-tools" />
-    </div>
-  </header>
-</template>
+<header {...$$props} {...removeAttrs} class="{$$props.class || ''} AppHeader">
+  <div class="AppHeader-inner">
+    <AppLogo class="AppHeader-logo" />
+    <AppFavLinks class="AppHeader-links" />
+    <AppSettings class="AppHeader-tools" />
+  </div>
+</header>
 
 <style lang="scss" global>
   .AppHeader {

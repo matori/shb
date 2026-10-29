@@ -5,61 +5,64 @@
   import Icon from "~/elements/Icon.svelte"
 </script>
 
-<template>
-  <section {...$$props} class="{$$props.class || ''} Information">
-    <header class="Information-header">
-      <h2 class="Information-heading">
-        インフォメーション
-        <Icon name="refresh" class="Information-icon {$detailFetchProcessing ? '_show' : ''}" />
-      </h2>
-    </header>
-    <div class="Information-body">
-      <div class="Information-content">
-        <p class="Information-intro">
-          「しんぷるはてぶ」は、はてなブックマーク全カテゴリーの新規エントリーを1画面で閲覧することを目的としたページです。
-          <br />
-          コンセプトの関係上、小さい画面だと見づらくなりますので、WXGA+ (1440x900) 以上の画面サイズがおすすめです。
-        </p>
-        <div class="Information-inner">
-          <section>
-            <h3>使い方</h3>
-            <p>
-              「エントリーの一覧」はそのまま新規の人気エントリーと新着エントリーの一覧です。タブを切り替えて表示できます。
-              <br />
-              リスト内のブックマーク数をクリックすると、現在表示されている「インフォメーション」にかわって、選択したエントリーの情報とブックマーク一覧が表示されます。
-            </p>
-          </section>
-          <section>
-            <h3>注意事項など</h3>
-            <ul>
-              <li>
-                エントリーの一覧とエントリー情報のソースが異なっているのと、サーバー側でもキャッシュしている関係上、ブックマーク数にズレが発生する可能性があります。
-              </li>
-              <li>サーバーのキャッシュ有効期限は作成から5分後です。</li>
-              <li>UIの状態などの保存にローカルストレージを利用しています。</li>
-              <li>
-                Googleアナリティクスを使用しています。その情報収集の際、Cookieが使用されます。Googleがデータをどのように扱い、処理するのかについてはGoogleの「<Link url="https://policies.google.com/technologies/partner-sites">ポリシーと規約</Link>」を参照してください。
-              </li>
-              <li>バグ報告や機能追加の要望は<Link url="https://github.com/matori/shb/issues">GitHubリポジトリのIssue</Link>にお願いします。</li>
-            </ul>
-          </section>
-          <section>
-            <h3>リンク集</h3>
-            <p>はてなブックマークをもっと楽しむためのツール集。</p>
-            <dl>
-              {#each links as item, index}
-                <dt>
-                  <Link url="{item.url}">{item.name}</Link>
-                </dt>
-                <dd>{item.description}</dd>
-              {/each}
-            </dl>
-          </section>
-        </div>
+<section {...$$props} class="{$$props.class || ''} Information">
+  <header class="Information-header">
+    <h2 class="Information-heading">
+      インフォメーション
+      <Icon name="refresh" class="Information-icon {$detailFetchProcessing ? '_show' : ''}" />
+    </h2>
+  </header>
+  <div class="Information-body">
+    <div class="Information-content">
+      <p class="Information-intro">
+        「しんぷるはてぶ」は、はてなブックマーク全カテゴリーの新規エントリーを1画面で閲覧することを目的としたページです。
+        <br />
+        コンセプトの関係上、小さい画面だと見づらくなりますので、WXGA+ (1440x900) 以上の画面サイズがおすすめです。
+      </p>
+      <div class="Information-inner">
+        <section>
+          <h3>使い方</h3>
+          <p>
+            「エントリーの一覧」はそのまま新規の人気エントリーと新着エントリーの一覧です。タブを切り替えて表示できます。
+            <br />
+            リスト内のブックマーク数をクリックすると、現在表示されている「インフォメーション」にかわって、選択したエントリーの情報とブックマーク一覧が表示されます。
+          </p>
+        </section>
+        <section>
+          <h3>注意事項など</h3>
+          <ul>
+            <li>
+              エントリーの一覧とエントリー情報のソースが異なっているのと、サーバー側でもキャッシュしている関係上、ブックマーク数にズレが発生する可能性があります。
+            </li>
+            <li>サーバーのキャッシュ有効期限は作成から5分後です。</li>
+            <li>UIの状態などの保存にローカルストレージを利用しています。</li>
+            <li>
+              Googleアナリティクスを使用しています。その情報収集の際、Cookieが使用されます。Googleがデータをどのように扱い、処理するのかについてはGoogleの「<Link
+                url="https://policies.google.com/technologies/partner-sites">ポリシーと規約</Link
+              >」を参照してください。
+            </li>
+            <li>
+              バグ報告や機能追加の要望は<Link url="https://github.com/matori/shb/issues">GitHubリポジトリのIssue</Link
+              >にお願いします。
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>リンク集</h3>
+          <p>はてなブックマークをもっと楽しむためのツール集。</p>
+          <dl>
+            {#each links as item, index}
+              <dt>
+                <Link url={item.url}>{item.name}</Link>
+              </dt>
+              <dd>{item.description}</dd>
+            {/each}
+          </dl>
+        </section>
       </div>
     </div>
-  </section>
-</template>
+  </div>
+</section>
 
 <style lang="scss" global>
   .Information {

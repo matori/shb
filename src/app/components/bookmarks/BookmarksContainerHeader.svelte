@@ -12,11 +12,11 @@
   let showAll
   let reverse
 
-  showAllBookmarks.subscribe(value => {
+  showAllBookmarks.subscribe((value) => {
     showAll = value
   })
 
-  reverseOrderBookmarks.subscribe(value => {
+  reverseOrderBookmarks.subscribe((value) => {
     reverse = value
   })
 
@@ -29,41 +29,33 @@
   }
 </script>
 
-<template>
-  <header {...$$props} {...removeAttrs} class="{$$props.class || ''} BookmarksContainerHeader">
-    <h3 class="BookmarksContainerHeader-heading">{heading}</h3>
-    <div class="BookmarksContainerHeader-tools">
-      <Button
-        title="コメントのないブックマークも表示する"
-        class="BookmarksContainerHeader-button _filter"
-        role="switch"
-        aria-checked="{showAll}"
-        on:click="{onClickShowAllBookmarksButton}"
-      >
-        <Icon name="checkbox-checked" class="BookmarksContainerHeader-icon {showAll ? '_show' : '_hide'}" />
-        <Icon name="checkbox-outline" class="BookmarksContainerHeader-icon {showAll ? '_hide' : '_show'}" />
-        全ブックマーク表示
-      </Button>
-      <Button
-        title="ブックマーク日時が古い順に並び替える"
-        class="BookmarksContainerHeader-button _sort"
-        role="switch"
-        aria-checked="{reverse}"
-        on:click="{onClickReverseOrderButton}"
-      >
-        <Icon
-          name="checkbox-checked"
-          class="BookmarksContainerHeader-icon {reverse ? '_show' : '_hide'}"
-        />
-        <Icon
-          name="checkbox-outline"
-          class="BookmarksContainerHeader-icon {reverse ? '_hide' : '_show'}"
-        />
-        古い順で表示
-      </Button>
-    </div>
-  </header>
-</template>
+<header {...$$props} {...removeAttrs} class="{$$props.class || ''} BookmarksContainerHeader">
+  <h3 class="BookmarksContainerHeader-heading">{heading}</h3>
+  <div class="BookmarksContainerHeader-tools">
+    <Button
+      title="コメントのないブックマークも表示する"
+      class="BookmarksContainerHeader-button _filter"
+      role="switch"
+      aria-checked={showAll}
+      on:click={onClickShowAllBookmarksButton}
+    >
+      <Icon name="checkbox-checked" class="BookmarksContainerHeader-icon {showAll ? '_show' : '_hide'}" />
+      <Icon name="checkbox-outline" class="BookmarksContainerHeader-icon {showAll ? '_hide' : '_show'}" />
+      全ブックマーク表示
+    </Button>
+    <Button
+      title="ブックマーク日時が古い順に並び替える"
+      class="BookmarksContainerHeader-button _sort"
+      role="switch"
+      aria-checked={reverse}
+      on:click={onClickReverseOrderButton}
+    >
+      <Icon name="checkbox-checked" class="BookmarksContainerHeader-icon {reverse ? '_show' : '_hide'}" />
+      <Icon name="checkbox-outline" class="BookmarksContainerHeader-icon {reverse ? '_hide' : '_show'}" />
+      古い順で表示
+    </Button>
+  </div>
+</header>
 
 <style lang="scss" global>
   .BookmarksContainerHeader {

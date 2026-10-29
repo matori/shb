@@ -13,7 +13,7 @@
 
   let open
 
-  detailInfoExpanded.subscribe(value => {
+  detailInfoExpanded.subscribe((value) => {
     open = value
   })
 
@@ -22,21 +22,15 @@
   }
 </script>
 
-<template>
-  <div {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailInfo" aria-expanded="{open}">
-    <div class="DetailInfo-tool">
-      <DetailInfoToggleSwitch
-        open="{$detailInfoExpanded}"
-        class="DetailInfo-switch"
-        on:click="{onClickToggleTrigger}"
-      />
-    </div>
-    <div class="DetailInfo-inner">
-      <DetailInfoHeader {detailContent} {itemData} detailInfoExpanded="{open}" class="DetailInfo-header" />
-      <DetailInfoBody {detailContent} {itemData} detailInfoExpanded="{open}" class="DetailInfo-body" />
-    </div>
+<div {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailInfo" aria-expanded={open}>
+  <div class="DetailInfo-tool">
+    <DetailInfoToggleSwitch open={$detailInfoExpanded} class="DetailInfo-switch" on:click={onClickToggleTrigger} />
   </div>
-</template>
+  <div class="DetailInfo-inner">
+    <DetailInfoHeader {detailContent} {itemData} detailInfoExpanded={open} class="DetailInfo-header" />
+    <DetailInfoBody {detailContent} {itemData} detailInfoExpanded={open} class="DetailInfo-body" />
+  </div>
+</div>
 
 <style lang="scss" global>
   .DetailInfo {

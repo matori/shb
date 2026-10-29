@@ -37,37 +37,35 @@
   }
 </script>
 
-<template>
-  <TabContent
-    {...$$props}
-    {...removeAttrs}
-    class="{$$props.class || ''} TypeTab"
-    tabs="{entryTypes}"
-    selected="{$selectedTypeTabIndex}"
-    label="カテゴリー「{category.label}」の人気エントリーと新着エントリー"
-    on:click:tab="{onClickTab}"
-    on:keydown:right="{onKeydownRight}"
-    on:keydown:left="{onKeydownLeft}"
-    let:key
-    let:label
-  >
-    <h3 class="TypeTab-heading">カテゴリー「{category.label}」の{label}エントリー</h3>
-    {#if data[key].initializing}
-      <p class="TypeTab-initial">初期化中です</p>
-    {:else if $entriesFetchErrorMessage}
-      <EntriesFetchError display="entries" when="connection" message="{$entriesFetchErrorMessage}" />
-    {:else if !data[key].error}
-      <EntryList items="{data[key].items}" />
-    {:else if data[key].error}
-      <EntriesFetchError display="entries" when="api" message="{data[key].message}" />
-    {:else}
-      <EntriesFetchError display="entries" />
-    {/if}
-    <p class="TypeTab-helper">
-      <EntriesLink {category} type="{{ key, label }}" class="TypeTab-link" />
-    </p>
-  </TabContent>
-</template>
+<TabContent
+  {...$$props}
+  {...removeAttrs}
+  class="{$$props.class || ''} TypeTab"
+  tabs={entryTypes}
+  selected={$selectedTypeTabIndex}
+  label="カテゴリー「{category.label}」の人気エントリーと新着エントリー"
+  on:click:tab={onClickTab}
+  on:keydown:right={onKeydownRight}
+  on:keydown:left={onKeydownLeft}
+  let:key
+  let:label
+>
+  <h3 class="TypeTab-heading">カテゴリー「{category.label}」の{label}エントリー</h3>
+  {#if data[key].initializing}
+    <p class="TypeTab-initial">初期化中です</p>
+  {:else if $entriesFetchErrorMessage}
+    <EntriesFetchError display="entries" when="connection" message={$entriesFetchErrorMessage} />
+  {:else if !data[key].error}
+    <EntryList items={data[key].items} />
+  {:else if data[key].error}
+    <EntriesFetchError display="entries" when="api" message={data[key].message} />
+  {:else}
+    <EntriesFetchError display="entries" />
+  {/if}
+  <p class="TypeTab-helper">
+    <EntriesLink {category} type={{ key, label }} class="TypeTab-link" />
+  </p>
+</TabContent>
 
 <style lang="scss" global>
   .TypeTab {

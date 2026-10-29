@@ -10,7 +10,7 @@
 
   const removeAttrs = createNullValueObject(["user", "tags"])
 
-  const userTags = tags.map(tag => {
+  const userTags = tags.map((tag) => {
     return {
       label: tag,
       url: `http://b.hatena.ne.jp/${user}/${encodeURIComponent(tag)}/`,
@@ -18,20 +18,18 @@
   })
 </script>
 
-<template>
-  <div {...$$props} {...removeAttrs} class="{$$props.class || ''} BookmarksItemTags">
-    <div class="BookmarksItemTags-prefix">
-      <Icon name="tag" class="BookmarksItemTags-icon" aria-hidden="true" />
-    </div>
-    <List class="BookmarksItemTags-list" aria-label="{user}がつけたタグ">
-      {#each userTags as tag (tag.url)}
-        <li class="BookmarksItemTags-item">
-          <Link url="{tag.url}" class="BookmarksItemTags-link">{tag.label}</Link>
-        </li>
-      {/each}
-    </List>
+<div {...$$props} {...removeAttrs} class="{$$props.class || ''} BookmarksItemTags">
+  <div class="BookmarksItemTags-prefix">
+    <Icon name="tag" class="BookmarksItemTags-icon" aria-hidden="true" />
   </div>
-</template>
+  <List class="BookmarksItemTags-list" aria-label="{user}がつけたタグ">
+    {#each userTags as tag (tag.url)}
+      <li class="BookmarksItemTags-item">
+        <Link url={tag.url} class="BookmarksItemTags-link">{tag.label}</Link>
+      </li>
+    {/each}
+  </List>
+</div>
 
 <style lang="scss" global>
   .BookmarksItemTags {

@@ -9,11 +9,9 @@
   const removeAttrs = createNullValueObject(["url", "title"])
 </script>
 
-<template>
-  <div {...$$props} {...removeAttrs} class="{$$props.class || ''} EntryListItemLink">
-    <Link {url} class="EntryListItemLink-link">{title}</Link>
-  </div>
-</template>
+<div {...$$props} {...removeAttrs} class="{$$props.class || ''} EntryListItemLink">
+  <Link {url} class="EntryListItemLink-link">{title}</Link>
+</div>
 
 <style lang="scss" global>
   .EntryListItemLink {

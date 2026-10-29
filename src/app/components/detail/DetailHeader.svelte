@@ -14,18 +14,16 @@
   }
 </script>
 
-<template>
-  <header {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailHeader">
-    <h2 class="DetailHeader-heading">
-      {heading}
-      <Icon name="refresh" class="DetailHeader-icon {$detailFetchProcessing ? '_show' : ''}" />
-    </h2>
-    <Button class="DetailHeader-closeButton" on:click="{onClickClose}">
-      <Icon name="close" class="DetailHeader-closeIcon" />
-      情報とコメントのパネルを閉じる
-    </Button>
-  </header>
-</template>
+<header {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailHeader">
+  <h2 class="DetailHeader-heading">
+    {heading}
+    <Icon name="refresh" class="DetailHeader-icon {$detailFetchProcessing ? '_show' : ''}" />
+  </h2>
+  <Button class="DetailHeader-closeButton" on:click={onClickClose}>
+    <Icon name="close" class="DetailHeader-closeIcon" />
+    情報とコメントのパネルを閉じる
+  </Button>
+</header>
 
 <style lang="scss" global>
   .DetailHeader {

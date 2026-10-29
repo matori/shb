@@ -11,11 +11,9 @@
   $: url = `https://b.hatena.ne.jp/hotentry/${slug}`
 </script>
 
-<template>
-  <div {...$$props} {...removeAttrs}  class="{$$props.class || ''} DetailInfoCategory">
-    <Link {url} class="DetailInfoCategory-link">{label}</Link>
-  </div>
-</template>
+<div {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailInfoCategory">
+  <Link {url} class="DetailInfoCategory-link">{label}</Link>
+</div>
 
 <style lang="scss" global>
   .DetailInfoCategory {

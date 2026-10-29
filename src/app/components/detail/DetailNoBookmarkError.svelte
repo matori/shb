@@ -1,11 +1,9 @@
 <script>
 </script>
 
-<template>
-  <section class="DetailNoBookmarkError">
-    <p class="DetailNoBookmarkError-message">このエントリーはまだブックマークされていません</p>
-  </section>
-</template>
+<section class="DetailNoBookmarkError">
+  <p class="DetailNoBookmarkError-message">このエントリーはまだブックマークされていません</p>
+</section>
 
 <style lang="scss" global>
   .DetailNoBookmarkError {

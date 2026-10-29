@@ -31,7 +31,7 @@
   &::before {
     position: absolute;
     top: -$offset;
-    right:  -$offset;
+    right: -$offset;
     bottom: -$offset;
     left: -$offset;
     content: "";
@@ -69,4 +69,3 @@
     @include focus-clear;
   }
 }
-

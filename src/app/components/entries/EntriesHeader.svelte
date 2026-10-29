@@ -14,19 +14,17 @@
   }
 </script>
 
-<template>
-  <header {...$$props} {...removeAttrs} class="{$$props.class || ''} EntriesHeader">
-    <h2 class="EntriesHeader-heading">{heading}</h2>
-    <Button
-      class="EntriesHeader-syncButton {$entriesFetchProcessing ? '_loading' : ''}"
-      disabled="{$entriesFetchProcessing}"
-      on:click="{onClickSync}"
-    >
-      <Icon name="sync" class="EntriesHeader-syncIcon" />
-      更新
-    </Button>
-  </header>
-</template>
+<header {...$$props} {...removeAttrs} class="{$$props.class || ''} EntriesHeader">
+  <h2 class="EntriesHeader-heading">{heading}</h2>
+  <Button
+    class="EntriesHeader-syncButton {$entriesFetchProcessing ? '_loading' : ''}"
+    disabled={$entriesFetchProcessing}
+    on:click={onClickSync}
+  >
+    <Icon name="sync" class="EntriesHeader-syncIcon" />
+    更新
+  </Button>
+</header>
 
 <style lang="scss" global>
   .EntriesHeader {
@@ -71,6 +69,4 @@
       animation-name: syncing;
     }
   }
-
-
 </style>
