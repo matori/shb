@@ -1,0 +1,5 @@
+{
+  "permissions": {
+    "deny": ["Edit(/docs/frontend-api.md)", "Edit(/schema/**)"]
+  }
+}
