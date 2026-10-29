@@ -1,6 +1,5 @@
 <script>
   import { detailFetchProcessing } from "~/store/detail"
-  import links from "~/data/links"
   import Link from "~/elements/Link.svelte"
   import Icon from "~/elements/Icon.svelte"
 
@@ -39,27 +38,10 @@
             <li>サーバーのキャッシュ有効期限は作成から5分後です。</li>
             <li>UIの状態などの保存にローカルストレージを利用しています。</li>
             <li>
-              Googleアナリティクスを使用しています。その情報収集の際、Cookieが使用されます。Googleがデータをどのように扱い、処理するのかについてはGoogleの「<Link
-                url="https://policies.google.com/technologies/partner-sites">ポリシーと規約</Link
-              >」を参照してください。
-            </li>
-            <li>
               バグ報告や機能追加の要望は<Link url="https://github.com/matori/shb/issues">GitHubリポジトリのIssue</Link
               >にお願いします。
             </li>
           </ul>
-        </section>
-        <section>
-          <h3>リンク集</h3>
-          <p>はてなブックマークをもっと楽しむためのツール集。</p>
-          <dl>
-            {#each links as item, index}
-              <dt>
-                <Link url={item.url}>{item.name}</Link>
-              </dt>
-              <dd>{item.description}</dd>
-            {/each}
-          </dl>
         </section>
       </div>
     </div>
@@ -135,22 +117,13 @@
       }
 
       p,
-      ul,
-      dl {
+      ul {
         margin-top: calc(var(--line) * 0.5);
         margin-bottom: calc(var(--line) * 0.5);
       }
 
       ul {
         padding-left: var(--line);
-      }
-
-      dt {
-        margin-top: calc(var(--line) * 0.5);
-      }
-
-      dd {
-        margin-left: var(--line);
       }
 
       a {
