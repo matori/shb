@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "dev", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev"], "port": 3000 },
+    {
+      "name": "dev-dummy",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev:dummy", "--", "--port", "3001"],
+      "port": 3001
+    }
+  ]
+}
