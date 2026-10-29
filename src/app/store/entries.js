@@ -1,5 +1,5 @@
 import { writable } from "svelte/store"
-import axios from "axios"
+import fetchJson from "~/utils/fetchJson"
 import deepFreeze from "deep-freeze"
 import sleep from "~/utils/sleep"
 import ENTRY_CATEGORIES from "~/constants/entryCategories"
@@ -20,8 +20,7 @@ function entriesDataStore(initialData) {
       const start = Date.now()
       entriesFetchProcessing.set(true)
       try {
-        const response = await axios.get(import.meta.env.VITE_ENTRIES_API)
-        const entries = deepFreeze(response.data)
+        const entries = deepFreeze(await fetchJson(import.meta.env.VITE_ENTRIES_API))
         const elapsed = Date.now() - start
         if (elapsed < 1000) {
           await sleep(500 - elapsed)

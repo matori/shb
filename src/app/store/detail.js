@@ -1,5 +1,5 @@
 import { writable, derived } from "svelte/store"
-import axios from "axios"
+import fetchJson from "~/utils/fetchJson"
 import deepFreeze from "deep-freeze"
 import uniq from "lodash/uniq"
 import splitComment from "~/utils/splitComment"
@@ -16,16 +16,10 @@ function detailDataStore(initialData) {
     subscribe,
     async update(itemData) {
       detailFetchProcessing.set(true)
-      const axiosConfig = {
-        params: {
-          url: itemData.url,
-          // url: "simple",
-        },
-      }
       try {
-        const response = await axios.get(import.meta.env.VITE_DETAIL_API, axiosConfig)
+        const detail = await fetchJson(import.meta.env.VITE_DETAIL_API, { url: itemData.url })
         const data = {
-          ...addCommentTexts(response.data),
+          ...addCommentTexts(detail),
           itemData: itemData,
         }
         const entries = deepFreeze(data)
