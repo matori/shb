@@ -1,19 +1,15 @@
 <script>
   import { onMount } from "svelte"
-  import { get } from "svelte/store"
   import entryCategories from "~/constants/entryCategories"
   import { selectedCategoryTabIndex } from "~/store/ui"
   import { entriesData } from "~/store/entries"
-  import { autoRefresh } from "~/store/config"
   import TabContent from "~/components/common/TabContent"
   import TypeTab from "~/components/entries/TypeTab"
 
   let { class: className = "", ...rest } = $props()
 
   onMount(() => {
-    if (!get(autoRefresh)) {
-      entriesData.update(true)
-    }
+    entriesData.update(true)
   })
 </script>
 
