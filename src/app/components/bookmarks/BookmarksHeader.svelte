@@ -20,16 +20,20 @@
   <span class="BookmarksHeader-data">
     <Icon name="public" role="img" class="BookmarksHeader-icon" title="公開ブックマーク数" />
     <span class="BookmarksHeader-count">{publicCount}</span>
-    <span class="BookmarksHeader-percentage" title="全体ブックマーク数に対する公開ブックマーク数のパーセンテージ">
-      {publicPercentage}%
-    </span>
+    {#if publicPercentage !== null}
+      <span class="BookmarksHeader-percentage" title="全体ブックマーク数に対する公開ブックマーク数のパーセンテージ">
+        {publicPercentage}%
+      </span>
+    {/if}
   </span>
   <span class="BookmarksHeader-data">
     <Icon name="comment" role="img" class="BookmarksHeader-icon" title="コメント数" />
     <span class="BookmarksHeader-count">{commentCount}</span>
-    <span class="BookmarksHeader-percentage" title="公開ブックマーク数に対するコメント数のパーセンテージ">
-      {commentPercentage}%
-    </span>
+    {#if commentPercentage !== null}
+      <span class="BookmarksHeader-percentage" title="公開ブックマーク数に対するコメント数のパーセンテージ">
+        {commentPercentage}%
+      </span>
+    {/if}
   </span>
 </p>
 

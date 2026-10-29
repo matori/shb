@@ -8,7 +8,7 @@
   const userTags = $derived(
     tags.map((tag) => ({
       label: tag,
-      url: `http://b.hatena.ne.jp/${user}/${encodeURIComponent(tag)}/`,
+      url: `https://b.hatena.ne.jp/${user}/${encodeURIComponent(tag)}/`,
     })),
   )
 </script>
