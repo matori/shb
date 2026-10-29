@@ -4,7 +4,7 @@
   import { selectedCategoryTabIndex } from "~/store/ui"
   import { entriesData } from "~/store/entries"
   import TabContent from "~/components/common/TabContent"
-  import TypeTab from "~/components/entries/TypeTab"
+  import CategoryEntries from "~/components/entries/CategoryEntries"
 
   let { class: className = "", ...rest } = $props()
 
@@ -23,7 +23,7 @@
   onselect={(index) => selectedCategoryTabIndex.set(index)}
 >
   {#snippet children({ key, label })}
-    <TypeTab data={$entriesData.data[key]} category={{ key, label }} />
+    <CategoryEntries data={$entriesData.data[key]} category={{ key, label }} />
   {/snippet}
 </TabContent>
 

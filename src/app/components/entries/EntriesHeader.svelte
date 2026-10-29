@@ -1,5 +1,7 @@
 <script>
+  import entryTypes from "~/constants/entryTypes"
   import { entriesFetchProcessing, entriesData } from "~/store/entries"
+  import { selectedTypeTabIndex } from "~/store/ui"
   import Button from "~/elements/Button"
   import Icon from "~/elements/Icon"
 
@@ -8,6 +10,18 @@
 
 <header {...rest} class={[className, "EntriesHeader"]}>
   <h2 class="EntriesHeader-heading">{heading}</h2>
+  <!-- 人気・新着はすべてのカテゴリーに共通なので、カテゴリーのタブより上に1つだけ置く -->
+  <div class="EntriesHeader-types" role="group" aria-label="エントリーの種類">
+    {#each entryTypes as type, index (type.key)}
+      <Button
+        class="EntriesHeader-type"
+        aria-pressed={$selectedTypeTabIndex === index}
+        onclick={() => selectedTypeTabIndex.set(index)}
+      >
+        {type.label}
+      </Button>
+    {/each}
+  </div>
   <Button
     class="EntriesHeader-syncButton {$entriesFetchProcessing ? '_loading' : ''}"
     disabled={$entriesFetchProcessing}
@@ -23,7 +37,7 @@
     .EntriesHeader {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      gap: calc(var(--line) * 0.5);
       padding: calc(var(--line) * 0.6) calc(var(--line) * 0.75) calc(var(--line) * 0.4);
     }
 
@@ -34,7 +48,36 @@
       font-weight: var(--fw-bold);
     }
 
+    .EntriesHeader-types {
+      display: inline-flex;
+      gap: 2px;
+      border-radius: var(--radius-pill);
+      padding: 3px;
+      background-color: var(--color-surface-sub);
+    }
+
+    .EntriesHeader-type {
+      font-size: var(--fs-s);
+      line-height: var(--lh-s);
+      border-radius: var(--radius-pill);
+      padding: 0.1em 1.4em;
+      color: var(--color-text-sub);
+      white-space: nowrap;
+
+      &:hover {
+        color: var(--color-text);
+      }
+
+      &[aria-pressed="true"] {
+        background-color: var(--color-surface);
+        color: var(--color-text);
+        font-weight: var(--fw-bold);
+        box-shadow: var(--shadow-selected);
+      }
+    }
+
     .EntriesHeader-syncButton {
+      margin-left: auto;
       font-size: var(--fs-s);
       line-height: var(--lh-s);
       display: flex;
