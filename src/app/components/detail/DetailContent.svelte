@@ -1,18 +1,11 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
-  import { selectedBookmarksTabIndex } from "~/store/ui"
   import DetailInfo from "~/components/detail-info/DetailInfo"
   import BookmarkContainer from "~/components/bookmarks/BookmarksContainer"
 
-  let detailData
-  let itemData
-  let infoIndex
-  export { detailData, itemData, infoIndex }
-
-  const removeAttrs = createNullValueObject(["detailData", "itemData", "infoIndex"])
+  let { detailData, itemData, infoIndex, class: className = "", ...rest } = $props()
 </script>
 
-<article {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailContent">
+<article {...rest} class={[className, "DetailContent"]}>
   <DetailInfo detailContent={detailData.entries[infoIndex].content} {itemData} class="DetailContent-info" />
   <div class="DetailContent-body">
     <BookmarkContainer data={detailData.entries} class="DetailContent-bookmark" />

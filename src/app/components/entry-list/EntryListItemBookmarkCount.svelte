@@ -1,17 +1,13 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import Button from "~/elements/Button"
 
-  let count
-  export { count }
+  let { count, class: className = "", ...rest } = $props()
 
-  const removeAttrs = createNullValueObject(["count"])
-
-  $: countSuffix = count > 1 ? "users" : "user"
+  const countSuffix = $derived(count > 1 ? "users" : "user")
 </script>
 
-<span class="{$$props.class || ''} EntryListItemBookmarkCount">
-  <Button {...$$props} {...removeAttrs} class="EntryListItemBookmarkCount-button" on:click>
+<span class={[className, "EntryListItemBookmarkCount"]}>
+  <Button {...rest} class="EntryListItemBookmarkCount-button">
     <span class="EntryListItemBookmarkCount-count">{count}</span>
     <span class="EntryListItemBookmarkCount-suffix">{countSuffix}</span>
   </Button>

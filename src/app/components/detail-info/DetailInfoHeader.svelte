@@ -1,20 +1,14 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import DetailInfoTitle from "~/components/detail-info/DetailInfoTitle"
   import DetailInfoSite from "~/components/detail-info/DetailInfoSite"
   import DetailInfoDate from "~/components/detail-info/DetailInfoDate"
   import DetailInfoCategory from "~/components/detail-info/DetailInfoCategory"
   import DetailInfoBookmarkCount from "~/components/detail-info/DetailInfoBookmarkCount"
 
-  let detailContent
-  let itemData
-  let detailInfoExpanded
-  export { detailContent, itemData, detailInfoExpanded }
-
-  const removeAttrs = createNullValueObject(["detailContent", "itemData", "detailInfoExpanded"])
+  let { detailContent, itemData, detailInfoExpanded, class: className = "", ...rest } = $props()
 </script>
 
-<header {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailInfoHeader">
+<header {...rest} class={[className, "DetailInfoHeader"]}>
   <DetailInfoTitle
     title={detailContent.title}
     url={detailContent.url}

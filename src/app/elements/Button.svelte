@@ -1,22 +1,9 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
-
-  let ref = null
-  export { ref }
-
-  const removeAttrs = createNullValueObject(["ref"])
+  let { ref = $bindable(), class: className = "", children, ...rest } = $props()
 </script>
 
-<button
-  type="button"
-  {...$$props}
-  {...removeAttrs}
-  class="{$$props.class || ''} Button"
-  bind:this={ref}
-  on:click
-  on:keydown
->
-  <slot />
+<button type="button" {...rest} class={[className, "Button"]} bind:this={ref}>
+  {@render children?.()}
 </button>
 
 <style lang="scss" global>

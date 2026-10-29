@@ -1,40 +1,28 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import BookmarksItemAvatar from "~/components/bookmarks/BookmarksItemAvatar"
   import BookmarksItemBody from "~/components/bookmarks/BookmarksItemBody.svelte"
   import BookmarksItemDate from "~/components/bookmarks/BookmarksItemDate"
   import BookmarksItemCommentPermalink from "~/components/bookmarks/BookmarksItemCommentPermalink"
 
-  let bookmark
-  let eid
-  export { bookmark, eid }
+  let { bookmark, eid, class: className = "", ...rest } = $props()
 
-  const removeAttrs = createNullValueObject(["bookmark", "eid"])
-
-  let user
-  let comment
-  let commentTexts
-  let tags
-  let timestamp
-  let userUrl
-
-  $: {
-    user = bookmark.user
-    comment = bookmark.comment
-    commentTexts = bookmark.commentTexts
-    tags = bookmark.tags
-    timestamp = bookmark.timestamp
-    userUrl = `https://b.hatena.ne.jp/${user}/`
-  }
+  const userUrl = $derived(`https://b.hatena.ne.jp/${bookmark.user}/`)
 </script>
 
-<div {...$$props} {...removeAttrs} class="{$$props.class || ''} BookmarksItemContent">
-  <BookmarksItemAvatar {user} url={userUrl} class="BookmarksItemContent-avatar" />
-  <BookmarksItemBody {user} {userUrl} {comment} {commentTexts} {tags} class="BookmarksItemContent-body" />
-  {#if comment}
-    <BookmarksItemCommentPermalink {user} {eid} class="BookmarksItemContent-permalink" />
+<div {...rest} class={[className, "BookmarksItemContent"]}>
+  <BookmarksItemAvatar user={bookmark.user} url={userUrl} class="BookmarksItemContent-avatar" />
+  <BookmarksItemBody
+    user={bookmark.user}
+    {userUrl}
+    comment={bookmark.comment}
+    commentTexts={bookmark.commentTexts}
+    tags={bookmark.tags}
+    class="BookmarksItemContent-body"
+  />
+  {#if bookmark.comment}
+    <BookmarksItemCommentPermalink user={bookmark.user} {eid} class="BookmarksItemContent-permalink" />
   {/if}
-  <BookmarksItemDate {eid} {user} {timestamp} class="BookmarksItemContent-date" />
+  <BookmarksItemDate {eid} user={bookmark.user} timestamp={bookmark.timestamp} class="BookmarksItemContent-date" />
 </div>
 
 <style lang="scss" global>

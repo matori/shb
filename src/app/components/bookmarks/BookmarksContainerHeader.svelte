@@ -1,57 +1,40 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import { showAllBookmarks, reverseOrderBookmarks } from "~/store/ui"
   import Button from "~/elements/Button"
   import Icon from "~/elements/Icon"
 
-  let heading
-  export { heading }
-
-  const removeAttrs = createNullValueObject(["heading"])
-
-  let showAll
-  let reverse
-
-  showAllBookmarks.subscribe((value) => {
-    showAll = value
-  })
-
-  reverseOrderBookmarks.subscribe((value) => {
-    reverse = value
-  })
-
-  function onClickShowAllBookmarksButton(event) {
-    showAllBookmarks.set(!showAll)
-  }
-
-  function onClickReverseOrderButton(event) {
-    reverseOrderBookmarks.set(!reverse)
-  }
+  let { heading, class: className = "", ...rest } = $props()
 </script>
 
-<header {...$$props} {...removeAttrs} class="{$$props.class || ''} BookmarksContainerHeader">
+<header {...rest} class={[className, "BookmarksContainerHeader"]}>
   <h3 class="BookmarksContainerHeader-heading">{heading}</h3>
   <div class="BookmarksContainerHeader-tools">
     <Button
       title="コメントのないブックマークも表示する"
       class="BookmarksContainerHeader-button _filter"
       role="switch"
-      aria-checked={showAll}
-      on:click={onClickShowAllBookmarksButton}
+      aria-checked={$showAllBookmarks}
+      onclick={() => showAllBookmarks.set(!$showAllBookmarks)}
     >
-      <Icon name="checkbox-checked" class="BookmarksContainerHeader-icon {showAll ? '_show' : '_hide'}" />
-      <Icon name="checkbox-outline" class="BookmarksContainerHeader-icon {showAll ? '_hide' : '_show'}" />
+      <Icon name="checkbox-checked" class="BookmarksContainerHeader-icon {$showAllBookmarks ? '_show' : '_hide'}" />
+      <Icon name="checkbox-outline" class="BookmarksContainerHeader-icon {$showAllBookmarks ? '_hide' : '_show'}" />
       全ブックマーク表示
     </Button>
     <Button
       title="ブックマーク日時が古い順に並び替える"
       class="BookmarksContainerHeader-button _sort"
       role="switch"
-      aria-checked={reverse}
-      on:click={onClickReverseOrderButton}
+      aria-checked={$reverseOrderBookmarks}
+      onclick={() => reverseOrderBookmarks.set(!$reverseOrderBookmarks)}
     >
-      <Icon name="checkbox-checked" class="BookmarksContainerHeader-icon {reverse ? '_show' : '_hide'}" />
-      <Icon name="checkbox-outline" class="BookmarksContainerHeader-icon {reverse ? '_hide' : '_show'}" />
+      <Icon
+        name="checkbox-checked"
+        class="BookmarksContainerHeader-icon {$reverseOrderBookmarks ? '_show' : '_hide'}"
+      />
+      <Icon
+        name="checkbox-outline"
+        class="BookmarksContainerHeader-icon {$reverseOrderBookmarks ? '_hide' : '_show'}"
+      />
       古い順で表示
     </Button>
   </div>

@@ -1,16 +1,10 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import Link from "~/elements/Link"
 
-  let title
-  let url
-  let multiLine
-  export { title, url, multiLine }
-
-  const removeAttrs = createNullValueObject(["title", "url", "multiLine"])
+  let { title, url, multiLine, class: className = "", ...rest } = $props()
 </script>
 
-<h3 {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailInfoTitle {multiLine ? '' : '_singleLine'}">
+<h3 {...rest} class={[className, "DetailInfoTitle", { _singleLine: !multiLine }]}>
   <Link {url} title={multiLine ? null : title} class="DetailInfoTitle-link">{title}</Link>
 </h3>
 

@@ -1,24 +1,19 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import DetailInfoDescription from "~/components/detail-info/DetailInfoDescription"
   import DetailInfoImage from "~/components/detail-info/DetailInfoImage"
   import DetailInfoTags from "~/components/detail-info/DetailInfoTags"
   import DetailInfoSearchTwitter from "~/components/detail-info/DetailInfoSearchTwitter"
 
-  let detailContent
-  let itemData
-  let detailInfoExpanded
-  export { detailContent, itemData, detailInfoExpanded }
-
-  const removeAttrs = createNullValueObject(["detailContent", "itemData", "detailInfoExpanded"])
+  let { detailContent, itemData, detailInfoExpanded, class: className = "", ...rest } = $props()
 </script>
 
 <div
-  {...$$props}
-  {...removeAttrs}
-  class="{$$props.class || ''} DetailInfoBody {itemData.image ? '_hasImage' : ''}
-  {itemData.tags.length ? ' _hasTags' : ''}
-  {detailInfoExpanded ? '' : '_hidden'}"
+  {...rest}
+  class={[
+    className,
+    "DetailInfoBody",
+    { _hasImage: itemData.image, _hasTags: itemData.tags.length, _hidden: !detailInfoExpanded },
+  ]}
 >
   <DetailInfoDescription text={itemData.description} class="DetailInfoBody-description" />
   {#if itemData.image}

@@ -1,28 +1,22 @@
 <script>
-  import { beforeUpdate } from "svelte"
-  import createNullValueObject from "~/utils/createNullValueObject"
   import { selectedBookmarksTabIndex } from "~/store/ui"
   import DetailContent from "~/components/detail/DetailContent"
   import DetailFetchError from "~/components/detail/DetailFetchError.svelte"
   import DetailHeader from "~/components/detail/DetailHeader"
   import DetailNoBookmarkError from "~/components/detail/DetailNoBookmarkError.svelte"
 
-  let detail
-  let message
-  export { detail, message }
+  let { detail, message, class: className = "", ...rest } = $props()
 
-  const removeAttrs = createNullValueObject(["detail", "message"])
+  const data = $derived(detail ? detail.data : null)
+  const data0 = $derived(detail ? detail.data.entries[detail.data.floor - 1] : null)
+  const itemData = $derived(detail ? detail.itemData : null)
 
-  $: data = detail ? detail.data : null
-  $: data0 = detail ? detail.data.entries[detail.data.floor - 1] : null
-  $: itemData = detail ? detail.itemData : null
-
-  beforeUpdate(() => {
+  $effect.pre(() => {
     selectedBookmarksTabIndex.set(detail ? detail.data.floor - 1 : 0)
   })
 </script>
 
-<section {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailContainer">
+<section {...rest} class={[className, "DetailContainer"]}>
   <DetailHeader heading="エントリー情報" class="DetailContainer-header" />
   <div class="DetailContainer-body">
     {#if message}

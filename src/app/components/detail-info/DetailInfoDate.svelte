@@ -1,14 +1,10 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import Time from "~/elements/Time"
 
-  let datetime
-  export { datetime }
-
-  const removeAttrs = createNullValueObject(["datetime"])
+  let { datetime, class: className = "", ...rest } = $props()
 </script>
 
-<span {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailInfoDate">
+<span {...rest} class={[className, "DetailInfoDate"]}>
   <Time {datetime} title="最初にブックマークされた日時" class="DetailInfoDate-time" />
 </span>
 

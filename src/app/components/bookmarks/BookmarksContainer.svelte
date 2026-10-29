@@ -1,43 +1,20 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
-  import { increment, decrement } from "~/utils/arrayIndex"
   import { selectedBookmarksTabIndex } from "~/store/ui"
   import TabContent from "~/components/common/TabContent"
   import Bookmarks from "~/components/bookmarks/Bookmarks"
   import BookmarksContainerHeader from "~/components/bookmarks/BookmarksContainerHeader"
 
-  let data
-  export { data }
+  let { data, class: className = "", ...rest } = $props()
 
-  const removeAttrs = createNullValueObject(["data"])
-
-  $: tabs = data.map((data, index) => {
-    return {
+  const tabs = $derived(
+    data.map((_, index) => ({
       key: index.toString(),
       label: `${index + 1}階`,
-    }
-  })
-
-  function onClickTab({ detail }) {
-    selectedBookmarksTabIndex.set(detail.index)
-  }
-
-  function onKeydownRight(event) {
-    const next = increment($selectedBookmarksTabIndex, data.length, true)
-    const { items } = event.detail
-    selectedBookmarksTabIndex.set(next)
-    items[next].firstElementChild.focus()
-  }
-
-  function onKeydownLeft(event) {
-    const prev = decrement($selectedBookmarksTabIndex, data.length, true)
-    const { items } = event.detail
-    selectedBookmarksTabIndex.set(prev)
-    items[prev].firstElementChild.focus()
-  }
+    })),
+  )
 </script>
 
-<section {...$$props} {...removeAttrs} class="{$$props.class || ''} BookmarksContainer">
+<section {...rest} class={[className, "BookmarksContainer"]}>
   <BookmarksContainerHeader heading="コメント一覧" class="BookmarksContainer-header" />
   <div class="BookmarksContainer-body">
     {#if data.length > 1}
@@ -45,13 +22,11 @@
         {tabs}
         selected={$selectedBookmarksTabIndex}
         class="BookmarksContainer-tabContent"
-        on:click:tab={onClickTab}
-        on:keydown:right={onKeydownRight}
-        on:keydown:left={onKeydownLeft}
-        let:key
-        let:label
+        onselect={(index) => selectedBookmarksTabIndex.set(index)}
       >
-        <Bookmarks content={data[key].content} class="BookmarksContainer-bookmarks" />
+        {#snippet children({ key })}
+          <Bookmarks content={data[key].content} class="BookmarksContainer-bookmarks" />
+        {/snippet}
       </TabContent>
     {:else}
       <Bookmarks content={data[0].content} class="BookmarksContainer-bookmarks" />

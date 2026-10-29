@@ -1,15 +1,10 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import Link from "~/elements/Link"
 
-  let user
-  let url
-  export { user, url }
-
-  const removeAttrs = createNullValueObject(["user", "url"])
+  let { user, url, class: className = "", ...rest } = $props()
 </script>
 
-<div {...$$props} {...removeAttrs} class="{$$props.class || ''} BookmarksItemUser">
+<div {...rest} class={[className, "BookmarksItemUser"]}>
   <Link {url} class="BookmarksItemUser-link">{user}</Link>
 </div>
 

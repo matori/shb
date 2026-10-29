@@ -1,16 +1,10 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import FetchError from "~/components/common/FetchError"
 
-  let display
-  let when
-  let message
-  export { display, when, message }
-
-  const removeAttrs = createNullValueObject(["display", "when", "message"])
+  let { class: className = "", ...rest } = $props()
 </script>
 
-<FetchError {...$$props} {...removeAttrs} {display} {when} {message} class="{$$props.class || ''} EntriesFetchError" />
+<FetchError {...rest} class={[className, "EntriesFetchError"]} />
 
 <style lang="scss" global>
   .EntriesFetchError {

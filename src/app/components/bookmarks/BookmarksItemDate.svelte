@@ -1,28 +1,15 @@
 <script>
   import dayjs from "dayjs"
-  import createNullValueObject from "~/utils/createNullValueObject"
   import Link from "~/elements/Link"
   import Time from "~/elements/Time"
 
-  let eid
-  let user
-  let timestamp
-  export { eid, user, timestamp }
+  let { eid, user, timestamp, class: className = "", ...rest } = $props()
 
-  const removeAttrs = createNullValueObject(["eid", "user", "timestamp"])
-
-  const datetime = timestamp.split("/").join("-").replace(" ", "T") + ":00+09:00"
-  const url = `https://b.hatena.ne.jp/${user}/${dayjs(datetime).format("YYYYMMDD")}#bookmark-${eid}`
-  const id = `bookmark-${user}-${eid}`
+  const datetime = $derived(timestamp.split("/").join("-").replace(" ", "T") + ":00+09:00")
+  const url = $derived(`https://b.hatena.ne.jp/${user}/${dayjs(datetime).format("YYYYMMDD")}#bookmark-${eid}`)
 </script>
 
-<Link
-  {...$$props}
-  {...removeAttrs}
-  {url}
-  class="{$$props.class || ''} BookmarksItemDate"
-  title="ブックマークのパーマリンク"
->
+<Link {...rest} {url} class={[className, "BookmarksItemDate"]} title="ブックマークのパーマリンク">
   <Time {datetime} needSeconds={false} class="BookmarksItemDate-date" />
 </Link>
 

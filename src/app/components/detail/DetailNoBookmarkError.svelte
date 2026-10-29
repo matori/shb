@@ -1,7 +1,8 @@
 <script>
+  let { class: className = "", ...rest } = $props()
 </script>
 
-<section class="DetailNoBookmarkError">
+<section {...rest} class={[className, "DetailNoBookmarkError"]}>
   <p class="DetailNoBookmarkError-message">このエントリーはまだブックマークされていません</p>
 </section>
 

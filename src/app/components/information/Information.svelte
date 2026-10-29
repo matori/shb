@@ -3,9 +3,11 @@
   import links from "~/data/links"
   import Link from "~/elements/Link.svelte"
   import Icon from "~/elements/Icon.svelte"
+
+  let { class: className = "", ...rest } = $props()
 </script>
 
-<section {...$$props} class="{$$props.class || ''} Information">
+<section {...rest} class={[className, "Information"]}>
   <header class="Information-header">
     <h2 class="Information-heading">
       インフォメーション

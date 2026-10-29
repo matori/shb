@@ -1,17 +1,12 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import Link from "~/elements/Link"
 
-  let url
-  let user
-  export { url, user }
+  let { url, user, class: className = "", ...rest } = $props()
 
-  const removeAttrs = createNullValueObject(["url", "user"])
-
-  $: avatarUrl = `https://cdn.profile-image.st-hatena.com/users/${user}/profile.png`
+  const avatarUrl = $derived(`https://cdn.profile-image.st-hatena.com/users/${user}/profile.png`)
 </script>
 
-<div {...$$props} {...removeAttrs} class="{$$props.class || ''} BookmarksItemAvatar">
+<div {...rest} class={[className, "BookmarksItemAvatar"]}>
   <Link {url} class="BookmarksItemAvatar-link">
     <span
       class="BookmarksItemAvatar-image"

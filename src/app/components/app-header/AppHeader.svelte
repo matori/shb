@@ -1,13 +1,12 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import AppLogo from "~/components/app-header/AppLogo"
   import AppSettings from "~/components/app-header/AppSettings"
   import AppFavLinks from "~/components/app-header/AppFavLinks.svelte"
 
-  const removeAttrs = createNullValueObject([])
+  let { class: className = "", ...rest } = $props()
 </script>
 
-<header {...$$props} {...removeAttrs} class="{$$props.class || ''} AppHeader">
+<header {...rest} class={[className, "AppHeader"]}>
   <div class="AppHeader-inner">
     <AppLogo class="AppHeader-logo" />
     <AppFavLinks class="AppHeader-links" />

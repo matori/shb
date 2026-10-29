@@ -1,14 +1,10 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import Link from "~/elements/Link"
 
-  let commentTexts
-  export { commentTexts }
-
-  const removeAttrs = createNullValueObject(["commentTexts"])
+  let { commentTexts, class: className = "", ...rest } = $props()
 </script>
 
-<p {...$$props} {...removeAttrs} class="{$$props.class || ''} BookmarksItemComment">
+<p {...rest} class={[className, "BookmarksItemComment"]}>
   {#each commentTexts as text}
     {#if text.type === "url"}
       <Link url={text.text} class="BookmarksItemComment-link">{text.text}</Link>

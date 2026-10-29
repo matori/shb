@@ -1,24 +1,13 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import Link from "~/elements/Link"
   import Icon from "~/elements/Icon"
 
-  let user
-  let eid
-  export { user, eid }
+  let { user, eid, class: className = "", ...rest } = $props()
 
-  const removeAttrs = createNullValueObject(["user", "eid"])
-
-  const url = `https://b.hatena.ne.jp/entry/${eid}/comment/${user}`
+  const url = $derived(`https://b.hatena.ne.jp/entry/${eid}/comment/${user}`)
 </script>
 
-<Link
-  {...$$props}
-  {...removeAttrs}
-  {url}
-  class="{$$props.class || ''} BookmarksItemCommentPermalink"
-  title="コメントのパーマリンク"
->
+<Link {...rest} {url} class={[className, "BookmarksItemCommentPermalink"]} title="コメントのパーマリンク">
   <Icon name="link" class="BookmarksItemCommentPermalink-icon" aria-hidden="true" />
   <span class="BookmarksItemCommentPermalink-label">Permalink</span>
 </Link>

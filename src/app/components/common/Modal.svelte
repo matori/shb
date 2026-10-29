@@ -1,56 +1,43 @@
 <script>
-  import { createEventDispatcher } from "svelte"
   import KEY_NAMES from "~/constants/keyNames"
-  import createNullValueObject from "~/utils/createNullValueObject"
   import Button from "~/elements/Button.svelte"
   import Icon from "~/elements/Icon.svelte"
 
-  let closeButton = null
-  let show = false
-  export { closeButton, show }
-
-  const removeAttrs = createNullValueObject(["closeButton", "show"])
-
-  const dispatch = createEventDispatcher()
+  let {
+    closeButton = $bindable(),
+    show = false,
+    onclose,
+    onclosebuttonkeydown,
+    class: className = "",
+    children,
+    ...rest
+  } = $props()
 
   function onKeydownModal(event) {
     if (event.key === KEY_NAMES.escape) {
       event.stopPropagation()
-      dispatch("modal:close")
+      onclose?.()
     }
-  }
-
-  function dispatchModalClose() {
-    dispatch("modal:close")
-  }
-
-  function onKeydownCloseButton(event) {
-    dispatch("closebutton:keydown", event)
   }
 </script>
 
-<div
-  {...$$props}
-  {...removeAttrs}
-  class="{$$props.class || ''} Modal"
-  role="dialog"
-  aria-hidden={!show}
-  on:keydown={onKeydownModal}
->
-  <div class="Modal-backdrop" on:click={dispatchModalClose}></div>
+<div {...rest} class={[className, "Modal"]} role="dialog" aria-hidden={!show} onkeydown={onKeydownModal}>
+  <!-- 背景クリックはマウス向けの補助。キーボードではESCキーで閉じられる -->
+  <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions -->
+  <div class="Modal-backdrop" onclick={() => onclose?.()}></div>
   <Button
     class="Modal-close"
     title="ESCキー、画像の背景をクリックでも閉じられます"
     bind:ref={closeButton}
-    on:click={dispatchModalClose}
-    on:keydown={onKeydownCloseButton}
+    onclick={() => onclose?.()}
+    onkeydown={onclosebuttonkeydown}
   >
     <Icon name="close" class="Modal-icon" />
     閉じる
   </Button>
   <div class="Modal-inner">
     <div class="Modal-content">
-      <slot />
+      {@render children?.()}
     </div>
   </div>
 </div>

@@ -1,15 +1,11 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import { detailData } from "~/store/detail"
   import EntryListItemLink from "~/components/entry-list/EntryListItemLink"
   import EntryListItemBookmarkCount from "~/components/entry-list/EntryListItemBookmarkCount"
   import EntryListItemSite from "~/components/entry-list/EntryListItemSite"
   import EntryListItemTime from "~/components/entry-list/EntryListItemTime"
 
-  let item
-  export { item }
-
-  const removeAttrs = createNullValueObject(["item"])
+  let { item, class: className = "", ...rest } = $props()
 
   function onClickBookmarkCount(event) {
     event.preventDefault()
@@ -17,9 +13,9 @@
   }
 </script>
 
-<li {...$$props} {...removeAttrs} class="{$$props.class || ''} EntryListItem">
+<li {...rest} class={[className, "EntryListItem"]}>
   <EntryListItemLink url={item.url} title={item.title} class="EntryListItem-title" />
-  <EntryListItemBookmarkCount count={item.bookmarkCount} class="EntryListItem-count" on:click={onClickBookmarkCount} />
+  <EntryListItemBookmarkCount count={item.bookmarkCount} class="EntryListItem-count" onclick={onClickBookmarkCount} />
   <EntryListItemSite
     url={item.siteEntriesUrl}
     label={item.siteEntriesLabel}

@@ -1,11 +1,10 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import ContentContainer from "~/components/app-body/ContentContainer"
 
-  const removeAttrs = createNullValueObject([])
+  let { class: className = "", ...rest } = $props()
 </script>
 
-<div {...$$props} {...removeAttrs} class="{$$props.class || ''} AppBody">
+<div {...rest} class={[className, "AppBody"]}>
   <ContentContainer class="AppBody-inner" />
 </div>
 

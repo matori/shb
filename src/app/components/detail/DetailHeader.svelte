@@ -1,25 +1,17 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import { detailData, detailFetchProcessing } from "~/store/detail"
   import Button from "~/elements/Button"
   import Icon from "~/elements/Icon"
 
-  let heading
-  export { heading }
-
-  const removeAttrs = createNullValueObject(["heading"])
-
-  function onClickClose(event) {
-    detailData.reset()
-  }
+  let { heading, class: className = "", ...rest } = $props()
 </script>
 
-<header {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailHeader">
+<header {...rest} class={[className, "DetailHeader"]}>
   <h2 class="DetailHeader-heading">
     {heading}
     <Icon name="refresh" class="DetailHeader-icon {$detailFetchProcessing ? '_show' : ''}" />
   </h2>
-  <Button class="DetailHeader-closeButton" on:click={onClickClose}>
+  <Button class="DetailHeader-closeButton" onclick={() => detailData.reset()}>
     <Icon name="close" class="DetailHeader-closeIcon" />
     情報とコメントのパネルを閉じる
   </Button>

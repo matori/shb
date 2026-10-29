@@ -1,16 +1,10 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import Link from "~/elements/Link"
 
-  let url
-  let label
-  let favicon
-  export { url, label, favicon }
-
-  const removeAttrs = createNullValueObject(["url", "label", "favicon"])
+  let { url, label, favicon, class: className = "", ...rest } = $props()
 </script>
 
-<span {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailInfoSite">
+<span {...rest} class={[className, "DetailInfoSite"]}>
   <Link {url} class="DetailInfoSite-link">
     <img src={favicon} class="DetailInfoSite-favicon" alt="" />
     <span class="DetailInfoSite-label">{label}</span>

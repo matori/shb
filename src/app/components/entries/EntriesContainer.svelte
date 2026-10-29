@@ -1,12 +1,11 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import CategoryTab from "~/components/entries/CategoryTab"
   import EntriesHeader from "~/components/entries/EntriesHeader"
 
-  const removeAttrs = createNullValueObject([])
+  let { class: className = "", ...rest } = $props()
 </script>
 
-<section {...$$props} {...removeAttrs} class="{$$props.class || ''} EntriesContainer">
+<section {...rest} class={[className, "EntriesContainer"]}>
   <EntriesHeader heading="エントリーの一覧" class="EntriesContainer-header" />
   <div class="EntriesContainer-entries">
     <CategoryTab class="EntriesContainer-content" />

@@ -1,20 +1,12 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import BookmarksItemUser from "~/components/bookmarks/BookmarksItemUser"
   import BookmarksItemComment from "~/components/bookmarks/BookmarksItemComment"
   import BookmarksItemTags from "~/components/bookmarks/BookmarksItemTags"
 
-  let user
-  let userUrl
-  let comment
-  let commentTexts
-  let tags
-  export { user, userUrl, comment, commentTexts, tags }
-
-  const removeAttrs = createNullValueObject(["user", "userUrl", "comment", "commentTexts", "tags"])
+  let { user, userUrl, comment, commentTexts, tags, class: className = "", ...rest } = $props()
 </script>
 
-<div {...$$props} {...removeAttrs} class="{$$props.class || ''} BookmarksItemBody">
+<div {...rest} class={[className, "BookmarksItemBody"]}>
   <BookmarksItemUser {user} url={userUrl} class="BookmarksItemBody-user" />
   {#if comment}
     <BookmarksItemComment {commentTexts} class="BookmarksItemBody-comment" />

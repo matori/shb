@@ -1,20 +1,15 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import List from "~/elements/List"
-  import EnteryListItem from "~/components/entry-list/EntryListItem"
+  import EntryListItem from "~/components/entry-list/EntryListItem"
 
-  // props
-  let items
-  export { items }
-
-  const removeAttrs = createNullValueObject(["items"])
+  let { items, class: className = "", ...rest } = $props()
 </script>
 
-<div {...$$props} {...removeAttrs} class="{$$props.class || ''} EntryList">
+<div {...rest} class={[className, "EntryList"]}>
   {#if items.length}
     <List class="EntryList-list">
-      {#each items as item, index}
-        <EnteryListItem {item} class="EntryList-item" />
+      {#each items as item}
+        <EntryListItem {item} class="EntryList-item" />
       {/each}
     </List>
   {:else}

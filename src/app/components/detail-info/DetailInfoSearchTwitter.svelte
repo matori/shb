@@ -1,17 +1,13 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import Link from "~/elements/Link"
   import Icon from "~/elements/Icon"
 
-  let url
-  export { url }
+  let { url, class: className = "", ...rest } = $props()
 
-  const removeAttrs = createNullValueObject(["url"])
-
-  $: twitterUrl = `https://twitter.com/search?q=${encodeURIComponent(url)}`
+  const twitterUrl = $derived(`https://twitter.com/search?q=${encodeURIComponent(url)}`)
 </script>
 
-<div {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailInfoSearchTwitter">
+<div {...rest} class={[className, "DetailInfoSearchTwitter"]}>
   <Link url={twitterUrl} class="DetailInfoSearchTwitter-link">
     <Icon name="twitter" class="DetailInfoSearchTwitter-icon" />
     <span class="DetailInfoSearchTwitter-label">TwitterでURL検索</span>

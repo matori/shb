@@ -1,15 +1,11 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import Link from "~/elements/Link"
 
-  let url
-  export { url }
-
-  const removeAttrs = createNullValueObject(["url"])
+  let { url, class: className = "", children, ...rest } = $props()
 </script>
 
-<Link {...$$props} {...removeAttrs} {url} class="{$$props.class || ''} LinkBox">
-  <slot />
+<Link {...rest} {url} class={[className, "LinkBox"]}>
+  {@render children?.()}
 </Link>
 
 <style lang="scss" global>

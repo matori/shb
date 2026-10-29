@@ -1,26 +1,9 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
-
-  // props
-  let url
-  let ref
-  export { url, ref }
-
-  const removeAttrs = createNullValueObject(["url", "ref", "target", "rel"])
+  let { url, ref = $bindable(), class: className = "", children, ...rest } = $props()
 </script>
 
-<a
-  {...$$props}
-  {...removeAttrs}
-  href={url}
-  target="_blank"
-  rel="noreferrer noopeener nofollow"
-  class="{$$props.class || ''} Link"
-  bind:this={ref}
-  on:click
-  on:keydown
->
-  <slot />
+<a {...rest} href={url} target="_blank" rel="noreferrer noopeener nofollow" class={[className, "Link"]} bind:this={ref}>
+  {@render children?.()}
 </a>
 
 <style lang="scss" global>

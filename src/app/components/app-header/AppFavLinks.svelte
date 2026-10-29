@@ -1,13 +1,12 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import { links } from "~/store/config"
   import Link from "~/elements/Link.svelte"
   import List from "~/elements/List.svelte"
 
-  const removeAttrs = createNullValueObject([])
+  let { class: className = "", ...rest } = $props()
 </script>
 
-<div {...$$props} {...removeAttrs} class="{$$props.class || ''} AppFavLinks" aria-label="お気に入りリンク">
+<div {...rest} class={[className, "AppFavLinks"]} aria-label="お気に入りリンク">
   {#if $links.length}
     <List class="AppFavLinks-list">
       {#each $links as link}

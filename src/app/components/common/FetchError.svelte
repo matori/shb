@@ -1,43 +1,22 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
-
-  let display
-  let when
-  let message = "謎のエラーが発生しました"
-  export { display, when, message }
-
-  const removeAttrs = createNullValueObject(["display", "when", "message"])
-
-  let timing
-  let errorTitle = "エラーが発生しました"
-
-  switch (when) {
-    case "connection":
-      timing = "APIへの接続エラー"
-      break
-    case "api":
-      timing = "APIからエラーが返されました"
-      break
-    default:
-      timing = "不明なエラー"
+  const TIMINGS = {
+    connection: "APIへの接続エラー",
+    api: "APIからエラーが返されました",
   }
 
-  switch (display) {
-    case "entries":
-      errorTitle = "一覧取得の際に" + errorTitle
-      break
-    case "detail":
-      errorTitle = "詳細情報取得の際に" + errorTitle
-      break
+  const TITLE_PREFIXES = {
+    entries: "一覧取得の際に",
+    detail: "詳細情報取得の際に",
   }
+
+  let { display, when, message = "謎のエラーが発生しました", class: className = "", ...rest } = $props()
+
+  const timing = $derived(TIMINGS[when] ?? "不明なエラー")
+  const errorTitle = $derived(`${TITLE_PREFIXES[display] ?? ""}エラーが発生しました`)
 </script>
 
-<section {...$$props} {...removeAttrs} class="{$$props.class || ''} FetchError">
-  {#if display === "entries"}
-    <h4 class="FetchError-title">{errorTitle}</h4>
-  {:else}
-    <h3 class="FetchError-title">{errorTitle}</h3>
-  {/if}
+<section {...rest} class={[className, "FetchError"]}>
+  <svelte:element this={display === "entries" ? "h4" : "h3"} class="FetchError-title">{errorTitle}</svelte:element>
   <dl class="FetchError-details">
     <dt class="FetchError-label">状況</dt>
     <dd class="FetchError-description">{timing}</dd>

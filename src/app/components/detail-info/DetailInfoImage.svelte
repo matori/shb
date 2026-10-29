@@ -1,24 +1,16 @@
 <script>
   import KEY_NAMES from "~/constants/keyNames"
-  import createNullValueObject from "~/utils/createNullValueObject"
   import Link from "~/elements/Link"
   import Icon from "~/elements/Icon"
   import Modal from "~/components/common/Modal.svelte"
 
-  let image
-  export { image }
+  let { image, class: className = "", ...rest } = $props()
 
-  const removeAttrs = createNullValueObject(["image"])
-
-  let imageLoadError = false
-  let modalShow = false
-  let modalTrigger
-  let closeButton
-  let lastFocusable
-
-  function onErrorLoadImage() {
-    imageLoadError = true
-  }
+  let imageLoadError = $state(false)
+  let modalShow = $state(false)
+  let modalTrigger = $state()
+  let closeButton = $state()
+  let lastFocusable = $state()
 
   function showModal(event) {
     event.preventDefault()
@@ -28,28 +20,15 @@
     })
   }
 
-  function hideModal(event) {
-    event.preventDefault()
-    closeModal()
-  }
-
   function closeModal() {
     modalShow = false
     modalTrigger.focus()
   }
 
-  function onKeydownModal(event) {
-    if (event.key === KEY_NAMES.escape) {
-      event.stopPropagation()
-      closeModal()
-    }
-  }
-
   function onKeydownCloseButton(event) {
-    const originalEvent = event.detail
-    if (originalEvent.key === KEY_NAMES.tab && originalEvent.shiftKey) {
-      originalEvent.preventDefault()
-      originalEvent.stopPropagation()
+    if (event.key === KEY_NAMES.tab && event.shiftKey) {
+      event.preventDefault()
+      event.stopPropagation()
       lastFocusable.focus()
     }
   }
@@ -63,16 +42,16 @@
   }
 </script>
 
-<div {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailInfoImage">
+<div {...rest} class={[className, "DetailInfoImage"]}>
   <Link
     url={image}
-    class="DetailInfoImage-link {imageLoadError ? '_loadError' : ''}"
+    class={["DetailInfoImage-link", { _loadError: imageLoadError }]}
     title="画像を拡大表示"
     bind:ref={modalTrigger}
-    on:click={showModal}
+    onclick={showModal}
   >
     {#if !imageLoadError}
-      <img src={image} alt="" class="DetailInfoImage-image" on:error={onErrorLoadImage} />
+      <img src={image} alt="" class="DetailInfoImage-image" onerror={() => (imageLoadError = true)} />
     {:else}
       <div class="DetailInfoImage-error">
         <span class="DetailInfoImage-message">画像の読み込みに失敗しました</span>
@@ -81,19 +60,13 @@
     {/if}
   </Link>
 </div>
-<Modal
-  show={modalShow}
-  {lastFocusable}
-  bind:closeButton
-  on:modal:close={hideModal}
-  on:closebutton:keydown={onKeydownCloseButton}
->
+<Modal show={modalShow} bind:closeButton onclose={closeModal} onclosebuttonkeydown={onKeydownCloseButton}>
   <Link
     url={image}
     class="DetailInfoImage-modalLink"
     title="画像を直接開く"
     bind:ref={lastFocusable}
-    on:keydown={onKeydownLastFocusable}
+    onkeydown={onKeydownLastFocusable}
   >
     <img src={image} alt="" class="DetailInfoImage-modalImage" />
   </Link>

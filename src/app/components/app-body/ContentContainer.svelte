@@ -1,14 +1,13 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import { hasDetailData, detailFetchErrorMessage, detailData } from "~/store/detail"
   import EntriesContainer from "~/components/entries/EntriesContainer"
   import DetailContainer from "~/components/detail/DetailContainer"
   import Information from "~/components/information/Information.svelte"
 
-  const removeAttrs = createNullValueObject([])
+  let { class: className = "", ...rest } = $props()
 </script>
 
-<div {...$$props} {...removeAttrs} class="{$$props.class || ''} ContentContainer">
+<div {...rest} class={[className, "ContentContainer"]}>
   <EntriesContainer class="ContentContainer-entries" />
   {#if $detailFetchErrorMessage || $hasDetailData}
     <DetailContainer detail={$detailData} message={$detailFetchErrorMessage} class="ContentContainer-detail" />

@@ -1,19 +1,14 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import Icon from "~/elements/Icon.svelte"
   import Link from "~/elements/Link.svelte"
   import List from "~/elements/List.svelte"
   import BookmarksItemContent from "~/components/bookmarks/BookmarksItemContent.svelte"
   import BookmarksItemAvatar from "~/components/bookmarks/BookmarksItemAvatar"
 
-  let bookmark
-  let eid
-  export { bookmark, eid }
-
-  const removeAttrs = createNullValueObject(["bookmark", "eid"])
+  let { bookmark, eid, class: className = "", ...rest } = $props()
 </script>
 
-<dl class="BookmarksItemIdCalls">
+<dl {...rest} class={[className, "BookmarksItemIdCalls"]}>
   {#if bookmark.idCalls}
     <dt class="BookmarksItemIdCalls-title">
       <Icon name="reply-to" class="BookmarksItemIdCalls-icon" />

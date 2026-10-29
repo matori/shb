@@ -1,7 +1,8 @@
 <script>
+  let { class: className = "", ...rest } = $props()
 </script>
 
-<h1 {...$$props} class="{$$props.class || ''} AppLogo">
+<h1 {...rest} class={[className, "AppLogo"]}>
   <a href="/" class="AppLogo-link">しんぷるはてぶ</a>
 </h1>
 

@@ -1,15 +1,11 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import Button from "~/elements/Button.svelte"
   import Icon from "~/elements/Icon.svelte"
 
-  let open
-  export { open }
-
-  const removeAttrs = createNullValueObject(["open"])
+  let { open, class: className = "", ...rest } = $props()
 </script>
 
-<Button {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailInfoToggleSwitch" aria-pressed={open} on:click>
+<Button {...rest} class={[className, "DetailInfoToggleSwitch"]} aria-pressed={open}>
   {#if open}エントリー情報を折りたたむ{:else}エントリー情報を展開する{/if}
   <Icon name="expand" class="DetailInfoToggleSwitch-icon {open ? '_hide' : '_show'}" />
   <Icon name="collapse" class="DetailInfoToggleSwitch-icon {open ? '_show' : '_hide'}" />

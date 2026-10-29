@@ -1,16 +1,18 @@
 <script>
   import ICON_PATHS from "~/constants/iconPaths"
 
-  // props
-  let name
-  let title
-  export { name, title }
+  let { name, title, class: className = "", ...rest } = $props()
 
-  $: icon = ICON_PATHS[name]
-  $: role = title ? "img" : null
+  const icon = $derived(ICON_PATHS[name])
 </script>
 
-<svg {...$$props} viewBox="0 0 {icon.size} {icon.size}" {role} aria-label={title} class="{$$props.class || ''} Icon">
+<svg
+  {...rest}
+  viewBox="0 0 {icon.size} {icon.size}"
+  role={title ? "img" : null}
+  aria-label={title}
+  class={[className, "Icon"]}
+>
   <path d={icon.path} />
 </svg>
 

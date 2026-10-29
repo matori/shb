@@ -1,25 +1,17 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import { entriesFetchProcessing, entriesData } from "~/store/entries"
   import Button from "~/elements/Button"
   import Icon from "~/elements/Icon"
 
-  let heading
-  export { heading }
-
-  const removeAttrs = createNullValueObject(["heading"])
-
-  function onClickSync(event) {
-    entriesData.update()
-  }
+  let { heading, class: className = "", ...rest } = $props()
 </script>
 
-<header {...$$props} {...removeAttrs} class="{$$props.class || ''} EntriesHeader">
+<header {...rest} class={[className, "EntriesHeader"]}>
   <h2 class="EntriesHeader-heading">{heading}</h2>
   <Button
     class="EntriesHeader-syncButton {$entriesFetchProcessing ? '_loading' : ''}"
     disabled={$entriesFetchProcessing}
-    on:click={onClickSync}
+    onclick={() => entriesData.update()}
   >
     <Icon name="sync" class="EntriesHeader-syncIcon" />
     更新

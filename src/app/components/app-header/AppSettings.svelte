@@ -1,50 +1,40 @@
 <script>
   import KEY_NAMES from "~/constants/keyNames"
-  import createNullValueObject from "~/utils/createNullValueObject"
   import { entriesData } from "~/store/entries"
   import { autoRefresh, autoRefreshInterval, links } from "~/store/config"
   import Button from "~/elements/Button.svelte"
   import Icon from "~/elements/Icon.svelte"
   import Modal from "~/components/common/Modal.svelte"
 
-  const removeAttrs = createNullValueObject([])
+  let { class: className = "", ...rest } = $props()
 
-  let timer
-  let autoRefreshActive
-  let autoRefreshIntervalTime
-  let modalShow = false
-  let modalTrigger
-  let closeButton
-  let lastFocusable
-  let form
-  let autoRefreshIntervalInput
-  let linksInput
-  let linksText
+  let modalShow = $state(false)
+  let modalTrigger = $state()
+  let closeButton = $state()
+  let lastFocusable = $state()
+  let autoRefreshIntervalInput = $state()
+  let linksText = $state("")
 
-  autoRefresh.subscribe((value) => {
-    autoRefreshActive = value
+  const autoRefreshIntervalTime = $derived($autoRefreshInterval * 60 * 1000)
 
-    if (value) {
-      updateEntries()
-    } else {
-      clearTimeout(timer)
+  $effect(() => {
+    if (!$autoRefresh) {
+      return
     }
+    let timer
+    function updateEntries() {
+      timer = setTimeout(() => {
+        entriesData.update()
+        updateEntries()
+      }, autoRefreshIntervalTime)
+    }
+    updateEntries()
+    return () => clearTimeout(timer)
   })
 
-  autoRefreshInterval.subscribe((value) => {
-    autoRefreshIntervalTime = value * 60 * 1000
+  $effect.pre(() => {
+    linksText = linksToText($links)
   })
-
-  links.subscribe((value) => {
-    linksText = linksToText(value)
-  })
-
-  function updateEntries() {
-    timer = setTimeout(() => {
-      entriesData.update()
-      updateEntries()
-    }, autoRefreshIntervalTime)
-  }
 
   function linksToText(arr) {
     return arr.reduce((result, link) => {
@@ -55,27 +45,13 @@
 
   function toggleAutoRefresh(event) {
     event.preventDefault()
-    autoRefresh.set(!autoRefreshActive)
-  }
-
-  function parseLinks(value) {
-    const lines = value.split(/[\r\n]+/)
-    return lines.reduce((result, line) => {
-      const matches = line.match(/\[(.*?)\]\((.*?)\)/)
-      if (matches) {
-        result.push({
-          label: matches[1],
-          url: matches[2],
-        })
-      }
-      return result
-    }, [])
+    autoRefresh.set(!$autoRefresh)
   }
 
   function onSubmit(event) {
     event.preventDefault()
     autoRefreshInterval.set(autoRefreshIntervalInput.value)
-    links.set(linksInput.value)
+    links.set(linksText)
   }
 
   function showModal(event) {
@@ -86,28 +62,15 @@
     })
   }
 
-  function hideModal(event) {
-    event.preventDefault()
-    closeModal()
-  }
-
   function closeModal() {
     modalShow = false
     modalTrigger.focus()
   }
 
-  function onKeydownModal(event) {
-    if (event.key === KEY_NAMES.escape) {
-      event.stopPropagation()
-      closeModal()
-    }
-  }
-
   function onKeydownCloseButton(event) {
-    const originalEvent = event.detail
-    if (originalEvent.key === KEY_NAMES.tab && originalEvent.shiftKey) {
-      originalEvent.preventDefault()
-      originalEvent.stopPropagation()
+    if (event.key === KEY_NAMES.tab && event.shiftKey) {
+      event.preventDefault()
+      event.stopPropagation()
       lastFocusable.focus()
     }
   }
@@ -121,30 +84,24 @@
   }
 </script>
 
-<div {...$$props} {...removeAttrs} class="{$$props.class || ''} AppSettings">
+<div {...rest} class={[className, "AppSettings"]}>
   <Button
-    title="自動更新を{autoRefreshActive ? '停止する' : '有効にする'}"
+    title="自動更新を{$autoRefresh ? '停止する' : '有効にする'}"
     class="AppSettings-button"
     role="switch"
-    aria-checked={autoRefreshActive}
-    on:click={toggleAutoRefresh}
+    aria-checked={$autoRefresh}
+    onclick={toggleAutoRefresh}
   >
-    <Icon name="checkbox-checked" class="AppSettings-icon {autoRefreshActive ? '' : '_hide'}" />
-    <Icon name="checkbox-outline" class="AppSettings-icon {autoRefreshActive ? '_hide' : ''}" />
+    <Icon name="checkbox-checked" class="AppSettings-icon {$autoRefresh ? '' : '_hide'}" />
+    <Icon name="checkbox-outline" class="AppSettings-icon {$autoRefresh ? '_hide' : ''}" />
     自動更新
   </Button>
-  <Button class="AppSettings-button" bind:ref={modalTrigger} on:click={showModal}>
+  <Button class="AppSettings-button" bind:ref={modalTrigger} onclick={showModal}>
     <Icon name="settings" class="AppSettings-icon" />
     設定
   </Button>
-  <Modal
-    show={modalShow}
-    {lastFocusable}
-    bind:closeButton
-    on:modal:close={hideModal}
-    on:closebutton:keydown={onKeydownCloseButton}
-  >
-    <form class="AppSettings-form" on:submit={onSubmit}>
+  <Modal show={modalShow} bind:closeButton onclose={closeModal} onclosebuttonkeydown={onKeydownCloseButton}>
+    <form class="AppSettings-form" onsubmit={onSubmit}>
       <div class="AppSettings-body">
         <p class="AppSettings-item">
           <label for="autoRefreshInterval" class="AppSettings-label">エントリー一覧の自動更新間隔</label>
@@ -167,11 +124,11 @@
               形式を改行区切りで指定できます
             </span>
           </label>
-          <textarea id="links" class="AppSettings-textarea" bind:this={linksInput} bind:value={linksText}></textarea>
+          <textarea id="links" class="AppSettings-textarea" bind:value={linksText}></textarea>
         </p>
       </div>
       <div class="AppSettings-footer">
-        <Button type="submit" class="AppSettings-submit" bind:ref={lastFocusable} on:keydown={onKeydownLastFocusable}>
+        <Button type="submit" class="AppSettings-submit" bind:ref={lastFocusable} onkeydown={onKeydownLastFocusable}>
           設定を保存
         </Button>
       </div>

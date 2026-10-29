@@ -1,24 +1,19 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import Icon from "~/elements/Icon"
   import Link from "~/elements/Link"
   import List from "~/elements/List"
 
-  let user
-  let tags = []
-  export { user, tags }
+  let { user, tags = [], class: className = "", ...rest } = $props()
 
-  const removeAttrs = createNullValueObject(["user", "tags"])
-
-  const userTags = tags.map((tag) => {
-    return {
+  const userTags = $derived(
+    tags.map((tag) => ({
       label: tag,
       url: `http://b.hatena.ne.jp/${user}/${encodeURIComponent(tag)}/`,
-    }
-  })
+    })),
+  )
 </script>
 
-<div {...$$props} {...removeAttrs} class="{$$props.class || ''} BookmarksItemTags">
+<div {...rest} class={[className, "BookmarksItemTags"]}>
   <div class="BookmarksItemTags-prefix">
     <Icon name="tag" class="BookmarksItemTags-icon" aria-hidden="true" />
   </div>

@@ -1,16 +1,12 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import List from "~/elements/List"
   import Link from "~/elements/Link"
   import Icon from "~/elements/Icon"
 
-  let tags
-  export { tags }
-
-  const removeAttrs = createNullValueObject(["tags"])
+  let { tags, class: className = "", ...rest } = $props()
 </script>
 
-<div {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailInfoTags">
+<div {...rest} class={[className, "DetailInfoTags"]}>
   <div class="DetailInfoTags-prefix" aria-hidden="true">
     <Icon name="tag" class="DetailInfoTags-icon" />
   </div>

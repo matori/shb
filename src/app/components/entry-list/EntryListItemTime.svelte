@@ -1,14 +1,10 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import Time from "~/elements/Time"
 
-  let datetime
-  export { datetime }
-
-  const removeAttrs = createNullValueObject(["datetime"])
+  let { datetime, class: className = "", ...rest } = $props()
 </script>
 
-<span {...$$props} {...removeAttrs} class="{$$props.class || ''} EntryListItemTime">
+<span {...rest} class={[className, "EntryListItemTime"]}>
   <Time {datetime} class="EntryListItemTime-time" />
 </span>
 

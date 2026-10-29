@@ -1,18 +1,13 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import Link from "~/elements/Link"
 
-  let url
-  let count
-  export { url, count }
+  let { url, count, class: className = "", ...rest } = $props()
 
-  const removeAttrs = createNullValueObject(["url", "count"])
-
-  $: countSuffix = count > 1 ? "users" : "user"
+  const countSuffix = $derived(count > 1 ? "users" : "user")
 </script>
 
-<div {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailInfoBookmarkCount">
-  <Link {url} class="DetailInfoBookmarkCount-total" on:click>
+<div {...rest} class={[className, "DetailInfoBookmarkCount"]}>
+  <Link {url} class="DetailInfoBookmarkCount-total">
     <span class="DetailInfoBookmarkCount-totalCount">{count}</span>
     <span class="DetailInfoBookmarkCount-totalSuffix">{countSuffix}</span>
   </Link>

@@ -1,36 +1,21 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import percentage from "~/utils/percentage"
   import Icon from "~/elements/Icon"
   import Link from "~/elements/Link.svelte"
 
-  let content
-  export { content }
+  let { content, class: className = "", ...rest } = $props()
 
-  const removeAttrs = createNullValueObject(["content"])
-
-  let totalCount
-  let totalCountSuffix
-  let publicCount
-  let publicPercentage
-  let commentCount
-  let commentPercentage
-  let url
-
-  $: {
-    totalCount = content.count
-    totalCountSuffix = totalCount > 1 ? "users" : "user"
-    publicCount = content.bookmarks.length
-    publicPercentage = percentage(publicCount, totalCount, 1)
-    commentCount = content.bookmarks.filter((bookmark) => bookmark.comment).length
-    commentPercentage = percentage(commentCount, publicCount, 1)
-    url = content.entry_url
-  }
+  const totalCount = $derived(content.count)
+  const totalCountSuffix = $derived(totalCount > 1 ? "users" : "user")
+  const publicCount = $derived(content.bookmarks.length)
+  const publicPercentage = $derived(percentage(publicCount, totalCount, 1))
+  const commentCount = $derived(content.bookmarks.filter((bookmark) => bookmark.comment).length)
+  const commentPercentage = $derived(percentage(commentCount, publicCount, 1))
 </script>
 
-<p {...$$props} {...removeAttrs} class="{$$props.class || ''} BookmarksHeader">
+<p {...rest} class={[className, "BookmarksHeader"]}>
   <span class="BookmarksHeader-total">
-    <Link {url} class="BookmarksHeader-link">{totalCount}{totalCountSuffix}</Link>
+    <Link url={content.entry_url} class="BookmarksHeader-link">{totalCount}{totalCountSuffix}</Link>
   </span>
   <span class="BookmarksHeader-data">
     <Icon name="public" role="img" class="BookmarksHeader-icon" title="公開ブックマーク数" />

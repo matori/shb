@@ -1,13 +1,8 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
-
-  let text
-  export { text }
-
-  const removeAttrs = createNullValueObject(["text"])
+  let { text, class: className = "", ...rest } = $props()
 </script>
 
-<p {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailInfoDescription">
+<p {...rest} class={[className, "DetailInfoDescription"]}>
   {#if text}{text}{:else}詳細データはありません。{/if}
 </p>
 

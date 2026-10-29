@@ -1,17 +1,12 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import List from "~/elements/List"
   import BookmarksItem from "~/components/bookmarks/BookmarksItem"
 
-  let bookmarks
-  let eid
-  export { bookmarks, eid }
-
-  const removeAttrs = createNullValueObject(["bookmarks", "eid"])
+  let { bookmarks, eid, class: className = "", ...rest } = $props()
 </script>
 
-<List {...$$props} {...removeAttrs} ordered={true} class="{$$props.class || ''} BookmarksList">
-  {#each bookmarks as bookmark, index (bookmark.user)}
+<List {...rest} ordered={true} class={[className, "BookmarksList"]}>
+  {#each bookmarks as bookmark (bookmark.user)}
     <BookmarksItem {bookmark} {eid} class="BookmarksList-item" />
   {/each}
 </List>

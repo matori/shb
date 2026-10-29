@@ -1,17 +1,12 @@
 <script>
-  import createNullValueObject from "~/utils/createNullValueObject"
   import Link from "~/elements/Link"
 
-  let slug
-  let label
-  export { slug, label }
+  let { slug, label, class: className = "", ...rest } = $props()
 
-  const removeAttrs = createNullValueObject(["slug", "label"])
-
-  $: url = `https://b.hatena.ne.jp/hotentry/${slug}`
+  const url = $derived(`https://b.hatena.ne.jp/hotentry/${slug}`)
 </script>
 
-<div {...$$props} {...removeAttrs} class="{$$props.class || ''} DetailInfoCategory">
+<div {...rest} class={[className, "DetailInfoCategory"]}>
   <Link {url} class="DetailInfoCategory-link">{label}</Link>
 </div>
 

@@ -1,39 +1,30 @@
 <script>
-  import { beforeUpdate } from "svelte"
-  import createNullValueObject from "~/utils/createNullValueObject"
   import { showAllBookmarks, reverseOrderBookmarks } from "~/store/ui"
   import LinkBox from "~/components/common/LinkBox.svelte"
   import BookmarksHeader from "~/components/bookmarks/BookmarksHeader"
   import BookmarksList from "~/components/bookmarks/BookmarksList"
 
-  let content
-  export { content }
-
-  const removeAttrs = createNullValueObject(["content"])
+  let { content, class: className = "", ...rest } = $props()
 
   let scrollContainer
 
-  beforeUpdate(() => {
-    if (!scrollContainer) {
-      return
-    }
-    scrollContainer.scrollTop = 0
+  const orderedBookmarks = $derived.by(() => {
+    const bookmarks = $showAllBookmarks
+      ? [...content.bookmarks]
+      : content.bookmarks.filter((bookmark) => bookmark.comment)
+    return $reverseOrderBookmarks ? bookmarks.reverse() : bookmarks
   })
 
-  let orderedBookmarks
-
-  $: {
-    orderedBookmarks = content.bookmarks.filter((bookmark) => {
-      if (!$showAllBookmarks) {
-        return bookmark.comment
-      }
-      return true
-    })
-    orderedBookmarks = $reverseOrderBookmarks ? orderedBookmarks.reverse() : orderedBookmarks
-  }
+  // 表示するブックマークが変わったら先頭までスクロールを戻す
+  $effect.pre(() => {
+    orderedBookmarks
+    if (scrollContainer) {
+      scrollContainer.scrollTop = 0
+    }
+  })
 </script>
 
-<div {...$$props} {...removeAttrs} class="{$$props.class || ''} Bookmarks" bind:this={scrollContainer}>
+<div {...rest} class={[className, "Bookmarks"]} bind:this={scrollContainer}>
   <BookmarksHeader {content} class="Bookmarks-header" />
   <div class="Bookmarks-body" aria-label="コメントのリスト">
     {#if orderedBookmarks.length}
