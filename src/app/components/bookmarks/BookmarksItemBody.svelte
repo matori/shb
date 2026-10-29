@@ -22,18 +22,12 @@
       font-size: var(--fs-s);
       line-height: var(--lh-s);
       display: grid;
-      grid-template-rows: auto;
-    }
-
-    .BookmarksItemBody-user {
+      row-gap: 2px;
     }
 
     .BookmarksItemBody-comment {
       min-width: 0;
       word-break: break-all;
-    }
-
-    .BookmarksItemBody-tags {
     }
   }
 </style>

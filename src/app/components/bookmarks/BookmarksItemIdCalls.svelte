@@ -71,28 +71,25 @@
   :global {
     .BookmarksItemIdCalls {
       margin: 0;
-
-      &._below {
-      }
+      border-radius: var(--radius-control);
+      overflow: hidden;
+      background-color: var(--color-surface-hover);
     }
 
     .BookmarksItemIdCalls-title {
-      font-size: var(--fs-s);
-      line-height: var(--lh-s);
+      font-size: var(--fs-xs);
+      line-height: var(--lh-xs);
       display: flex;
       align-items: center;
-      border-width: 1px 0;
-      border-style: solid;
-      border-color: var(--color-border-base);
-      background-color: var(--color-bg-base);
-      padding: calc(var(--line) * 0.25) calc(var(--line) * 0.25 + var(--line-edge));
-      line-height: 1;
+      gap: 0.4em;
+      padding: calc(var(--line) * 0.25) calc(var(--line) * 0.5);
+      color: var(--color-text-sub);
+      font-weight: var(--fw-bold);
     }
 
     .BookmarksItemIdCalls-icon {
-      width: calc(var(--fs-s) * var(--lh-s));
-      height: calc(var(--fs-s) * var(--lh-s));
-      margin-right: 0.5em;
+      width: 1.2em;
+      height: 1.2em;
     }
 
     .BookmarksItemIdCalls-body {
@@ -100,14 +97,13 @@
     }
 
     .BookmarksItemIdCalls-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
     }
 
     .BookmarksItemIdCalls-item {
-      &:nth-last-child(n + 2) {
-        border-bottom-width: 1px;
-        border-bottom-style: solid;
-        border-bottom-color: var(--color-border-base);
-      }
+      border-top: 1px solid var(--color-line);
     }
 
     .BookmarksItemIdCalls-message {
@@ -115,20 +111,15 @@
       line-height: var(--lh-s);
       display: flex;
       align-items: flex-start;
+      gap: calc(var(--line) * 0.5);
       margin: 0;
-      padding: calc(var(--line) * 0.5 - var(--line-edge)) calc(var(--line) * 0.25 + var(--line-edge));
-      opacity: 0.5;
-    }
-
-    .BookmarksItemIdCalls-avatar {
-      margin-right: calc(var(--line) * 0.5);
-    }
-
-    .BookmarksItemIdCalls-text {
+      padding: calc(var(--line) * 0.5) calc(var(--line) * 0.75);
+      color: var(--color-text-muted);
     }
 
     .BookmarksItemIdCalls-link {
-      color: var(--color-text-blue);
+      color: var(--color-text-sub);
+      font-weight: var(--fw-bold);
       text-decoration: none;
 
       &:hover {
@@ -137,7 +128,7 @@
     }
 
     .BookmarksItemIdCalls_below {
-      padding-left: calc(var(--line) * 0.25 + var(--line-edge) + 16px);
+      padding: 0 calc(var(--line) * 0.5) calc(var(--line) * 0.5) calc(var(--line) * 0.75 + 32px);
     }
   }
 </style>

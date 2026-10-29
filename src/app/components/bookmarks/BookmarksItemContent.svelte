@@ -32,36 +32,29 @@
       grid-template-columns: min-content 1fr min-content min-content;
       grid-template-rows: repeat(2, auto);
       column-gap: calc(var(--line) * 0.5);
-      row-gap: calc(var(--line) * 0.25 - var(--line-edge));
-      padding: calc(var(--line) * 0.5 - var(--line-edge)) calc(var(--line) * 0.25 + var(--line-edge));
+      row-gap: 2px;
+      padding: calc(var(--line) * 0.5) calc(var(--line) * 0.75);
     }
 
     .BookmarksItemContent-avatar {
-      grid-column-start: 1;
-      grid-column-end: 2;
-      grid-row-start: 1;
-      grid-row-end: 3;
+      grid-column: 1 / 2;
+      grid-row: 1 / 3;
     }
 
     .BookmarksItemContent-body {
-      grid-column-start: 2;
-      grid-column-end: 5;
-      grid-row-start: 1;
-      grid-row-end: 2;
+      grid-column: 2 / 5;
+      grid-row: 1 / 2;
+      min-width: 0;
     }
 
     .BookmarksItemContent-permalink {
-      grid-column-start: 3;
-      grid-column-end: 4;
-      grid-row-start: 2;
-      grid-row-end: 3;
+      grid-column: 3 / 4;
+      grid-row: 2 / 3;
     }
 
     .BookmarksItemContent-date {
-      grid-column-start: 4;
-      grid-column-end: 5;
-      grid-row-start: 2;
-      grid-row-end: 3;
+      grid-column: 4 / 5;
+      grid-row: 2 / 3;
     }
   }
 </style>

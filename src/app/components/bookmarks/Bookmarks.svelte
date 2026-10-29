@@ -41,48 +41,40 @@
 <style>
   :global {
     .Bookmarks {
-      &:focus:not(:focus-visible) {
-        outline: none;
-      }
       display: grid;
       grid-template-rows: min-content 1fr;
       position: relative;
       min-height: 0;
-      overflow-y: scroll;
+      overflow-y: auto;
+      border-top: 1px solid var(--color-line);
+
+      &:focus:not(:focus-visible) {
+        outline: none;
+      }
     }
 
     .Bookmarks-header {
       position: sticky;
       top: 0;
-      border-bottom-width: 3px;
-      border-bottom-style: solid;
-      border-bottom-color: var(--color-border-base);
-      background-color: var(--color-bg-content);
-    }
-
-    .Bookmarks-body {
-    }
-
-    .Bookmarks-list {
+      z-index: 1;
+      border-bottom: 1px solid var(--color-line);
+      background-color: var(--color-surface);
     }
 
     .Bookmarks-message {
+      font-size: var(--fs-s);
+      line-height: var(--lh-s);
       margin: 0;
-      border-bottom-width: 1px;
-      border-bottom-style: solid;
-      border-bottom-color: var(--color-border-base);
-      padding: 1.75rem 0.75rem;
-      font-size: var(--font-size-small);
-      line-height: (18 / 14) * 1em;
+      border-bottom: 1px solid var(--color-line);
+      padding: var(--line);
+      color: var(--color-text-muted);
+      text-align: center;
     }
 
     .Bookmarks-helper {
       margin: 0;
       padding: var(--line);
       text-align: center;
-    }
-
-    .Bookmarks-link {
     }
   }
 </style>

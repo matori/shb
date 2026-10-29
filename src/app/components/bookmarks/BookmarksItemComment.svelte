@@ -20,10 +20,11 @@
   :global {
     .BookmarksItemComment {
       margin: 0;
+      color: var(--color-text);
     }
 
     .BookmarksItemComment-link {
-      color: var(--color-text-blue);
+      color: var(--color-accent);
       text-decoration: none;
 
       &:hover {

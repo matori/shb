@@ -44,53 +44,42 @@
   :global {
     .BookmarksContainerHeader {
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      padding-right: calc(var(--line) * 0.25);
-      padding-left: calc(var(--line) * 0.25);
+      padding: calc(var(--line) * 0.6) calc(var(--line) * 0.75) calc(var(--line) * 0.4);
     }
 
     .BookmarksContainerHeader-heading {
-      font-size: var(--fs-s);
-      line-height: var(--lh-s);
+      font-size: var(--fs-l);
+      line-height: var(--lh-l);
       margin: 0;
-      font-weight: var(--fw-normal);
+      font-weight: var(--fw-bold);
     }
 
     .BookmarksContainerHeader-tools {
       display: flex;
+      gap: calc(var(--line) * 0.25);
     }
 
     .BookmarksContainerHeader-button {
-      &::before {
-        position: absolute;
-        inset: calc(var(--line-edge) * -1);
-        content: "";
-        box-shadow: 0 0 2px 1px var(--color-text-blue);
-        opacity: 0;
-      }
-
-      &:hover::before {
-        opacity: 1;
-      }
-      font-size: var(--fs-s);
-      line-height: var(--lh-s);
+      font-size: var(--fs-xs);
+      line-height: var(--lh-xs);
       display: flex;
       align-items: center;
-      position: relative;
+      gap: 0.3em;
+      border-radius: var(--radius-pill);
+      padding: 0.2em 0.7em;
+      color: var(--color-text-sub);
 
-      &._sort {
-        margin-left: 1em;
+      &:hover {
+        background-color: var(--color-surface-sub);
+        color: var(--color-text);
       }
     }
 
     .BookmarksContainerHeader-icon {
       width: calc(var(--fs-s) * var(--lh-s));
       height: calc(var(--fs-s) * var(--lh-s));
-      margin-right: 0.25em;
-
-      &._show {
-        display: block;
-      }
 
       &._hide {
         display: none;
