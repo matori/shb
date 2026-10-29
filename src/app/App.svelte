@@ -15,20 +15,21 @@
 
     body {
       display: grid;
-      grid-template-rows: calc(var(--line) * 2 + 1px) 1fr;
-      row-gap: calc(var(--line) - var(--line-edge));
+      grid-template-rows: auto 1fr;
+      row-gap: calc(var(--line) * 0.75);
       height: 100%;
       margin: 0;
-      background-color: var(--color-bg-base);
-      color: var(--color-text-base);
+      background-color: var(--color-bg);
+      color: var(--color-text);
       font-family: var(--ff-sans);
     }
 
-    .App-header {
-      border-bottom-width: 1px;
-      border-bottom-style: solid;
-      border-bottom-color: var(--color-border-base);
-      box-shadow: var(--shadow-base);
+    a {
+      color: var(--color-accent);
+
+      &:hover {
+        color: var(--color-accent-hover);
+      }
     }
 
     .App-body {

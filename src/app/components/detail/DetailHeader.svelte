@@ -21,23 +21,27 @@
   :global {
     .DetailHeader {
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      padding-right: calc(var(--line) * 0.25);
-      padding-left: calc(var(--line) * 0.25);
+      border-radius: var(--radius-panel) var(--radius-panel) 0 0;
+      padding: calc(var(--line) * 0.6) calc(var(--line) * 0.75) calc(var(--line) * 0.25);
+      background-color: var(--color-surface);
     }
 
     .DetailHeader-heading {
-      font-size: var(--fs-s);
-      line-height: var(--lh-s);
+      font-size: var(--fs-l);
+      line-height: var(--lh-l);
       display: flex;
+      align-items: center;
       margin: 0;
-      font-weight: var(--fw-normal);
+      font-weight: var(--fw-bold);
     }
 
     .DetailHeader-icon {
       width: calc(var(--fs-s) * var(--lh-s));
       height: calc(var(--fs-s) * var(--lh-s));
-      margin-left: 0.25em;
+      margin-left: 0.4em;
+      color: var(--color-text-muted);
       opacity: 0;
       animation-duration: 1s;
       animation-timing-function: linear;
@@ -50,28 +54,24 @@
     }
 
     .DetailHeader-closeButton {
-      &::before {
-        position: absolute;
-        inset: calc(var(--line-edge) * -1);
-        content: "";
-        box-shadow: 0 0 2px 1px var(--color-text-blue);
-        opacity: 0;
-      }
-
-      &:hover::before {
-        opacity: 1;
-      }
       font-size: var(--fs-s);
       line-height: var(--lh-s);
       display: flex;
       align-items: center;
-      position: relative;
+      gap: 0.25em;
+      border-radius: var(--radius-pill);
+      padding: 0.15em 0.8em;
+      color: var(--color-text-sub);
+
+      &:hover {
+        background-color: var(--color-surface-sub);
+        color: var(--color-text);
+      }
     }
 
     .DetailHeader-closeIcon {
       width: calc(var(--fs-s) * var(--lh-s));
       height: calc(var(--fs-s) * var(--lh-s));
-      margin-right: 0.25em;
     }
   }
 </style>

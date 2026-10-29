@@ -96,7 +96,7 @@
     <Icon name="checkbox-outline" class="AppSettings-icon {$autoRefresh ? '_hide' : ''}" />
     自動更新
   </Button>
-  <Button class="AppSettings-button" bind:ref={modalTrigger} onclick={showModal}>
+  <Button class="AppSettings-button _primary" bind:ref={modalTrigger} onclick={showModal}>
     <Icon name="settings" class="AppSettings-icon" />
     設定
   </Button>
@@ -139,37 +139,40 @@
 <style>
   :global {
     .AppSettings {
-      display: grid;
-      grid-template-columns: auto auto;
-      grid-gap: calc(var(--line) * 0.25);
+      display: flex;
+      align-items: center;
+      gap: calc(var(--line) * 0.25);
     }
 
     .AppSettings-button {
-      &::before {
-        position: absolute;
-        inset: 0;
-        content: "";
-        box-shadow: 0 0 2px 1px var(--color-text-blue);
-        opacity: 0;
-      }
-
-      &:hover::before {
-        opacity: 1;
-      }
-      font-size: var(--fs-m);
-      line-height: var(--lh-m);
+      font-size: var(--fs-s);
+      line-height: var(--lh-s);
       display: flex;
       align-items: center;
-      position: relative;
-      padding-right: var(--line-edge);
-      padding-left: var(--line-edge);
+      gap: 0.3em;
+      border-radius: var(--radius-pill);
+      padding: 0.25em 0.9em;
+      color: var(--color-text-sub);
       white-space: nowrap;
+
+      &:hover {
+        background-color: var(--color-surface-sub);
+        color: var(--color-text);
+      }
+
+      &._primary {
+        background-color: var(--color-surface-sub);
+        color: var(--color-text);
+
+        &:hover {
+          background-color: var(--color-line-strong);
+        }
+      }
     }
 
     .AppSettings-icon {
-      width: var(--line);
-      height: var(--line);
-      margin-right: 0.25em;
+      width: calc(var(--fs-s) * var(--lh-s));
+      height: calc(var(--fs-s) * var(--lh-s));
 
       &._hide {
         display: none;
@@ -178,7 +181,9 @@
 
     .AppSettings-form {
       position: relative;
-      background-color: var(--color-bg-content);
+      border-radius: var(--radius-panel);
+      overflow: hidden;
+      background-color: var(--color-surface);
       min-width: calc(var(--content-min-width) * 0.8);
     }
 
@@ -189,11 +194,10 @@
     .AppSettings-footer {
       position: sticky;
       bottom: 0;
-      border-top-width: 1px;
-      border-top-style: solid;
-      border-top-color: var(--color-border-base);
-      padding: var(--line);
-      background-color: var(--color-bg-content);
+      border-top: 1px solid var(--color-line);
+      padding: calc(var(--line) * 0.75) var(--line);
+      background-color: var(--color-surface);
+      text-align: right;
     }
 
     .AppSettings-item {
@@ -209,55 +213,56 @@
     .AppSettings-label {
       display: block;
       margin-bottom: calc(var(--line) * 0.5);
+      font-weight: var(--fw-bold);
+
+      span {
+        font-size: var(--fs-s);
+        color: var(--color-text-muted);
+        font-weight: var(--fw-normal);
+      }
 
       code {
-        border-width: 1px;
-        border-style: solid;
-        border-color: var(--color-border-base);
-        border-radius: 2px;
-        padding-right: 0.25em;
-        padding-left: 0.25em;
-        background-color: var(--color-bg-base);
-        font-family: monospace, monospace;
+        border-radius: 4px;
+        padding: 0 0.3em;
+        background-color: var(--color-surface-sub);
+        font-family: var(--ff-mono);
       }
     }
 
-    .AppSettings-time {
-      font-size: var(--fs-m);
-      line-height: var(--lh-m);
-      width: 3em;
-    }
-
+    .AppSettings-time,
     .AppSettings-textarea {
       font-size: var(--fs-m);
       line-height: var(--lh-m);
       box-sizing: border-box;
+      border: 1px solid var(--color-line-strong);
+      border-radius: var(--radius-control);
+      padding: 0.3em 0.6em;
+      font-family: inherit;
+      color: var(--color-text);
+    }
+
+    .AppSettings-time {
+      width: 5em;
+      margin-right: 0.3em;
+    }
+
+    .AppSettings-textarea {
       width: 100%;
       height: calc(var(--line) * 5);
     }
 
     .AppSettings-submit {
       font-size: var(--fs-s);
-      &::before {
-        position: absolute;
-        inset: calc(var(--line-edge) * -1);
-        content: "";
-        box-shadow: 0 0 2px 1px var(--color-text-blue);
-        opacity: 0;
-      }
+      line-height: var(--lh-s);
+      border-radius: var(--radius-pill);
+      padding: 0.4em 1.4em;
+      background-color: var(--color-accent);
+      color: var(--color-on-accent);
+      font-weight: var(--fw-medium);
 
-      &:hover::before {
-        opacity: 1;
+      &:hover {
+        background-color: var(--color-accent-hover);
       }
-      display: inline-block;
-      position: relative;
-      border-radius: 2px;
-      padding: calc(var(--line) * 0.5);
-      background-color: var(--color-bg-blue);
-      color: white;
-      line-height: 1;
-      text-decoration: none;
-      vertical-align: bottom;
     }
   }
 </style>

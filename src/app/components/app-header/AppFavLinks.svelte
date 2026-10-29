@@ -23,48 +23,18 @@
 
 <style>
   :global {
-    .AppFavLinks {
-    }
-
     .AppFavLinks-list {
       display: flex;
-      height: 100%;
+      gap: calc(var(--line) * 0.25);
+      margin: 0;
+      padding: 0;
       max-width: 100%;
+      list-style: none;
     }
 
     .AppFavLinks-item {
       display: flex;
-      position: relative;
-      padding-right: 1px;
-      min-width: calc(var(--line) * 0.5 + 16px);
-
-      &::after {
-        position: absolute;
-        top: calc(var(--line) * 0.25);
-        right: 0;
-        bottom: calc(var(--line) * 0.25);
-        border-left-width: 1px;
-        border-left-style: solid;
-        border-left-color: var(--color-border-base);
-        width: 0;
-        content: "";
-      }
-
-      &:first-child {
-        padding-left: 1px;
-
-        &::before {
-          position: absolute;
-          top: calc(var(--line) * 0.25);
-          bottom: calc(var(--line) * 0.25);
-          left: 0;
-          border-left-width: 1px;
-          border-left-style: solid;
-          border-left-color: var(--color-border-base);
-          width: 0;
-          content: "";
-        }
-      }
+      min-width: 0;
     }
 
     .AppFavLinks-link {
@@ -72,31 +42,34 @@
       line-height: var(--lh-s);
       display: flex;
       align-items: center;
-      padding-right: calc(var(--line) * 0.5);
-      padding-left: calc(var(--line) * 0.5);
-      height: 100%;
+      gap: 0.4em;
+      border-radius: var(--radius-pill);
+      padding: 0.2em 0.9em;
       overflow: hidden;
-      color: var(--color-text-steel);
+      background-color: var(--color-surface-sub);
+      color: var(--color-text);
       white-space: nowrap;
       text-decoration: none;
 
       &:hover {
-        text-decoration: underline;
+        background-color: var(--color-line-strong);
+        color: var(--color-text);
       }
     }
 
     .AppFavLinks-favicon {
-      flex-grow: 0;
       flex-shrink: 0;
-      margin-right: 0.25em;
       width: 16px;
       height: 16px;
     }
 
     .AppFavLinks-label {
-      white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+
+      &:empty {
+        display: none;
+      }
     }
   }
 </style>

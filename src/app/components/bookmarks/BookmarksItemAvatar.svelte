@@ -21,8 +21,6 @@
   :global {
     .BookmarksItemAvatar {
       display: block;
-      padding-top: var(--line-edge);
-      padding-bottom: var(--line-edge);
       width: 32px;
       height: 32px;
     }
@@ -35,8 +33,10 @@
 
     .BookmarksItemAvatar-image {
       display: block;
+      border-radius: 50%;
       width: 100%;
       height: 100%;
+      background-color: var(--color-avatar-bg);
     }
   }
 </style>

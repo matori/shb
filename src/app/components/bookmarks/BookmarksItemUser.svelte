@@ -10,15 +10,13 @@
 
 <style>
   :global {
-    .BookmarksItemUser {
-    }
-
     .BookmarksItemUser-link {
-      color: var(--color-text-blue);
+      color: var(--color-text);
       font-weight: var(--fw-bold);
       text-decoration: none;
 
       &:hover {
+        color: var(--color-accent);
         text-decoration: underline;
       }
     }

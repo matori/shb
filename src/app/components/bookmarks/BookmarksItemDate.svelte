@@ -18,16 +18,15 @@
     .BookmarksItemDate {
       font-size: var(--fs-xs);
       line-height: var(--lh-xs);
-      color: var(--color-text-gray);
+      color: var(--color-text-muted);
+      font-variant-numeric: tabular-nums;
       white-space: nowrap;
       text-decoration: none;
 
       &:hover {
+        color: var(--color-text-sub);
         text-decoration: underline;
       }
-    }
-
-    .BookmarksItemDate-date {
     }
   }
 </style>

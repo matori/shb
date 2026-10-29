@@ -23,7 +23,9 @@
     .EntriesContainer {
       display: grid;
       grid-template-rows: min-content 1fr;
-      row-gap: calc(var(--line) * 0.5 - var(--line-edge));
+      border-radius: var(--radius-panel);
+      overflow: hidden;
+      background-color: var(--color-surface);
 
       &:has(> .EntriesContainer-notice) {
         grid-template-rows: min-content min-content 1fr;
@@ -34,22 +36,12 @@
       font-size: var(--fs-xs);
       line-height: var(--lh-xs);
       margin: 0;
-      color: var(--color-text-red);
-    }
-
-    .EntriesContainer-header {
+      padding: 0 calc(var(--line) * 0.75) calc(var(--line) * 0.4);
+      color: var(--color-error);
     }
 
     .EntriesContainer-entries {
-      border-width: 1px;
-      border-style: solid;
-      border-color: var(--color-border-base);
       min-height: 0;
-      box-shadow: var(--shadow-base);
-      background-color: var(--color-bg-content);
-    }
-
-    .EntriesContainer-content {
     }
   }
 </style>

@@ -12,6 +12,7 @@
       font-size: var(--fs-s);
       line-height: var(--lh-s);
       margin: 0;
+      color: var(--color-text-sub);
       overflow-wrap: break-word;
     }
   }

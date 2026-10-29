@@ -24,9 +24,10 @@
   })
 </script>
 
-<div {...rest} class={[className, "Bookmarks"]} bind:this={scrollContainer}>
+<div {...rest} class={[className, "Bookmarks"]}>
   <BookmarksHeader {content} class="Bookmarks-header" />
-  <div class="Bookmarks-body" aria-label="コメントのリスト">
+  <!-- 統計の行がスクロールの影を隠さないよう、スクロールするのはコメントの部分だけにする -->
+  <div class="Bookmarks-body ScrollShadow" aria-label="コメントのリスト" bind:this={scrollContainer}>
     {#if orderedBookmarks.length}
       <BookmarksList bookmarks={orderedBookmarks} eid={content.eid} class="Bookmarks-list" />
     {:else}
@@ -41,48 +42,39 @@
 <style>
   :global {
     .Bookmarks {
-      &:focus:not(:focus-visible) {
-        outline: none;
-      }
       display: grid;
       grid-template-rows: min-content 1fr;
-      position: relative;
       min-height: 0;
-      overflow-y: scroll;
+      border-top: 1px solid var(--color-line);
     }
 
     .Bookmarks-header {
-      position: sticky;
-      top: 0;
-      border-bottom-width: 3px;
-      border-bottom-style: solid;
-      border-bottom-color: var(--color-border-base);
-      background-color: var(--color-bg-content);
+      border-bottom: 1px solid var(--color-line);
     }
 
     .Bookmarks-body {
-    }
+      min-height: 0;
+      overflow-y: auto;
 
-    .Bookmarks-list {
+      &:focus:not(:focus-visible) {
+        outline: none;
+      }
     }
 
     .Bookmarks-message {
+      font-size: var(--fs-s);
+      line-height: var(--lh-s);
       margin: 0;
-      border-bottom-width: 1px;
-      border-bottom-style: solid;
-      border-bottom-color: var(--color-border-base);
-      padding: 1.75rem 0.75rem;
-      font-size: var(--font-size-small);
-      line-height: (18 / 14) * 1em;
+      border-bottom: 1px solid var(--color-line);
+      padding: var(--line);
+      color: var(--color-text-muted);
+      text-align: center;
     }
 
     .Bookmarks-helper {
       margin: 0;
       padding: var(--line);
       text-align: center;
-    }
-
-    .Bookmarks-link {
     }
   }
 </style>

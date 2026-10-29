@@ -14,13 +14,9 @@
       font-size: var(--fs-xs);
       line-height: var(--lh-xs);
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-end;
-    }
-
-    .EntryListItemTime-time {
-      color: var(--color-text-gray);
+      align-items: center;
+      color: var(--color-text-muted);
+      font-variant-numeric: tabular-nums;
     }
   }
 </style>

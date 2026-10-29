@@ -22,21 +22,19 @@
 <style>
   :global {
     .DetailInfoTags {
-      font-size: var(--fs-s);
-      line-height: var(--lh-s);
+      font-size: var(--fs-xs);
+      line-height: var(--lh-xs);
       display: flex;
       align-items: flex-start;
-      overflow: hidden;
-      color: var(--color-text-gray);
+      gap: 0.4em;
+      color: var(--color-text-muted);
     }
 
     .DetailInfoTags-prefix {
-      flex-grow: 0;
       flex-shrink: 0;
-      padding-top: var(--line-edge);
-      padding-bottom: var(--line-edge);
-      width: 1em;
-      height: 1em;
+      padding-top: 0.2em;
+      width: 1.1em;
+      height: 1.1em;
     }
 
     .DetailInfoTags-icon {
@@ -48,19 +46,23 @@
     .DetailInfoTags-list {
       display: flex;
       flex-wrap: wrap;
-      align-items: baseline;
-    }
-
-    .DetailInfoTags-item {
-      margin-left: 0.5em;
+      gap: 0.3em;
+      margin: 0;
+      padding: 0;
+      list-style: none;
     }
 
     .DetailInfoTags-link {
-      color: inherit;
+      display: block;
+      border-radius: var(--radius-pill);
+      padding: 0.05em 0.7em;
+      background-color: var(--color-surface-sub);
+      color: var(--color-text-sub);
       text-decoration: none;
 
       &:hover {
-        text-decoration: underline;
+        background-color: var(--color-line-strong);
+        color: var(--color-text);
       }
     }
   }

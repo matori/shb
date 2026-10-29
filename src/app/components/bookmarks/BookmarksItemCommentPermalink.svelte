@@ -19,18 +19,19 @@
       line-height: var(--lh-xs);
       display: flex;
       align-items: center;
-      color: var(--color-text-steel);
+      gap: 0.25em;
+      color: var(--color-text-muted);
       text-decoration: none;
 
       &:hover {
+        color: var(--color-text-sub);
         text-decoration: underline;
       }
     }
 
     .BookmarksItemCommentPermalink-icon {
-      width: 1.041667rem;
-      height: 1.041667rem;
-      margin-right: 0.25em;
+      width: 1.2em;
+      height: 1.2em;
     }
 
     .BookmarksItemCommentPermalink-label {

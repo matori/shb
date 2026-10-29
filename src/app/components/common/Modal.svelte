@@ -52,11 +52,8 @@
       grid-template-rows: calc(var(--line) * 3) 1fr calc(var(--line) * 3);
       justify-content: center;
       position: fixed;
-      z-index: 1;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
+      z-index: 2;
+      inset: 0;
       visibility: hidden;
 
       &[aria-hidden="false"] {
@@ -67,48 +64,41 @@
     .Modal-backdrop {
       position: absolute;
       z-index: -1;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      background-color: rgba(0, 0, 0, 0.85);
+      inset: 0;
+      background-color: var(--color-backdrop);
     }
 
     .Modal-close {
-      font-size: var(--fs-m);
-      line-height: var(--lh-m);
-      &::before {
-        position: absolute;
-        inset: calc(var(--line-edge) * -1);
-        content: "";
-        box-shadow: 0 0 2px 1px var(--color-text-blue);
-        opacity: 0;
-      }
-
-      &:hover::before {
-        opacity: 1;
-      }
+      font-size: var(--fs-s);
+      line-height: var(--lh-s);
       display: flex;
+      align-items: center;
+      gap: 0.25em;
       position: absolute;
-      top: calc(var(--line) * 0.5);
-      right: calc(var(--line) * 0.5);
-      color: white;
+      top: calc(var(--line) * 0.75);
+      right: calc(var(--line) * 0.75);
+      border-radius: var(--radius-pill);
+      padding: 0.3em 1em;
+      background-color: var(--color-surface);
+      color: var(--color-text);
+
+      &:hover {
+        background-color: var(--color-surface-sub);
+      }
     }
 
     .Modal-icon {
-      width: var(--line);
-      height: var(--line);
+      width: calc(var(--fs-s) * var(--lh-s));
+      height: calc(var(--fs-s) * var(--lh-s));
     }
 
     .Modal-inner {
-      grid-column-start: 2;
-      grid-column-end: 3;
-      grid-row-start: 2;
-      grid-row-end: 3;
-      min-height: 0;
+      grid-column: 2 / 3;
+      grid-row: 2 / 3;
       display: grid;
       grid-template-rows: fit-content(100%);
       align-content: center;
+      min-height: 0;
     }
 
     .Modal-content {

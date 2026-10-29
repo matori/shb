@@ -1,5 +1,7 @@
 <script>
+  import entryTypes from "~/constants/entryTypes"
   import { entriesFetchProcessing, entriesData } from "~/store/entries"
+  import { selectedTypeTabIndex } from "~/store/ui"
   import Button from "~/elements/Button"
   import Icon from "~/elements/Icon"
 
@@ -8,6 +10,18 @@
 
 <header {...rest} class={[className, "EntriesHeader"]}>
   <h2 class="EntriesHeader-heading">{heading}</h2>
+  <!-- 人気・新着はすべてのカテゴリーに共通なので、カテゴリーのタブより上に1つだけ置く -->
+  <div class="EntriesHeader-types" role="group" aria-label="エントリーの種類">
+    {#each entryTypes as type, index (type.key)}
+      <Button
+        class="EntriesHeader-type"
+        aria-pressed={$selectedTypeTabIndex === index}
+        onclick={() => selectedTypeTabIndex.set(index)}
+      >
+        {type.label}
+      </Button>
+    {/each}
+  </div>
   <Button
     class="EntriesHeader-syncButton {$entriesFetchProcessing ? '_loading' : ''}"
     disabled={$entriesFetchProcessing}
@@ -22,43 +36,68 @@
   :global {
     .EntriesHeader {
       display: flex;
-      justify-content: space-between;
-      padding-right: calc(var(--line) * 0.25);
-      padding-left: calc(var(--line) * 0.25);
+      align-items: center;
+      gap: calc(var(--line) * 0.5);
+      padding: calc(var(--line) * 0.6) calc(var(--line) * 0.75) calc(var(--line) * 0.4);
     }
 
     .EntriesHeader-heading {
+      font-size: var(--fs-l);
+      line-height: var(--lh-l);
+      margin: 0;
+      font-weight: var(--fw-bold);
+    }
+
+    .EntriesHeader-types {
+      display: inline-flex;
+      gap: 2px;
+      border-radius: var(--radius-pill);
+      padding: 3px;
+      background-color: var(--color-surface-sub);
+    }
+
+    .EntriesHeader-type {
       font-size: var(--fs-s);
       line-height: var(--lh-s);
-      margin: 0;
-      font-weight: var(--fw-normal);
-      line-height: 1;
+      border-radius: var(--radius-pill);
+      padding: 0.1em 1.4em;
+      color: var(--color-text-sub);
+      white-space: nowrap;
+
+      &:hover {
+        color: var(--color-text);
+      }
+
+      &[aria-pressed="true"] {
+        background-color: var(--color-surface);
+        color: var(--color-text);
+        font-weight: var(--fw-bold);
+        box-shadow: var(--shadow-selected);
+      }
     }
 
     .EntriesHeader-syncButton {
-      &::before {
-        position: absolute;
-        inset: calc(var(--line-edge) * -1);
-        content: "";
-        box-shadow: 0 0 2px 1px var(--color-text-blue);
-        opacity: 0;
-      }
-
-      &:hover::before {
-        opacity: 1;
-      }
+      margin-left: auto;
       font-size: var(--fs-s);
       line-height: var(--lh-s);
       display: flex;
       align-items: center;
-      position: relative;
+      gap: 0.25em;
+      border-radius: var(--radius-pill);
+      padding: 0.15em 0.8em;
+      color: var(--color-accent);
+      font-weight: var(--fw-medium);
+
+      &:hover {
+        background-color: var(--color-surface-sub);
+      }
 
       &:disabled {
-        opacity: 0.8;
+        opacity: 0.7;
         cursor: not-allowed;
 
         &:hover {
-          text-decoration: none;
+          background-color: transparent;
         }
       }
     }
@@ -66,7 +105,6 @@
     .EntriesHeader-syncIcon {
       width: calc(var(--fs-s) * var(--lh-s));
       height: calc(var(--fs-s) * var(--lh-s));
-      margin-right: 0.25em;
       animation-duration: 1s;
       animation-timing-function: linear;
       animation-iteration-count: infinite;

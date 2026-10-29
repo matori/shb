@@ -11,10 +11,10 @@
 <style>
   :global {
     .DetailInfoTitle {
-      font-size: var(--fs-l);
-      line-height: var(--lh-l);
+      font-size: var(--fs-xl);
+      line-height: var(--lh-xl);
       margin: 0;
-      font-weight: var(--fw-normal);
+      font-weight: var(--fw-bold);
 
       &._singleLine {
         overflow: hidden;
@@ -25,10 +25,11 @@
 
     .DetailInfoTitle-link {
       overflow-wrap: break-word;
-      color: var(--color-text-blue);
+      color: var(--color-text);
       text-decoration: none;
 
       &:hover {
+        color: var(--color-accent);
         text-decoration: underline;
       }
     }

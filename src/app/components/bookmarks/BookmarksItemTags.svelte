@@ -29,18 +29,18 @@
 <style>
   :global {
     .BookmarksItemTags {
+      font-size: var(--fs-xs);
+      line-height: var(--lh-xs);
       display: flex;
-      color: var(--color-text-gray);
+      gap: 0.3em;
+      color: var(--color-text-muted);
     }
 
     .BookmarksItemTags-prefix {
-      flex-grow: 0;
       flex-shrink: 0;
-      margin-right: 0.25em;
-      padding-top: var(--line-edge);
-      padding-bottom: var(--line-edge);
-      width: 1em;
-      height: 1em;
+      padding-top: 0.15em;
+      width: 1.1em;
+      height: 1.1em;
     }
 
     .BookmarksItemTags-icon {
@@ -50,11 +50,14 @@
     }
 
     .BookmarksItemTags-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
     }
 
     .BookmarksItemTags-item {
       display: inline;
-      margin-right: 0.25em;
+      margin-right: 0.5em;
       word-break: break-word;
     }
 
@@ -63,6 +66,7 @@
       text-decoration: none;
 
       &:hover {
+        color: var(--color-text-sub);
         text-decoration: underline;
       }
     }

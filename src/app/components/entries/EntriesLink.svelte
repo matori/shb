@@ -9,10 +9,3 @@
 <LinkBox {...rest} {url} class={[className, "EntriesLink"]}>
   「{category.label}」の{type.label}エントリーをはてなブックマークで見る
 </LinkBox>
-
-<style>
-  :global {
-    .EntriesLink {
-    }
-  }
-</style>

@@ -17,15 +17,12 @@
     .DetailContent {
       display: grid;
       grid-template-rows: min-content 1fr;
-      gap: calc(var(--line) - var(--line-edge));
+      gap: calc(var(--line) * 0.75);
     }
 
     .DetailContent-info {
-      border-width: 1px;
-      border-style: solid;
-      border-color: var(--color-border-base);
-      background-color: var(--color-bg-content);
-      box-shadow: var(--shadow-base);
+      border-radius: 0 0 var(--radius-panel) var(--radius-panel);
+      background-color: var(--color-surface);
     }
 
     .DetailContent-body {

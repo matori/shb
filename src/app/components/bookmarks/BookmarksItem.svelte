@@ -16,17 +16,10 @@
 
 <style>
   :global {
-    .BookmarksItem {
-    }
-
-    .BookmarksItem-main {
-    }
-
     .BookmarksItem-sub {
-      padding-left: calc(var(--line) * 0.25 + var(--line-edge) + 16px);
-    }
-
-    .BookmarksItem-idCalls {
+      padding-left: calc(var(--line) * 0.75 + 32px);
+      padding-right: calc(var(--line) * 0.5);
+      padding-bottom: calc(var(--line) * 0.5);
     }
   }
 </style>

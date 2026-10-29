@@ -14,7 +14,7 @@
     </h2>
   </header>
   <div class="Information-body">
-    <div class="Information-content">
+    <div class="Information-content ScrollShadow">
       <p class="Information-intro">
         「しんぷるはてぶ」は、はてなブックマーク全カテゴリーの新規エントリーを1画面で閲覧することを目的としたページです。
         <br />
@@ -50,29 +50,32 @@
 
 <style>
   :global {
+    /* 詳細パネルと同じく、見出しの行と本文をつなげて1枚のパネルに見せる */
     .Information {
       display: grid;
       grid-template-rows: min-content 1fr;
-      row-gap: calc(var(--line) * 0.5 - var(--line-edge));
     }
 
     .Information-header {
-      padding-right: calc(var(--line) * 0.25);
-      padding-left: calc(var(--line) * 0.25);
+      border-radius: var(--radius-panel) var(--radius-panel) 0 0;
+      padding: calc(var(--line) * 0.6) calc(var(--line) * 0.75) 0;
+      background-color: var(--color-surface);
     }
 
     .Information-heading {
-      font-size: var(--fs-s);
-      line-height: var(--lh-s);
+      font-size: var(--fs-l);
+      line-height: var(--lh-l);
       display: flex;
+      align-items: center;
       margin: 0;
-      font-weight: var(--fw-normal);
+      font-weight: var(--fw-bold);
     }
 
     .Information-icon {
       width: calc(var(--fs-s) * var(--lh-s));
       height: calc(var(--fs-s) * var(--lh-s));
-      margin-left: 0.25em;
+      margin-left: 0.4em;
+      color: var(--color-text-muted);
       opacity: 0;
       animation-duration: 1s;
       animation-timing-function: linear;
@@ -89,17 +92,14 @@
     }
 
     .Information-content {
-      font-size: var(--fs-m);
-      line-height: var(--lh-m);
+      font-size: var(--fs-s);
+      line-height: var(--lh-s);
       box-sizing: border-box;
-      border-width: 1px;
-      border-style: solid;
-      border-color: var(--color-border-base);
+      border-radius: 0 0 var(--radius-panel) var(--radius-panel);
+      padding: calc(var(--line) * 0.25) calc(var(--line) * 0.75) calc(var(--line) * 0.75);
       max-height: 100%;
       overflow-y: auto;
-      box-shadow: var(--shadow-base);
-      background-color: var(--color-bg-content);
-      padding: calc(var(--line) * 0.5) calc(var(--line) * 0.5 + var(--line-edge));
+      color: var(--color-text-sub);
     }
 
     .Information-intro {
@@ -109,25 +109,22 @@
 
     .Information-inner {
       h3 {
-        font-size: var(--fs-l);
-        line-height: var(--lh-l);
-        margin-top: calc(var(--line) * 1.5);
+        font-size: var(--fs-m);
+        line-height: var(--lh-m);
+        margin-top: var(--line);
         margin-bottom: 0;
+        color: var(--color-text);
         font-weight: var(--fw-bold);
       }
 
       p,
       ul {
-        margin-top: calc(var(--line) * 0.5);
-        margin-bottom: calc(var(--line) * 0.5);
+        margin-top: calc(var(--line) * 0.4);
+        margin-bottom: calc(var(--line) * 0.4);
       }
 
       ul {
         padding-left: var(--line);
-      }
-
-      a {
-        color: var(--color-text-blue);
       }
     }
   }

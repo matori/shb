@@ -21,13 +21,19 @@
 
 <style>
   :global {
-    .EntryList {
+    .EntryList-list {
+      margin: 0;
+      padding: 0 calc(var(--line) * 0.25);
+      list-style: none;
+    }
+
+    /* カテゴリーのタブと近すぎないよう、先頭のエントリーだけ上の余白を広げる */
+    .EntryList-item:first-child {
+      padding-top: calc(var(--line) * 0.75);
     }
 
     .EntryList-item {
-      border-bottom-width: 1px;
-      border-bottom-style: solid;
-      border-bottom-color: var(--color-border-base);
+      border-bottom: 1px solid var(--color-line);
     }
 
     .EntryList-message {
@@ -35,16 +41,8 @@
       line-height: var(--lh-m);
       margin: 0;
       padding: var(--line);
+      color: var(--color-text-muted);
       text-align: center;
-    }
-
-    .EntryList-helper {
-      margin: 0;
-      padding: var(--line);
-      text-align: center;
-    }
-
-    .EntryList-link {
     }
   }
 </style>

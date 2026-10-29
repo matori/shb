@@ -29,13 +29,11 @@
 
 <style>
   :global {
-    .FetchError {
-    }
-
     .FetchError-title {
-      font-size: var(--fs-l);
-      line-height: var(--lh-l);
+      font-size: var(--fs-m);
+      line-height: var(--lh-m);
       margin: 0;
+      color: var(--color-error);
       font-weight: var(--fw-bold);
 
       &::before {
@@ -45,24 +43,28 @@
     }
 
     .FetchError-details {
-      font-size: var(--fs-m);
-      line-height: var(--lh-m);
+      font-size: var(--fs-s);
+      line-height: var(--lh-s);
       margin-top: 0;
       margin-bottom: 0;
     }
 
     .FetchError-label {
-      margin-top: var(--line);
-      margin-bottom: calc(var(--line) * 0.5);
+      margin-top: calc(var(--line) * 0.75);
+      margin-bottom: calc(var(--line) * 0.25);
+      color: var(--color-text-sub);
       font-weight: var(--fw-bold);
     }
 
     .FetchError-description {
-      margin-left: var(--line);
+      margin-left: 0;
     }
 
     .FetchError-message {
       margin: 0;
+      border-radius: var(--radius-control);
+      padding: calc(var(--line) * 0.4) calc(var(--line) * 0.5);
+      background-color: var(--color-surface-sub);
       font-size: inherit;
       font-family: var(--ff-mono);
       white-space: pre-wrap;

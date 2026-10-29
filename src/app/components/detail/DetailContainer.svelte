@@ -41,13 +41,10 @@
 
 <style>
   :global {
+    /* 見出しの行と、その下のパネル（エントリー情報・エラー）をつなげて1枚のパネルに見せる */
     .DetailContainer {
       display: grid;
       grid-template-rows: min-content auto;
-      row-gap: calc(var(--line) * 0.5 - var(--line-edge));
-    }
-
-    .DetailContainer-header {
     }
 
     .DetailContainer-body {

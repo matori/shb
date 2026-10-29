@@ -14,12 +14,13 @@
 <style>
   :global {
     .BookmarksList {
+      margin: 0;
+      padding: 0;
+      list-style: none;
     }
 
     .BookmarksList-item {
-      border-bottom-width: 1px;
-      border-bottom-style: solid;
-      border-bottom-color: var(--color-border-base);
+      border-bottom: 1px solid var(--color-line);
     }
   }
 </style>

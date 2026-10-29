@@ -9,9 +9,7 @@
 <style>
   :global {
     .EntriesFetchError {
-      border-bottom-width: 1px;
-      border-bottom-style: solid;
-      border-bottom-color: var(--color-border-base);
+      border-bottom: 1px solid var(--color-line);
       padding: var(--line);
     }
   }

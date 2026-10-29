@@ -23,26 +23,14 @@
 
 <style>
   :global {
-    .DetailInfo {
-    }
-
     .DetailInfo-tool {
-      border-bottom-width: 1px;
-      border-bottom-style: solid;
-      border-bottom-color: var(--color-border-base);
+      padding: 0 calc(var(--line) * 0.5);
     }
 
     .DetailInfo-inner {
       display: grid;
-      grid-auto-rows: auto;
       row-gap: calc(var(--line) * 0.5);
-      padding: calc(var(--line) * 0.5) calc(var(--line) * 0.25 + var(--line-edge));
-    }
-
-    .DetailInfo-header {
-    }
-
-    .DetailInfo-body {
+      padding: calc(var(--line) * 0.25) calc(var(--line) * 0.75) calc(var(--line) * 0.75);
     }
   }
 </style>
