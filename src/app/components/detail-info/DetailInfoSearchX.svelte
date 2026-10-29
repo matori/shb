@@ -4,22 +4,22 @@
 
   let { url, class: className = "", ...rest } = $props()
 
-  const twitterUrl = $derived(`https://twitter.com/search?q=${encodeURIComponent(url)}`)
+  const searchUrl = $derived(`https://x.com/search?q=${encodeURIComponent(url)}`)
 </script>
 
-<div {...rest} class={[className, "DetailInfoSearchTwitter"]}>
-  <Link url={twitterUrl} class="DetailInfoSearchTwitter-link">
-    <Icon name="twitter" class="DetailInfoSearchTwitter-icon" />
-    <span class="DetailInfoSearchTwitter-label">TwitterでURL検索</span>
+<div {...rest} class={[className, "DetailInfoSearchX"]}>
+  <Link url={searchUrl} class="DetailInfoSearchX-link">
+    <Icon name="x" class="DetailInfoSearchX-icon" />
+    <span class="DetailInfoSearchX-label">XでURL検索</span>
   </Link>
 </div>
 
 <style>
   :global {
-    .DetailInfoSearchTwitter {
+    .DetailInfoSearchX {
     }
 
-    .DetailInfoSearchTwitter-link {
+    .DetailInfoSearchX-link {
       font-size: var(--fs-s);
       line-height: var(--lh-s);
       display: inline-flex;
@@ -33,14 +33,14 @@
       }
     }
 
-    .DetailInfoSearchTwitter-icon {
+    .DetailInfoSearchX-icon {
       width: calc(var(--fs-s) * var(--lh-s));
       height: calc(var(--fs-s) * var(--lh-s));
       margin-right: 0.5em;
-      color: #1da1f2;
+      color: var(--color-text-base);
     }
 
-    .DetailInfoSearchTwitter-label {
+    .DetailInfoSearchX-label {
     }
   }
 </style>

@@ -2,7 +2,7 @@
   import DetailInfoDescription from "~/components/detail-info/DetailInfoDescription"
   import DetailInfoImage from "~/components/detail-info/DetailInfoImage"
   import DetailInfoTags from "~/components/detail-info/DetailInfoTags"
-  import DetailInfoSearchTwitter from "~/components/detail-info/DetailInfoSearchTwitter"
+  import DetailInfoSearchX from "~/components/detail-info/DetailInfoSearchX"
 
   let { detailContent, itemData, detailInfoExpanded, class: className = "", ...rest } = $props()
 </script>
@@ -22,7 +22,7 @@
   {#if itemData.tags.length}
     <DetailInfoTags tags={itemData.tags} class="DetailInfoBody-tags" />
   {/if}
-  <DetailInfoSearchTwitter url={detailContent.url} class="DetailInfoBody-twitter" />
+  <DetailInfoSearchX url={detailContent.url} class="DetailInfoBody-searchX" />
 </div>
 
 <style>
@@ -79,7 +79,7 @@
       }
     }
 
-    .DetailInfoBody-twitter {
+    .DetailInfoBody-searchX {
       grid-column-start: 1;
       grid-column-end: 2;
     }

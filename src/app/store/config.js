@@ -25,7 +25,7 @@ const links = persisted(
     },
     {
       label: "",
-      url: "https://twitter.com",
+      url: "https://x.com",
     },
   ],
   { isValid: Array.isArray, parse: (text) => parseLinks(text.trim()) },
