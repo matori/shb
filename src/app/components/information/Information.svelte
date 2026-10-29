@@ -39,11 +39,6 @@
             <li>サーバーのキャッシュ有効期限は作成から5分後です。</li>
             <li>UIの状態などの保存にローカルストレージを利用しています。</li>
             <li>
-              Googleアナリティクスを使用しています。その情報収集の際、Cookieが使用されます。Googleがデータをどのように扱い、処理するのかについてはGoogleの「<Link
-                url="https://policies.google.com/technologies/partner-sites">ポリシーと規約</Link
-              >」を参照してください。
-            </li>
-            <li>
               バグ報告や機能追加の要望は<Link url="https://github.com/matori/shb/issues">GitHubリポジトリのIssue</Link
               >にお願いします。
             </li>
