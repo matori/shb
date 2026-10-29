@@ -1,17 +1,28 @@
-// localStorageにJSONで読み書きする。使えない環境（プライベートモードなど）では何もしない
+// localStorageにJSONで読み書きする
+// localStorageが使えない環境（ブロックされている場合など）では、ページを開いている間だけメモリーに保存する
+const memory = new Map()
+
 function get(key) {
+  let text
   try {
-    return JSON.parse(localStorage.getItem(key))
+    text = localStorage.getItem(key)
   } catch {
+    text = memory.get(key) ?? null
+  }
+  try {
+    return JSON.parse(text)
+  } catch {
+    // 保存値が壊れている場合は、保存されていないものとして扱う
     return null
   }
 }
 
 function set(key, value) {
+  const text = JSON.stringify(value)
   try {
-    localStorage.setItem(key, JSON.stringify(value))
+    localStorage.setItem(key, text)
   } catch {
-    // 保存できなくても動作は続ける
+    memory.set(key, text)
   }
 }
 

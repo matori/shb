@@ -1,11 +1,24 @@
-import { writable } from "svelte/store"
-import store from "~/utils/storage"
+import { persisted, isBoolean } from "~/store/persisted"
 
 const STORAGE_NAME = "simple_hatebu_settings"
-const initialData = {
-  autoRefresh: false,
-  autoRefreshInterval: 15,
-  links: [
+const MIN_AUTO_REFRESH_INTERVAL = 5
+
+const autoRefresh = persisted(STORAGE_NAME, "autoRefresh", false, { isValid: isBoolean })
+
+// 自動更新の間隔（分）。入力欄の文字列を数値にし、5分未満なら5分にする
+const autoRefreshInterval = persisted(STORAGE_NAME, "autoRefreshInterval", 15, {
+  isValid: (value) => value > -1,
+  parse(value) {
+    const num = parseInt(value, 10)
+    return num ? Math.max(num, MIN_AUTO_REFRESH_INTERVAL) : undefined
+  },
+})
+
+// ヘッダーのリンク集。設定画面のテキスト（[ラベル](URL) の行）を配列にして保存する
+const links = persisted(
+  STORAGE_NAME,
+  "links",
+  [
     {
       label: "はてなブックマーク",
       url: "https://b.hatena.ne.jp",
@@ -15,68 +28,8 @@ const initialData = {
       url: "https://twitter.com",
     },
   ],
-}
-
-if (!store.get(STORAGE_NAME)) {
-  store.set(STORAGE_NAME, initialData)
-}
-
-const storage = store.get(STORAGE_NAME)
-
-const autoRefresh = autoRefreshSetting(initialData.autoRefresh)
-const autoRefreshInterval = autoRefreshIntervalSetting(initialData.autoRefreshInterval)
-const links = linksSetting(initialData.links)
-
-function autoRefreshSetting(initialData) {
-  const initial = typeof storage.autoRefresh === "boolean" ? storage.autoRefresh : initialData
-  const { subscribe, set } = writable(initial)
-
-  return {
-    subscribe,
-    set(value) {
-      const data = store.get(STORAGE_NAME)
-      data.autoRefresh = value
-      store.set(STORAGE_NAME, data)
-      set(value)
-    },
-  }
-}
-
-function autoRefreshIntervalSetting(initialData) {
-  const initial = storage.autoRefreshInterval > -1 ? storage.autoRefreshInterval : initialData
-  const { subscribe, set } = writable(initial)
-
-  return {
-    subscribe,
-    set(value) {
-      const num = parseInt(value, 10)
-      if (!num) {
-        return
-      }
-      const data = store.get(STORAGE_NAME)
-      const interval = num < 5 ? 5 : num
-      data.autoRefreshInterval = interval
-      store.set(STORAGE_NAME, data)
-      set(interval)
-    },
-  }
-}
-
-function linksSetting(initialData) {
-  const initial = Array.isArray(storage.links) ? storage.links : initialData
-  const { subscribe, set } = writable(initial)
-
-  return {
-    subscribe,
-    set(value) {
-      const data = store.get(STORAGE_NAME)
-      const formatData = parseLinks(value.trim())
-      data.links = formatData
-      store.set(STORAGE_NAME, data)
-      set(formatData)
-    },
-  }
-}
+  { isValid: Array.isArray, parse: (text) => parseLinks(text.trim()) },
+)
 
 function parseLinks(value) {
   const lines = value.split(/[\r\n]+/)
