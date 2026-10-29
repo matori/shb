@@ -39,12 +39,36 @@
 
 <style>
   :global {
-    .TypeTab {
-      --tab-border-color: #4db6ac;
+    /* 人気・新着は、切り替えボタン（セグメント型）にする */
+    .TypeTab > .TabContent-tabList {
+      justify-self: start;
+      gap: 2px;
+      margin: calc(var(--line) * 0.4) calc(var(--line) * 0.75);
+      border-radius: var(--radius-pill);
+      padding: 3px;
+      background-color: var(--color-surface-sub);
 
-      .TabContent-panel {
-        overflow-y: scroll;
+      .TabContent-tab {
+        padding: 0.1em 1.4em;
+        background-color: transparent;
+
+        &:hover {
+          background-color: transparent;
+          color: var(--color-text);
+        }
+
+        &[aria-selected="true"] {
+          background-color: var(--color-surface);
+          color: var(--color-text);
+          font-weight: var(--fw-bold);
+          box-shadow: var(--shadow-selected);
+        }
       }
+    }
+
+    .TypeTab > .TabContent-body > .TabContent-panel {
+      overflow-y: auto;
+      border-top: 1px solid var(--color-line);
     }
 
     .TypeTab-heading {
@@ -62,10 +86,9 @@
       font-size: var(--fs-m);
       line-height: var(--lh-m);
       margin: 0;
-      border-bottom-width: 1px;
-      border-bottom-style: solid;
-      border-bottom-color: var(--color-border-base);
+      border-bottom: 1px solid var(--color-line);
       padding: var(--line);
+      color: var(--color-text-muted);
       text-align: center;
     }
 
@@ -73,9 +96,6 @@
       margin: 0;
       padding: var(--line);
       text-align: center;
-    }
-
-    .TypeTab-link {
     }
   }
 </style>

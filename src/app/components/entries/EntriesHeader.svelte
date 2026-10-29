@@ -22,43 +22,39 @@
   :global {
     .EntriesHeader {
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      padding-right: calc(var(--line) * 0.25);
-      padding-left: calc(var(--line) * 0.25);
+      padding: calc(var(--line) * 0.6) calc(var(--line) * 0.75) calc(var(--line) * 0.4);
     }
 
     .EntriesHeader-heading {
-      font-size: var(--fs-s);
-      line-height: var(--lh-s);
+      font-size: var(--fs-l);
+      line-height: var(--lh-l);
       margin: 0;
-      font-weight: var(--fw-normal);
-      line-height: 1;
+      font-weight: var(--fw-bold);
     }
 
     .EntriesHeader-syncButton {
-      &::before {
-        position: absolute;
-        inset: calc(var(--line-edge) * -1);
-        content: "";
-        box-shadow: 0 0 2px 1px var(--color-text-blue);
-        opacity: 0;
-      }
-
-      &:hover::before {
-        opacity: 1;
-      }
       font-size: var(--fs-s);
       line-height: var(--lh-s);
       display: flex;
       align-items: center;
-      position: relative;
+      gap: 0.25em;
+      border-radius: var(--radius-pill);
+      padding: 0.15em 0.8em;
+      color: var(--color-accent);
+      font-weight: var(--fw-medium);
+
+      &:hover {
+        background-color: var(--color-surface-sub);
+      }
 
       &:disabled {
-        opacity: 0.8;
+        opacity: 0.7;
         cursor: not-allowed;
 
         &:hover {
-          text-decoration: none;
+          background-color: transparent;
         }
       }
     }
@@ -66,7 +62,6 @@
     .EntriesHeader-syncIcon {
       width: calc(var(--fs-s) * var(--lh-s));
       height: calc(var(--fs-s) * var(--lh-s));
-      margin-right: 0.25em;
       animation-duration: 1s;
       animation-timing-function: linear;
       animation-iteration-count: infinite;

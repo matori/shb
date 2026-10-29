@@ -28,8 +28,10 @@
 
 <style>
   :global {
-    .CategoryTab {
-      --tab-border-color: #42a5f5;
+    /* すべてのカテゴリーが見えるよう、横幅が足りなければ折り返す */
+    .CategoryTab > .TabContent-tabList {
+      flex-wrap: wrap;
+      padding: 0 calc(var(--line) * 0.75);
     }
   }
 </style>

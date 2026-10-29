@@ -15,29 +15,25 @@
 
 <style>
   :global {
-    .EntryListItemSite {
-      padding-right: var(--line-edge);
-    }
-
     .EntryListItemSite-link {
       font-size: var(--fs-xs);
       line-height: var(--lh-xs);
       display: inline-flex;
       align-items: center;
+      gap: 0.3em;
       max-width: 100%;
-      color: var(--color-text-steel);
+      color: var(--color-text-muted);
       vertical-align: bottom;
       text-decoration: none;
 
       &:hover {
+        color: var(--color-text-sub);
         text-decoration: underline;
       }
     }
 
     .EntryListItemSite-favicon {
-      flex-grow: 0;
       flex-shrink: 0;
-      margin-right: 0.25em;
       width: 16px;
       height: 16px;
       object-fit: contain;
@@ -47,6 +43,7 @@
       min-width: 0;
       overflow: hidden;
       text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 </style>

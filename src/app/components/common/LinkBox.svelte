@@ -12,18 +12,18 @@
   :global {
     .LinkBox {
       font-size: var(--fs-s);
+      line-height: var(--lh-s);
       display: inline-block;
-      border-radius: 2px;
-      padding: calc(var(--line) * 0.5);
-      overflow: hidden;
-      background-color: var(--color-bg-blue);
-      color: white;
-      line-height: 1;
+      border: 1px solid var(--color-line-strong);
+      border-radius: var(--radius-pill);
+      padding: 0.4em 1.2em;
+      background-color: var(--color-surface);
+      color: var(--color-accent);
       text-decoration: none;
-      vertical-align: bottom;
 
       &:hover {
-        text-decoration: underline;
+        background-color: var(--color-surface-sub);
+        color: var(--color-accent-hover);
       }
     }
   }

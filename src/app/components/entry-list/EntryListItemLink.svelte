@@ -10,21 +10,24 @@
 
 <style>
   :global {
-    .EntryListItemLink {
-    }
-
     .EntryListItemLink-link {
       font-size: var(--fs-s);
       line-height: var(--lh-s);
-      color: var(--color-text-blue);
+      display: -webkit-box;
+      overflow: hidden;
+      color: var(--color-text);
+      font-weight: var(--fw-medium);
       text-decoration: none;
       overflow-wrap: break-word;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
 
       &:visited {
-        color: var(--color-text-gray);
+        color: var(--color-text-muted);
       }
 
       &:hover {
+        color: var(--color-accent);
         text-decoration: underline;
       }
     }

@@ -90,77 +90,46 @@
 
 <style>
   :global {
+    /* タブの見た目は、使う側（カテゴリー・種類・階）で決める。ここでは両端が丸い形を基本にする */
     .TabContent {
-      --tab-border-color: var(--color-border-base);
       display: grid;
       grid-template-rows: min-content 1fr;
       width: 100%;
       height: 100%;
-      /*min-height: 0;*/
     }
 
     .TabContent-tabList {
       display: flex;
+      gap: calc(var(--line) * 0.25);
       margin: 0;
-      padding-left: 0;
+      padding: 0;
       list-style-type: none;
-      border-bottom-width: 1px;
-      border-bottom-style: solid;
-      border-bottom-color: var(--tab-border-color);
     }
 
     .TabContent-tabItem {
-      flex-grow: 1;
-      flex-shrink: 1;
-      flex-basis: fit-content;
+      flex: none;
     }
 
     .TabContent-tab {
-      font-size: var(--fs-xs);
-      line-height: var(--lh-xs);
+      font-size: var(--fs-s);
+      line-height: var(--lh-s);
       display: block;
-      position: relative;
-      padding: calc(var(--line) * 0.5) calc(var(--line) * 0.25);
-      width: 100%;
-      height: 100%;
+      border-radius: var(--radius-pill);
+      padding: 0.15em 0.9em;
+      background-color: var(--color-surface-sub);
+      color: var(--color-text-sub);
       white-space: nowrap;
-
-      &::after {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        left: 0;
-        content: "";
-        opacity: 0;
-      }
-
-      &:not([aria-selected="true"]):hover::after {
-        border-width: 0 5px 5px;
-        border-style: solid;
-        border-color: transparent transparent var(--tab-border-color);
-        margin-right: auto;
-        margin-left: auto;
-        width: 0;
-        opacity: 1;
-      }
-
-      &[aria-selected="true"]::after {
-        border-top-width: 4px;
-        border-top-style: solid;
-        border-top-color: var(--tab-border-color);
-        width: 100%;
-        opacity: 1;
-      }
-
       font-feature-settings: "palt";
 
-      &._fun,
-      &._entertainment {
-        @media screen and (min-width: 1141px) {
-          wbr {
-            display: none;
-          }
-        }
+      &:hover {
+        background-color: var(--color-line-strong);
+        color: var(--color-text);
+      }
+
+      &[aria-selected="true"] {
+        background-color: var(--color-accent);
+        color: var(--color-on-accent);
+        font-weight: var(--fw-medium);
       }
     }
 
@@ -169,10 +138,11 @@
     }
 
     .TabContent-panel {
+      height: 100%;
+
       &:focus:not(:focus-visible) {
         outline: none;
       }
-      height: 100%;
 
       &[aria-hidden="true"] {
         display: none;

@@ -29,43 +29,32 @@
   :global {
     .EntryListItem {
       display: grid;
-      grid-template-columns: min-content 1fr 1fr;
+      grid-template-columns: 4.5em minmax(0, 1fr) auto;
       grid-template-rows: repeat(2, min-content);
-      gap: calc(var(--line) * 0.25);
-      padding-top: calc(var(--line) * 0.5 - var(--line-edge));
-      padding-right: calc(var(--line) * 0.25 + var(--line-edge));
-      padding-bottom: calc(var(--line) * 0.5 - var(--line-edge));
-      padding-left: calc(var(--line) * 0.25);
+      gap: 2px calc(var(--line) * 0.5);
+      padding: calc(var(--line) * 0.4) calc(var(--line) * 0.5);
     }
 
     .EntryListItem-title {
-      grid-column-start: 2;
-      grid-column-end: 4;
-      grid-row-start: 1;
-      grid-row-end: 2;
+      grid-column: 2 / 4;
+      grid-row: 1 / 2;
       min-width: 0;
     }
 
     .EntryListItem-count {
-      grid-column-start: 1;
-      grid-column-end: 2;
-      grid-row-start: 1;
-      grid-row-end: 3;
+      grid-column: 1 / 2;
+      grid-row: 1 / 3;
     }
 
     .EntryListItem-site {
-      grid-column-start: 2;
-      grid-column-end: 3;
-      grid-row-start: 2;
-      grid-row-end: 3;
+      grid-column: 2 / 3;
+      grid-row: 2 / 3;
       min-width: 0;
     }
 
     .EntryListItem-date {
-      grid-column-start: 3;
-      grid-column-end: 4;
-      grid-row-start: 2;
-      grid-row-end: 3;
+      grid-column: 3 / 4;
+      grid-row: 2 / 3;
     }
   }
 </style>
