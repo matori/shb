@@ -1,7 +1,7 @@
 <script>
   import entryTypes from "~/constants/entryTypes"
   import { selectedTypeTabIndex } from "~/store/ui"
-  import { entriesFetchErrorMessage } from "~/store/entries"
+  import { entriesFetchErrorMessage, hasEntriesData } from "~/store/entries"
   import TabContent from "~/components/common/TabContent"
   import EntryList from "~/components/entry-list/EntryList"
   import EntriesFetchError from "~/components/entries/EntriesFetchError"
@@ -22,7 +22,7 @@
     <h3 class="TypeTab-heading">カテゴリー「{category.label}」の{label}エントリー</h3>
     {#if data[key].initializing}
       <p class="TypeTab-initial">初期化中です</p>
-    {:else if $entriesFetchErrorMessage}
+    {:else if $entriesFetchErrorMessage && !$hasEntriesData}
       <EntriesFetchError display="entries" when="connection" message={$entriesFetchErrorMessage} />
     {:else if !data[key].error}
       <EntryList items={data[key].items} />
