@@ -20,11 +20,13 @@
     count={detailContent.count}
     class="DetailInfoHeader-bookmark"
   />
-  <DetailInfoCategory
-    slug={itemData.realCategory.slug}
-    label={itemData.realCategory.label}
-    class="DetailInfoHeader-category"
-  />
+  {#if itemData.realCategory.label}
+    <DetailInfoCategory
+      slug={itemData.realCategory.slug}
+      label={itemData.realCategory.label}
+      class="DetailInfoHeader-category"
+    />
+  {/if}
   <DetailInfoSite
     url={itemData.siteEntriesUrl}
     label={itemData.siteEntriesLabel}

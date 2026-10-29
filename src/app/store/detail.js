@@ -11,12 +11,26 @@ const hasDetailData = derived(detailData, ($detailData) => !!$detailData)
 function detailDataStore(initialData) {
   const { subscribe, set } = writable(initialData)
 
+  // 取得中のリクエスト。別のエントリーを開いたり、パネルを閉じたりしたら中断して、
+  // 古いレスポンスで表示が上書きされないようにする
+  let controller = null
+
   return {
     subscribe,
     async update(itemData) {
+      controller?.abort()
+      const current = new AbortController()
+      controller = current
       detailFetchProcessing.set(true)
       try {
-        const detail = await fetchJson(import.meta.env.VITE_DETAIL_API, { url: itemData.url })
+        const detail = await fetchJson(
+          import.meta.env.VITE_DETAIL_API,
+          { url: itemData.url },
+          { signal: current.signal },
+        )
+        if (current.signal.aborted) {
+          return
+        }
         const data = {
           ...addCommentTexts(detail),
           itemData: itemData,
@@ -25,12 +39,22 @@ function detailDataStore(initialData) {
         set(entries)
         detailFetchErrorMessage.set("")
       } catch (e) {
+        if (current.signal.aborted) {
+          return
+        }
         detailFetchErrorMessage.set(e.message)
         console.error(e)
+      } finally {
+        if (controller === current) {
+          controller = null
+          detailFetchProcessing.set(false)
+        }
       }
-      detailFetchProcessing.set(false)
     },
     reset() {
+      controller?.abort()
+      controller = null
+      detailFetchProcessing.set(false)
       set(null)
       detailFetchErrorMessage.set("")
     },
