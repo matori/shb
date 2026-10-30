@@ -73,6 +73,18 @@ describe("Tabs", () => {
     expect(document.activeElement).toBe(screen.getByRole("tab", { name: "最初" }))
   })
 
+  test("shortcutKey は aria-keyshortcuts で伝え、showShortcutKeys のときだけ表示する。名前はラベルのまま", async () => {
+    const tabsWithKeys = tabs.map((tab, index) => ({ ...tab, shortcutKey: String(index + 1) }))
+    const { rerender } = render(Tabs, { tabs: tabsWithKeys, label: "カテゴリー", children })
+    const tab = screen.getByRole("tab", { name: "最初" })
+    expect(tab.getAttribute("aria-keyshortcuts")).toBe("1")
+    expect(tab.querySelector("kbd")).toBeNull()
+
+    await rerender({ showShortcutKeys: true })
+    expect(tab.querySelector("kbd").textContent).toBe("1")
+    expect(screen.getByRole("tab", { name: "最初" })).toBe(tab)
+  })
+
   test("修飾キーを押しているときは移らない", async () => {
     const { onselect } = renderTabs()
     await fireEvent.keyDown(screen.getByRole("tab", { name: "最初" }), { key: "ArrowRight", altKey: true })

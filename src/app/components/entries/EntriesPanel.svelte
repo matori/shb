@@ -3,10 +3,13 @@
   import ENTRY_CATEGORIES from "~/constants/entryCategories"
   import ENTRY_TYPES from "~/constants/entryTypes"
   import { entryFeeds } from "~/store/entryFeeds.svelte.js"
+  import { settings } from "~/store/settings.svelte.js"
   import { viewState } from "~/store/viewState.svelte.js"
+  import { TOGGLE_ENTRY_TYPE_KEY, categoryShortcutKey, entryTypeShortcutKey, resolveShortcut } from "~/utils/shortcuts"
   import Button from "~/elements/Button.svelte"
   import Icon from "~/elements/Icon.svelte"
   import Tabs from "~/components/common/Tabs.svelte"
+  import ShortcutKey from "~/components/common/ShortcutKey.svelte"
   import EntryFeed from "~/components/entries/EntryFeed.svelte"
 
   // 左のパネル。カテゴリーごとの人気・新着エントリーの一覧
@@ -18,6 +21,41 @@
     entryFeeds.load({ isInitialLoad: true })
   })
 
+  const shortcutsEnabled = $derived(settings.keyboardShortcutsEnabled)
+  const showShortcutKeys = $derived(shortcutsEnabled && settings.showShortcutKeysOnTabs)
+  // ショートカットを有効にしているときだけ、カテゴリーのタブにキーを持たせる
+  const categoryTabs = $derived(
+    ENTRY_CATEGORIES.map((category, index) => ({
+      ...category,
+      shortcutKey: shortcutsEnabled ? categoryShortcutKey(index, settings.categoryNumberKeys) : undefined,
+    })),
+  )
+
+  // ショートカットで切り替えたことの読み上げ。フォーカスは動かさないので、何を表示したかを伝える
+  let shortcutStatus = $state("")
+
+  function onKeydown(event) {
+    const shortcut = resolveShortcut(event, {
+      enabled: settings.keyboardShortcutsEnabled,
+      categoryNumberKeys: settings.categoryNumberKeys,
+      minusTogglesEntryType: settings.minusTogglesEntryType,
+    })
+    if (!shortcut) {
+      return
+    }
+    event.preventDefault()
+    if (shortcut.type === "category") {
+      viewState.selectedCategoryIndex = shortcut.index
+    } else if (shortcut.type === "entryType") {
+      viewState.selectedEntryTypeIndex = shortcut.index
+    } else {
+      viewState.selectedEntryTypeIndex = viewState.selectedEntryTypeIndex === 0 ? 1 : 0
+    }
+    const category = ENTRY_CATEGORIES[viewState.selectedCategoryIndex]
+    const type = ENTRY_TYPES[viewState.selectedEntryTypeIndex]
+    shortcutStatus = `カテゴリー「${category.label}」の${type.label}エントリー`
+  }
+
   // 読み込み中は押せないようにするが、disabled にするとフォーカスが外れるので aria-disabled にする
   function refresh() {
     if (!entryFeeds.isLoading) {
@@ -25,6 +63,8 @@
     }
   }
 </script>
+
+<svelte:window onkeydown={onKeydown} />
 
 <section {...rest} class={[className, "EntriesPanel"]} aria-labelledby={headingId}>
   <header class="EntriesPanel-header">
@@ -35,11 +75,16 @@
         <Button
           class="EntriesPanel-type"
           aria-pressed={viewState.selectedEntryTypeIndex === index}
+          aria-keyshortcuts={shortcutsEnabled ? entryTypeShortcutKey(type.key) : undefined}
           onclick={() => (viewState.selectedEntryTypeIndex = index)}
         >
           {type.label}
+          {#if showShortcutKeys}<ShortcutKey key={entryTypeShortcutKey(type.key)} />{/if}
         </Button>
       {/each}
+      {#if showShortcutKeys && settings.minusTogglesEntryType}
+        <ShortcutKey key={TOGGLE_ENTRY_TYPE_KEY} class="EntriesPanel-toggleKey" title="人気と新着を切り替える" />
+      {/if}
     </div>
     <Button class="EntriesPanel-refresh" aria-disabled={entryFeeds.isLoading} onclick={refresh}>
       <Icon name="sync" class="EntriesPanel-refreshIcon" />
@@ -47,6 +92,7 @@
     </Button>
   </header>
   <!-- 中身が入ったときに読み上げられるよう、知らせる場所は常に置いておく -->
+  <p role="status" class="VisuallyHidden">{shortcutStatus}</p>
   <div role="status">
     {#if entryFeeds.errorMessage && entryFeeds.hasLoaded}
       <p class="EntriesPanel-notice">
@@ -56,8 +102,9 @@
   </div>
   <div class="EntriesPanel-body">
     <Tabs
-      tabs={ENTRY_CATEGORIES}
+      tabs={categoryTabs}
       label="カテゴリー"
+      {showShortcutKeys}
       selected={viewState.selectedCategoryIndex}
       tabListClass="ScrollShadowX"
       class="EntriesPanel-tabs"
@@ -103,6 +150,12 @@
       border-radius: var(--radius-pill);
       padding: 3px;
       background-color: var(--color-surface-sub);
+    }
+
+    .EntriesPanel-toggleKey {
+      align-self: center;
+      margin-right: 0.4em;
+      color: var(--color-text-sub);
     }
 
     .EntriesPanel-type {

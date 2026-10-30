@@ -153,3 +153,22 @@ describe("applyDisplaySettings", () => {
     expect(Object.fromEntries(root.properties)).toEqual({ "--content-max-width": "1280px" })
   })
 })
+
+describe("キーボードショートカット", () => {
+  test("初期値はすべて無効で、数字キーは 1〜0", async () => {
+    const { settings } = await loadSettings()
+    expect(settings.keyboardShortcutsEnabled).toBe(false)
+    expect(settings.minusTogglesEntryType).toBe(false)
+    expect(settings.showShortcutKeysOnTabs).toBe(false)
+    expect(settings.categoryNumberKeys).toBe("oneToZero")
+  })
+
+  test("数字キーの割り当ては 1〜0 と 0〜9 だけを受けつける", async () => {
+    const { settings } = await loadSettings({ categoryNumberKeys: "numpad" })
+    expect(settings.categoryNumberKeys).toBe("oneToZero")
+    settings.categoryNumberKeys = "zeroToNine"
+    expect(settings.categoryNumberKeys).toBe("zeroToNine")
+    settings.categoryNumberKeys = "numpad"
+    expect(settings.categoryNumberKeys).toBe("zeroToNine")
+  })
+})
