@@ -66,13 +66,30 @@ npm run build
 
 `public/` に出力します。ビルド結果を手元で確認するときは `npm run preview` を使います。
 
-## 整形
+## テスト
 
 ```bash
+npm test
+```
+
+[Vitest](https://vitest.dev/) でテストします。ファイルを変更するたびに実行し直すときは `npm run test:watch` を使います。
+
+- テストは、対象のファイルと同じ場所に `*.test.js` として置きます
+- ロジックのテストは Node.js で、コンポーネントのテストは jsdom と [Testing Library](https://testing-library.com/docs/svelte-testing-library/intro/) で動かします（ファイルの先頭に `// @vitest-environment jsdom` と書きます）
+- 日時のテストのため、テストのタイムゾーンは `Asia/Tokyo` にしています（`vite.config.js`）
+
+## lint と整形
+
+```bash
+npm run lint
 npm run format
 ```
 
-[Prettier](https://prettier.io/)（Svelte用のプラグイン付き）で整形します。
+[ESLint](https://eslint.org/)（設定は `eslint.config.js`）でチェックし、[Prettier](https://prettier.io/)（Svelte用のプラグイン付き）で整形します。
+
+## CI
+
+PR と、`master`・`v2` への push で、GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)）が lint・整形のチェック・テスト・ビルド・ダミーデータの検証を実行します。
 
 ## 技術構成
 

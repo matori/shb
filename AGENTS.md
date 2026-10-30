@@ -16,6 +16,8 @@
 - `npm run dev:dummy`: ダミーAPI（`scripts/`）で開発サーバーを起動
 - `npm run build`: `public/` にビルド
 - `npm run validate:mock`: ダミーAPIのデータを `schema/` で検証
+- `npm run lint`: ESLintでチェック
+- `npm test`: Vitestでテスト（テストは対象のファイルと同じ場所に `*.test.js` で置く）
 - `npm run format`: Prettierで整形
 
 ## 実装の方針
@@ -31,3 +33,4 @@
 - ファイルを変更する前に、計画を示してメンテナーの確認を取る（相談だけのこともある）
 - 作業はブランチを切ってから行い、作業単位でコミットする
 - コミットメッセージは日本語
+- コミットの前に `npm run lint` と `npm test` を通す。ロジックを変えたらテストも足す
