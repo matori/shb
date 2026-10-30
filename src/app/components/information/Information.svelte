@@ -11,8 +11,7 @@
 
 <section {...rest} class={[className, "Information"]} aria-labelledby={headingId}>
   <header class="Information-header">
-    <!-- エントリー情報のパネルを閉じたときに、フォーカスを移せるようにしておく -->
-    <h2 id={headingId} class="Information-heading" tabindex="-1">
+    <h2 id={headingId} class="Information-heading">
       インフォメーション
       <LoadingIcon loading={entryDetail.isLoading} />
     </h2>
@@ -73,10 +72,6 @@
       align-items: center;
       margin: 0;
       font-weight: var(--fw-bold);
-
-      &:focus {
-        outline: none;
-      }
     }
 
     .Information-body {
