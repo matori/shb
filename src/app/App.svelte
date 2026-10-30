@@ -1,8 +1,8 @@
 <script>
   import { settings } from "~/store/settings.svelte.js"
   import { entryFeeds } from "~/store/entryFeeds.svelte.js"
-  import AppHeader from "~/components/app-header/AppHeader.svelte"
-  import AppBody from "~/components/app-body/AppBody.svelte"
+  import AppHeader from "~/components/header/AppHeader.svelte"
+  import AppMain from "~/components/main/AppMain.svelte"
 
   // ライト・ダークを選んだときは <html data-theme> で固定し、自動のときは OS の設定に従う
   $effect(() => {
@@ -23,8 +23,8 @@
   })
 </script>
 
-<AppHeader class="App-header" />
-<AppBody class="App-body" />
+<AppHeader />
+<AppMain class="App-main" />
 
 <style>
   :global {
@@ -52,7 +52,7 @@
       }
     }
 
-    .App-body {
+    .App-main {
       min-height: 600px;
     }
   }
