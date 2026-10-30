@@ -1,5 +1,6 @@
 <script>
   import { settings } from "~/store/settings.svelte.js"
+  import faviconUrl from "~/assets/icons/favicon.svg"
   import Button from "~/elements/Button.svelte"
   import Icon from "~/elements/Icon.svelte"
   import ToggleButton from "~/components/common/ToggleButton.svelte"
@@ -14,7 +15,11 @@
 <header {...rest} class={[className, "AppHeader"]}>
   <div class="AppHeader-inner">
     <h1 class="AppHeader-logo">
-      <a href="/" class="AppHeader-logoLink">しんぷるはてぶ</a>
+      <a href="/" class="AppHeader-logoLink">
+        <!-- ファビコンと同じアイコン。リンクの名前はアプリ名にするので、読み上げない -->
+        <img src={faviconUrl} alt="" width="24" height="24" class="AppHeader-logoIcon" />
+        しんぷるはてぶ
+      </a>
     </h1>
     <HeaderLinks class="AppHeader-links" />
     <div class="AppHeader-tools">
@@ -64,6 +69,9 @@
     }
 
     .AppHeader-logoLink {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4em;
       color: inherit;
       text-decoration: none;
 
@@ -71,6 +79,12 @@
         color: inherit;
         text-decoration: underline;
       }
+    }
+
+    .AppHeader-logoIcon {
+      flex-shrink: 0;
+      width: 1.25em;
+      height: 1.25em;
     }
 
     .AppHeader-links {
