@@ -61,3 +61,43 @@ describe("addCommentDetails", () => {
     expect(floor2.erin.idCalledBy).toEqual([floor2.dave, floor2.alice])
   })
 })
+
+describe("スターの引き方", () => {
+  // 1階と2階で、同じユーザー（dave）にスターがある
+  const starsResponse = {
+    data: {
+      floor: 1,
+      entries: [
+        {
+          eid: "1",
+          entry: { uri: "https://example.com/", stars: { total: 2, colors: { yellow: 2 } } },
+          bookmarks: { dave: { total: 1, colors: { yellow: 1 } } },
+        },
+        {
+          eid: "2",
+          entry: { uri: "https://b.hatena.ne.jp/entry/s/example.com/", stars: null },
+          bookmarks: { dave: { total: 3, colors: { red: 3 } } },
+        },
+      ],
+      error: false,
+    },
+  }
+
+  test("階を eid で選び、エントリー本体とブックマークのスターを引く", async () => {
+    const { entryDetail } = await import("~/store/entryDetail.svelte.js")
+    entryDetail.starsResponse = starsResponse
+    expect(entryDetail.entryStars("1")).toEqual({ total: 2, colors: { yellow: 2 } })
+    expect(entryDetail.bookmarkStars("1", "dave")).toEqual({ total: 1, colors: { yellow: 1 } })
+    expect(entryDetail.bookmarkStars("2", "dave")).toEqual({ total: 3, colors: { red: 3 } })
+  })
+
+  test("スターがない・まだ届いていないときは null を返す", async () => {
+    const { entryDetail } = await import("~/store/entryDetail.svelte.js")
+    entryDetail.starsResponse = starsResponse
+    expect(entryDetail.entryStars("2")).toBeNull()
+    expect(entryDetail.bookmarkStars("1", "alice")).toBeNull()
+    expect(entryDetail.bookmarkStars("999", "dave")).toBeNull()
+    entryDetail.starsResponse = null
+    expect(entryDetail.bookmarkStars("1", "dave")).toBeNull()
+  })
+})
