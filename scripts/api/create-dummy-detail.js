@@ -1,13 +1,14 @@
 import { fakerJA as faker } from "@faker-js/faker"
-import dayjs from "dayjs"
 import loremIpsum from "lorem-ipsum-japanese"
 import getRandomIntInclusive from "../utils/getRandomIntInclusive.js"
+import { nowInJapan, dateToJapanTime, toApiDateTime, toBookmarkTimestamp } from "../utils/japanTime.js"
 
 // 本番APIの detail.schema.json に沿ったダミーデータを作る
 function createDummyDetail() {
+  const now = nowInJapan()
   const result = {
-    last_modified: dayjs().format(),
-    expires: dayjs().add(5, "minute").format(),
+    last_modified: toApiDateTime(now),
+    expires: toApiDateTime(now.add({ minutes: 5 })),
     data: {
       floor: 1,
       entries: [],
@@ -88,7 +89,7 @@ function bookmarks() {
 
   return createArray(getRandomIntInclusive(3, 100)).map(() => {
     return {
-      timestamp: dayjs(faker.date.recent()).format("YYYY/MM/DD HH:mm"),
+      timestamp: toBookmarkTimestamp(dateToJapanTime(faker.date.recent())),
       comment: getRandomIntInclusive(0, 1)
         ? loremIpsum({
             suffix: "",
