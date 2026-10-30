@@ -80,8 +80,10 @@
       background-color: var(--color-surface);
     }
 
+    /* 文字を大きくして1行に入らないときは、見出しの途中ではなく、要素ごとに折り返す */
     .EntriesPanel-header {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       gap: calc(var(--line) * 0.5);
       padding: calc(var(--line) * 0.6) calc(var(--line) * 0.75) calc(var(--line) * 0.4);
@@ -92,6 +94,7 @@
       line-height: var(--lh-l);
       margin: 0;
       font-weight: var(--fw-bold);
+      white-space: nowrap;
     }
 
     .EntriesPanel-types {
@@ -133,6 +136,7 @@
       padding: 0.15em 0.8em;
       color: var(--color-accent);
       font-weight: var(--fw-medium);
+      white-space: nowrap;
 
       &:hover {
         background-color: var(--color-surface-sub);

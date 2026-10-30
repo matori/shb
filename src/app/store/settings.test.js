@@ -74,3 +74,82 @@ describe("settings", () => {
     expect(headerLinksToText(settings.headerLinks)).toBe("[はてな](https://b.hatena.ne.jp)\n[](https://x.com)\n")
   })
 })
+
+describe("文字の大きさ（fontSize）", () => {
+  test("初期値はブラウザーの設定に合わせる（auto）", async () => {
+    const { settings } = await loadSettings()
+    expect(settings.fontSize).toBe("auto")
+  })
+
+  test("13〜20px を、<select> の文字列からも数値にして保存する", async () => {
+    const { settings } = await loadSettings()
+    settings.fontSize = "20"
+    expect(settings.fontSize).toBe(20)
+    settings.fontSize = "auto"
+    expect(settings.fontSize).toBe("auto")
+    expect(JSON.parse(items.get("simple_hatebu_settings")).fontSize).toBe("auto")
+  })
+
+  test("範囲の外の値は、保存値でも代入でも使わない", async () => {
+    const { settings } = await loadSettings({ fontSize: 30 })
+    expect(settings.fontSize).toBe("auto")
+    settings.fontSize = "12"
+    expect(settings.fontSize).toBe("auto")
+  })
+})
+
+describe("コンテンツの最大幅（contentMaxWidth）", () => {
+  test("初期値は CSS と同じ 1920", async () => {
+    const { settings } = await loadSettings()
+    expect(settings.contentMaxWidth).toBe(1920)
+  })
+
+  test("0 は画面の幅いっぱい、最小幅より狭い値は最小幅にする", async () => {
+    const { settings } = await loadSettings()
+    settings.contentMaxWidth = "0"
+    expect(settings.contentMaxWidth).toBe(0)
+    settings.contentMaxWidth = "500"
+    expect(settings.contentMaxWidth).toBe(960)
+    settings.contentMaxWidth = "1280"
+    expect(settings.contentMaxWidth).toBe(1280)
+  })
+
+  test("数でない値と負の値は使わない", async () => {
+    const { settings } = await loadSettings({ contentMaxWidth: 500 })
+    expect(settings.contentMaxWidth).toBe(1920)
+    settings.contentMaxWidth = ""
+    settings.contentMaxWidth = "-1"
+    expect(settings.contentMaxWidth).toBe(1920)
+  })
+})
+
+describe("applyDisplaySettings", () => {
+  function createRoot() {
+    const properties = new Map()
+    return {
+      properties,
+      style: {
+        setProperty: (name, value) => properties.set(name, value),
+        removeProperty: (name) => properties.delete(name),
+        set fontSize(value) {
+          properties.set("font-size", value)
+        },
+      },
+    }
+  }
+
+  test("文字の大きさと最大幅を <html> のスタイルに入れ、最大幅が 0 なら 100% にする", async () => {
+    const { applyDisplaySettings } = await loadSettings()
+    const root = createRoot()
+    applyDisplaySettings(root, { fontSize: 18, contentMaxWidth: 0 })
+    expect(Object.fromEntries(root.properties)).toEqual({ "font-size": "18px", "--content-max-width": "100%" })
+  })
+
+  test("auto なら文字の大きさの指定を外し、CSS（ブラウザーの設定）に戻す", async () => {
+    const { applyDisplaySettings } = await loadSettings()
+    const root = createRoot()
+    applyDisplaySettings(root, { fontSize: 18, contentMaxWidth: 1280 })
+    applyDisplaySettings(root, { fontSize: "auto", contentMaxWidth: 1280 })
+    expect(Object.fromEntries(root.properties)).toEqual({ "--content-max-width": "1280px" })
+  })
+})

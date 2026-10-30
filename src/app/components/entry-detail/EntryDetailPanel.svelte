@@ -83,10 +83,14 @@
       grid-template-rows: min-content auto;
     }
 
+    /* 文字を大きくして1行に入らないときは、見出しの途中ではなく、要素ごとに折り返す */
     .EntryDetailPanel-header {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
+      /* 1行のときの間隔は space-between で空くので、折り返したときの行の間だけ空ける */
+      row-gap: calc(var(--line) * 0.25);
       border-radius: var(--radius-panel) var(--radius-panel) 0 0;
       padding: calc(var(--line) * 0.6) calc(var(--line) * 0.75) calc(var(--line) * 0.25);
       background-color: var(--color-surface);
@@ -99,6 +103,7 @@
       align-items: center;
       margin: 0;
       font-weight: var(--fw-bold);
+      white-space: nowrap;
     }
 
     .EntryDetailPanel-close {
@@ -110,6 +115,7 @@
       border-radius: var(--radius-pill);
       padding: 0.15em 0.8em;
       color: var(--color-text-sub);
+      white-space: nowrap;
 
       &:hover {
         background-color: var(--color-surface-sub);

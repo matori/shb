@@ -3,14 +3,22 @@
   <head>
     <meta charset="utf-8" />
     <script>
-      // 保存された表示テーマを描画の前に反映し、ライトで表示されてからダークに切り替わるちらつきを防ぐ
+      // 保存された表示テーマ・文字の大きさ・コンテンツの最大幅を描画の前に反映し、表示が切り替わるちらつきを防ぐ
+      // 文字の大きさと最大幅は、settings.svelte.js の applyDisplaySettings と同じことをしている（形を変えたら両方を直す）
       try {
-        const theme = JSON.parse(localStorage.getItem("simple_hatebu_settings"))?.theme
+        const root = document.documentElement
+        const { theme, fontSize, contentMaxWidth } = JSON.parse(localStorage.getItem("simple_hatebu_settings")) ?? {}
         if (theme === "light" || theme === "dark") {
-          document.documentElement.dataset.theme = theme
+          root.dataset.theme = theme
+        }
+        if (Number.isInteger(fontSize) && fontSize >= 13 && fontSize <= 20) {
+          root.style.fontSize = `${fontSize}px`
+        }
+        if (contentMaxWidth === 0 || (Number.isInteger(contentMaxWidth) && contentMaxWidth >= 960)) {
+          root.style.setProperty("--content-max-width", contentMaxWidth === 0 ? "100%" : `${contentMaxWidth}px`)
         }
       } catch {
-        // 保存値が読めなければ OS の設定に従う
+        // 保存値が読めなければ、CSS の初期値と OS の設定に従う
       }
     </script>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
