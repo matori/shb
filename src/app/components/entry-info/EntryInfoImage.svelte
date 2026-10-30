@@ -4,15 +4,16 @@
   import Icon from "~/elements/Icon.svelte"
   import Dialog from "~/components/common/Dialog.svelte"
 
+  // エントリー情報の画像。押すとダイアログで拡大表示する
   let { image, class: className = "", ...rest } = $props()
 
   let imageLoadError = $state(false)
   let dialogOpen = $state(false)
 </script>
 
-<div {...rest} class={[className, "DetailInfoImage"]}>
+<div {...rest} class={[className, "EntryInfoImage"]}>
   <Button
-    class={["DetailInfoImage-button", { _loadError: imageLoadError }]}
+    class={["EntryInfoImage-button", { _loadError: imageLoadError }]}
     aria-haspopup="dialog"
     onclick={() => (dialogOpen = true)}
   >
@@ -20,26 +21,26 @@
       <img
         src={image}
         alt="エントリーの画像を拡大表示"
-        class="DetailInfoImage-image"
+        class="EntryInfoImage-image"
         onerror={() => (imageLoadError = true)}
       />
     {:else}
-      <span class="DetailInfoImage-error">
-        <span class="DetailInfoImage-message">画像の読み込みに失敗しました</span>
-        <Icon name="broken-image" class="DetailInfoImage-placeholder" aria-hidden="true" />
+      <span class="EntryInfoImage-error">
+        <span class="EntryInfoImage-message">画像の読み込みに失敗しました</span>
+        <Icon name="broken-image" class="EntryInfoImage-placeholder" />
       </span>
     {/if}
   </Button>
 </div>
 <Dialog label="エントリーの画像" bind:open={dialogOpen}>
-  <Link url={image} class="DetailInfoImage-dialogLink">
-    <img src={image} alt="画像を新しいタブで開く" class="DetailInfoImage-dialogImage" />
+  <Link url={image} class="EntryInfoImage-dialogLink">
+    <img src={image} alt="画像を新しいタブで開く" class="EntryInfoImage-dialogImage" />
   </Link>
 </Dialog>
 
 <style>
   :global {
-    .DetailInfoImage-button {
+    .EntryInfoImage-button {
       display: block;
       max-width: 100%;
       text-align: left;
@@ -50,14 +51,14 @@
       }
     }
 
-    .DetailInfoImage-image {
+    .EntryInfoImage-image {
       display: block;
       border-radius: var(--radius-control);
       max-width: 100%;
       height: auto;
     }
 
-    .DetailInfoImage-error {
+    .EntryInfoImage-error {
       display: block;
       font-size: var(--fs-xs);
       line-height: var(--lh-xs);
@@ -71,7 +72,7 @@
       background-color: var(--color-surface-sub);
     }
 
-    .DetailInfoImage-placeholder {
+    .EntryInfoImage-placeholder {
       position: absolute;
       z-index: 1;
       inset: 0;
@@ -80,12 +81,12 @@
       opacity: 0.2;
     }
 
-    .DetailInfoImage-dialogLink {
+    .EntryInfoImage-dialogLink {
       min-width: 0;
       min-height: 0;
     }
 
-    .DetailInfoImage-dialogImage {
+    .EntryInfoImage-dialogImage {
       display: block;
       border-radius: var(--radius-control);
       width: 100%;
