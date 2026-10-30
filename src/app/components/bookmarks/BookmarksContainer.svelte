@@ -1,8 +1,8 @@
 <script>
   import { selectedBookmarksTabIndex } from "~/store/ui"
-  import TabContent from "~/components/common/TabContent"
-  import Bookmarks from "~/components/bookmarks/Bookmarks"
-  import BookmarksContainerHeader from "~/components/bookmarks/BookmarksContainerHeader"
+  import TabContent from "~/components/common/TabContent.svelte"
+  import Bookmarks from "~/components/bookmarks/Bookmarks.svelte"
+  import BookmarksContainerHeader from "~/components/bookmarks/BookmarksContainerHeader.svelte"
 
   // partial: 途中の階で取得に失敗し、data が途中までしかない
   let { data, partial = false, class: className = "", ...rest } = $props()

@@ -1,5 +1,5 @@
 <script>
-  import Link from "~/elements/Link"
+  import Link from "~/elements/Link.svelte"
 
   let { url, title, class: className = "", ...rest } = $props()
 </script>

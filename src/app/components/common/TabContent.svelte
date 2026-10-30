@@ -142,10 +142,6 @@
     .TabContent-panel {
       height: 100%;
 
-      &:focus:not(:focus-visible) {
-        outline: none;
-      }
-
       &[aria-hidden="true"] {
         display: none;
       }

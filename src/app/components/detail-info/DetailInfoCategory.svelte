@@ -1,5 +1,5 @@
 <script>
-  import Link from "~/elements/Link"
+  import Link from "~/elements/Link.svelte"
 
   // カテゴリーが判別できなかった場合、slug は false になる
   let { slug, label, class: className = "", ...rest } = $props()

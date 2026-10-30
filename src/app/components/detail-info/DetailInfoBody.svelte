@@ -1,8 +1,8 @@
 <script>
-  import DetailInfoDescription from "~/components/detail-info/DetailInfoDescription"
-  import DetailInfoImage from "~/components/detail-info/DetailInfoImage"
-  import DetailInfoTags from "~/components/detail-info/DetailInfoTags"
-  import DetailInfoSearchX from "~/components/detail-info/DetailInfoSearchX"
+  import DetailInfoDescription from "~/components/detail-info/DetailInfoDescription.svelte"
+  import DetailInfoImage from "~/components/detail-info/DetailInfoImage.svelte"
+  import DetailInfoTags from "~/components/detail-info/DetailInfoTags.svelte"
+  import DetailInfoSearchX from "~/components/detail-info/DetailInfoSearchX.svelte"
 
   let { detailContent, itemData, detailInfoExpanded, class: className = "", ...rest } = $props()
 </script>

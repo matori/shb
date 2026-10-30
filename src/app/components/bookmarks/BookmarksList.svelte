@@ -1,6 +1,6 @@
 <script>
-  import List from "~/elements/List"
-  import BookmarksItem from "~/components/bookmarks/BookmarksItem"
+  import List from "~/elements/List.svelte"
+  import BookmarksItem from "~/components/bookmarks/BookmarksItem.svelte"
 
   let { bookmarks, eid, class: className = "", ...rest } = $props()
 </script>

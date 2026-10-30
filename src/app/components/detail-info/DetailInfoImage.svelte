@@ -1,7 +1,7 @@
 <script>
-  import Button from "~/elements/Button"
-  import Link from "~/elements/Link"
-  import Icon from "~/elements/Icon"
+  import Button from "~/elements/Button.svelte"
+  import Link from "~/elements/Link.svelte"
+  import Icon from "~/elements/Icon.svelte"
   import Dialog from "~/components/common/Dialog.svelte"
 
   let { image, class: className = "", ...rest } = $props()

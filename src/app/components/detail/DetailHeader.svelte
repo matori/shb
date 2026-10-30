@@ -1,7 +1,7 @@
 <script>
   import { detailData, detailFetchProcessing } from "~/store/detail"
-  import Button from "~/elements/Button"
-  import Icon from "~/elements/Icon"
+  import Button from "~/elements/Button.svelte"
+  import Icon from "~/elements/Icon.svelte"
 
   let { heading, class: className = "", ...rest } = $props()
 </script>

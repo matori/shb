@@ -1,5 +1,5 @@
 <script>
-  import FetchError from "~/components/common/FetchError"
+  import FetchError from "~/components/common/FetchError.svelte"
 
   let { class: className = "", ...rest } = $props()
 </script>

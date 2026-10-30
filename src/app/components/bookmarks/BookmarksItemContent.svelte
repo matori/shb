@@ -1,8 +1,8 @@
 <script>
-  import BookmarksItemAvatar from "~/components/bookmarks/BookmarksItemAvatar"
+  import BookmarksItemAvatar from "~/components/bookmarks/BookmarksItemAvatar.svelte"
   import BookmarksItemBody from "~/components/bookmarks/BookmarksItemBody.svelte"
-  import BookmarksItemDate from "~/components/bookmarks/BookmarksItemDate"
-  import BookmarksItemCommentPermalink from "~/components/bookmarks/BookmarksItemCommentPermalink"
+  import BookmarksItemDate from "~/components/bookmarks/BookmarksItemDate.svelte"
+  import BookmarksItemCommentPermalink from "~/components/bookmarks/BookmarksItemCommentPermalink.svelte"
 
   let { bookmark, eid, class: className = "", ...rest } = $props()
 

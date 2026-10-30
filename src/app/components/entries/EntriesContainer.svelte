@@ -1,6 +1,6 @@
 <script>
-  import CategoryTab from "~/components/entries/CategoryTab"
-  import EntriesHeader from "~/components/entries/EntriesHeader"
+  import CategoryTab from "~/components/entries/CategoryTab.svelte"
+  import EntriesHeader from "~/components/entries/EntriesHeader.svelte"
   import { entriesFetchErrorMessage, hasEntriesData } from "~/store/entries"
 
   let { class: className = "", ...rest } = $props()

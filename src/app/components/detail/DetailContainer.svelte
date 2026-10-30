@@ -1,8 +1,8 @@
 <script>
   import { selectedBookmarksTabIndex } from "~/store/ui"
-  import DetailContent from "~/components/detail/DetailContent"
+  import DetailContent from "~/components/detail/DetailContent.svelte"
   import DetailFetchError from "~/components/detail/DetailFetchError.svelte"
-  import DetailHeader from "~/components/detail/DetailHeader"
+  import DetailHeader from "~/components/detail/DetailHeader.svelte"
   import DetailNoBookmarkError from "~/components/detail/DetailNoBookmarkError.svelte"
 
   let { detail, message, class: className = "", ...rest } = $props()

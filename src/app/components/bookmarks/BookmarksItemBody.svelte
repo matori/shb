@@ -1,7 +1,7 @@
 <script>
-  import BookmarksItemUser from "~/components/bookmarks/BookmarksItemUser"
-  import BookmarksItemComment from "~/components/bookmarks/BookmarksItemComment"
-  import BookmarksItemTags from "~/components/bookmarks/BookmarksItemTags"
+  import BookmarksItemUser from "~/components/bookmarks/BookmarksItemUser.svelte"
+  import BookmarksItemComment from "~/components/bookmarks/BookmarksItemComment.svelte"
+  import BookmarksItemTags from "~/components/bookmarks/BookmarksItemTags.svelte"
 
   let { user, userUrl, comment, commentTexts, tags, class: className = "", ...rest } = $props()
 </script>

@@ -1,6 +1,6 @@
 <script>
   import { detailInfoExpanded } from "~/store/ui"
-  import DetailInfoToggleSwitch from "~/components/detail-info/DetailInfoToggleSwitch"
+  import DetailInfoToggleSwitch from "~/components/detail-info/DetailInfoToggleSwitch.svelte"
   import DetailInfoHeader from "~/components/detail-info/DetailInfoHeader.svelte"
   import DetailInfoBody from "~/components/detail-info/DetailInfoBody.svelte"
 

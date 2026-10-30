@@ -3,8 +3,8 @@
   import entryCategories from "~/constants/entryCategories"
   import { selectedCategoryTabIndex } from "~/store/ui"
   import { entriesData } from "~/store/entries"
-  import TabContent from "~/components/common/TabContent"
-  import CategoryEntries from "~/components/entries/CategoryEntries"
+  import TabContent from "~/components/common/TabContent.svelte"
+  import CategoryEntries from "~/components/entries/CategoryEntries.svelte"
 
   let { class: className = "", ...rest } = $props()
 

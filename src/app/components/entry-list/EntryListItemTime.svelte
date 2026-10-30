@@ -1,5 +1,5 @@
 <script>
-  import Time from "~/elements/Time"
+  import Time from "~/elements/Time.svelte"
 
   let { datetime, class: className = "", ...rest } = $props()
 </script>

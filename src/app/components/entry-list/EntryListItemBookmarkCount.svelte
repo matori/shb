@@ -1,5 +1,5 @@
 <script>
-  import Button from "~/elements/Button"
+  import Button from "~/elements/Button.svelte"
 
   let { count, class: className = "", ...rest } = $props()
 

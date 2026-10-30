@@ -1,6 +1,6 @@
 <script>
   import percentage from "~/utils/percentage"
-  import Icon from "~/elements/Icon"
+  import Icon from "~/elements/Icon.svelte"
   import Link from "~/elements/Link.svelte"
 
   let { content, class: className = "", ...rest } = $props()

@@ -2,9 +2,9 @@
   import entryTypes from "~/constants/entryTypes"
   import { selectedTypeTabIndex } from "~/store/ui"
   import { entriesFetchErrorMessage, hasEntriesData } from "~/store/entries"
-  import EntryList from "~/components/entry-list/EntryList"
-  import EntriesFetchError from "~/components/entries/EntriesFetchError"
-  import EntriesLink from "~/components/entries/EntriesLink"
+  import EntryList from "~/components/entry-list/EntryList.svelte"
+  import EntriesFetchError from "~/components/entries/EntriesFetchError.svelte"
+  import EntriesLink from "~/components/entries/EntriesLink.svelte"
 
   // 1つのカテゴリーの、選ばれている種類（人気・新着）の一覧。種類の切り替えは EntriesHeader にある
   let { category, data, class: className = "", ...rest } = $props()

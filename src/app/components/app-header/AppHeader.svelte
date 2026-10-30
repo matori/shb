@@ -1,6 +1,6 @@
 <script>
-  import AppLogo from "~/components/app-header/AppLogo"
-  import AppSettings from "~/components/app-header/AppSettings"
+  import AppLogo from "~/components/app-header/AppLogo.svelte"
+  import AppSettings from "~/components/app-header/AppSettings.svelte"
   import AppFavLinks from "~/components/app-header/AppFavLinks.svelte"
 
   let { class: className = "", ...rest } = $props()

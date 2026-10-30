@@ -1,9 +1,9 @@
 <script>
   import { detailData } from "~/store/detail"
-  import EntryListItemLink from "~/components/entry-list/EntryListItemLink"
-  import EntryListItemBookmarkCount from "~/components/entry-list/EntryListItemBookmarkCount"
-  import EntryListItemSite from "~/components/entry-list/EntryListItemSite"
-  import EntryListItemTime from "~/components/entry-list/EntryListItemTime"
+  import EntryListItemLink from "~/components/entry-list/EntryListItemLink.svelte"
+  import EntryListItemBookmarkCount from "~/components/entry-list/EntryListItemBookmarkCount.svelte"
+  import EntryListItemSite from "~/components/entry-list/EntryListItemSite.svelte"
+  import EntryListItemTime from "~/components/entry-list/EntryListItemTime.svelte"
 
   let { item, class: className = "", ...rest } = $props()
 

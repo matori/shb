@@ -3,7 +3,7 @@
   import Link from "~/elements/Link.svelte"
   import List from "~/elements/List.svelte"
   import BookmarksItemContent from "~/components/bookmarks/BookmarksItemContent.svelte"
-  import BookmarksItemAvatar from "~/components/bookmarks/BookmarksItemAvatar"
+  import BookmarksItemAvatar from "~/components/bookmarks/BookmarksItemAvatar.svelte"
 
   let { bookmark, eid, class: className = "", ...rest } = $props()
 </script>

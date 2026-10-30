@@ -1,7 +1,7 @@
 <script>
   import { hasDetailData, detailFetchErrorMessage, detailData } from "~/store/detail"
-  import EntriesContainer from "~/components/entries/EntriesContainer"
-  import DetailContainer from "~/components/detail/DetailContainer"
+  import EntriesContainer from "~/components/entries/EntriesContainer.svelte"
+  import DetailContainer from "~/components/detail/DetailContainer.svelte"
   import Information from "~/components/information/Information.svelte"
 
   let { class: className = "", ...rest } = $props()

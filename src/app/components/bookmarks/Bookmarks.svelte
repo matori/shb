@@ -1,8 +1,8 @@
 <script>
   import { showAllBookmarks, reverseOrderBookmarks } from "~/store/ui"
   import LinkBox from "~/components/common/LinkBox.svelte"
-  import BookmarksHeader from "~/components/bookmarks/BookmarksHeader"
-  import BookmarksList from "~/components/bookmarks/BookmarksList"
+  import BookmarksHeader from "~/components/bookmarks/BookmarksHeader.svelte"
+  import BookmarksList from "~/components/bookmarks/BookmarksList.svelte"
 
   let { content, class: className = "", ...rest } = $props()
 
@@ -55,10 +55,6 @@
     .Bookmarks-body {
       min-height: 0;
       overflow-y: auto;
-
-      &:focus:not(:focus-visible) {
-        outline: none;
-      }
     }
 
     .Bookmarks-message {

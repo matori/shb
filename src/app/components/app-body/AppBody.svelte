@@ -1,5 +1,5 @@
 <script>
-  import ContentContainer from "~/components/app-body/ContentContainer"
+  import ContentContainer from "~/components/app-body/ContentContainer.svelte"
 
   let { class: className = "", ...rest } = $props()
 </script>

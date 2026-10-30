@@ -1,7 +1,7 @@
 <script>
   import dayjs from "dayjs"
-  import Link from "~/elements/Link"
-  import Time from "~/elements/Time"
+  import Link from "~/elements/Link.svelte"
+  import Time from "~/elements/Time.svelte"
 
   let { eid, user, timestamp, class: className = "", ...rest } = $props()
 

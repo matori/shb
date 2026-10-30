@@ -1,6 +1,6 @@
 <script>
-  import Link from "~/elements/Link"
-  import Icon from "~/elements/Icon"
+  import Link from "~/elements/Link.svelte"
+  import Icon from "~/elements/Icon.svelte"
 
   let { user, eid, class: className = "", ...rest } = $props()
 

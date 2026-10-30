@@ -1,7 +1,7 @@
 <script>
   import { showAllBookmarks, reverseOrderBookmarks } from "~/store/ui"
-  import Button from "~/elements/Button"
-  import Icon from "~/elements/Icon"
+  import Button from "~/elements/Button.svelte"
+  import Icon from "~/elements/Icon.svelte"
 
   let { heading, class: className = "", ...rest } = $props()
 </script>

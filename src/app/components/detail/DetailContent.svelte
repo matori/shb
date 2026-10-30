@@ -1,6 +1,6 @@
 <script>
-  import DetailInfo from "~/components/detail-info/DetailInfo"
-  import BookmarkContainer from "~/components/bookmarks/BookmarksContainer"
+  import DetailInfo from "~/components/detail-info/DetailInfo.svelte"
+  import BookmarkContainer from "~/components/bookmarks/BookmarksContainer.svelte"
 
   let { detailData, itemData, floorIndex, class: className = "", ...rest } = $props()
 </script>

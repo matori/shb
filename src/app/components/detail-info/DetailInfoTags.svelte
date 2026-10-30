@@ -1,7 +1,7 @@
 <script>
-  import List from "~/elements/List"
-  import Link from "~/elements/Link"
-  import Icon from "~/elements/Icon"
+  import List from "~/elements/List.svelte"
+  import Link from "~/elements/Link.svelte"
+  import Icon from "~/elements/Icon.svelte"
 
   let { tags, class: className = "", ...rest } = $props()
 </script>

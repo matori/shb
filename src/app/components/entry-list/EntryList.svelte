@@ -1,6 +1,6 @@
 <script>
-  import List from "~/elements/List"
-  import EntryListItem from "~/components/entry-list/EntryListItem"
+  import List from "~/elements/List.svelte"
+  import EntryListItem from "~/components/entry-list/EntryListItem.svelte"
 
   let { items, class: className = "", ...rest } = $props()
 </script>

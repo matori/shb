@@ -1,9 +1,9 @@
 <script>
-  import DetailInfoTitle from "~/components/detail-info/DetailInfoTitle"
-  import DetailInfoSite from "~/components/detail-info/DetailInfoSite"
-  import DetailInfoDate from "~/components/detail-info/DetailInfoDate"
-  import DetailInfoCategory from "~/components/detail-info/DetailInfoCategory"
-  import DetailInfoBookmarkCount from "~/components/detail-info/DetailInfoBookmarkCount"
+  import DetailInfoTitle from "~/components/detail-info/DetailInfoTitle.svelte"
+  import DetailInfoSite from "~/components/detail-info/DetailInfoSite.svelte"
+  import DetailInfoDate from "~/components/detail-info/DetailInfoDate.svelte"
+  import DetailInfoCategory from "~/components/detail-info/DetailInfoCategory.svelte"
+  import DetailInfoBookmarkCount from "~/components/detail-info/DetailInfoBookmarkCount.svelte"
 
   let { detailContent, itemData, detailInfoExpanded, class: className = "", ...rest } = $props()
 </script>
