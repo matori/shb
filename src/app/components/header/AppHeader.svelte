@@ -6,10 +6,18 @@
   import ToggleButton from "~/components/common/ToggleButton.svelte"
   import HeaderLinks from "~/components/header/HeaderLinks.svelte"
   import SettingsDialog from "~/components/header/SettingsDialog.svelte"
+  import UsageDialog from "~/components/header/UsageDialog.svelte"
 
   let { class: className = "", ...rest } = $props()
 
   let settingsOpen = $state(false)
+  let usageOpen = $state(false)
+
+  // 使い方から設定を開く。ダイアログを重ねないよう、使い方を閉じてから開く
+  function openSettingsFromUsage() {
+    usageOpen = false
+    settingsOpen = true
+  }
 </script>
 
 <header {...rest} class={[className, "AppHeader"]}>
@@ -30,10 +38,15 @@
       >
         自動更新
       </ToggleButton>
+      <Button class="AppHeader-button" aria-haspopup="dialog" onclick={() => (usageOpen = true)}>
+        <Icon name="help-circle" class="AppHeader-icon" />
+        使い方
+      </Button>
       <Button class="AppHeader-button _settings" aria-haspopup="dialog" onclick={() => (settingsOpen = true)}>
         <Icon name="settings" class="AppHeader-icon" />
         設定
       </Button>
+      <UsageDialog bind:open={usageOpen} onopensettings={openSettingsFromUsage} />
       <SettingsDialog bind:open={settingsOpen} />
     </div>
   </div>
