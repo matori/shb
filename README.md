@@ -89,9 +89,9 @@ npm run format
 ├── env/             APIの接続先の設定
 ├── scripts/         ダミーAPIと、ダミーデータの検証スクリプト
 ├── src/app/
-│   ├── components/  画面の部品（ヘッダー、エントリー一覧、詳細、コメントなど）
+│   ├── components/  画面の部品。画面の場所ごとのディレクトリ（header・main・entries・entry-detail・entry-info・bookmarks・information）と、共通の部品（common）
 │   ├── elements/    ボタン・リンクなどの基本の部品
-│   ├── store/       状態の管理（APIのデータ、UIの状態、設定）
+│   ├── store/       状態の管理（APIのデータ、画面の表示状態、設定）。$state を使う .svelte.js
 │   ├── utils/       共通の処理
 │   ├── constants/   カテゴリー・アイコンなどの定数
 │   └── assets/      全体のスタイル
