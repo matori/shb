@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "stars.schema.json",
+  "title": "StarsResponse",
+  "description": "GET /shb/v1/stars?url={URL} のレスポンス（200のとき）",
+  "type": "object",
+  "required": ["last_modified", "expires", "data"],
+  "additionalProperties": false,
+  "properties": {
+    "last_modified": {
+      "description": "データを取得した日時（ISO 8601、+09:00）",
+      "type": "string",
+      "format": "date-time"
+    },
+    "expires": {
+      "description": "キャッシュの有効期限（ISO 8601、+09:00）",
+      "type": "string",
+      "format": "date-time"
+    },
+    "data": {
+      "type": "object",
+      "required": ["floor", "entries", "error"],
+      "additionalProperties": false,
+      "properties": {
+        "floor": {
+          "description": "渡したURLが何階層目か（detail と同じ）",
+          "type": "integer",
+          "minimum": 1
+        },
+        "entries": {
+          "description": "detail の entries と同じ並びの、階ごとのスター。detail 側で取得に失敗した階は含まない（1件目で失敗した場合は空）",
+          "type": "array",
+          "maxItems": 10,
+          "items": { "$ref": "#/$defs/StarsEntry" }
+        },
+        "error": {
+          "description": "detail またははてなスターの取得に一部失敗した場合は true（取得できた分だけ返す）",
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "StarsEntry": {
+      "type": "object",
+      "required": ["eid", "entry", "bookmarks"],
+      "additionalProperties": false,
+      "properties": {
+        "eid": {
+          "description": "その階のエントリーID（detail の content.eid）。ブックマークされていない場合は null",
+          "type": ["string", "null"]
+        },
+        "entry": {
+          "type": "object",
+          "required": ["uri", "stars"],
+          "additionalProperties": false,
+          "properties": {
+            "uri": {
+              "description": "スターを問い合わせたURI。detail の content.url（ブックマークされていない場合は渡したURL）",
+              "type": "string"
+            },
+            "stars": {
+              "description": "エントリー本体（記事のURL）へのスター。スターがなければ null",
+              "anyOf": [
+                { "$ref": "#/$defs/StarCount" },
+                { "type": "null" }
+              ]
+            }
+          }
+        },
+        "bookmarks": {
+          "description": "ユーザー名をキーにした、そのユーザーのブックマークへのスター。スターのついたブックマークだけを入れる（なければ空のオブジェクト）。コメントのないブックマークも対象",
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/StarCount" }
+        }
+      }
+    },
+    "StarCount": {
+      "type": "object",
+      "required": ["total", "colors"],
+      "additionalProperties": false,
+      "properties": {
+        "total": {
+          "description": "すべての色の合計",
+          "type": "integer",
+          "minimum": 1
+        },
+        "colors": {
+          "description": "色ごとの数。0の色は含まない。yellow は通常のスター",
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": false,
+          "properties": {
+            "yellow": { "type": "integer", "minimum": 1 },
+            "green": { "type": "integer", "minimum": 1 },
+            "red": { "type": "integer", "minimum": 1 },
+            "blue": { "type": "integer", "minimum": 1 },
+            "purple": { "type": "integer", "minimum": 1 }
+          }
+        }
+      }
+    }
+  }
+}
