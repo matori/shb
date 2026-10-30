@@ -47,7 +47,7 @@
   onclose={() => (open = false)}
 >
   <Button class="Dialog-close" title="ESCキーや背景のクリックでも閉じられます" onclick={() => dialog.close()}>
-    <Icon name="close" class="Dialog-icon" aria-hidden="true" />
+    <Icon name="close" class="Dialog-icon" />
     閉じる
   </Button>
   <div class="Dialog-inner">

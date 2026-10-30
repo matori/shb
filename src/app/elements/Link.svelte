@@ -9,9 +9,6 @@
 <style>
   :global {
     .Link {
-      &:focus:not(:focus-visible) {
-        outline: none;
-      }
     }
   }
 </style>

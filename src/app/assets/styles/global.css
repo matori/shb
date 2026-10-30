@@ -101,3 +101,16 @@
     linear-gradient(to left, var(--color-scroll-shadow), transparent) right center / 16px 100% no-repeat scroll;
   background-color: var(--color-surface);
 }
+
+/* 見た目には出さず、読み上げには残す */
+.VisuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  clip-path: inset(50%);
+  overflow: hidden;
+  white-space: nowrap;
+}

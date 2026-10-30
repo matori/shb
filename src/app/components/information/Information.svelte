@@ -1,16 +1,20 @@
 <script>
-  import { detailFetchProcessing } from "~/store/detail"
+  import { entryDetail } from "~/store/entryDetail.svelte.js"
   import Link from "~/elements/Link.svelte"
-  import Icon from "~/elements/Icon.svelte"
+  import LoadingIcon from "~/components/common/LoadingIcon.svelte"
 
+  // 右のパネル。エントリーを開いていないときに、このページの説明を表示する
   let { class: className = "", ...rest } = $props()
+
+  const headingId = $props.id()
 </script>
 
-<section {...rest} class={[className, "Information"]}>
+<section {...rest} class={[className, "Information"]} aria-labelledby={headingId}>
   <header class="Information-header">
-    <h2 class="Information-heading">
+    <!-- エントリー情報のパネルを閉じたときに、フォーカスを移せるようにしておく -->
+    <h2 id={headingId} class="Information-heading" tabindex="-1">
       インフォメーション
-      <Icon name="refresh" class="Information-icon {$detailFetchProcessing ? '_show' : ''}" />
+      <LoadingIcon loading={entryDetail.isLoading} />
     </h2>
   </header>
   <div class="Information-body">
@@ -69,21 +73,9 @@
       align-items: center;
       margin: 0;
       font-weight: var(--fw-bold);
-    }
 
-    .Information-icon {
-      width: calc(var(--fs-s) * var(--lh-s));
-      height: calc(var(--fs-s) * var(--lh-s));
-      margin-left: 0.4em;
-      color: var(--color-text-muted);
-      opacity: 0;
-      animation-duration: 1s;
-      animation-timing-function: linear;
-      animation-iteration-count: infinite;
-
-      &._show {
-        opacity: 1;
-        animation-name: syncing;
+      &:focus {
+        outline: none;
       }
     }
 
