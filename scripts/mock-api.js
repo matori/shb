@@ -1,6 +1,7 @@
 import apiIndex from "./api/index.js"
 import entries from "./api/entries.js"
 import detail from "./api/detail.js"
+import stars from "./api/stars.js"
 
 // `vite --mode dummy` のときだけ、/api 以下でダミーAPIを返す
 function mockApi() {
@@ -24,6 +25,9 @@ function mockApi() {
             return
           case "/detail":
             await sendJson(res, detail(url.searchParams))
+            return
+          case "/stars":
+            await sendJson(res, stars(url.searchParams))
             return
           default:
             // 本番APIでも、存在しないパスはJSONではなくHTMLが返る

@@ -4,6 +4,7 @@ import Ajv from "ajv/dist/2020.js"
 import addFormats from "ajv-formats"
 import entries from "./api/entries.js"
 import detail from "./api/detail.js"
+import stars from "./api/stars.js"
 
 const GENERATED_COUNT = 300
 
@@ -17,6 +18,7 @@ function compile(name) {
 const validators = {
   entries: compile("entries.schema.json"),
   detail: compile("detail.schema.json"),
+  stars: compile("stars.schema.json"),
   error: compile("error.schema.json"),
 }
 
@@ -45,12 +47,15 @@ const detailsDir = new URL("./api/data/details/", import.meta.url)
 for (const file of readdirSync(detailsDir).filter((file) => file.endsWith(".json"))) {
   const name = file.replace(/\.json$/, "")
   checkResponse(`detail?url=${name}`, "detail", detail(new URLSearchParams({ url: name })))
+  checkResponse(`stars?url=${name}`, "stars", stars(new URLSearchParams({ url: name })))
 }
 for (const query of ["", "url=", "url=ftp://example.com/", "url=servererror"]) {
   checkResponse(`detail?${query}`, "detail", detail(new URLSearchParams(query)))
+  checkResponse(`stars?${query}`, "stars", stars(new URLSearchParams(query)))
 }
 for (let i = 0; i < GENERATED_COUNT; i++) {
   checkResponse(`detail（自動生成 ${i + 1}）`, "detail", detail(new URLSearchParams({ url: "https://example.com/" })))
+  checkResponse(`stars（自動生成 ${i + 1}）`, "stars", stars(new URLSearchParams({ url: "https://example.com/" })))
 }
 
 if (failed) {

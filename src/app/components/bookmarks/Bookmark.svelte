@@ -1,8 +1,10 @@
 <script>
+  import { entryDetail } from "~/store/entryDetail.svelte.js"
   import Icon from "~/elements/Icon.svelte"
   import Link from "~/elements/Link.svelte"
   import List from "~/elements/List.svelte"
   import Time from "~/elements/Time.svelte"
+  import StarCount from "~/components/common/StarCount.svelte"
   import UserAvatar from "~/components/bookmarks/UserAvatar.svelte"
 
   // 1件のブックマーク（プロフィール画像・ユーザー名・コメント・タグ・パーマリンク・日時）
@@ -44,6 +46,7 @@
       </div>
     {/if}
   </div>
+  <StarCount stars={entryDetail.bookmarkStars(eid, bookmark.user)} class="Bookmark-stars" />
   {#if bookmark.comment}
     <Link url={commentUrl} title="コメントのパーマリンク" class="Bookmark-permalink">
       <Icon name="link" class="Bookmark-permalinkIcon" />
@@ -138,6 +141,12 @@
         color: var(--color-text-sub);
         text-decoration: underline;
       }
+    }
+
+    .Bookmark-stars {
+      grid-column: 2 / 3;
+      grid-row: 2 / 3;
+      justify-self: start;
     }
 
     .Bookmark-permalink {

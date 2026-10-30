@@ -1,5 +1,6 @@
 <script>
   import { viewState } from "~/store/viewState.svelte.js"
+  import { entryDetail } from "~/store/entryDetail.svelte.js"
   import userCountUnit from "~/utils/userCountUnit"
   import Button from "~/elements/Button.svelte"
   import Icon from "~/elements/Icon.svelte"
@@ -7,6 +8,7 @@
   import List from "~/elements/List.svelte"
   import Time from "~/elements/Time.svelte"
   import SiteLink from "~/components/common/SiteLink.svelte"
+  import StarCount from "~/components/common/StarCount.svelte"
   import EntryInfoImage from "~/components/entry-info/EntryInfoImage.svelte"
 
   // エントリーのタイトル・ブックマーク数・カテゴリー・概要・画像・タグなど
@@ -39,10 +41,14 @@
           {content.title}
         </Link>
       </h3>
-      <Link url={content.entry_url} class="EntryInfo-bookmarkCount">
-        <span>{content.count}</span>
-        <span class="EntryInfo-bookmarkCountUnit">{userCountUnit(content.count)}</span>
-      </Link>
+      <div class="EntryInfo-counts">
+        <Link url={content.entry_url} class="EntryInfo-bookmarkCount">
+          <span>{content.count}</span>
+          <span class="EntryInfo-bookmarkCountUnit">{userCountUnit(content.count)}</span>
+        </Link>
+        <!-- エントリー本体（記事のURL）へのスター -->
+        <StarCount stars={entryDetail.entryStars(content.eid)} />
+      </div>
       {#if entry.realCategory.label}
         <!-- カテゴリーが判別できなかった場合、slug は false になる -->
         {#if entry.realCategory.slug}
@@ -160,8 +166,14 @@
       }
     }
 
-    .EntryInfo-bookmarkCount {
+    .EntryInfo-counts {
       grid-column: 1 / 2;
+      display: flex;
+      align-items: center;
+      gap: calc(var(--line) * 0.4);
+    }
+
+    .EntryInfo-bookmarkCount {
       font-size: var(--fs-s);
       line-height: var(--lh-s);
       display: inline-flex;

@@ -21,6 +21,15 @@
   --color-count-bg: light-dark(#fdecea, #3a1f1f);
   --color-category: light-dark(#9c4300, #ffb36b);
   --color-category-bg: light-dark(#fff0e3, #3a2914);
+  /*
+   * はてなスターの色。yellow が通常のスター
+   * はてなスター公式の星の画像（s.hatena.ne.jp/images/star*.gif）の色で、ライトは地の色、ダークは明るいほうの色
+   */
+  --color-star-yellow: light-dark(#f8b636, #fecd69);
+  --color-star-green: light-dark(#3dce24, #4de733);
+  --color-star-red: light-dark(#f32d46, #fe5e65);
+  --color-star-blue: light-dark(#159fd8, #00b0f9);
+  --color-star-purple: light-dark(#a411b9, #cd34e3);
   --color-error: light-dark(#c42b26, #ff8a80);
   --color-avatar-bg: light-dark(#d6dce6, #3a414c);
   --color-backdrop: light-dark(rgba(10, 14, 22, 0.75), rgba(0, 0, 0, 0.75));
