@@ -108,7 +108,7 @@
       font-size: var(--fs-s);
       line-height: var(--lh-s);
       border-radius: var(--radius-control);
-      padding: 0.15em 0 0.2em;
+      padding: 0.35em 0 0.4em;
       width: 100%;
       background-color: var(--color-count-bg);
       color: var(--color-count);
@@ -122,9 +122,14 @@
       }
     }
 
+    /* 数字と単位をひとまとまりに見せるよう、行の高さを詰める。そのぶんボタンの上下の余白を広げ、押せる大きさは保つ */
+    .EntryListItem-countNumber {
+      line-height: 1.15;
+    }
+
     .EntryListItem-countUnit {
       font-size: var(--fs-xs);
-      line-height: var(--lh-xs);
+      line-height: 1.15;
       font-weight: var(--fw-normal);
     }
 
