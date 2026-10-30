@@ -32,7 +32,7 @@ describe("categoryShortcutKey", () => {
 })
 
 describe("resolveShortcut", () => {
-  test("H・N で人気・新着を選ぶ。大文字（Shift）でもよい", () => {
+  test("h・n で人気・新着を選ぶ。Shift や Caps Lock で大文字になってもよい", () => {
     expect(resolve(keydown("h"))).toEqual({ type: "entryType", index: 0 })
     expect(resolve(keydown("N", { shiftKey: true }))).toEqual({ type: "entryType", index: 1 })
   })

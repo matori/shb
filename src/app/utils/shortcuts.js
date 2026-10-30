@@ -11,8 +11,8 @@ import { isPageKeyboardBlocked } from "~/utils/keyboard"
 // - zeroToNine: テンキーの並び（0 が総合、9 がアニメとゲーム）
 const CATEGORY_NUMBER_KEYS = ["oneToZero", "zeroToNine"]
 
-// 人気・新着のキー。表示と aria-keyshortcuts には大文字を使う
-const ENTRY_TYPE_SHORTCUT_KEYS = { hotentry: "H", entrylist: "N" }
+// 人気・新着のキー。表示と aria-keyshortcuts も小文字にする
+const ENTRY_TYPE_SHORTCUT_KEYS = { hotentry: "h", entrylist: "n" }
 
 // 人気・新着を切り替えるキー（テンキーの - でも同じ文字になる）
 const TOGGLE_ENTRY_TYPE_KEY = "-"
@@ -37,7 +37,8 @@ function isTypingTarget(target) {
 // - { type: "category", index }: カテゴリーを選ぶ
 // - { type: "entryType", index }: 人気・新着を選ぶ
 // - { type: "toggleEntryType" }: 人気と新着を切り替える
-// Shift は大文字の H・N のために認め、Ctrl・Alt・Cmd はブラウザーのショートカットと重ならないよう認めない
+// Ctrl・Alt・Cmd はブラウザーのショートカットと重ならないよう認めない
+// Shift や Caps Lock で大文字になっても、h・n として受けつける
 function resolveShortcut(event, options, doc = document) {
   const { enabled, categoryNumberKeys, minusTogglesEntryType } = options
   if (!enabled || event.ctrlKey || event.altKey || event.metaKey) {
@@ -47,7 +48,7 @@ function resolveShortcut(event, options, doc = document) {
     return null
   }
 
-  const key = event.key.toUpperCase()
+  const key = event.key.toLowerCase()
   const typeIndex = ENTRY_TYPES.findIndex((type) => entryTypeShortcutKey(type.key) === key)
   if (typeIndex > -1) {
     return { type: "entryType", index: typeIndex }

@@ -225,7 +225,7 @@
               タブにショートカットキーを表示する
             </label>
             <p id="{id}-show-keys-hint" class="SettingsDialog-hint _afterControl">
-              「人気 [H]」のように、タブやボタンの横にキーを表示します。
+              「人気 [h]」のように、タブやボタンの横にキーを表示します。
             </p>
           </div>
         </fieldset>
