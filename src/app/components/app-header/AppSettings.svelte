@@ -1,17 +1,13 @@
 <script>
-  import KEY_NAMES from "~/constants/keyNames"
   import { entriesData } from "~/store/entries"
   import { theme, autoRefresh, autoRefreshInterval, links } from "~/store/config"
   import Button from "~/elements/Button.svelte"
   import Icon from "~/elements/Icon.svelte"
-  import Modal from "~/components/common/Modal.svelte"
+  import Dialog from "~/components/common/Dialog.svelte"
 
   let { class: className = "", ...rest } = $props()
 
-  let modalShow = $state(false)
-  let modalTrigger = $state()
-  let closeButton = $state()
-  let lastFocusable = $state()
+  let settingsOpen = $state(false)
   let autoRefreshIntervalInput = $state()
   let linksText = $state("")
   let themeValue = $state("auto")
@@ -65,35 +61,6 @@
     autoRefreshInterval.set(autoRefreshIntervalInput.value)
     links.set(linksText)
   }
-
-  function showModal(event) {
-    event.preventDefault()
-    modalShow = true
-    requestAnimationFrame(() => {
-      closeButton.focus()
-    })
-  }
-
-  function closeModal() {
-    modalShow = false
-    modalTrigger.focus()
-  }
-
-  function onKeydownCloseButton(event) {
-    if (event.key === KEY_NAMES.tab && event.shiftKey) {
-      event.preventDefault()
-      event.stopPropagation()
-      lastFocusable.focus()
-    }
-  }
-
-  function onKeydownLastFocusable(event) {
-    if (event.key === KEY_NAMES.tab && !event.shiftKey) {
-      event.preventDefault()
-      event.stopPropagation()
-      closeButton.focus()
-    }
-  }
 </script>
 
 <div {...rest} class={[className, "AppSettings"]}>
@@ -108,11 +75,11 @@
     <Icon name="checkbox-outline" class="AppSettings-icon {$autoRefresh ? '_hide' : ''}" />
     自動更新
   </Button>
-  <Button class="AppSettings-button _primary" bind:ref={modalTrigger} onclick={showModal}>
+  <Button class="AppSettings-button _primary" aria-haspopup="dialog" onclick={() => (settingsOpen = true)}>
     <Icon name="settings" class="AppSettings-icon" />
     設定
   </Button>
-  <Modal show={modalShow} bind:closeButton onclose={closeModal} onclosebuttonkeydown={onKeydownCloseButton}>
+  <Dialog label="設定" bind:open={settingsOpen}>
     <form class="AppSettings-form" onsubmit={onSubmit}>
       <div class="AppSettings-body">
         <fieldset class="AppSettings-item AppSettings-fieldset">
@@ -151,12 +118,10 @@
         </p>
       </div>
       <div class="AppSettings-footer">
-        <Button type="submit" class="AppSettings-submit" bind:ref={lastFocusable} onkeydown={onKeydownLastFocusable}>
-          設定を保存
-        </Button>
+        <Button type="submit" class="AppSettings-submit">設定を保存</Button>
       </div>
     </form>
-  </Modal>
+  </Dialog>
 </div>
 
 <style>
