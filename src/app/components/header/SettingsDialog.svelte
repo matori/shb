@@ -1,5 +1,8 @@
 <script>
   import { untrack } from "svelte"
+  import ENTRY_CATEGORIES from "~/constants/entryCategories"
+  import ENTRY_TYPES from "~/constants/entryTypes"
+  import { TOGGLE_ENTRY_TYPE_KEY, categoryShortcutKey, entryTypeShortcutKey } from "~/utils/shortcuts"
   import {
     settings,
     FONT_SIZES,
@@ -20,6 +23,21 @@
     { value: "dark", label: "ダーク" },
   ]
 
+  const categoryNumberKeyOptions = [
+    { value: "oneToZero", label: "1〜0（キーボードの数字の並び）" },
+    { value: "zeroToNine", label: "0〜9（テンキーの並び）" },
+  ]
+
+  // ショートカットの一覧。数字キーは、選んでいる割り当てに合わせる
+  const shortcutList = $derived([
+    ...ENTRY_TYPES.map((type) => ({ keys: [entryTypeShortcutKey(type.key)], action: `${type.label}エントリーにする` })),
+    ...ENTRY_CATEGORIES.map((category, index) => ({
+      keys: [categoryShortcutKey(index, categoryNumberKeys)],
+      action: `カテゴリー「${category.label}」にする`,
+    })),
+    { keys: [TOGGLE_ENTRY_TYPE_KEY], action: "人気と新着を切り替える（下で有効にしたとき）" },
+  ])
+
   const fontSizeOptions = [
     { value: "auto", label: "ブラウザーの設定に合わせる" },
     ...FONT_SIZES.map((size) => ({ value: String(size), label: `${size}px` })),
@@ -31,6 +49,10 @@
   let contentMaxWidth = $state(0)
   let autoRefreshIntervalMinutes = $state(MIN_AUTO_REFRESH_INTERVAL_MINUTES)
   let headerLinksText = $state("")
+  let keyboardShortcutsEnabled = $state(false)
+  let categoryNumberKeys = $state("oneToZero")
+  let minusTogglesEntryType = $state(false)
+  let showShortcutKeysOnTabs = $state(false)
   let statusMessage = $state("")
 
   // 開くたびに保存されている値をフォームに入れ直し、保存せずに閉じた変更は捨てる
@@ -44,6 +66,10 @@
       contentMaxWidth = settings.contentMaxWidth
       autoRefreshIntervalMinutes = settings.autoRefreshIntervalMinutes
       headerLinksText = headerLinksToText(settings.headerLinks)
+      keyboardShortcutsEnabled = settings.keyboardShortcutsEnabled
+      categoryNumberKeys = settings.categoryNumberKeys
+      minusTogglesEntryType = settings.minusTogglesEntryType
+      showShortcutKeysOnTabs = settings.showShortcutKeysOnTabs
       statusMessage = ""
     })
   })
@@ -57,6 +83,10 @@
     contentMaxWidth = settings.contentMaxWidth
     settings.autoRefreshIntervalMinutes = autoRefreshIntervalMinutes
     settings.headerLinks = headerLinksText
+    settings.keyboardShortcutsEnabled = keyboardShortcutsEnabled
+    settings.categoryNumberKeys = categoryNumberKeys
+    settings.minusTogglesEntryType = minusTogglesEntryType
+    settings.showShortcutKeysOnTabs = showShortcutKeysOnTabs
     statusMessage = "設定を保存しました"
   }
 </script>
@@ -142,6 +172,63 @@
             class="SettingsDialog-textarea"
             bind:value={headerLinksText}></textarea>
         </div>
+      </fieldset>
+      <fieldset class="SettingsDialog-group">
+        <legend class="SettingsDialog-groupTitle">キーボードショートカット</legend>
+        <div class="SettingsDialog-item">
+          <label class="SettingsDialog-option">
+            <input type="checkbox" aria-describedby="{id}-shortcuts-hint" bind:checked={keyboardShortcutsEnabled} />
+            キーボードショートカットを使う
+          </label>
+          <p id="{id}-shortcuts-hint" class="SettingsDialog-hint _afterControl">
+            1文字のキーで、エントリーの一覧の人気・新着とカテゴリーを切り替えます。入力欄で文字を入力しているときは働きません。
+          </p>
+          <details class="SettingsDialog-details">
+            <summary>ショートカットの一覧</summary>
+            <dl class="SettingsDialog-shortcuts">
+              {#each shortcutList as { keys, action } (action)}
+                <dt>
+                  {#each keys as key (key)}<kbd>{key}</kbd>{/each}
+                </dt>
+                <dd>{action}</dd>
+              {/each}
+            </dl>
+            <p class="SettingsDialog-hint">
+              ショートカットを使うかどうかに関係なく、Escape キーでエントリー情報のパネルやダイアログを閉じられます。
+            </p>
+          </details>
+        </div>
+        <!-- ショートカットを使わないときは、細かい設定も選べないようにする -->
+        <fieldset class="SettingsDialog-subOptions" disabled={!keyboardShortcutsEnabled}>
+          <legend class="VisuallyHidden">キーボードショートカットの細かい設定</legend>
+          <fieldset class="SettingsDialog-item SettingsDialog-fieldset">
+            <legend class="SettingsDialog-label">数字キーの割り当て</legend>
+            <div class="SettingsDialog-options">
+              {#each categoryNumberKeyOptions as option (option.value)}
+                <label class="SettingsDialog-option">
+                  <input type="radio" name="categoryNumberKeys" value={option.value} bind:group={categoryNumberKeys} />
+                  {option.label}
+                </label>
+              {/each}
+            </div>
+          </fieldset>
+          <div class="SettingsDialog-item">
+            <label class="SettingsDialog-option">
+              <input type="checkbox" aria-describedby="{id}-minus-hint" bind:checked={minusTogglesEntryType} />
+              <kbd>{TOGGLE_ENTRY_TYPE_KEY}</kbd> キーで人気と新着を切り替える
+            </label>
+            <p id="{id}-minus-hint" class="SettingsDialog-hint _afterControl">テンキーの - キーでも使えます。</p>
+          </div>
+          <div class="SettingsDialog-item">
+            <label class="SettingsDialog-option">
+              <input type="checkbox" aria-describedby="{id}-show-keys-hint" bind:checked={showShortcutKeysOnTabs} />
+              タブにショートカットキーを表示する
+            </label>
+            <p id="{id}-show-keys-hint" class="SettingsDialog-hint _afterControl">
+              「人気 [H]」のように、タブやボタンの横にキーを表示します。
+            </p>
+          </div>
+        </fieldset>
       </fieldset>
     </div>
     <div class="SettingsDialog-footer">
@@ -236,6 +323,51 @@
       gap: calc(var(--line) * 0.25) var(--line);
     }
 
+    /* ショートカットの細かい設定のまとまり。見た目の枠はつけない */
+    .SettingsDialog-subOptions {
+      margin: var(--line) 0 0;
+      border: 0;
+      padding: 0;
+      min-width: 0;
+
+      &:disabled {
+        color: var(--color-text-muted);
+      }
+    }
+
+    .SettingsDialog-details {
+      font-size: var(--fs-s);
+      line-height: var(--lh-s);
+      margin-top: calc(var(--line) * 0.5);
+
+      summary {
+        cursor: pointer;
+        color: var(--color-accent);
+      }
+    }
+
+    .SettingsDialog-shortcuts {
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      gap: calc(var(--line) * 0.25) var(--line);
+      margin: calc(var(--line) * 0.5) 0;
+
+      dd {
+        margin: 0;
+      }
+    }
+
+    .SettingsDialog kbd {
+      display: inline-block;
+      border: 1px solid var(--color-line-strong);
+      border-radius: 4px;
+      padding: 0 0.4em;
+      min-width: 1em;
+      background-color: var(--color-surface-sub);
+      font-family: inherit;
+      text-align: center;
+    }
+
     .SettingsDialog-option {
       display: inline-flex;
       align-items: center;
@@ -255,13 +387,19 @@
       font-weight: var(--fw-bold);
     }
 
-    /* ラベルと入力欄の間に置く説明 */
+    /* ラベルと入力欄の間に置く説明。チェックボックスの説明は、チェックボックスの下に置く（_afterControl） */
     .SettingsDialog-hint {
       font-size: var(--fs-s);
       line-height: var(--lh-s);
       margin-top: calc(var(--line) * -0.25);
       margin-bottom: calc(var(--line) * 0.5);
       color: var(--color-text-muted);
+
+      &._afterControl {
+        margin-top: calc(var(--line) * 0.25);
+        margin-bottom: 0;
+        padding-left: 1.6em;
+      }
 
       code {
         border-radius: 4px;
