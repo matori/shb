@@ -2,48 +2,44 @@
   import Icon from "~/elements/Icon.svelte"
   import Link from "~/elements/Link.svelte"
   import List from "~/elements/List.svelte"
-  import BookmarksItemContent from "~/components/bookmarks/BookmarksItemContent.svelte"
-  import BookmarksItemAvatar from "~/components/bookmarks/BookmarksItemAvatar.svelte"
+  import Bookmark from "~/components/bookmarks/Bookmark.svelte"
+  import UserAvatar from "~/components/bookmarks/UserAvatar.svelte"
 
+  // ブックマークのコメントでIDコールしたユーザーのブックマークと、このユーザーをIDコールしたブックマーク
+  // IDコールしたユーザーが下の階にもブックマークしていれば、そのコメントも表示する
   let { bookmark, eid, class: className = "", ...rest } = $props()
 </script>
 
-<dl {...rest} class={[className, "BookmarksItemIdCalls"]}>
+<dl {...rest} class={[className, "IdCallRelations"]}>
   {#if bookmark.idCallsTo}
-    <dt class="BookmarksItemIdCalls-title">
-      <Icon name="reply-to" class="BookmarksItemIdCalls-icon" />
+    <dt class="IdCallRelations-title">
+      <Icon name="reply-to" class="IdCallRelations-icon" />
       IDコールした
     </dt>
-    <dd class="BookmarksItemIdCalls-body">
-      <List class="BookmarksItemIdCalls-list">
+    <dd class="IdCallRelations-body">
+      <List class="IdCallRelations-list">
         {#each bookmark.idCallsTo as idCall (idCall.user)}
-          <li class="BookmarksItemIdCalls-item">
-            {#if !idCall.bookmark}
-              <p class="BookmarksItemIdCalls-message">
-                <BookmarksItemAvatar
-                  user={idCall.user}
-                  url="https://b.hatena.ne.jp/{idCall.user}/"
-                  class="BookmarksItemIdCalls-avatar"
-                />
-                <span class="BookmarksItemIdCalls-text">
-                  <Link url="https://b.hatena.ne.jp/{idCall.user}/" class="BookmarksItemIdCalls-link">
-                    id:{idCall.user}
-                  </Link>
+          <li class="IdCallRelations-item">
+            {#if idCall.bookmark}
+              <Bookmark bookmark={idCall.bookmark} {eid} />
+            {:else}
+              <p class="IdCallRelations-notBookmarked">
+                <UserAvatar user={idCall.user} />
+                <span>
+                  <Link url="https://b.hatena.ne.jp/{idCall.user}/" class="IdCallRelations-user">id:{idCall.user}</Link>
                   はまだブックマークしていません
                 </span>
               </p>
-            {:else}
-              <BookmarksItemContent bookmark={idCall.bookmark} {eid} />
             {/if}
             {#if idCall.lowerFloorBookmark}
-              <div class="BookmarksItemIdCalls_below">
-                <dl class="BookmarksItemIdCalls">
-                  <dt class="BookmarksItemIdCalls-title">下の階でのコメント</dt>
-                  <dd class="BookmarksItemIdCalls-body">
-                    <BookmarksItemContent
+              <div class="IdCallRelations-lowerFloor">
+                <dl class="IdCallRelations">
+                  <dt class="IdCallRelations-title">下の階でのコメント</dt>
+                  <dd class="IdCallRelations-body">
+                    <Bookmark
                       bookmark={idCall.lowerFloorBookmark}
                       eid={idCall.lowerFloorEid}
-                      class="BookmarksItemIdCalls-item"
+                      class="IdCallRelations-item"
                     />
                   </dd>
                 </dl>
@@ -55,13 +51,13 @@
     </dd>
   {/if}
   {#if bookmark.idCalledBy}
-    <dt class="BookmarksItemIdCalls-title">
-      <Icon name="reply" class="BookmarksItemIdCalls-icon" />
+    <dt class="IdCallRelations-title">
+      <Icon name="reply" class="IdCallRelations-icon" />
       IDコールされた
     </dt>
-    <dd class="BookmarksItemIdCalls-body">
+    <dd class="IdCallRelations-body">
       {#each bookmark.idCalledBy as caller (caller.user)}
-        <BookmarksItemContent bookmark={caller} {eid} class="BookmarksItemIdCalls-item" />
+        <Bookmark bookmark={caller} {eid} class="IdCallRelations-item" />
       {/each}
     </dd>
   {/if}
@@ -69,14 +65,14 @@
 
 <style>
   :global {
-    .BookmarksItemIdCalls {
+    .IdCallRelations {
       margin: 0;
       border-radius: var(--radius-control);
       overflow: hidden;
       background-color: var(--color-surface-hover);
     }
 
-    .BookmarksItemIdCalls-title {
+    .IdCallRelations-title {
       font-size: var(--fs-xs);
       line-height: var(--lh-xs);
       display: flex;
@@ -87,26 +83,20 @@
       font-weight: var(--fw-bold);
     }
 
-    .BookmarksItemIdCalls-icon {
+    .IdCallRelations-icon {
       width: 1.2em;
       height: 1.2em;
     }
 
-    .BookmarksItemIdCalls-body {
+    .IdCallRelations-body {
       margin-left: 0;
     }
 
-    .BookmarksItemIdCalls-list {
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .BookmarksItemIdCalls-item {
+    .IdCallRelations-item {
       border-top: 1px solid var(--color-line);
     }
 
-    .BookmarksItemIdCalls-message {
+    .IdCallRelations-notBookmarked {
       font-size: var(--fs-s);
       line-height: var(--lh-s);
       display: flex;
@@ -117,7 +107,7 @@
       color: var(--color-text-muted);
     }
 
-    .BookmarksItemIdCalls-link {
+    .IdCallRelations-user {
       color: var(--color-text-sub);
       font-weight: var(--fw-bold);
       text-decoration: none;
@@ -127,7 +117,7 @@
       }
     }
 
-    .BookmarksItemIdCalls_below {
+    .IdCallRelations-lowerFloor {
       padding: 0 calc(var(--line) * 0.5) calc(var(--line) * 0.5) calc(var(--line) * 0.75 + 32px);
     }
   }

@@ -6,7 +6,7 @@
   import FetchError from "~/components/common/FetchError.svelte"
   import LoadingIcon from "~/components/common/LoadingIcon.svelte"
   import EntryInfo from "~/components/entry-info/EntryInfo.svelte"
-  import BookmarksContainer from "~/components/bookmarks/BookmarksContainer.svelte"
+  import BookmarksPanel from "~/components/bookmarks/BookmarksPanel.svelte"
 
   // 右のパネル。一覧で選んだエントリーの情報とコメント一覧
   let { class: className = "", ...rest } = $props()
@@ -64,11 +64,7 @@
       <article class="EntryDetailPanel-content">
         <EntryInfo content={floor.content} entry={entryDetail.entry} class="EntryDetailPanel-info" />
         <div class="EntryDetailPanel-bookmarks">
-          <BookmarksContainer
-            data={floors}
-            partial={entryDetail.response.data.error}
-            class="EntryDetailPanel-bookmarksContainer"
-          />
+          <BookmarksPanel {floors} partial={entryDetail.response.data.error} class="EntryDetailPanel-bookmarksPanel" />
         </div>
       </article>
     {:else}
@@ -159,7 +155,7 @@
       min-height: 0;
     }
 
-    .EntryDetailPanel-bookmarksContainer {
+    .EntryDetailPanel-bookmarksPanel {
       max-height: 100%;
     }
   }
