@@ -21,6 +21,12 @@
   --color-count-bg: light-dark(#fdecea, #3a1f1f);
   --color-category: light-dark(#9c4300, #ffb36b);
   --color-category-bg: light-dark(#fff0e3, #3a2914);
+  /* はてなスターの色。yellow が通常のスター */
+  --color-star-yellow: light-dark(#c78c00, #f5c542);
+  --color-star-green: light-dark(#23934a, #5ccf7a);
+  --color-star-red: light-dark(#d33a3a, #ff7b7b);
+  --color-star-blue: light-dark(#2b74d0, #6fb0ff);
+  --color-star-purple: light-dark(#8f48cf, #c493ff);
   --color-error: light-dark(#c42b26, #ff8a80);
   --color-avatar-bg: light-dark(#d6dce6, #3a414c);
   --color-backdrop: light-dark(rgba(10, 14, 22, 0.75), rgba(0, 0, 0, 0.75));
