@@ -107,6 +107,8 @@
       border-radius: 0 0 var(--radius-panel) var(--radius-panel);
       padding: calc(var(--line) * 0.25) calc(var(--line) * 0.75) calc(var(--line) * 0.75);
       max-height: 100%;
+      /* 読み上げ用に隠した文字（position: absolute）を、ページではなくこのスクロールの中に置く。ないとページに縦スクロールバーが出る */
+      position: relative;
       overflow-y: auto;
       color: var(--color-text-sub);
     }
