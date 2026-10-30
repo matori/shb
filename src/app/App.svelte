@@ -1,5 +1,5 @@
 <script>
-  import { settings } from "~/store/settings.svelte.js"
+  import { settings, applyDisplaySettings } from "~/store/settings.svelte.js"
   import { entryFeeds } from "~/store/entryFeeds.svelte.js"
   import AppHeader from "~/components/header/AppHeader.svelte"
   import AppMain from "~/components/main/AppMain.svelte"
@@ -11,6 +11,14 @@
     } else {
       document.documentElement.dataset.theme = settings.theme
     }
+  })
+
+  // 文字の大きさとコンテンツの最大幅
+  $effect(() => {
+    applyDisplaySettings(document.documentElement, {
+      fontSize: settings.fontSize,
+      contentMaxWidth: settings.contentMaxWidth,
+    })
   })
 
   // 自動更新が有効なら、設定した間隔でエントリーの一覧を読み込み直す
