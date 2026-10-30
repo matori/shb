@@ -1,81 +1,48 @@
 <script>
-  import KEY_NAMES from "~/constants/keyNames"
+  import Button from "~/elements/Button"
   import Link from "~/elements/Link"
   import Icon from "~/elements/Icon"
-  import Modal from "~/components/common/Modal.svelte"
+  import Dialog from "~/components/common/Dialog.svelte"
 
   let { image, class: className = "", ...rest } = $props()
 
   let imageLoadError = $state(false)
-  let modalShow = $state(false)
-  let modalTrigger = $state()
-  let closeButton = $state()
-  let lastFocusable = $state()
-
-  function showModal(event) {
-    event.preventDefault()
-    modalShow = true
-    requestAnimationFrame(() => {
-      closeButton.focus()
-    })
-  }
-
-  function closeModal() {
-    modalShow = false
-    modalTrigger.focus()
-  }
-
-  function onKeydownCloseButton(event) {
-    if (event.key === KEY_NAMES.tab && event.shiftKey) {
-      event.preventDefault()
-      event.stopPropagation()
-      lastFocusable.focus()
-    }
-  }
-
-  function onKeydownLastFocusable(event) {
-    if (event.key === KEY_NAMES.tab && !event.shiftKey) {
-      event.preventDefault()
-      event.stopPropagation()
-      closeButton.focus()
-    }
-  }
+  let dialogOpen = $state(false)
 </script>
 
 <div {...rest} class={[className, "DetailInfoImage"]}>
-  <Link
-    url={image}
-    class={["DetailInfoImage-link", { _loadError: imageLoadError }]}
-    title="画像を拡大表示"
-    bind:ref={modalTrigger}
-    onclick={showModal}
+  <Button
+    class={["DetailInfoImage-button", { _loadError: imageLoadError }]}
+    aria-haspopup="dialog"
+    onclick={() => (dialogOpen = true)}
   >
     {#if !imageLoadError}
-      <img src={image} alt="" class="DetailInfoImage-image" onerror={() => (imageLoadError = true)} />
+      <img
+        src={image}
+        alt="エントリーの画像を拡大表示"
+        class="DetailInfoImage-image"
+        onerror={() => (imageLoadError = true)}
+      />
     {:else}
-      <div class="DetailInfoImage-error">
+      <span class="DetailInfoImage-error">
         <span class="DetailInfoImage-message">画像の読み込みに失敗しました</span>
         <Icon name="broken-image" class="DetailInfoImage-placeholder" aria-hidden="true" />
-      </div>
+      </span>
     {/if}
-  </Link>
+  </Button>
 </div>
-<Modal show={modalShow} bind:closeButton onclose={closeModal} onclosebuttonkeydown={onKeydownCloseButton}>
-  <Link
-    url={image}
-    class="DetailInfoImage-modalLink"
-    title="画像を直接開く"
-    bind:ref={lastFocusable}
-    onkeydown={onKeydownLastFocusable}
-  >
-    <img src={image} alt="" class="DetailInfoImage-modalImage" />
+<Dialog label="エントリーの画像" bind:open={dialogOpen}>
+  <Link url={image} class="DetailInfoImage-dialogLink">
+    <img src={image} alt="画像を新しいタブで開く" class="DetailInfoImage-dialogImage" />
   </Link>
-</Modal>
+</Dialog>
 
 <style>
   :global {
-    .DetailInfoImage-link {
+    .DetailInfoImage-button {
       display: block;
+      max-width: 100%;
+      text-align: left;
       cursor: zoom-in;
 
       &._loadError {
@@ -91,6 +58,7 @@
     }
 
     .DetailInfoImage-error {
+      display: block;
       font-size: var(--fs-xs);
       line-height: var(--lh-xs);
       position: relative;
@@ -112,12 +80,12 @@
       opacity: 0.2;
     }
 
-    .DetailInfoImage-modalLink {
+    .DetailInfoImage-dialogLink {
       min-width: 0;
       min-height: 0;
     }
 
-    .DetailInfoImage-modalImage {
+    .DetailInfoImage-dialogImage {
       display: block;
       border-radius: var(--radius-control);
       width: 100%;
