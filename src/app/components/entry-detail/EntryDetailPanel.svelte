@@ -1,6 +1,7 @@
 <script>
   import { tick } from "svelte"
   import { entryDetail } from "~/store/entryDetail.svelte.js"
+  import { hasModifierKey, isPageKeyboardBlocked } from "~/utils/keyboard"
   import Button from "~/elements/Button.svelte"
   import Icon from "~/elements/Icon.svelte"
   import FetchError from "~/components/common/FetchError.svelte"
@@ -20,16 +21,29 @@
   const floor = $derived(floors[floorIndex])
 
   // パネルを閉じると閉じるボタンもなくなるので、開いたときに押した一覧のボタンへフォーカスを戻す
-  // そのボタンが見つからない（別のカテゴリーに切り替えたなど）ときは、インフォメーションの見出しへ移す
+  // そのボタンが見えていない（別のカテゴリーに切り替えた、一覧が更新されたなど）ときは、
+  // 選んでいるカテゴリーのタブへ移し、そこからカテゴリーや一覧を選び直せるようにする
   async function close() {
     const url = entryDetail.entry?.url
     entryDetail.close()
     await tick()
-    const opener = url && document.querySelector(`[data-entry-url="${CSS.escape(url)}"] button`)
-    const target = opener?.checkVisibility() ? opener : document.querySelector(".Information-heading")
+    const openers = url ? document.querySelectorAll(`[data-entry-url="${CSS.escape(url)}"] button`) : []
+    const opener = [...openers].find((button) => button.checkVisibility())
+    const target = opener ?? document.querySelector(".EntriesPanel-tabs [role=tab][aria-selected=true]")
     target?.focus()
   }
+
+  // Escape キーでも閉じる。ダイアログが開いているときは、ダイアログを閉じるのを優先する
+  function onKeydown(event) {
+    if (event.key !== "Escape" || hasModifierKey(event) || isPageKeyboardBlocked(event)) {
+      return
+    }
+    event.preventDefault()
+    close()
+  }
 </script>
+
+<svelte:window onkeydown={onKeydown} />
 
 <section {...rest} class={[className, "EntryDetailPanel"]} aria-labelledby={headingId}>
   <header class="EntryDetailPanel-header">
@@ -37,7 +51,12 @@
       エントリー情報
       <LoadingIcon loading={entryDetail.isLoading} />
     </h2>
-    <Button class="EntryDetailPanel-close" onclick={close}>
+    <Button
+      class="EntryDetailPanel-close"
+      title="Escape キーでも閉じられます"
+      aria-keyshortcuts="Escape"
+      onclick={close}
+    >
       <Icon name="close" class="EntryDetailPanel-closeIcon" />
       情報とコメントのパネルを閉じる
     </Button>

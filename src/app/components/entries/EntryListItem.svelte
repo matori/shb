@@ -9,11 +9,45 @@
   // エントリーの一覧の1件。ブックマーク数のボタンで、右のパネルにエントリー情報とコメントを開く
   // data-entry-url は、パネルを閉じたときにこのボタンへフォーカスを戻すのに使う
   let { entry, class: className = "", ...rest } = $props()
+
+  // ミドルクリックと、Ctrl（Mac は Cmd）を押しながらのクリックでは、リンクと同じように
+  // はてなブックマークのエントリーページを新しいタブで開く
+  function openBookmarkPage() {
+    window.open(entry.bookmarkPageUrl, "_blank", "noopener,noreferrer")
+  }
+
+  function onClick(event) {
+    if (event.ctrlKey || event.metaKey) {
+      openBookmarkPage()
+      return
+    }
+    entryDetail.open(entry)
+  }
+
+  function onAuxClick(event) {
+    if (event.button === 1) {
+      event.preventDefault()
+      openBookmarkPage()
+    }
+  }
+
+  // Windows などで、ミドルボタンを押したときに自動スクロールが始まらないようにする
+  function onMouseDown(event) {
+    if (event.button === 1) {
+      event.preventDefault()
+    }
+  }
 </script>
 
 <li {...rest} class={[className, "EntryListItem"]} data-entry-url={entry.url}>
   <Link url={entry.url} class="EntryListItem-title">{entry.title}</Link>
-  <Button class="EntryListItem-count" onclick={() => entryDetail.open(entry)}>
+  <Button
+    class="EntryListItem-count"
+    title="クリックでエントリー情報とコメントを表示、ミドルクリックや Ctrl（Mac は Cmd）+クリックで、はてなブックマークのページを開く"
+    onclick={onClick}
+    onauxclick={onAuxClick}
+    onmousedown={onMouseDown}
+  >
     {entry.bookmarkCount}
     <!-- 見た目は数字だけにして、単位とボタンの働きは読み上げで伝える -->
     <span class="VisuallyHidden">{userCountUnit(entry.bookmarkCount)}、エントリー情報とコメントを見る</span>
