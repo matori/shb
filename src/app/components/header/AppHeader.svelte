@@ -27,6 +27,7 @@
         <!-- ファビコンと同じアイコン。リンクの名前はアプリ名にするので、読み上げない -->
         <img src={faviconUrl} alt="" width="24" height="24" class="AppHeader-logoIcon" />
         しんぷるはてぶ
+        <span class="AppHeader-version">v2</span>
       </a>
     </h1>
     <HeaderLinks class="AppHeader-links" />
@@ -92,6 +93,16 @@
         color: inherit;
         text-decoration: underline;
       }
+    }
+
+    /* アプリ名の後ろに、少し小さく版を添える */
+    .AppHeader-version {
+      align-self: flex-end;
+      margin-left: -0.15em;
+      color: var(--color-text-muted);
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-normal);
+      line-height: var(--lh-l);
     }
 
     .AppHeader-logoIcon {
