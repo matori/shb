@@ -111,7 +111,7 @@ PR と、`master`・`v2` への push で、GitHub Actions（[`.github/workflows/
 │   ├── store/       状態の管理（APIのデータ、画面の表示状態、設定）。$state を使う .svelte.js
 │   ├── utils/       共通の処理
 │   ├── constants/   カテゴリー・アイコンなどの定数
-│   └── assets/      全体のスタイル
+│   └── assets/      全体のスタイルと、ファビコンなどのアイコン
 ├── static/icons/    アイコンの元のSVG（コードでは src/app/constants/iconPaths.js にパスを持っている）
 └── index.html
 ```
