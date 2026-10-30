@@ -1,6 +1,14 @@
+<script module>
+  const percentFormatter = new Intl.NumberFormat("ja-JP", { style: "percent", maximumFractionDigits: 1 })
+
+  // total に対する part の割合を「66.7%」の形にする。total が0で計算できないときは null
+  function formatPercentage(part, total) {
+    return total ? percentFormatter.format(part / total) : null
+  }
+</script>
+
 <script>
   import { viewState } from "~/store/viewState.svelte.js"
-  import percentage from "~/utils/percentage"
   import userCountUnit from "~/utils/userCountUnit"
   import Icon from "~/elements/Icon.svelte"
   import Link from "~/elements/Link.svelte"
@@ -23,9 +31,9 @@
 
   const totalCount = $derived(content.count)
   const publicCount = $derived(content.bookmarks.length)
-  const publicPercentage = $derived(percentage(publicCount, totalCount, 1))
+  const publicPercentage = $derived(formatPercentage(publicCount, totalCount))
   const commentCount = $derived(content.bookmarks.filter((bookmark) => bookmark.comment).length)
-  const commentPercentage = $derived(percentage(commentCount, publicCount, 1))
+  const commentPercentage = $derived(formatPercentage(commentCount, publicCount))
 
   // 表示するブックマークが変わったら先頭までスクロールを戻す
   $effect.pre(() => {
@@ -44,7 +52,7 @@
       {publicCount}
       {#if publicPercentage !== null}
         <span class="FloorBookmarks-percentage" title="全体ブックマーク数に対する公開ブックマーク数のパーセンテージ">
-          {publicPercentage}%
+          {publicPercentage}
         </span>
       {/if}
     </span>
@@ -53,7 +61,7 @@
       {commentCount}
       {#if commentPercentage !== null}
         <span class="FloorBookmarks-percentage" title="公開ブックマーク数に対するコメント数のパーセンテージ">
-          {commentPercentage}%
+          {commentPercentage}
         </span>
       {/if}
     </span>
