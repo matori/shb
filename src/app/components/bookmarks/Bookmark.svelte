@@ -25,12 +25,8 @@
     {#if bookmark.comment}
       <p class="Bookmark-comment">
         {#each bookmark.commentParts as part}
-          {#if part.type === "url"}
-            <Link url={part.text} class="Bookmark-commentLink">{part.text}</Link>
-          {:else if part.type === "entryEid"}
-            <Link url="https://b.hatena.ne.jp/entry/{part.eid}" class="Bookmark-commentLink">{part.text}</Link>
-          {:else if part.type === "idCall"}
-            <Link url="https://b.hatena.ne.jp/{part.user}" class="Bookmark-commentLink">{part.text}</Link>
+          {#if part.url}
+            <Link url={part.url} class="Bookmark-commentLink">{part.text}</Link>
           {:else}{part.text}{/if}
         {/each}
       </p>

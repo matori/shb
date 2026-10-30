@@ -1,6 +1,6 @@
 import fetchJson from "~/utils/fetchJson"
 import deepFreeze from "~/utils/deepFreeze"
-import splitComment from "~/utils/splitComment"
+import parseComment from "~/utils/parseComment"
 
 // 一覧で選んだエントリーの詳細（detail API）。エントリー情報とコメント一覧のパネルに表示する
 class EntryDetail {
@@ -61,7 +61,7 @@ class EntryDetail {
   }
 }
 
-// 各ブックマークに、分割したコメント（commentParts）と、IDコールの関係を加える
+// 各ブックマークに、記法ごとに分けたコメント（commentParts）と、IDコールの関係を加える
 // - idCallsTo: このブックマークのコメントでIDコールしたユーザー。同じ階のブックマークと、下の階のブックマーク
 // - idCalledBy: このブックマークのユーザーをIDコールした、同じ階のブックマーク
 function addCommentDetails(response) {
@@ -75,7 +75,7 @@ function addCommentDetails(response) {
     const bookmarksByUser = new Map(bookmarks.map((bookmark) => [bookmark.user, bookmark]))
 
     for (const bookmark of bookmarks) {
-      bookmark.commentParts = bookmark.comment ? splitComment(bookmark.comment) : []
+      bookmark.commentParts = bookmark.comment ? parseComment(bookmark.comment) : []
     }
 
     for (const bookmark of bookmarks) {
