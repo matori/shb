@@ -1,6 +1,7 @@
 <script>
   import { entryDetail } from "~/store/entryDetail.svelte.js"
   import { viewState } from "~/store/viewState.svelte.js"
+  import { BOOKMARK_ORDERS } from "~/utils/sortBookmarks"
   import Tabs from "~/components/common/Tabs.svelte"
   import ToggleButton from "~/components/common/ToggleButton.svelte"
   import FloorBookmarks from "~/components/bookmarks/FloorBookmarks.svelte"
@@ -13,6 +14,8 @@
   const headingId = $props.id()
 
   const tabs = $derived(floors.map((_, index) => ({ key: index.toString(), label: `${index + 1}階` })))
+  // スターの多い順を選んでいても、スターを取得できなければ新しい順のままになる
+  const starsUnavailable = $derived(viewState.bookmarkOrder === "stars" && entryDetail.starsStatus === "failed")
 </script>
 
 <section {...rest} class={[className, "BookmarksPanel"]} aria-labelledby={headingId}>
@@ -26,13 +29,14 @@
       >
         全ブックマーク表示
       </ToggleButton>
-      <ToggleButton
-        title="ブックマーク日時が古い順に並び替える"
-        class="BookmarksPanel-toggle"
-        bind:checked={viewState.showOldestBookmarksFirst}
-      >
-        古い順で表示
-      </ToggleButton>
+      <label class="BookmarksPanel-order">
+        並び順
+        <select class="BookmarksPanel-orderSelect" bind:value={viewState.bookmarkOrder}>
+          {#each BOOKMARK_ORDERS as { value, label } (value)}
+            <option {value}>{label}</option>
+          {/each}
+        </select>
+      </label>
     </div>
   </header>
   <!-- 中身が入ったときに読み上げられるよう、知らせる場所は常に置いておく -->
@@ -41,6 +45,9 @@
       <p class="BookmarksPanel-notice">
         {floors.length + 1}階の取得に失敗したため、{floors.length}階までを表示しています。もう一度開くと取得し直します。
       </p>
+    {/if}
+    {#if starsUnavailable}
+      <p class="BookmarksPanel-notice">スターを取得できなかったため、新しい順で表示しています。</p>
     {/if}
   </div>
   <div class="BookmarksPanel-body">
@@ -88,13 +95,34 @@
 
     .BookmarksPanel-tools {
       display: flex;
-      gap: calc(var(--line) * 0.25);
+      align-items: center;
+      gap: calc(var(--line) * 0.5);
     }
 
     .BookmarksPanel-toggle {
       font-size: var(--fs-xs);
       line-height: var(--lh-xs);
       padding: 0.2em 0.7em;
+    }
+
+    .BookmarksPanel-order {
+      font-size: var(--fs-xs);
+      line-height: var(--lh-xs);
+      display: flex;
+      align-items: center;
+      gap: 0.4em;
+      color: var(--color-text-sub);
+      white-space: nowrap;
+    }
+
+    .BookmarksPanel-orderSelect {
+      font: inherit;
+      border: 1px solid var(--color-line-strong);
+      border-radius: var(--radius-control);
+      padding: 0.15em 0.4em;
+      background-color: var(--color-surface);
+      color: var(--color-text);
+      accent-color: var(--color-accent);
     }
 
     .BookmarksPanel-notice {

@@ -9,6 +9,8 @@
 
 <script>
   import { viewState } from "~/store/viewState.svelte.js"
+  import { entryDetail } from "~/store/entryDetail.svelte.js"
+  import { sortBookmarks } from "~/utils/sortBookmarks"
   import userCountUnit from "~/utils/userCountUnit"
   import Icon from "~/elements/Icon.svelte"
   import Link from "~/elements/Link.svelte"
@@ -26,7 +28,9 @@
     const bookmarks = viewState.includeBookmarksWithoutComment
       ? [...content.bookmarks]
       : content.bookmarks.filter((bookmark) => bookmark.comment)
-    return viewState.showOldestBookmarksFirst ? bookmarks.reverse() : bookmarks
+    return sortBookmarks(bookmarks, viewState.bookmarkOrder, (bookmark) =>
+      entryDetail.bookmarkStars(content.eid, bookmark.user),
+    )
   })
 
   const totalCount = $derived(content.count)
@@ -35,9 +39,12 @@
   const commentCount = $derived(content.bookmarks.filter((bookmark) => bookmark.comment).length)
   const commentPercentage = $derived(formatPercentage(commentCount, publicCount))
 
-  // 表示するブックマークが変わったら先頭までスクロールを戻す
+  // 表示するブックマークや並び順を変えたら、先頭までスクロールを戻す
+  // スターがあとから届いて並べ替わるときは、読んでいる途中で戻さないよう、スターは見ない
   $effect.pre(() => {
-    visibleBookmarks
+    content
+    viewState.includeBookmarksWithoutComment
+    viewState.bookmarkOrder
     if (scrollContainer) {
       scrollContainer.scrollTop = 0
     }
