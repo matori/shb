@@ -1,6 +1,6 @@
 <script>
   import { viewState } from "~/store/viewState.svelte.js"
-  import LinkBox from "~/components/common/LinkBox.svelte"
+  import HatenaBookmarkLink from "~/components/common/HatenaBookmarkLink.svelte"
   import BookmarksHeader from "~/components/bookmarks/BookmarksHeader.svelte"
   import BookmarksList from "~/components/bookmarks/BookmarksList.svelte"
 
@@ -34,7 +34,9 @@
       <p class="Bookmarks-message">表示できるブックマークがありません</p>
     {/if}
     <p class="Bookmarks-helper">
-      <LinkBox url={content.entry_url} class="Bookmarks-link">この一覧をはてなブックマークで見る</LinkBox>
+      <HatenaBookmarkLink url={content.entry_url} class="Bookmarks-link"
+        >この一覧をはてなブックマークで見る</HatenaBookmarkLink
+      >
     </p>
   </div>
 </div>

@@ -3,7 +3,7 @@
   import entryCategories from "~/constants/entryCategories"
   import { viewState } from "~/store/viewState.svelte.js"
   import { entryFeeds } from "~/store/entryFeeds.svelte.js"
-  import TabContent from "~/components/common/TabContent.svelte"
+  import Tabs from "~/components/common/Tabs.svelte"
   import CategoryEntries from "~/components/entries/CategoryEntries.svelte"
 
   let { class: className = "", ...rest } = $props()
@@ -13,11 +13,11 @@
   })
 </script>
 
-<TabContent
+<Tabs
   {...rest}
   tabs={entryCategories}
   selected={viewState.selectedCategoryIndex}
-  panelTabIndex={false}
+  label="カテゴリー"
   tabListClass="ScrollShadowX"
   class={[className, "CategoryTab"]}
   onselect={(index) => (viewState.selectedCategoryIndex = index)}
@@ -25,7 +25,7 @@
   {#snippet children({ key, label })}
     <CategoryEntries data={entryFeeds.response.data[key]} category={{ key, label }} />
   {/snippet}
-</TabContent>
+</Tabs>
 
 <style>
   :global {
@@ -33,18 +33,18 @@
      * カテゴリーは下線のタブにして、人気・新着の切り替えボタンと見た目を分ける
      * 1行に並べ、幅が余るときは各タブを広げてパネルの幅に合わせ、足りないときは横にスクロールする
      */
-    .CategoryTab > .TabContent-tabList {
+    .CategoryTab > .Tabs-tabList {
       gap: 0;
       overflow-x: auto;
       padding: 0 calc(var(--line) * 0.5);
       box-shadow: inset 0 -1px var(--color-line);
       scrollbar-width: thin;
 
-      .TabContent-tabItem {
+      .Tabs-tabItem {
         flex: 1 0 auto;
       }
 
-      .TabContent-tab {
+      .Tabs-tab {
         position: relative;
         border-radius: 0;
         padding: 0.35em 0.6em 0.45em;

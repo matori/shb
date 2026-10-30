@@ -1,6 +1,6 @@
 <script>
   import { entryDetail } from "~/store/entryDetail.svelte.js"
-  import TabContent from "~/components/common/TabContent.svelte"
+  import Tabs from "~/components/common/Tabs.svelte"
   import Bookmarks from "~/components/bookmarks/Bookmarks.svelte"
   import BookmarksContainerHeader from "~/components/bookmarks/BookmarksContainerHeader.svelte"
 
@@ -24,8 +24,9 @@
   {/if}
   <div class="BookmarksContainer-body">
     {#if data.length > 1}
-      <TabContent
+      <Tabs
         {tabs}
+        label="階"
         selected={entryDetail.selectedFloorIndex}
         class="BookmarksContainer-tabContent"
         onselect={(index) => (entryDetail.selectedFloorIndex = index)}
@@ -33,7 +34,7 @@
         {#snippet children({ key })}
           <Bookmarks content={data[key].content} class="BookmarksContainer-bookmarks" />
         {/snippet}
-      </TabContent>
+      </Tabs>
     {:else}
       <Bookmarks content={data[0].content} class="BookmarksContainer-bookmarks" />
     {/if}
@@ -69,7 +70,7 @@
     .BookmarksContainer-tabContent {
       min-height: 0;
 
-      & > .TabContent-tabList {
+      & > .Tabs-tabList {
         padding: 0 calc(var(--line) * 0.75) calc(var(--line) * 0.5);
       }
     }

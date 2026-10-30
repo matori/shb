@@ -1,16 +1,17 @@
 <script>
   import Link from "~/elements/Link.svelte"
 
+  // 「はてなブックマークで見る」などの、はてなブックマークの該当ページへのリンク。ボタンのような見た目にする
   let { url, class: className = "", children, ...rest } = $props()
 </script>
 
-<Link {...rest} {url} class={[className, "LinkBox"]}>
+<Link {...rest} {url} class={[className, "HatenaBookmarkLink"]}>
   {@render children?.()}
 </Link>
 
 <style>
   :global {
-    .LinkBox {
+    .HatenaBookmarkLink {
       font-size: var(--fs-s);
       line-height: var(--lh-s);
       display: inline-block;
