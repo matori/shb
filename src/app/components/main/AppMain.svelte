@@ -1,6 +1,6 @@
 <script>
   import { entryDetail } from "~/store/entryDetail.svelte.js"
-  import EntriesContainer from "~/components/entries/EntriesContainer.svelte"
+  import EntriesPanel from "~/components/entries/EntriesPanel.svelte"
   import DetailContainer from "~/components/detail/DetailContainer.svelte"
   import Information from "~/components/information/Information.svelte"
 
@@ -10,7 +10,7 @@
 
 <main {...rest} class={[className, "AppMain"]}>
   <div class="AppMain-inner">
-    <EntriesContainer class="AppMain-entries" />
+    <EntriesPanel class="AppMain-entries" />
     {#if entryDetail.isOpen}
       <DetailContainer
         detail={entryDetail.response}

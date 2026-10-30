@@ -16,14 +16,14 @@
   <DetailHeader heading="エントリー情報" class="DetailContainer-header" />
   <div class="DetailContainer-body">
     {#if message}
-      <DetailFetchError display="detail" when="connection" {message} />
+      <DetailFetchError title="詳細情報取得の際にエラーが発生しました" cause="connection" {message} />
     {:else if entries[0].error}
-      <DetailFetchError display="detail" when="api" message={entries[0].message} />
+      <DetailFetchError title="詳細情報取得の際にエラーが発生しました" cause="api" message={entries[0].message} />
     {:else if !target}
       <!-- 指定したURLの階まで取得する前に失敗した場合 -->
       <DetailFetchError
-        display="detail"
-        when="api"
+        title="詳細情報取得の際にエラーが発生しました"
+        cause="api"
         message="{entries.length + 1}階の取得に失敗したため、指定したページ（{floorIndex + 1}階）を表示できません"
       />
     {:else if target.content}

@@ -1,25 +1,27 @@
 <script>
-  const TIMINGS = {
+  const CAUSE_LABELS = {
     connection: "APIへの接続エラー",
     api: "APIからエラーが返されました",
   }
 
-  const TITLE_PREFIXES = {
-    entries: "一覧取得の際に",
-    detail: "詳細情報取得の際に",
-  }
-
-  let { display, when, message = "謎のエラーが発生しました", class: className = "", ...rest } = $props()
-
-  const timing = $derived(TIMINGS[when] ?? "不明なエラー")
-  const errorTitle = $derived(`${TITLE_PREFIXES[display] ?? ""}エラーが発生しました`)
+  // APIからデータを取得できなかったときの表示
+  // - cause: "connection"（APIに接続できなかった）か "api"（APIがエラーを返した）
+  // - headingLevel: 見出しのレベル。置く場所の見出しの構造に合わせる
+  let {
+    title,
+    cause,
+    message = "謎のエラーが発生しました",
+    headingLevel = 3,
+    class: className = "",
+    ...rest
+  } = $props()
 </script>
 
 <section {...rest} class={[className, "FetchError"]}>
-  <svelte:element this={display === "entries" ? "h4" : "h3"} class="FetchError-title">{errorTitle}</svelte:element>
+  <svelte:element this={`h${headingLevel}`} class="FetchError-title">{title}</svelte:element>
   <dl class="FetchError-details">
     <dt class="FetchError-label">状況</dt>
-    <dd class="FetchError-description">{timing}</dd>
+    <dd class="FetchError-description">{CAUSE_LABELS[cause] ?? "不明なエラー"}</dd>
     <dt class="FetchError-label">エラーメッセージ</dt>
     <dd class="FetchError-description">
       <pre class="FetchError-message">{message}</pre>
@@ -36,9 +38,10 @@
       color: var(--color-error);
       font-weight: var(--fw-bold);
 
+      /* 警告の記号は飾りなので、読み上げない */
       &::before {
         margin-right: 0.25em;
-        content: "\26a0";
+        content: "\26a0" / "";
       }
     }
 
