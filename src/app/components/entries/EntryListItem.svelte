@@ -48,9 +48,10 @@
     onauxclick={onAuxClick}
     onmousedown={onMouseDown}
   >
-    {entry.bookmarkCount}
-    <!-- 見た目は数字だけにして、単位とボタンの働きは読み上げで伝える -->
-    <span class="VisuallyHidden">{userCountUnit(entry.bookmarkCount)}、エントリー情報とコメントを見る</span>
+    <!-- 押しやすいよう、数字の下に単位を置いて2行の大きさにする。ボタンの働きは読み上げで伝える -->
+    <span class="EntryListItem-countNumber">{entry.bookmarkCount}</span>
+    <span class="EntryListItem-countUnit">{userCountUnit(entry.bookmarkCount)}</span>
+    <span class="VisuallyHidden">、エントリー情報とコメントを見る</span>
   </Button>
   <SiteLink
     url={entry.siteEntriesUrl}
@@ -101,10 +102,13 @@
       grid-column: 1 / 2;
       grid-row: 1 / 3;
       align-self: start;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       font-size: var(--fs-s);
       line-height: var(--lh-s);
-      border-radius: var(--radius-pill);
-      padding: 0.1em 0;
+      border-radius: var(--radius-control);
+      padding: 0.35em 0 0.4em;
       width: 100%;
       background-color: var(--color-count-bg);
       color: var(--color-count);
@@ -116,6 +120,17 @@
         background-color: var(--color-count);
         color: var(--color-on-accent);
       }
+    }
+
+    /* 数字と単位をひとまとまりに見せるよう、行の高さを詰める。そのぶんボタンの上下の余白を広げ、押せる大きさは保つ */
+    .EntryListItem-countNumber {
+      line-height: 1.15;
+    }
+
+    .EntryListItem-countUnit {
+      font-size: var(--fs-xs);
+      line-height: 1.15;
+      font-weight: var(--fw-normal);
     }
 
     .EntryListItem-site {
