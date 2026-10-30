@@ -1,16 +1,16 @@
 <script>
   import CategoryTab from "~/components/entries/CategoryTab.svelte"
   import EntriesHeader from "~/components/entries/EntriesHeader.svelte"
-  import { entriesFetchErrorMessage, hasEntriesData } from "~/store/entries"
+  import { entryFeeds } from "~/store/entryFeeds.svelte.js"
 
   let { class: className = "", ...rest } = $props()
 </script>
 
 <section {...rest} class={[className, "EntriesContainer"]}>
   <EntriesHeader heading="エントリーの一覧" class="EntriesContainer-header" />
-  {#if $entriesFetchErrorMessage && $hasEntriesData}
+  {#if entryFeeds.errorMessage && entryFeeds.hasLoaded}
     <p class="EntriesContainer-notice" role="status">
-      一覧の更新に失敗したため、前回取得した一覧を表示しています（{$entriesFetchErrorMessage}）
+      一覧の更新に失敗したため、前回取得した一覧を表示しています（{entryFeeds.errorMessage}）
     </p>
   {/if}
   <div class="EntriesContainer-entries">

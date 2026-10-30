@@ -1,5 +1,5 @@
 <script>
-  import { detailFetchProcessing } from "~/store/detail"
+  import { entryDetail } from "~/store/entryDetail.svelte.js"
   import Link from "~/elements/Link.svelte"
   import Icon from "~/elements/Icon.svelte"
 
@@ -10,7 +10,7 @@
   <header class="Information-header">
     <h2 class="Information-heading">
       インフォメーション
-      <Icon name="refresh" class="Information-icon {$detailFetchProcessing ? '_show' : ''}" />
+      <Icon name="refresh" class="Information-icon {entryDetail.isLoading ? '_show' : ''}" />
     </h2>
   </header>
   <div class="Information-body">

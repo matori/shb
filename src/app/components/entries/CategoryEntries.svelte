@@ -1,7 +1,7 @@
 <script>
   import entryTypes from "~/constants/entryTypes"
-  import { selectedTypeTabIndex } from "~/store/ui"
-  import { entriesFetchErrorMessage, hasEntriesData } from "~/store/entries"
+  import { viewState } from "~/store/viewState.svelte.js"
+  import { entryFeeds } from "~/store/entryFeeds.svelte.js"
   import EntryList from "~/components/entry-list/EntryList.svelte"
   import EntriesFetchError from "~/components/entries/EntriesFetchError.svelte"
   import EntriesLink from "~/components/entries/EntriesLink.svelte"
@@ -9,7 +9,7 @@
   // 1つのカテゴリーの、選ばれている種類（人気・新着）の一覧。種類の切り替えは EntriesHeader にある
   let { category, data, class: className = "", ...rest } = $props()
 
-  const type = $derived(entryTypes[$selectedTypeTabIndex] ?? entryTypes[0])
+  const type = $derived(entryTypes[viewState.selectedEntryTypeIndex] ?? entryTypes[0])
   const feed = $derived(data[type.key])
 </script>
 
@@ -17,8 +17,8 @@
   <h3 class="CategoryEntries-heading">カテゴリー「{category.label}」の{type.label}エントリー</h3>
   {#if feed.initializing}
     <p class="CategoryEntries-initial">初期化中です</p>
-  {:else if $entriesFetchErrorMessage && !$hasEntriesData}
-    <EntriesFetchError display="entries" when="connection" message={$entriesFetchErrorMessage} />
+  {:else if entryFeeds.errorMessage && !entryFeeds.hasLoaded}
+    <EntriesFetchError display="entries" when="connection" message={entryFeeds.errorMessage} />
   {:else if !feed.error}
     <EntryList items={feed.items} />
   {:else}

@@ -1,20 +1,15 @@
 <script>
-  import { selectedBookmarksTabIndex } from "~/store/ui"
   import DetailContent from "~/components/detail/DetailContent.svelte"
   import DetailFetchError from "~/components/detail/DetailFetchError.svelte"
   import DetailHeader from "~/components/detail/DetailHeader.svelte"
   import DetailNoBookmarkError from "~/components/detail/DetailNoBookmarkError.svelte"
 
-  let { detail, message, class: className = "", ...rest } = $props()
+  let { detail, entry, message, class: className = "", ...rest } = $props()
 
   const entries = $derived(detail ? detail.data.entries : [])
   // 指定したURLのエントリー。ブックマークページを指定した場合は2階以降になる
   const floorIndex = $derived(detail ? detail.data.floor - 1 : 0)
   const target = $derived(entries[floorIndex])
-
-  $effect.pre(() => {
-    selectedBookmarksTabIndex.set(floorIndex)
-  })
 </script>
 
 <section {...rest} class={[className, "DetailContainer"]}>
@@ -32,7 +27,7 @@
         message="{entries.length + 1}階の取得に失敗したため、指定したページ（{floorIndex + 1}階）を表示できません"
       />
     {:else if target.content}
-      <DetailContent detailData={detail.data} itemData={detail.itemData} {floorIndex} class="DetailContainer-content" />
+      <DetailContent detailData={detail.data} itemData={entry} {floorIndex} class="DetailContainer-content" />
     {:else}
       <DetailNoBookmarkError class="DetailContainer-noBookmark" />
     {/if}

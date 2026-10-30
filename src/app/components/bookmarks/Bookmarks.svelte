@@ -1,5 +1,5 @@
 <script>
-  import { showAllBookmarks, reverseOrderBookmarks } from "~/store/ui"
+  import { viewState } from "~/store/viewState.svelte.js"
   import LinkBox from "~/components/common/LinkBox.svelte"
   import BookmarksHeader from "~/components/bookmarks/BookmarksHeader.svelte"
   import BookmarksList from "~/components/bookmarks/BookmarksList.svelte"
@@ -9,10 +9,10 @@
   let scrollContainer
 
   const orderedBookmarks = $derived.by(() => {
-    const bookmarks = $showAllBookmarks
+    const bookmarks = viewState.includeBookmarksWithoutComment
       ? [...content.bookmarks]
       : content.bookmarks.filter((bookmark) => bookmark.comment)
-    return $reverseOrderBookmarks ? bookmarks.reverse() : bookmarks
+    return viewState.showOldestBookmarksFirst ? bookmarks.reverse() : bookmarks
   })
 
   // 表示するブックマークが変わったら先頭までスクロールを戻す

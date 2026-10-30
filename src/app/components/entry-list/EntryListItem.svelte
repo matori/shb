@@ -1,5 +1,5 @@
 <script>
-  import { detailData } from "~/store/detail"
+  import { entryDetail } from "~/store/entryDetail.svelte.js"
   import EntryListItemLink from "~/components/entry-list/EntryListItemLink.svelte"
   import EntryListItemBookmarkCount from "~/components/entry-list/EntryListItemBookmarkCount.svelte"
   import EntryListItemSite from "~/components/entry-list/EntryListItemSite.svelte"
@@ -9,7 +9,7 @@
 
   function onClickBookmarkCount(event) {
     event.preventDefault()
-    detailData.update(item)
+    entryDetail.open(item)
   }
 </script>
 

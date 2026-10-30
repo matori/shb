@@ -1,5 +1,5 @@
 <script>
-  import { selectedBookmarksTabIndex } from "~/store/ui"
+  import { entryDetail } from "~/store/entryDetail.svelte.js"
   import TabContent from "~/components/common/TabContent.svelte"
   import Bookmarks from "~/components/bookmarks/Bookmarks.svelte"
   import BookmarksContainerHeader from "~/components/bookmarks/BookmarksContainerHeader.svelte"
@@ -26,9 +26,9 @@
     {#if data.length > 1}
       <TabContent
         {tabs}
-        selected={$selectedBookmarksTabIndex}
+        selected={entryDetail.selectedFloorIndex}
         class="BookmarksContainer-tabContent"
-        onselect={(index) => selectedBookmarksTabIndex.set(index)}
+        onselect={(index) => (entryDetail.selectedFloorIndex = index)}
       >
         {#snippet children({ key })}
           <Bookmarks content={data[key].content} class="BookmarksContainer-bookmarks" />

@@ -9,40 +9,40 @@
 </script>
 
 <dl {...rest} class={[className, "BookmarksItemIdCalls"]}>
-  {#if bookmark.idCalls}
+  {#if bookmark.idCallsTo}
     <dt class="BookmarksItemIdCalls-title">
       <Icon name="reply-to" class="BookmarksItemIdCalls-icon" />
       IDコールした
     </dt>
     <dd class="BookmarksItemIdCalls-body">
       <List class="BookmarksItemIdCalls-list">
-        {#each bookmark.idCalls as idcall, index (idcall.user)}
+        {#each bookmark.idCallsTo as idCall (idCall.user)}
           <li class="BookmarksItemIdCalls-item">
-            {#if idcall.hasBookmark === false}
+            {#if !idCall.bookmark}
               <p class="BookmarksItemIdCalls-message">
                 <BookmarksItemAvatar
-                  user={idcall.user}
-                  url="https://b.hatena.ne.jp/{idcall.user}/"
+                  user={idCall.user}
+                  url="https://b.hatena.ne.jp/{idCall.user}/"
                   class="BookmarksItemIdCalls-avatar"
                 />
                 <span class="BookmarksItemIdCalls-text">
-                  <Link url="https://b.hatena.ne.jp/{idcall.user}/" class="BookmarksItemIdCalls-link">
-                    id:{idcall.user}
+                  <Link url="https://b.hatena.ne.jp/{idCall.user}/" class="BookmarksItemIdCalls-link">
+                    id:{idCall.user}
                   </Link>
                   はまだブックマークしていません
                 </span>
               </p>
             {:else}
-              <BookmarksItemContent bookmark={idcall} {eid} />
+              <BookmarksItemContent bookmark={idCall.bookmark} {eid} />
             {/if}
-            {#if idcall.belowData}
+            {#if idCall.lowerFloorBookmark}
               <div class="BookmarksItemIdCalls_below">
                 <dl class="BookmarksItemIdCalls">
                   <dt class="BookmarksItemIdCalls-title">下の階でのコメント</dt>
                   <dd class="BookmarksItemIdCalls-body">
                     <BookmarksItemContent
-                      bookmark={idcall.belowData}
-                      eid={idcall.belowEid}
+                      bookmark={idCall.lowerFloorBookmark}
+                      eid={idCall.lowerFloorEid}
                       class="BookmarksItemIdCalls-item"
                     />
                   </dd>
@@ -54,14 +54,14 @@
       </List>
     </dd>
   {/if}
-  {#if bookmark.idCalled}
+  {#if bookmark.idCalledBy}
     <dt class="BookmarksItemIdCalls-title">
       <Icon name="reply" class="BookmarksItemIdCalls-icon" />
       IDコールされた
     </dt>
     <dd class="BookmarksItemIdCalls-body">
-      {#each bookmark.idCalled as idcall, index (idcall.user)}
-        <BookmarksItemContent bookmark={idcall} {eid} class="BookmarksItemIdCalls-item" />
+      {#each bookmark.idCalledBy as caller (caller.user)}
+        <BookmarksItemContent bookmark={caller} {eid} class="BookmarksItemIdCalls-item" />
       {/each}
     </dd>
   {/if}

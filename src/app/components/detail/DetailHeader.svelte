@@ -1,5 +1,5 @@
 <script>
-  import { detailData, detailFetchProcessing } from "~/store/detail"
+  import { entryDetail } from "~/store/entryDetail.svelte.js"
   import Button from "~/elements/Button.svelte"
   import Icon from "~/elements/Icon.svelte"
 
@@ -9,9 +9,9 @@
 <header {...rest} class={[className, "DetailHeader"]}>
   <h2 class="DetailHeader-heading">
     {heading}
-    <Icon name="refresh" class="DetailHeader-icon {$detailFetchProcessing ? '_show' : ''}" />
+    <Icon name="refresh" class="DetailHeader-icon {entryDetail.isLoading ? '_show' : ''}" />
   </h2>
-  <Button class="DetailHeader-closeButton" onclick={() => detailData.reset()}>
+  <Button class="DetailHeader-closeButton" onclick={() => entryDetail.close()}>
     <Icon name="close" class="DetailHeader-closeIcon" />
     情報とコメントのパネルを閉じる
   </Button>

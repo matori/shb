@@ -1,5 +1,5 @@
 <script>
-  import { showAllBookmarks, reverseOrderBookmarks } from "~/store/ui"
+  import { viewState } from "~/store/viewState.svelte.js"
   import Button from "~/elements/Button.svelte"
   import Icon from "~/elements/Icon.svelte"
 
@@ -13,27 +13,33 @@
       title="コメントのないブックマークも表示する"
       class="BookmarksContainerHeader-button _filter"
       role="switch"
-      aria-checked={$showAllBookmarks}
-      onclick={() => showAllBookmarks.set(!$showAllBookmarks)}
+      aria-checked={viewState.includeBookmarksWithoutComment}
+      onclick={() => (viewState.includeBookmarksWithoutComment = !viewState.includeBookmarksWithoutComment)}
     >
-      <Icon name="checkbox-checked" class="BookmarksContainerHeader-icon {$showAllBookmarks ? '_show' : '_hide'}" />
-      <Icon name="checkbox-outline" class="BookmarksContainerHeader-icon {$showAllBookmarks ? '_hide' : '_show'}" />
+      <Icon
+        name="checkbox-checked"
+        class="BookmarksContainerHeader-icon {viewState.includeBookmarksWithoutComment ? '_show' : '_hide'}"
+      />
+      <Icon
+        name="checkbox-outline"
+        class="BookmarksContainerHeader-icon {viewState.includeBookmarksWithoutComment ? '_hide' : '_show'}"
+      />
       全ブックマーク表示
     </Button>
     <Button
       title="ブックマーク日時が古い順に並び替える"
       class="BookmarksContainerHeader-button _sort"
       role="switch"
-      aria-checked={$reverseOrderBookmarks}
-      onclick={() => reverseOrderBookmarks.set(!$reverseOrderBookmarks)}
+      aria-checked={viewState.showOldestBookmarksFirst}
+      onclick={() => (viewState.showOldestBookmarksFirst = !viewState.showOldestBookmarksFirst)}
     >
       <Icon
         name="checkbox-checked"
-        class="BookmarksContainerHeader-icon {$reverseOrderBookmarks ? '_show' : '_hide'}"
+        class="BookmarksContainerHeader-icon {viewState.showOldestBookmarksFirst ? '_show' : '_hide'}"
       />
       <Icon
         name="checkbox-outline"
-        class="BookmarksContainerHeader-icon {$reverseOrderBookmarks ? '_hide' : '_show'}"
+        class="BookmarksContainerHeader-icon {viewState.showOldestBookmarksFirst ? '_hide' : '_show'}"
       />
       古い順で表示
     </Button>

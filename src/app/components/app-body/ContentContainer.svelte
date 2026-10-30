@@ -1,5 +1,5 @@
 <script>
-  import { hasDetailData, detailFetchErrorMessage, detailData } from "~/store/detail"
+  import { entryDetail } from "~/store/entryDetail.svelte.js"
   import EntriesContainer from "~/components/entries/EntriesContainer.svelte"
   import DetailContainer from "~/components/detail/DetailContainer.svelte"
   import Information from "~/components/information/Information.svelte"
@@ -9,8 +9,13 @@
 
 <div {...rest} class={[className, "ContentContainer"]}>
   <EntriesContainer class="ContentContainer-entries" />
-  {#if $detailFetchErrorMessage || $hasDetailData}
-    <DetailContainer detail={$detailData} message={$detailFetchErrorMessage} class="ContentContainer-detail" />
+  {#if entryDetail.isOpen}
+    <DetailContainer
+      detail={entryDetail.response}
+      entry={entryDetail.entry}
+      message={entryDetail.errorMessage}
+      class="ContentContainer-detail"
+    />
   {:else}
     <Information class="ContentContainer-info" />
   {/if}

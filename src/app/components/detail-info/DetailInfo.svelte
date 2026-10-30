@@ -1,5 +1,5 @@
 <script>
-  import { detailInfoExpanded } from "~/store/ui"
+  import { viewState } from "~/store/viewState.svelte.js"
   import DetailInfoToggleSwitch from "~/components/detail-info/DetailInfoToggleSwitch.svelte"
   import DetailInfoHeader from "~/components/detail-info/DetailInfoHeader.svelte"
   import DetailInfoBody from "~/components/detail-info/DetailInfoBody.svelte"
@@ -7,17 +7,27 @@
   let { detailContent, itemData, class: className = "", ...rest } = $props()
 </script>
 
-<div {...rest} class={[className, "DetailInfo"]} aria-expanded={$detailInfoExpanded}>
+<div {...rest} class={[className, "DetailInfo"]} aria-expanded={viewState.entryInfoExpanded}>
   <div class="DetailInfo-tool">
     <DetailInfoToggleSwitch
-      open={$detailInfoExpanded}
+      open={viewState.entryInfoExpanded}
       class="DetailInfo-switch"
-      onclick={() => detailInfoExpanded.set(!$detailInfoExpanded)}
+      onclick={() => (viewState.entryInfoExpanded = !viewState.entryInfoExpanded)}
     />
   </div>
   <div class="DetailInfo-inner">
-    <DetailInfoHeader {detailContent} {itemData} detailInfoExpanded={$detailInfoExpanded} class="DetailInfo-header" />
-    <DetailInfoBody {detailContent} {itemData} detailInfoExpanded={$detailInfoExpanded} class="DetailInfo-body" />
+    <DetailInfoHeader
+      {detailContent}
+      {itemData}
+      detailInfoExpanded={viewState.entryInfoExpanded}
+      class="DetailInfo-header"
+    />
+    <DetailInfoBody
+      {detailContent}
+      {itemData}
+      detailInfoExpanded={viewState.entryInfoExpanded}
+      class="DetailInfo-body"
+    />
   </div>
 </div>
 

@@ -15,7 +15,7 @@
     user={bookmark.user}
     {userUrl}
     comment={bookmark.comment}
-    commentTexts={bookmark.commentTexts}
+    commentParts={bookmark.commentParts}
     tags={bookmark.tags}
     class="BookmarksItemContent-body"
   />

@@ -3,13 +3,13 @@
   import BookmarksItemComment from "~/components/bookmarks/BookmarksItemComment.svelte"
   import BookmarksItemTags from "~/components/bookmarks/BookmarksItemTags.svelte"
 
-  let { user, userUrl, comment, commentTexts, tags, class: className = "", ...rest } = $props()
+  let { user, userUrl, comment, commentParts, tags, class: className = "", ...rest } = $props()
 </script>
 
 <div {...rest} class={[className, "BookmarksItemBody"]}>
   <BookmarksItemUser {user} url={userUrl} class="BookmarksItemBody-user" />
   {#if comment}
-    <BookmarksItemComment {commentTexts} class="BookmarksItemBody-comment" />
+    <BookmarksItemComment {commentParts} class="BookmarksItemBody-comment" />
   {/if}
   {#if tags.length}
     <BookmarksItemTags {user} {tags} class="BookmarksItemBody-tags" />

@@ -1,7 +1,7 @@
 <script>
   import entryTypes from "~/constants/entryTypes"
-  import { entriesFetchProcessing, entriesData } from "~/store/entries"
-  import { selectedTypeTabIndex } from "~/store/ui"
+  import { entryFeeds } from "~/store/entryFeeds.svelte.js"
+  import { viewState } from "~/store/viewState.svelte.js"
   import Button from "~/elements/Button.svelte"
   import Icon from "~/elements/Icon.svelte"
 
@@ -15,17 +15,17 @@
     {#each entryTypes as type, index (type.key)}
       <Button
         class="EntriesHeader-type"
-        aria-pressed={$selectedTypeTabIndex === index}
-        onclick={() => selectedTypeTabIndex.set(index)}
+        aria-pressed={viewState.selectedEntryTypeIndex === index}
+        onclick={() => (viewState.selectedEntryTypeIndex = index)}
       >
         {type.label}
       </Button>
     {/each}
   </div>
   <Button
-    class="EntriesHeader-syncButton {$entriesFetchProcessing ? '_loading' : ''}"
-    disabled={$entriesFetchProcessing}
-    onclick={() => entriesData.update()}
+    class="EntriesHeader-syncButton {entryFeeds.isLoading ? '_loading' : ''}"
+    disabled={entryFeeds.isLoading}
+    onclick={() => entryFeeds.load()}
   >
     <Icon name="sync" class="EntriesHeader-syncIcon" />
     更新

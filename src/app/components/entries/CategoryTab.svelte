@@ -1,29 +1,29 @@
 <script>
   import { onMount } from "svelte"
   import entryCategories from "~/constants/entryCategories"
-  import { selectedCategoryTabIndex } from "~/store/ui"
-  import { entriesData } from "~/store/entries"
+  import { viewState } from "~/store/viewState.svelte.js"
+  import { entryFeeds } from "~/store/entryFeeds.svelte.js"
   import TabContent from "~/components/common/TabContent.svelte"
   import CategoryEntries from "~/components/entries/CategoryEntries.svelte"
 
   let { class: className = "", ...rest } = $props()
 
   onMount(() => {
-    entriesData.update(true)
+    entryFeeds.load({ isInitialLoad: true })
   })
 </script>
 
 <TabContent
   {...rest}
   tabs={entryCategories}
-  selected={$selectedCategoryTabIndex}
+  selected={viewState.selectedCategoryIndex}
   panelTabIndex={false}
   tabListClass="ScrollShadowX"
   class={[className, "CategoryTab"]}
-  onselect={(index) => selectedCategoryTabIndex.set(index)}
+  onselect={(index) => (viewState.selectedCategoryIndex = index)}
 >
   {#snippet children({ key, label })}
-    <CategoryEntries data={$entriesData.data[key]} category={{ key, label }} />
+    <CategoryEntries data={entryFeeds.response.data[key]} category={{ key, label }} />
   {/snippet}
 </TabContent>
 

@@ -1,6 +1,5 @@
 <script>
-  import { entriesData } from "~/store/entries"
-  import { theme, autoRefresh, autoRefreshInterval, links } from "~/store/config"
+  import { settings, THEMES, MIN_AUTO_REFRESH_INTERVAL_MINUTES, headerLinksToText } from "~/store/settings.svelte.js"
   import Button from "~/elements/Button.svelte"
   import Icon from "~/elements/Icon.svelte"
   import Dialog from "~/components/common/Dialog.svelte"
@@ -18,61 +17,32 @@
     { value: "dark", label: "ダーク" },
   ]
 
-  const autoRefreshIntervalTime = $derived($autoRefreshInterval * 60 * 1000)
-
-  $effect(() => {
-    if (!$autoRefresh) {
-      return
-    }
-    let timer
-    function updateEntries() {
-      timer = setTimeout(() => {
-        entriesData.update()
-        updateEntries()
-      }, autoRefreshIntervalTime)
-    }
-    updateEntries()
-    return () => clearTimeout(timer)
+  $effect.pre(() => {
+    linksText = headerLinksToText(settings.headerLinks)
   })
 
   $effect.pre(() => {
-    linksText = linksToText($links)
+    themeValue = settings.theme
   })
-
-  $effect.pre(() => {
-    themeValue = $theme
-  })
-
-  function linksToText(arr) {
-    return arr.reduce((result, link) => {
-      result += `[${link.label}](${link.url})\n`
-      return result
-    }, "")
-  }
-
-  function toggleAutoRefresh(event) {
-    event.preventDefault()
-    autoRefresh.set(!$autoRefresh)
-  }
 
   function onSubmit(event) {
     event.preventDefault()
-    theme.set(themeValue)
-    autoRefreshInterval.set(autoRefreshIntervalInput.value)
-    links.set(linksText)
+    settings.theme = themeValue
+    settings.autoRefreshIntervalMinutes = autoRefreshIntervalInput.value
+    settings.headerLinks = linksText
   }
 </script>
 
 <div {...rest} class={[className, "AppSettings"]}>
   <Button
-    title="自動更新を{$autoRefresh ? '停止する' : '有効にする'}"
+    title="自動更新を{settings.autoRefreshEnabled ? '停止する' : '有効にする'}"
     class="AppSettings-button"
     role="switch"
-    aria-checked={$autoRefresh}
-    onclick={toggleAutoRefresh}
+    aria-checked={settings.autoRefreshEnabled}
+    onclick={() => (settings.autoRefreshEnabled = !settings.autoRefreshEnabled)}
   >
-    <Icon name="checkbox-checked" class="AppSettings-icon {$autoRefresh ? '' : '_hide'}" />
-    <Icon name="checkbox-outline" class="AppSettings-icon {$autoRefresh ? '_hide' : ''}" />
+    <Icon name="checkbox-checked" class="AppSettings-icon {settings.autoRefreshEnabled ? '' : '_hide'}" />
+    <Icon name="checkbox-outline" class="AppSettings-icon {settings.autoRefreshEnabled ? '_hide' : ''}" />
     自動更新
   </Button>
   <Button class="AppSettings-button _primary" aria-haspopup="dialog" onclick={() => (settingsOpen = true)}>
@@ -98,8 +68,8 @@
           <input
             type="number"
             id="autoRefreshInterval"
-            value={$autoRefreshInterval}
-            min="5"
+            value={settings.autoRefreshIntervalMinutes}
+            min={MIN_AUTO_REFRESH_INTERVAL_MINUTES}
             class="AppSettings-time"
             bind:this={autoRefreshIntervalInput}
           />

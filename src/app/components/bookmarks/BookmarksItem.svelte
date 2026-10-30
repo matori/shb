@@ -7,7 +7,7 @@
 
 <li {...rest} class={[className, "BookmarksItem"]}>
   <BookmarksItemContent {bookmark} {eid} class="BookmarksItem-main" />
-  {#if bookmark.idCalls || bookmark.idCalled}
+  {#if bookmark.idCallsTo || bookmark.idCalledBy}
     <div class="BookmarksItem-sub">
       <BookmarksItemIdCalls {bookmark} {eid} class="BookmarksItem-idCalls" />
     </div>

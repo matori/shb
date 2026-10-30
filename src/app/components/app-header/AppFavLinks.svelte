@@ -1,5 +1,5 @@
 <script>
-  import { links } from "~/store/config"
+  import { settings } from "~/store/settings.svelte.js"
   import Link from "~/elements/Link.svelte"
   import List from "~/elements/List.svelte"
 
@@ -7,9 +7,9 @@
 </script>
 
 <div {...rest} class={[className, "AppFavLinks"]} aria-label="お気に入りリンク">
-  {#if $links.length}
+  {#if settings.headerLinks.length}
     <List class="AppFavLinks-list">
-      {#each $links as link}
+      {#each settings.headerLinks as link}
         <li class="AppFavLinks-item">
           <Link url={link.url} class="AppFavLinks-link">
             <img src="https://www.google.com/s2/favicons?domain={link.url}" alt="" class="AppFavLinks-favicon" />

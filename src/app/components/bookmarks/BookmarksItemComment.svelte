@@ -1,11 +1,11 @@
 <script>
   import Link from "~/elements/Link.svelte"
 
-  let { commentTexts, class: className = "", ...rest } = $props()
+  let { commentParts, class: className = "", ...rest } = $props()
 </script>
 
 <p {...rest} class={[className, "BookmarksItemComment"]}>
-  {#each commentTexts as text}
+  {#each commentParts as text}
     {#if text.type === "url"}
       <Link url={text.text} class="BookmarksItemComment-link">{text.text}</Link>
     {:else if text.type === "entryEid"}
