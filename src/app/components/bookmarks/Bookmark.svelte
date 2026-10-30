@@ -1,5 +1,4 @@
 <script>
-  import dayjs from "dayjs"
   import Icon from "~/elements/Icon.svelte"
   import Link from "~/elements/Link.svelte"
   import List from "~/elements/List.svelte"
@@ -12,8 +11,10 @@
 
   const userUrl = $derived(`https://b.hatena.ne.jp/${bookmark.user}/`)
   // timestamp は「2019/12/13 17:47」の形の日本時間
-  const datetime = $derived(bookmark.timestamp.split("/").join("-").replace(" ", "T") + ":00+09:00")
-  const bookmarkUrl = $derived(`${userUrl}${dayjs(datetime).format("YYYYMMDD")}#bookmark-${eid}`)
+  const [date, time] = $derived(bookmark.timestamp.split(" "))
+  const datetime = $derived(`${date.replaceAll("/", "-")}T${time}:00+09:00`)
+  // はてなブックマークのURLの日付も日本時間なので、閲覧している環境のタイムゾーンに関係なく timestamp の日付を使う
+  const bookmarkUrl = $derived(`${userUrl}${date.replaceAll("/", "")}#bookmark-${eid}`)
   const commentUrl = $derived(`https://b.hatena.ne.jp/entry/${eid}/comment/${bookmark.user}`)
 </script>
 
