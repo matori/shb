@@ -14,12 +14,25 @@ class EntryDetail {
   selectedFloorIndex = $state(0)
   isOpen = $derived(!!this.response || !!this.errorMessage)
 
+  // stars API のレスポンス。詳細を表示したあとで取得する
+  starsResponse = $state.raw(null)
+  // スターの取得の状態。idle（取得していない）・loading・loaded・failed
+  starsStatus = $state("idle")
+  // eid をキーにした、階ごとのスター
+  #starsByEid = $derived(
+    Object.fromEntries(
+      (this.starsResponse?.data.entries ?? []).filter(({ eid }) => eid).map((floor) => [floor.eid, floor]),
+    ),
+  )
+
   // 取得中のリクエスト。別のエントリーを開いたり、パネルを閉じたりしたら中断して、
   // 古いレスポンスで表示が上書きされないようにする
   #controller = null
+  #starsController = null
 
   async open(entry) {
     this.#controller?.abort()
+    this.#abortStars()
     const controller = new AbortController()
     this.#controller = controller
     this.isLoading = true
@@ -37,6 +50,8 @@ class EntryDetail {
       // ブックマークページを指定した場合は、その階を選んだ状態で開く
       this.selectedFloorIndex = response.data.floor - 1
       this.errorMessage = ""
+      // スターは詳細の表示を待たせないよう、詳細を表示してから取得する
+      this.#loadStars(entry.url)
     } catch (e) {
       if (controller.signal.aborted) {
         return
@@ -54,10 +69,53 @@ class EntryDetail {
   close() {
     this.#controller?.abort()
     this.#controller = null
+    this.#abortStars()
     this.isLoading = false
     this.entry = null
     this.response = null
     this.errorMessage = ""
+  }
+
+  // エントリー本体（その階の記事のURL）へのスター。なければ null
+  entryStars(eid) {
+    return this.#starsByEid[eid]?.entry.stars ?? null
+  }
+
+  // そのユーザーのブックマークへのスター。なければ null
+  bookmarkStars(eid, user) {
+    return this.#starsByEid[eid]?.bookmarks[user] ?? null
+  }
+
+  // 取得に失敗しても、スターを表示しないだけにする
+  async #loadStars(url) {
+    const controller = new AbortController()
+    this.#starsController = controller
+    this.starsStatus = "loading"
+    try {
+      const response = await fetchJson(import.meta.env.VITE_STARS_API, { url }, { signal: controller.signal })
+      if (controller.signal.aborted) {
+        return
+      }
+      this.starsResponse = deepFreeze(response)
+      this.starsStatus = "loaded"
+    } catch (e) {
+      if (controller.signal.aborted) {
+        return
+      }
+      this.starsStatus = "failed"
+      console.error(e)
+    } finally {
+      if (this.#starsController === controller) {
+        this.#starsController = null
+      }
+    }
+  }
+
+  #abortStars() {
+    this.#starsController?.abort()
+    this.#starsController = null
+    this.starsResponse = null
+    this.starsStatus = "idle"
   }
 }
 
