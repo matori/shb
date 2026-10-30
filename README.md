@@ -39,6 +39,7 @@ npm run dev:dummy
   - `url` が `scripts/api/data/details/` にあるファイル名（拡張子なし）か、`https://example.com/dummy/{名前}` のときは、そのファイルを返します（`simple`、`complex`、`partial`、`idcall` など）
   - `slow` / `veryslow` は応答を5秒 / 90秒遅らせ、`servererror` は500エラーを返します
   - それ以外は、詳細データを自動生成して返します
+- `/api/stars?url=...`: はてなスターの数を返します。同じ `url` の詳細のダミーをもとに、毎回同じスター（黄色以外の色も含む）を作り、0.8秒遅らせて返します。`url` の扱いとエラーは詳細と同じです
 - 本番APIと同じく、`url` の不備には400、存在しないパスにはHTMLの404を返します
 
 ダミーデータが本番APIのJSONスキーマに沿っているかは、次のコマンドで確認できます。
