@@ -357,17 +357,6 @@
       }
     }
 
-    .SettingsDialog kbd {
-      display: inline-block;
-      border: 1px solid var(--color-line-strong);
-      border-radius: 4px;
-      padding: 0 0.4em;
-      min-width: 1em;
-      background-color: var(--color-surface-sub);
-      font-family: inherit;
-      text-align: center;
-    }
-
     .SettingsDialog-option {
       display: inline-flex;
       align-items: center;
