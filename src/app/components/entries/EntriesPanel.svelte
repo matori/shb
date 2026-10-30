@@ -253,6 +253,11 @@
         color: var(--color-text-sub);
         text-align: center;
 
+        /* タブの並びは横にスクロールするので、外側に描くフォーカスリングは切れてしまう。内側に描く */
+        &:focus-visible {
+          outline-offset: -2px;
+        }
+
         &::after {
           position: absolute;
           right: 0.6em;

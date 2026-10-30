@@ -151,6 +151,8 @@
 
     .FloorBookmarks-body {
       min-height: 0;
+      /* 読み上げ用に隠した文字（position: absolute）を、ページではなくこのスクロールの中に置く。ないとページに縦スクロールバーが出る */
+      position: relative;
       overflow-y: auto;
     }
 

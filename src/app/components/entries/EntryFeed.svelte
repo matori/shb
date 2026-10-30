@@ -50,6 +50,8 @@
   :global {
     .EntryFeed {
       height: 100%;
+      /* 読み上げ用に隠した文字（position: absolute）を、ページではなくこのスクロールの中に置く。ないとページに縦スクロールバーが出る */
+      position: relative;
       overflow-y: auto;
     }
 
