@@ -1,3 +1,4 @@
+import { CATEGORY_NUMBER_KEYS } from "~/utils/shortcuts"
 import { createPersistedState, isBoolean } from "~/store/persisted.svelte.js"
 
 const MIN_AUTO_REFRESH_INTERVAL_MINUTES = 5
@@ -49,6 +50,15 @@ const settings = createPersistedState("simple_hatebu_settings", {
       return width === 0 ? 0 : Math.max(width, MIN_CONTENT_MAX_WIDTH)
     },
   },
+  // キーボードショートカット。1文字のキーで動くので、初期値は無効にして、使う人だけが有効にする（WCAG 2.1.4）
+  keyboardShortcutsEnabled: { initialValue: false, isValid: isBoolean },
+  categoryNumberKeys: {
+    initialValue: "oneToZero",
+    isValid: (value) => CATEGORY_NUMBER_KEYS.includes(value),
+    parse: (value) => (CATEGORY_NUMBER_KEYS.includes(value) ? value : undefined),
+  },
+  minusTogglesEntryType: { initialValue: false, isValid: isBoolean },
+  showShortcutKeysOnTabs: { initialValue: false, isValid: isBoolean },
   // 入力欄の文字列を数値にし、5分未満なら5分にする
   autoRefreshIntervalMinutes: {
     initialValue: 15,
