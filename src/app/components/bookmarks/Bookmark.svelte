@@ -24,7 +24,7 @@
     <Link url={userUrl} class="Bookmark-user">{bookmark.user}</Link>
     {#if bookmark.comment}
       <p class="Bookmark-comment">
-        {#each bookmark.commentParts as part}
+        {#each bookmark.commentParts as part, index (index)}
           {#if part.url}
             <Link url={part.url} class="Bookmark-commentLink">{part.text}</Link>
           {:else}{part.text}{/if}
@@ -35,7 +35,7 @@
       <div class="Bookmark-tags">
         <Icon name="tag" class="Bookmark-tagIcon" />
         <List class="Bookmark-tagList" aria-label="{bookmark.user}がつけたタグ">
-          {#each bookmark.tags as tag}
+          {#each bookmark.tags as tag (tag)}
             <li class="Bookmark-tagItem">
               <Link url="{userUrl}{encodeURIComponent(tag)}/" class="Bookmark-tag">{tag}</Link>
             </li>

@@ -3,7 +3,7 @@
 
   // WAI-ARIA のタブ。左右の矢印キーで前後のタブ（端まで行くと反対の端）、Home・End キーで最初・最後のタブに移る
   // 選択中のタブは使う側の状態で持つので、タブが選ばれたら onselect で index を渡し、selected で受け取る
-  // - tabs: { key, label, display } の配列。display は表示用のHTML（<wbr> で改行位置を決めるときなど）
+  // - tabs: { key, label, labelSegments } の配列。labelSegments があれば、その区切りで改行できるようにする
   // - label: タブの並び全体のラベル
   let { tabs, selected = 0, label, tabListClass = "", onselect, class: className = "", children, ...rest } = $props()
 
@@ -40,21 +40,22 @@
 
 <div {...rest} class={[className, "Tabs"]}>
   <ol class={["Tabs-tabList", tabListClass]} role="tablist" aria-label={label}>
-    {#each tabs as { key, label, display }, index (key)}
+    {#each tabs as { key, label, labelSegments }, index (key)}
       <li class="Tabs-tabItem" role="none">
         <Button
           id="{id}-tab-{index}"
           class="Tabs-tab"
           tabindex={selected === index ? null : -1}
           role="tab"
-          aria-label={display ? label : null}
           aria-controls="{id}-panel-{index}"
           aria-selected={selected === index}
           bind:ref={tabElements[index]}
           onclick={() => select(index)}
           onkeydown={onKeydownTab}
         >
-          {@html display || label}
+          {#each labelSegments ?? [label] as segment, segmentIndex (segmentIndex)}
+            {#if segmentIndex > 0}<wbr />{/if}{segment}
+          {/each}
         </Button>
       </li>
     {/each}

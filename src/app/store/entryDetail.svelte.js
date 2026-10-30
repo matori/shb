@@ -72,6 +72,8 @@ function addCommentDetails(response) {
     }
     const bookmarks = floor.content.bookmarks
     const lowerFloor = floorIndex > 0 ? floors[floorIndex - 1].content : null
+    // 処理の途中でだけ使う、表示とは関係のない Map と Set なので、リアクティブにしなくてよい
+    // eslint-disable-next-line svelte/prefer-svelte-reactivity
     const bookmarksByUser = new Map(bookmarks.map((bookmark) => [bookmark.user, bookmark]))
 
     for (const bookmark of bookmarks) {
@@ -79,6 +81,7 @@ function addCommentDetails(response) {
     }
 
     for (const bookmark of bookmarks) {
+      // eslint-disable-next-line svelte/prefer-svelte-reactivity
       const calledUsers = new Set(
         bookmark.commentParts.filter((part) => part.type === "idCall").map((part) => part.user),
       )
@@ -105,4 +108,4 @@ function addCommentDetails(response) {
 
 const entryDetail = new EntryDetail()
 
-export { entryDetail }
+export { entryDetail, addCommentDetails }

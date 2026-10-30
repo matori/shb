@@ -31,7 +31,8 @@
     <FetchError title={errorTitle} cause="api" message={feed.message} headingLevel={4} class="EntryFeed-error" />
   {:else if feed.items.length}
     <List class="EntryFeed-list">
-      {#each feed.items as entry}
+      <!-- 同じURLのエントリーが重なっても表示が壊れないよう、順番をキーにする -->
+      {#each feed.items as entry, index (index)}
         <EntryListItem {entry} class="EntryFeed-item" />
       {/each}
     </List>
