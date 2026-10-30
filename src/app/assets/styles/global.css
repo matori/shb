@@ -1,0 +1,137 @@
+:root {
+  /*
+   * 色。light-dark(ライト, ダーク) で両方の値を持たせ、color-scheme で切り替える
+   * 「自動」は OS の設定に従い、設定画面でライト・ダークを選ぶと <html data-theme> で固定する
+   */
+  color-scheme: light dark;
+
+  --color-bg: light-dark(#eceff4, #0f1217);
+  --color-surface: light-dark(#ffffff, #1a1e25);
+  --color-surface-sub: light-dark(#f0f3f8, #262b33);
+  --color-surface-hover: light-dark(#f6f8fb, #20252d);
+  --color-text: light-dark(#1b1f27, #e6e9ee);
+  --color-text-sub: light-dark(#4b5260, #b3bac5);
+  --color-text-muted: light-dark(#656c7a, #8b93a1);
+  --color-line: light-dark(#edf0f4, #2a3039);
+  --color-line-strong: light-dark(#d6dce6, #3a414c);
+  --color-accent: light-dark(#2457c5, #7aa7ff);
+  --color-accent-hover: light-dark(#173f96, #a3c1ff);
+  --color-on-accent: light-dark(#ffffff, #0f1217);
+  --color-count: light-dark(#c42b26, #ff8a80);
+  --color-count-bg: light-dark(#fdecea, #3a1f1f);
+  --color-category: light-dark(#9c4300, #ffb36b);
+  --color-category-bg: light-dark(#fff0e3, #3a2914);
+  /*
+   * はてなスターの色。yellow が通常のスター
+   * はてなスター公式の星の画像（s.hatena.ne.jp/images/star*.gif）の色で、ライトは地の色、ダークは明るいほうの色
+   */
+  --color-star-yellow: light-dark(#f8b636, #fecd69);
+  --color-star-green: light-dark(#3dce24, #4de733);
+  --color-star-red: light-dark(#f32d46, #fe5e65);
+  --color-star-blue: light-dark(#159fd8, #00b0f9);
+  --color-star-purple: light-dark(#a411b9, #cd34e3);
+  --color-error: light-dark(#c42b26, #ff8a80);
+  --color-avatar-bg: light-dark(#d6dce6, #3a414c);
+  --color-backdrop: light-dark(rgba(10, 14, 22, 0.75), rgba(0, 0, 0, 0.75));
+  --color-scroll-shadow: light-dark(rgba(20, 30, 50, 0.2), rgba(0, 0, 0, 0.55));
+
+  /* 角丸 */
+  --radius-panel: 16px;
+  --radius-control: 8px;
+  --radius-pill: 999px;
+
+  /* 切り替えボタンで選ばれている項目の浮き */
+  --shadow-selected: 0 1px 2px light-dark(rgba(20, 30, 50, 0.14), rgba(0, 0, 0, 0.5));
+
+  /* 1行の高さ（文字サイズ16px + 行間6px）と、行間の半分 */
+  --line: 1.375rem;
+  --line-edge: 0.1875rem;
+
+  /* 文字サイズと行の高さ（行間はどのサイズでも6px） */
+  --fs-xs: 0.8rem;
+  --lh-xs: 1.46875;
+  --fs-s: 0.888889rem;
+  --lh-s: 1.421875;
+  --fs-m: 1rem;
+  --lh-m: 1.375;
+  --fs-l: 1.142857rem;
+  --lh-l: 1.328125;
+  --fs-xl: 1.333333rem;
+  --lh-xl: 1.28125;
+
+  --fw-normal: 400;
+  --fw-medium: 500;
+  --fw-bold: 700;
+
+  /* フォントはユーザーの設定にまかせる */
+  --ff-sans: sans-serif;
+  --ff-mono: monospace;
+
+  --content-max-width: 1920px;
+  --content-min-width: 960px;
+}
+
+/* 設定画面でライト・ダークを選んだとき */
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+@keyframes syncing {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+/*
+ * スクロールできる要素で、続きがあるときだけ上端・下端に影を出す
+ * 背景色で影を隠す層（local）と影の層（scroll）を重ね、端まで来ると影が隠れるようにしている
+ */
+.ScrollShadow {
+  background:
+    linear-gradient(var(--color-surface) 30%, transparent) center top / 100% 40px no-repeat local,
+    linear-gradient(transparent, var(--color-surface) 70%) center bottom / 100% 40px no-repeat local,
+    radial-gradient(farthest-side at 50% 0, var(--color-scroll-shadow), transparent) center top / 100% 12px no-repeat
+      scroll,
+    radial-gradient(farthest-side at 50% 100%, var(--color-scroll-shadow), transparent) center bottom / 100% 12px
+      no-repeat scroll;
+  background-color: var(--color-surface);
+}
+
+/* 横にスクロールする要素用。続きがあるときだけ左端・右端に影を出す（タブの行は低いので、影は直線のグラデーションにする） */
+.ScrollShadowX {
+  background:
+    linear-gradient(to right, var(--color-surface) 30%, transparent) left center / 48px 100% no-repeat local,
+    linear-gradient(to left, var(--color-surface) 30%, transparent) right center / 48px 100% no-repeat local,
+    linear-gradient(to right, var(--color-scroll-shadow), transparent) left center / 16px 100% no-repeat scroll,
+    linear-gradient(to left, var(--color-scroll-shadow), transparent) right center / 16px 100% no-repeat scroll;
+  background-color: var(--color-surface);
+}
+
+/* 見た目には出さず、読み上げには残す */
+.VisuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  clip-path: inset(50%);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* ダイアログ（設定・使い方）の中で、キーを表す */
+:where(.Dialog) kbd {
+  display: inline-block;
+  border: 1px solid var(--color-line-strong);
+  border-radius: 4px;
+  padding: 0 0.4em;
+  min-width: 1em;
+  background-color: var(--color-surface-sub);
+  font-family: inherit;
+  text-align: center;
+}

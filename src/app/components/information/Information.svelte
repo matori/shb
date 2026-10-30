@@ -1,150 +1,153 @@
 <script>
-  import { detailFetchProcessing } from "~/store/detail"
-  import links from "~/data/links"
+  import { entryDetail } from "~/store/entryDetail.svelte.js"
   import Link from "~/elements/Link.svelte"
-  import Icon from "~/elements/Icon.svelte"
+  import LoadingIcon from "~/components/common/LoadingIcon.svelte"
+
+  // 右のパネル。エントリーを開いていないときに、このページの説明を表示する
+  let { class: className = "", ...rest } = $props()
+
+  const headingId = $props.id()
 </script>
 
-<template>
-  <section {...$$props} class="{$$props.class || ''} Information">
-    <header class="Information-header">
-      <h2 class="Information-heading">
-        インフォメーション
-        <Icon name="refresh" class="Information-icon {$detailFetchProcessing ? '_show' : ''}" />
-      </h2>
-    </header>
-    <div class="Information-body">
-      <div class="Information-content">
-        <p class="Information-intro">
-          「しんぷるはてぶ」は、はてなブックマーク全カテゴリーの新規エントリーを1画面で閲覧することを目的としたページです。
-          <br />
-          コンセプトの関係上、小さい画面だと見づらくなりますので、WXGA+ (1440x900) 以上の画面サイズがおすすめです。
-        </p>
-        <div class="Information-inner">
-          <section>
-            <h3>使い方</h3>
-            <p>
-              「エントリーの一覧」はそのまま新規の人気エントリーと新着エントリーの一覧です。タブを切り替えて表示できます。
-              <br />
-              リスト内のブックマーク数をクリックすると、現在表示されている「インフォメーション」にかわって、選択したエントリーの情報とブックマーク一覧が表示されます。
-            </p>
-          </section>
-          <section>
-            <h3>注意事項など</h3>
-            <ul>
-              <li>
-                エントリーの一覧とエントリー情報のソースが異なっているのと、サーバー側でもキャッシュしている関係上、ブックマーク数にズレが発生する可能性があります。
-              </li>
-              <li>サーバーのキャッシュ有効期限は作成から5分後です。</li>
-              <li>UIの状態などの保存にローカルストレージを利用しています。</li>
-              <li>
-                Googleアナリティクスを使用しています。その情報収集の際、Cookieが使用されます。Googleがデータをどのように扱い、処理するのかについてはGoogleの「<Link url="https://policies.google.com/technologies/partner-sites">ポリシーと規約</Link>」を参照してください。
-              </li>
-              <li>バグ報告や機能追加の要望は<Link url="https://github.com/matori/shb/issues">GitHubリポジトリのIssue</Link>にお願いします。</li>
-            </ul>
-          </section>
-          <section>
-            <h3>リンク集</h3>
-            <p>はてなブックマークをもっと楽しむためのツール集。</p>
-            <dl>
-              {#each links as item, index}
-                <dt>
-                  <Link url="{item.url}">{item.name}</Link>
-                </dt>
-                <dd>{item.description}</dd>
-              {/each}
-            </dl>
-          </section>
-        </div>
+<section {...rest} class={[className, "Information"]} aria-labelledby={headingId}>
+  <header class="Information-header">
+    <h2 id={headingId} class="Information-heading">
+      インフォメーション
+      <LoadingIcon loading={entryDetail.isLoading} />
+    </h2>
+  </header>
+  <div class="Information-body">
+    <div class="Information-content ScrollShadow">
+      <p class="Information-intro">
+        「しんぷるはてぶ」は、はてなブックマークの全カテゴリーの人気・新着エントリーを、1画面で見られるようにしたページです。
+        <br />
+        たくさんの情報を並べるため、横幅が 1280px 以上の画面がおすすめです。文字の大きさとコンテンツの最大幅は、設定で変えられます。
+      </p>
+      <div class="Information-inner">
+        <section>
+          <h3>使い方</h3>
+          <p>
+            左の「エントリーの一覧」で、カテゴリーと人気・新着を切り替えられます。一覧のブックマーク数をクリックすると、このインフォメーションのかわりに、そのエントリーの情報とコメントの一覧を表示します。
+          </p>
+          <p>マウスやキーボードでの詳しい操作は、右上の「使い方」で確認できます。</p>
+        </section>
+        <section>
+          <h3>注意事項など</h3>
+          <ul>
+            <li>
+              エントリーの一覧とエントリーの情報は取得元が異なり、サーバー側でもキャッシュしているため、ブックマーク数がずれることがあります。
+            </li>
+            <li>サーバーのキャッシュの有効期限は、作成から5分後です。</li>
+            <li>設定と画面の表示状態は、このブラウザー（ローカルストレージ）に保存しています。</li>
+            <li>
+              バグの報告や機能の要望は、<Link url="https://github.com/matori/shb/issues">GitHubリポジトリのIssue</Link
+              >にお願いします。
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>v2で変わったこと</h3>
+          <ul>
+            <li>デザインを新しくし、ダークモードに対応しました。設定の「表示テーマ」で切り替えられます。</li>
+            <li>
+              コメントとエントリーに、はてなスターの数を表示するようにしました。コメントは、スターの多い順にも並べ替えられます。
+            </li>
+            <li>
+              コメントの中の <code>@ユーザー名</code>（X）と
+              <code>anond:</code>（はてな匿名ダイアリー）をリンクにしました。括弧で囲まれたURLも正しくリンクになります。
+            </li>
+            <li>設定で、文字の大きさとコンテンツの最大幅を変えられるようになりました。</li>
+            <li>
+              キーボードで、人気・新着とカテゴリーを切り替えられるようになりました（設定で有効にします）。Escape
+              キーで、エントリーの情報のパネルを閉じられます。
+            </li>
+            <li>
+              一覧のブックマーク数をミドルクリックすると、はてなブックマークのエントリーページを新しいタブで開きます。
+            </li>
+            <li>右上に「使い方」を追加しました。</li>
+            <li>読み上げソフトやキーボードでも使いやすくしました。</li>
+          </ul>
+        </section>
       </div>
     </div>
-  </section>
-</template>
+  </div>
+</section>
 
-<style lang="scss" global>
-  .Information {
-    display: grid;
-    grid-template-rows: min-content 1fr;
-    row-gap: get-lines(0.5) - $line-edge;
-  }
-
-  .Information-header {
-    padding-right: get-lines(0.25);
-    padding-left: get-lines(0.25);
-  }
-
-  .Information-heading {
-    @include text(-1);
-    display: flex;
-    margin: 0;
-    font-weight: var(--fw-normal);
-  }
-
-  .Information-icon {
-    @include icon-size(-1);
-    margin-left: 0.25em;
-    opacity: 0;
-    animation-duration: 1s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-
-    &._show {
-      opacity: 1;
-      animation-name: syncing;
+<style>
+  :global {
+    /* 詳細パネルと同じく、見出しの行と本文をつなげて1枚のパネルに見せる */
+    .Information {
+      display: grid;
+      grid-template-rows: min-content 1fr;
     }
-  }
 
-  .Information-body {
-    min-height: 0;
-  }
+    .Information-header {
+      border-radius: var(--radius-panel) var(--radius-panel) 0 0;
+      padding: calc(var(--line) * 0.6) calc(var(--line) * 0.75) 0;
+      background-color: var(--color-surface);
+    }
 
-  .Information-content {
-    @include text(0);
-    box-sizing: border-box;
-    border-width: 1px;
-    border-style: solid;
-    border-color: var(--color-border-base);
-    max-height: 100%;
-    overflow-y: auto;
-    box-shadow: var(--shadow-base);
-    background-color: var(--color-bg-content);
-    padding: get-lines(0.5) (get-lines(0.5) + $line-edge);
-  }
-
-  .Information-intro {
-    margin-top: get-lines(0.5);
-    margin-bottom: get-lines(0.5);
-  }
-
-  .Information-inner {
-    h3 {
-      @include text(1);
-      margin-top: get-lines(1.5);
-      margin-bottom: 0;
+    .Information-heading {
+      font-size: var(--fs-l);
+      line-height: var(--lh-l);
+      display: flex;
+      align-items: center;
+      margin: 0;
       font-weight: var(--fw-bold);
     }
 
-    p,
-    ul,
-    dl {
-      margin-top: get-lines(0.5);
-      margin-bottom: get-lines(0.5);
+    .Information-body {
+      min-height: 0;
     }
 
-    ul {
-      padding-left: get-lines(1);
+    .Information-content {
+      font-size: var(--fs-s);
+      line-height: var(--lh-s);
+      box-sizing: border-box;
+      border-radius: 0 0 var(--radius-panel) var(--radius-panel);
+      padding: calc(var(--line) * 0.25) calc(var(--line) * 0.75) calc(var(--line) * 0.75);
+      max-height: 100%;
+      /* 読み上げ用に隠した文字（position: absolute）を、ページではなくこのスクロールの中に置く。ないとページに縦スクロールバーが出る */
+      position: relative;
+      overflow-y: auto;
+      color: var(--color-text-sub);
     }
 
-    dt {
-      margin-top: get-lines(0.5);
+    .Information-intro {
+      margin-top: calc(var(--line) * 0.5);
+      margin-bottom: calc(var(--line) * 0.5);
     }
 
-    dd {
-      margin-left: get-lines(1);
-    }
+    .Information-inner {
+      h3 {
+        font-size: var(--fs-m);
+        line-height: var(--lh-m);
+        margin-top: var(--line);
+        margin-bottom: 0;
+        color: var(--color-text);
+        font-weight: var(--fw-bold);
+      }
 
-    a {
-      color: var(--color-text-blue);
+      p,
+      ul {
+        margin-top: calc(var(--line) * 0.4);
+        margin-bottom: calc(var(--line) * 0.4);
+      }
+
+      ul {
+        padding-left: var(--line);
+      }
+
+      li + li {
+        margin-top: calc(var(--line) * 0.2);
+      }
+
+      code {
+        border-radius: 4px;
+        padding: 0 0.3em;
+        background-color: var(--color-surface-sub);
+        font-family: var(--ff-mono);
+      }
     }
   }
 </style>

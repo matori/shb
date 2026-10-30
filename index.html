@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <script>
+      // 保存された表示テーマ・文字の大きさ・コンテンツの最大幅を描画の前に反映し、表示が切り替わるちらつきを防ぐ
+      // 文字の大きさと最大幅は、settings.svelte.js の applyDisplaySettings と同じことをしている（形を変えたら両方を直す）
+      try {
+        const root = document.documentElement
+        const { theme, fontSize, contentMaxWidth } = JSON.parse(localStorage.getItem("simple_hatebu_settings")) ?? {}
+        if (theme === "light" || theme === "dark") {
+          root.dataset.theme = theme
+        }
+        if (Number.isInteger(fontSize) && fontSize >= 13 && fontSize <= 20) {
+          root.style.fontSize = `${fontSize}px`
+        }
+        if (contentMaxWidth === 0 || (Number.isInteger(contentMaxWidth) && contentMaxWidth >= 960)) {
+          root.style.setProperty("--content-max-width", contentMaxWidth === 0 ? "100%" : `${contentMaxWidth}px`)
+        }
+      } catch {
+        // 保存値が読めなければ、CSS の初期値と OS の設定に従う
+      }
+    </script>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>しんぷるはてぶ</title>
+    <!-- SVG のファビコンを使い、SVG に対応していないブラウザーには PNG を使わせる（sizes をつけた PNG より SVG が優先される） -->
+    <!-- PNG は favicon.svg から作ったもの。形を変えたら作り直す -->
+    <link rel="icon" href="/src/app/assets/icons/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/src/app/assets/icons/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/src/app/assets/icons/apple-touch-icon.png" />
+    <link rel="canonical" href="https://shb.unformedbuilding.com" />
+    <meta
+      name="description"
+      content="「しんぷるはてぶ」は、はてなブックマーク全カテゴリーの新規エントリーを1画面で閲覧することを目的としたページです。"
+    />
+    <meta property="og:url" content="https://shb.unformedbuilding.com" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:description"
+      content="「しんぷるはてぶ」は、はてなブックマーク全カテゴリーの新規エントリーを1画面で閲覧することを目的としたページです。"
+    />
+    <meta property="og:site_name" content="しんぷるはてぶ" />
+  </head>
+  <body>
+    <script type="module" src="/src/app/index.js"></script>
+  </body>
+</html>

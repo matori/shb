@@ -1,41 +1,67 @@
 <script>
-  import "what-input"
-  import AppHeader from "~/components/app-header/AppHeader"
-  import AppBody from "~/components/app-body/AppBody"
+  import { settings, applyDisplaySettings } from "~/store/settings.svelte.js"
+  import { entryFeeds } from "~/store/entryFeeds.svelte.js"
+  import AppHeader from "~/components/header/AppHeader.svelte"
+  import AppMain from "~/components/main/AppMain.svelte"
+
+  // ライト・ダークを選んだときは <html data-theme> で固定し、自動のときは OS の設定に従う
+  $effect(() => {
+    if (settings.theme === "auto") {
+      delete document.documentElement.dataset.theme
+    } else {
+      document.documentElement.dataset.theme = settings.theme
+    }
+  })
+
+  // 文字の大きさとコンテンツの最大幅
+  $effect(() => {
+    applyDisplaySettings(document.documentElement, {
+      fontSize: settings.fontSize,
+      contentMaxWidth: settings.contentMaxWidth,
+    })
+  })
+
+  // 自動更新が有効なら、設定した間隔でエントリーの一覧を読み込み直す
+  $effect(() => {
+    if (!settings.autoRefreshEnabled) {
+      return
+    }
+    const timer = setInterval(() => entryFeeds.load(), settings.autoRefreshIntervalMinutes * 60 * 1000)
+    return () => clearInterval(timer)
+  })
 </script>
 
-<template>
-  <AppHeader class="App-header" />
-  <AppBody class="App-body" />
-</template>
+<AppHeader />
+<AppMain class="App-main" />
 
-<style lang="scss" global>
-  @import "./assets/styles/custom-properties";
+<style>
+  :global {
+    html {
+      height: 100%;
+      font-size: 100%;
+    }
 
-  html {
-    height: 100%;
-    font-size: 100%;
-  }
+    body {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      row-gap: calc(var(--line) * 0.75);
+      height: 100%;
+      margin: 0;
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      font-family: var(--ff-sans);
+    }
 
-  body {
-    display: grid;
-    grid-template-rows: calc(#{get-lines(2)} + 1px) 1fr;
-    row-gap: (get-lines(1) - rem($config-line-gap / 2));
-    height: 100%;
-    margin: 0;
-    background-color: var(--color-bg-base);
-    color: var(--color-text-base);
-    font-family: var(--ff-sans);
-  }
+    a {
+      color: var(--color-accent);
 
-  .App-header {
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: var(--color-border-base);
-    box-shadow: var(--shadow-base);
-  }
+      &:hover {
+        color: var(--color-accent-hover);
+      }
+    }
 
-  .App-body {
-    min-height: 600px;
+    .App-main {
+      min-height: 600px;
+    }
   }
 </style>

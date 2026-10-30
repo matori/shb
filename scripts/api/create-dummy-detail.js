@@ -1,80 +1,87 @@
-const faker = require("faker")
-const dayjs = require("dayjs")
-const utc = require("dayjs/plugin/utc")
-const getRandomIntInclusive = require("../utils/getRandomIntInclusive")
-const loremIpsum = require("lorem-ipsum-japanese")
+import { fakerJA as faker } from "@faker-js/faker"
+import loremIpsum from "lorem-ipsum-japanese"
+import getRandomIntInclusive from "../utils/getRandomIntInclusive.js"
+import { nowInJapan, dateToJapanTime, toApiDateTime, toBookmarkTimestamp } from "../utils/japanTime.js"
 
-faker.locale = "ja"
-
-require("dayjs/locale/ja")
-dayjs.locale("ja")
-dayjs.extend(utc)
-
+// 本番APIの detail.schema.json に沿ったダミーデータを作る
 function createDummyDetail() {
+  const now = nowInJapan()
   const result = {
-    last_modified: dummyDate(),
-    expires: dummyDate(),
+    last_modified: toApiDateTime(now),
+    expires: toApiDateTime(now.add({ minutes: 5 })),
     data: {
       floor: 1,
-      entries: []
+      entries: [],
+      error: false,
     },
   }
 
+  // 1件目の取得に失敗した場合
   if (rare()) {
-    result.data.entries[0] = {
+    result.data.entries.push({
       error: true,
-      status_code: 404,
-      message:
-        "Client error: `GET https://b.hatena.ne.jp/p/entry/jsonlite/http://exapmle.com/` resulted in a `404 Not Found` response",
+      status_code: 503,
+      message: "HTTP 503",
       content: null,
-    }
+    })
+    result.data.error = true
     return result
   }
 
-  const floorsCount = getRandomIntInclusive(1, 10)
-
-  for (const i of createArray(floorsCount)) {
-    const data = {
+  // ブックマークされていないURLの場合（エラーではない）
+  if (rare()) {
+    result.data.entries.push({
       error: false,
       status_code: 200,
-    }
+      content: null,
+    })
+    return result
+  }
 
-    if (rare()) {
-      data.content = null
-    } else {
-      data.content = {
-        bookmarks: bookmarks(),
-        // url: 'http://localhost/',
-        // count: number,
-        eid: faker.random.number().toString(),
-        screenshot:
-          "https://b.st-hatena.com/images/v4/public/common/noimage.png?version=95fdba88c17683f2972c05f7aad7f414f2ad2e61",
-        // requested_url: 'http://localhost/',
-        title: title(),
-        // entry_url: 'https://b.hatena.ne.jp/entry/localhost/',
-      }
-      const url = faker.internet.url()
-      data.content.url = url
-      data.content.requested_url = url
-      data.content.entry_url = `https://b.hatena.ne.jp/entry/${url}`
-      data.content.count = data.content.bookmarks.length + getRandomIntInclusive(0, 100)
-    }
-
-    if (!data.content) {
-      if (i === 0) {
-        result.data.entries.push(data)
-      }
+  // 2階以降は、1つ下の階のエントリーページ（entry_url）のエントリー
+  let url = faker.internet.url()
+  for (const i of createArray(getRandomIntInclusive(1, 10))) {
+    // 途中の階で取得に失敗した場合は、そこまでの階を返す
+    if (i > 0 && rare(0.03)) {
+      result.data.error = true
       break
     }
-
-    result.data.entries.push(data)
+    const content = entryContent(url)
+    result.data.entries.push({
+      error: false,
+      status_code: 200,
+      content,
+    })
+    url = content.entry_url
   }
 
   return result
 }
 
-function dummyDate(format) {
-  return dayjs(faker.date.recent()).format(format)
+function entryContent(url) {
+  const content = {
+    eid: faker.number.int({ max: 9999999 }).toString(),
+    title: title(),
+    url,
+    entry_url: `https://b.hatena.ne.jp/entry/${url.replace(/^https:\/\//, "s/").replace(/^http:\/\//, "")}`,
+    requested_url: url,
+    screenshot: "https://b.st-hatena.com/images/v4/public/common/noimage.png",
+    bookmarks: bookmarks(),
+    related: createArray(getRandomIntInclusive(0, 5)).map(relatedEntry),
+  }
+  content.count = content.bookmarks.length + getRandomIntInclusive(0, 100)
+  return content
+}
+
+function relatedEntry() {
+  const url = faker.internet.url()
+  return {
+    eid: faker.number.int({ max: 9999999 }).toString(),
+    title: title(),
+    count: getRandomIntInclusive(1, 500),
+    url,
+    entry_url: `https://b.hatena.ne.jp/entry/${url.replace(/^https?:\/\//, "")}`,
+  }
 }
 
 function bookmarks() {
@@ -82,7 +89,7 @@ function bookmarks() {
 
   return createArray(getRandomIntInclusive(3, 100)).map(() => {
     return {
-      timestamp: dayjs(faker.date.recent()).format("YYYY/MM/DD HH:mm"),
+      timestamp: toBookmarkTimestamp(dateToJapanTime(faker.date.recent())),
       comment: getRandomIntInclusive(0, 1)
         ? loremIpsum({
             suffix: "",
@@ -110,7 +117,7 @@ function createArray(length) {
 
 function tag() {
   const bool = getRandomIntInclusive(0, 1)
-  if (!!bool) {
+  if (bool) {
     return faker.lorem.word()
   }
   const ja = loremIpsum({ suffix: "" })
@@ -120,7 +127,7 @@ function tag() {
 function title() {
   const bool = getRandomIntInclusive(0, 1)
   let title
-  if (!!bool) {
+  if (bool) {
     title = faker.lorem.text()
   } else {
     title = loremIpsum({ count: 2, suffix: "" })
@@ -128,8 +135,8 @@ function title() {
   return title.length > 200 ? title.substring(0, getRandomIntInclusive(1, 199)) : title
 }
 
-function rare() {
-  return Math.random() >= 0.9
+function rare(probability = 0.1) {
+  return Math.random() < probability
 }
 
-module.exports = createDummyDetail
+export default createDummyDetail

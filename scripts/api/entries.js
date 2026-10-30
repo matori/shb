@@ -1,8 +1,16 @@
-function entries() {
-  const entries = require("./data/entries.json")
-  entries.last_modified = new Date()
-  return entries
-  // send(res, 200, entries, { "Content-Type": "application/json" })
+import { readFileSync } from "node:fs"
+import { nowInJapan, toApiDateTime } from "../utils/japanTime.js"
+
+// 本番APIの /entries と同じように、ステータスコードと本文を返す
+function entries(searchParams) {
+  if (searchParams.has("servererror")) {
+    return { status: 500, body: { error: true, message: "キャッシュの作成に失敗しました" } }
+  }
+  const entries = JSON.parse(readFileSync(new URL("./data/entries.json", import.meta.url), "utf-8"))
+  const now = nowInJapan()
+  entries.last_modified = toApiDateTime(now)
+  entries.expires = toApiDateTime(now.add({ minutes: 5 }))
+  return { status: 200, body: entries }
 }
 
-module.exports = entries
+export default entries

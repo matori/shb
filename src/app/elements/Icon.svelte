@@ -1,30 +1,29 @@
 <script>
   import ICON_PATHS from "~/constants/iconPaths"
 
-  // props
-  let name
-  let title
-  export { name, title }
+  // title があれば画像として読み上げ、なければ飾りとして読み上げから外す
+  let { name, title, class: className = "", ...rest } = $props()
 
-  $: icon = ICON_PATHS[name]
-  $: role = title ? 'img' : null
+  const icon = $derived(ICON_PATHS[name])
 </script>
 
-<template>
-  <svg
-    {...$$props}
-    viewBox="0 0 {icon.size} {icon.size}"
-    {role}
-    aria-label="{title}"
-    class="{$$props.class || ''} Icon">
-    <path d="{icon.path}"/>
-  </svg>
-</template>
+<svg
+  {...rest}
+  viewBox="0 0 {icon.size} {icon.size}"
+  role={title ? "img" : null}
+  aria-label={title}
+  aria-hidden={title ? null : "true"}
+  class={[className, "Icon"]}
+>
+  <path d={icon.path} />
+</svg>
 
-<style lang="scss" global>
-  .Icon {
-    width: 24px;
-    height: 24px;
-    fill: currentColor;
+<style>
+  :global {
+    .Icon {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+    }
   }
 </style>

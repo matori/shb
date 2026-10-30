@@ -23,7 +23,7 @@
             },
             {
               "timestamp": "2019/12/13 13:46",
-              "comment": "",
+              "comment": "メモ：(https://example.com/a)(https://example.com/b) https://example.com/page(v=1)を参照。https://example.com/end.",
               "tags": [],
               "user": "user5693"
             },
@@ -35,13 +35,13 @@
             },
             {
               "timestamp": "2019/12/13 22:54",
-              "comment": "",
+              "comment": "@jack さんと@user_name1さんの話。メールfoo@example.comはリンクにしない",
               "tags": [],
               "user": "user4655"
             },
             {
               "timestamp": "2019/12/13 21:35",
-              "comment": "",
+              "comment": "増田 anond:20060923210701 と anond:20060923210701:title=ああ",
               "tags": [],
               "user": "user6846"
             },
@@ -616,9 +616,26 @@
           "url": "https://結菜.net",
           "requested_url": "https://結菜.net",
           "entry_url": "https://b.hatena.ne.jp/entry/https://結菜.net",
-          "count": 111
+          "count": 111,
+          "related": [
+            {
+              "eid": "4701234",
+              "title": "関連エントリーのサンプル その1",
+              "count": 120,
+              "url": "https://example.com/related/1",
+              "entry_url": "https://b.hatena.ne.jp/entry/s/example.com/related/1"
+            },
+            {
+              "eid": "4701235",
+              "title": "関連エントリーのサンプル その2",
+              "count": 8,
+              "url": "https://example.com/related/2",
+              "entry_url": "https://b.hatena.ne.jp/entry/s/example.com/related/2"
+            }
+          ]
         }
       }
-    ]
+    ],
+    "error": false
   }
 }
