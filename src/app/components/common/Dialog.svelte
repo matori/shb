@@ -36,7 +36,6 @@
 </script>
 
 <!-- 背景のクリックはマウス向けの補助。キーボードではESCキーか閉じるボタンで閉じられる -->
-<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_noninteractive_element_interactions -->
 <dialog
   {...rest}
   class={[className, "Dialog"]}

@@ -16,7 +16,8 @@
   {#if settings.headerLinks.length}
     <nav aria-label="お気に入りリンク">
       <List class="HeaderLinks-list">
-        {#each settings.headerLinks as link}
+        <!-- 同じリンクを複数登録しても表示が壊れないよう、順番をキーにする -->
+        {#each settings.headerLinks as link, index (index)}
           <li class="HeaderLinks-item">
             <Link url={link.url} class="HeaderLinks-link" title={link.label ? null : hostnameOf(link.url)}>
               <img src="https://www.google.com/s2/favicons?domain={link.url}" alt="" class="HeaderLinks-favicon" />

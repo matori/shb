@@ -76,7 +76,7 @@
         <div class="EntryInfo-tags">
           <Icon name="tag" class="EntryInfo-tagIcon" />
           <List class="EntryInfo-tagList" aria-label="このエントリーにつけられた主なタグ">
-            {#each entry.tags as tag}
+            {#each entry.tags as tag (tag.url)}
               <li>
                 <Link url={tag.url} class="EntryInfo-tag">{tag.label}</Link>
               </li>

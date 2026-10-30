@@ -117,7 +117,7 @@ function createArray(length) {
 
 function tag() {
   const bool = getRandomIntInclusive(0, 1)
-  if (!!bool) {
+  if (bool) {
     return faker.lorem.word()
   }
   const ja = loremIpsum({ suffix: "" })
@@ -127,7 +127,7 @@ function tag() {
 function title() {
   const bool = getRandomIntInclusive(0, 1)
   let title
-  if (!!bool) {
+  if (bool) {
     title = faker.lorem.text()
   } else {
     title = loremIpsum({ count: 2, suffix: "" })
