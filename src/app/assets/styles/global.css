@@ -88,27 +88,101 @@
 
 /*
  * スクロールできる要素で、続きがあるときだけ上端・下端に影を出す
- * 背景色で影を隠す層（local）と影の層（scroll）を重ね、端まで来ると影が隠れるようにしている
+ * - 背景色のある中身に隠れないよう、影は ::before・::after に描いて中身より上に重ねる。
+ *   position: sticky でスクロールしても端に貼りつけ、マイナスのマージンで中身の配置には影響させない
+ * - 影の濃さはスクロール連動アニメーションで変える。上端の影はスクロールし始めたら出し、下端の影は終わりの手前で消す。
+ *   スクロールできないときはアニメーションが効かず、影は出ない
+ * - 影は中身の幅で描かれ、padding の分だけ端から離れるので、この要素には padding をつけず、内側の要素につける
  */
 .ScrollShadow {
-  background:
-    linear-gradient(var(--color-surface) 30%, transparent) center top / 100% 40px no-repeat local,
-    linear-gradient(transparent, var(--color-surface) 70%) center bottom / 100% 40px no-repeat local,
-    radial-gradient(farthest-side at 50% 0, var(--color-scroll-shadow), transparent) center top / 100% 12px no-repeat
-      scroll,
-    radial-gradient(farthest-side at 50% 100%, var(--color-scroll-shadow), transparent) center bottom / 100% 12px
-      no-repeat scroll;
-  background-color: var(--color-surface);
+  scroll-timeline: --scroll-shadow block;
+
+  &::before,
+  &::after {
+    content: "";
+    display: block;
+    position: sticky;
+    z-index: 1;
+    height: 12px;
+    opacity: 0;
+    pointer-events: none;
+    animation-duration: auto;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-timeline: --scroll-shadow;
+  }
+
+  &::before {
+    top: 0;
+    margin-bottom: -12px;
+    background: radial-gradient(farthest-side at 50% 0, var(--color-scroll-shadow), transparent);
+    animation-name: ScrollShadow-appear;
+    animation-range: 0 16px;
+  }
+
+  &::after {
+    bottom: 0;
+    margin-top: -12px;
+    background: radial-gradient(farthest-side at 50% 100%, var(--color-scroll-shadow), transparent);
+    animation-name: ScrollShadow-disappear;
+    animation-range: calc(100% - 16px) 100%;
+  }
 }
 
-/* 横にスクロールする要素用。続きがあるときだけ左端・右端に影を出す（タブの行は低いので、影は直線のグラデーションにする） */
+/* 横にスクロールする要素（flex で横に並べたもの）用。続きがあるときだけ左端・右端に影を出す（タブの行は低いので、影は直線のグラデーションにする） */
 .ScrollShadowX {
-  background:
-    linear-gradient(to right, var(--color-surface) 30%, transparent) left center / 48px 100% no-repeat local,
-    linear-gradient(to left, var(--color-surface) 30%, transparent) right center / 48px 100% no-repeat local,
-    linear-gradient(to right, var(--color-scroll-shadow), transparent) left center / 16px 100% no-repeat scroll,
-    linear-gradient(to left, var(--color-scroll-shadow), transparent) right center / 16px 100% no-repeat scroll;
-  background-color: var(--color-surface);
+  scroll-timeline: --scroll-shadow-x inline;
+
+  &::before,
+  &::after {
+    content: "";
+    flex: none;
+    position: sticky;
+    z-index: 1;
+    width: 16px;
+    opacity: 0;
+    pointer-events: none;
+    animation-duration: auto;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-timeline: --scroll-shadow-x;
+  }
+
+  &::before {
+    left: 0;
+    margin-right: -16px;
+    background: linear-gradient(to right, var(--color-scroll-shadow), transparent);
+    animation-name: ScrollShadow-appear;
+    animation-range: 0 16px;
+  }
+
+  &::after {
+    right: 0;
+    margin-left: -16px;
+    background: linear-gradient(to left, var(--color-scroll-shadow), transparent);
+    animation-name: ScrollShadow-disappear;
+    animation-range: calc(100% - 16px) 100%;
+  }
+}
+
+@keyframes ScrollShadow-appear {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes ScrollShadow-disappear {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
 }
 
 /* 見た目には出さず、読み上げには残す */
