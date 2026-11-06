@@ -24,24 +24,34 @@
     <section class="UsageDialog-section">
       <h3 class="UsageDialog-heading">マウスでの操作</h3>
       <dl class="UsageDialog-operations">
-        <dt>一覧のブックマーク数をクリック</dt>
-        <dd>エントリーの情報とコメントを表示する</dd>
-        <dt>
-          一覧のブックマーク数をミドルクリック、または <kbd>Ctrl</kbd>（Mac は <kbd>Cmd</kbd>）を押しながらクリック
-        </dt>
-        <dd>はてなブックマークのエントリーページを、新しいタブで開く</dd>
+        <div class="UsageDialog-operation">
+          <dt>一覧のブックマーク数をクリック</dt>
+          <dd>エントリーの情報とコメントを表示する</dd>
+        </div>
+        <div class="UsageDialog-operation">
+          <dt>
+            一覧のブックマーク数をミドルクリック、または <kbd>Ctrl</kbd>（Mac は <kbd>Cmd</kbd>）を押しながらクリック
+          </dt>
+          <dd>はてなブックマークのエントリーページを、新しいタブで開く</dd>
+        </div>
       </dl>
     </section>
 
     <section class="UsageDialog-section">
       <h3 class="UsageDialog-heading">キーボードでの操作</h3>
       <dl class="UsageDialog-operations">
-        <dt><kbd>Tab</kbd>・<kbd>Shift</kbd> + <kbd>Tab</kbd></dt>
-        <dd>リンクやボタンを順に移る</dd>
-        <dt><kbd>←</kbd>・<kbd>→</kbd>・<kbd>Home</kbd>・<kbd>End</kbd></dt>
-        <dd>カテゴリーやコメントの階のタブを切り替える（タブを選んでいるとき）</dd>
-        <dt><kbd>Escape</kbd></dt>
-        <dd>エントリーの情報とコメントのパネルを閉じる。ダイアログが開いているときは、ダイアログを閉じる</dd>
+        <div class="UsageDialog-operation">
+          <dt><kbd>Tab</kbd>・<kbd>Shift</kbd> + <kbd>Tab</kbd></dt>
+          <dd>リンクやボタンを順に移る</dd>
+        </div>
+        <div class="UsageDialog-operation">
+          <dt><kbd>←</kbd>・<kbd>→</kbd>・<kbd>Home</kbd>・<kbd>End</kbd></dt>
+          <dd>カテゴリーやコメントの階のタブを切り替える（タブを選んでいるとき）</dd>
+        </div>
+        <div class="UsageDialog-operation">
+          <dt><kbd>Escape</kbd></dt>
+          <dd>エントリーの情報とコメントのパネルを閉じる。ダイアログが開いているときは、ダイアログを閉じる</dd>
+        </div>
       </dl>
       <p>
         人気・新着とカテゴリーを1文字のキーで切り替えるキーボードショートカットもあります。初期設定では無効です。有効にする方法とキーの一覧は、設定画面で確認できます。
@@ -100,11 +110,12 @@
       font-weight: var(--fw-bold);
     }
 
+    /* 操作と説明を横に読めるよう、組ごとに区切り線を引いて1行に見せる。列の幅は subgrid で全部の行にそろえる */
     .UsageDialog-operations {
       display: grid;
       grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
-      gap: calc(var(--line) * 0.4) var(--line);
       margin: calc(var(--line) * 0.5) 0;
+      border-bottom: 1px solid var(--color-line-strong);
 
       dt {
         color: var(--color-text);
@@ -113,6 +124,15 @@
       dd {
         margin: 0;
       }
+    }
+
+    .UsageDialog-operation {
+      display: grid;
+      grid-template-columns: subgrid;
+      grid-column: 1 / -1;
+      column-gap: calc(var(--line) * 0.75);
+      border-top: 1px solid var(--color-line-strong);
+      padding: calc(var(--line) * 0.4) 0;
     }
 
     .UsageDialog-settingsButton {
