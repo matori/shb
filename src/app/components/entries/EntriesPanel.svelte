@@ -236,12 +236,20 @@
     .EntriesPanel-tabs > .Tabs-tabList {
       gap: 0;
       overflow-x: auto;
-      padding: 0 calc(var(--line) * 0.5);
       box-shadow: inset 0 -1px var(--color-line);
       scrollbar-width: thin;
 
       .Tabs-tabItem {
         flex: 1 0 auto;
+
+        /* スクロールの影が端から離れないよう、左右の余白はタブの行ではなく両端のタブにつける */
+        &:first-child {
+          margin-left: calc(var(--line) * 0.5);
+        }
+
+        &:last-child {
+          margin-right: calc(var(--line) * 0.5);
+        }
       }
 
       .Tabs-tab {
