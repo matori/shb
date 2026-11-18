@@ -92,11 +92,11 @@
  *   position: sticky でスクロールしても端に貼りつけ、マイナスのマージンで中身の配置には影響させない
  * - 影の濃さはスクロール連動アニメーションで変える。上端の影はスクロールし始めたら出し、下端の影は終わりの手前で消す。
  *   スクロールできないときはアニメーションが効かず、影は出ない
+ * - タイムラインは名前をつけず、scroll(nearest) で擬似要素からいちばん近いスクロールする祖先（この要素）を指す。
+ *   同じ名前のタイムラインが並ぶと、Firefox ではタブを切り替えたときにスクロールしていなくても影が出ることがあった
  * - 影は中身の幅で描かれ、padding の分だけ端から離れるので、この要素には padding をつけず、内側の要素につける
  */
 .ScrollShadow {
-  scroll-timeline: --scroll-shadow block;
-
   &::before,
   &::after {
     content: "";
@@ -109,7 +109,7 @@
     animation-duration: auto;
     animation-timing-function: linear;
     animation-fill-mode: both;
-    animation-timeline: --scroll-shadow;
+    animation-timeline: scroll(nearest block);
   }
 
   &::before {
@@ -131,8 +131,6 @@
 
 /* 横にスクロールする要素（flex で横に並べたもの）用。続きがあるときだけ左端・右端に影を出す（タブの行は低いので、影は直線のグラデーションにする） */
 .ScrollShadowX {
-  scroll-timeline: --scroll-shadow-x inline;
-
   &::before,
   &::after {
     content: "";
@@ -145,7 +143,7 @@
     animation-duration: auto;
     animation-timing-function: linear;
     animation-fill-mode: both;
-    animation-timeline: --scroll-shadow-x;
+    animation-timeline: scroll(nearest inline);
   }
 
   &::before {
